@@ -1,0 +1,29 @@
+/* pages/messageList/index.wxss */
+.list-item{
+    display: flex;
+    /* background-color: #aaa; */
+    height: 200rpx;
+    border-bottom: 1px solid #efefef;
+}
+
+.list-item view{
+    padding: 20rpx 20rpx;
+    line-height: 150rpx;
+}
+.avt image{
+    border-radius: 50%;
+    /* width: 200rpx; */
+    line-height: 200rpx;
+    width: 150rpx;
+}
+.list-item .avt{
+    flex: 2;
+}
+.list-item .msg{
+    flex: 6;
+    /* background-color: #efefef; */
+    font-size: 0.8rem;
+}
+.list-item .time{
+    flex: 8;
+}

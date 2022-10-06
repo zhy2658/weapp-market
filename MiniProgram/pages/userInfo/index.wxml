@@ -1,0 +1,64 @@
+<wxs src="../../utils/tools.wxs" module="tools" />
+
+<Recorder recorderObj="{{recorderObj}}" bindonFileAddress="onFileAddress"  />
+
+
+<view class="header">
+    <view class="header_row1">
+        <view class="avatar" style="margin-left: 50rpx;" >
+            <image wx:if="{{userInfo.avatarUrl}}" src="{{tools.filePathHandler(userInfo.avatarUrl)}}" bindtap="changeAvatar">
+            </image>
+        </view>
+        <button wx:if="{{disableEidt}}" bindtap="openEdit">编辑</button>
+        <button wx:else bindtap="closeEdit" type="warn">取消编辑</button>
+    </view>
+    <view >
+        <!-- <view>语音</view> -->
+        <view class="info" style="color: teal;">
+            <button bindtap="playAudio">点击播放语音</button>
+            <button style="margin-top: 10px;" bindtap="showRecorder">录制</button>
+        </view>
+    </view>
+</view>
+<form bindsubmit="submitForm">
+    <view class='container'>
+        <view class="row">
+            <view>昵称</view>
+            <view class="info">
+                <input type="text" value=" {{userInfo.nickName}}" name="nickName" disabled='{{ disableEidt }}' />
+            </view>
+        </view>
+        <view class="row">
+            <view>微信号</view>
+            <view class="info">
+                <input type="text" value=" {{userInfo.wxid}}" name="wxid" disabled='{{ disableEidt }}' />
+            </view>
+        </view>
+        <view class="row">
+            <view>性别</view>
+            <view class="info">
+                <input type="text" value=" {{userInfo.sex}}" name="sex" disabled='{{ disableEidt }}' />
+            </view>
+        </view>
+        <view class="row">
+            <view>年龄</view>
+            <view class="info">
+                <input type="text" value=" {{userInfo.age}}" name="age" disabled='{{ disableEidt }}' />
+            </view>
+        </view>
+        <view class="row">
+            <view>标签</view>
+            <view class="info" style="color: teal;">
+                <input type="text" value=" {{userInfo.tags}}" name="tags" disabled='{{ disableEidt }}' />
+            </view>
+        </view>
+        <view class="row" style="border:none" wx:if="{{!disableEidt}}">
+            <button formType="submit">提交</button>
+        </view>
+        
+    </view>
+
+</form>
+<!-- 音乐播放器 开始 -->
+<AudioPlay audioPlayObj="{{audioPlayObj}}" bindaudioClose="audioClose" bindaudioPause="audioPause" />
+<!-- 音乐播放器 结束 -->

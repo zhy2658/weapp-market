@@ -1,0 +1,86 @@
+<!--pages/orderManage/index.wxml-->
+
+
+<view>
+    <!-- 顶部标题栏 -->
+    <view class="cu-bar bg-white solid-bottom margin-top">
+        <view class="action">
+            <text class="cuIcon-title text-orange "></text> 订单管理
+        </view>
+        <view class="action">
+            <button class="cu-btn bg-green shadow" bindtap="showModal" data-target="gridModal">显示 <text>({{showItem[showItemIndex]}})</text>
+            </button>
+        </view>
+    </view>
+    <!-- 模态框 -->
+    <view class="cu-modal {{modalName=='gridModal'?'show':''}}" bindtap="hideModal">
+        <view class="cu-dialog" catchtap>
+            <radio-group class="block" bindchange="gridchange">
+                <view class="cu-list menu text-left">
+                    <view class="cu-item" wx:for="{{showItem}}" x:for-index='index' wx:for-item="item" wx:key data-index="{{index}}" bindtap="chooseShow">
+                        <label class="flex justify-between align-center flex-sub">
+                            <view class="flex-sub">{{item}}</view>
+                            <radio class="round" value="{{index +3}}" checked="{{gridCol==index+3}}"></radio>
+                        </label>
+                    </view>
+                </view>
+            </radio-group>
+            <view class="cu-list menu text-left solid-top">
+                <view class="cu-item">
+                    <view class="content">
+                        <text class="text-grey">边框</text>
+                    </view>
+                    <view class="action">
+                        <switch bindchange="gridswitch"></switch>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <!-- 服务显示 -->
+    <view wx:if="{{showItemIndex == 0}}">
+        <view class="padding bg-white ">
+            <view class="user_row">
+                <view>刘备:</view>
+                <view>还剩下 20 天完成服务</view>
+                <view class="flex">
+                    <view class="cu-progress round sm striped active">
+                        <view class="bg-pink" style="width:{{loading?'20%':''}};"></view>
+                    </view>
+                    <text class="margin-left">20%</text>
+                </view>
+            </view>
+            <view class="user_row">
+                <view>张三：</view>
+                <view>还剩下 11 天完成服务</view>
+                <view class="flex margin-top">
+                    <view class="cu-progress round  sm striped active">
+                        <view class="bg-pink" style="width:{{loading?'80%':''}};"></view>
+                    </view>
+                    <text class="margin-left">80%</text>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view wx:elif="{{showItemIndex == 1}}">
+        <view class="padding bg-white ">
+            <view class="user_row">
+                <view>刘备:</view>
+                <view>完成时间:2022-11-1</view>
+                <view class="flex">
+                    <view class="cu-progress round">
+                        <view class="bg-green" style="width:{{loading?'100%':''}};"></view>
+                    </view>
+                    <text class="cuIcon-roundcheckfill text-green margin-left-sm"></text>
+                </view>
+            </view>
+          
+        </view>
+    </view>
+    <view wx:elif="{{showItemIndex == 2}}">
+        已退单
+    </view>
+
+
+
+</view>

@@ -1,0 +1,20 @@
+<!--components/AudioPlay/AudioPlay.wxml-->
+<!-- 音乐播放器 开始 -->
+<view>
+    <view wx:if="{{showPlayArea}}" class="music" >
+
+        <!-- <view style="width: 100rpx;line-height: 10vh;height: 10vh; font-size:2rem;color: #fff;" class="iconfont icon-biaoqianA01_zhibo-68"></view> -->
+        
+        <view wx:if="{{!isPlay}}" bindtap="audioPlay" style="font-size: 2rem;text-align: center;" class="iconfont icon-biaoqianA01_zhibo-68"></view>
+        <view wx:else bindtap="audioPause" style="font-size: 2rem;;text-align: center;" class="iconfont icon-zanting"></view>
+        
+        <view style="font-size: 2rem;;text-align: center;color: crimson;" class="iconfont icon-tingzhi" bindtap="audioClose"></view>
+
+
+        <slider step="1" value="{{currentTime}}" bindchanging="bindchanging" bindchange="bindchange" max="{{duration}}" backgroundColor="#efefef" activeColor="#90BED5" />
+        <br />
+        <view class="time">{{time}}</view>
+    </view>
+    <view  wx:else ></view>
+</view>
+<!-- 音乐播放器 结束 -->

@@ -1,0 +1,5 @@
+/* pages/setting/index.wxss */
+
+.content{
+    margin-top: 20vh;
+}

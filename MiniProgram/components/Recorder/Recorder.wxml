@@ -1,0 +1,38 @@
+<!--components/Recorder/Recorder.wxml-->
+<!-- <text>components/Recorder/Recorder.wxml</text> -->
+<view class="recode_area" wx:if="{{showRecorder}}">
+    <view class="record_row1" wx:if="{{recorder.status == 'recordings'}}">
+        <view class="record_row2" >
+            <view class="recode">
+                <view>
+                    <view class="record-wave-multiple">
+                        <view></view>
+                        <view></view>
+                        <view></view>
+                    </view>
+                    <view class="record-bgm"></view>
+                </view>
+            </view>
+            <button bindtap="endRecording" style="width: 300rpx;font-size: 1rem;">我说完了</button>
+        </view>
+        <view class="record_row1_time">
+            {{curTime}} "/ 60
+        </view>
+    </view>
+    <view class="record_btn" wx:elif="{{recorder.status == 'ready'}}">
+        <button type="primary" bindtap="recording">点击说话</button>
+    </view>
+    <view class="playArea" wx:elif="{{recorder.status == 'play'}}">
+        <view>时长:{{curTime}}秒</view>
+        <view>
+            <button type="primary" bindtap="onFileAddress">确定</button>
+        <button bindtap="playRecord">播放录音</button>
+        <button type="warn" bindtap="reRecord">重新录制</button>
+        
+        </view>
+    </view>
+    <view class="close" bindtap="onCloseRecorder">
+        关闭
+    </view>
+</view>
+<view wx:else></view>

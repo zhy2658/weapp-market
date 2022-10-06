@@ -1,0 +1,85 @@
+<wxs src="../../utils/tools.wxs" module="tools" />
+
+
+<view class="user_info">
+    <!-- 用户背景信息开始 -->
+    <view class="user_info_bg">
+        <view class="user_info_warp" wx:if="{{!isShowLogin}}">
+            <navigator url="/pages/userInfo/index">
+                <image class="user_icon" src="{{tools.filePathHandler(userInfo.avatarUrl)}}"></image>
+                <view class="user_name">{{userInfo.nickName}}</view>
+            </navigator>
+        </view>
+
+        <view wx:else style=" height:100%;display: flex;align-items: center;justify-content: center;"><button bindtap="loginUser" type="primary">点击登录</button></view>
+    </view>
+
+
+    <!-- 用户背景信息结束 -->
+
+    <!-- 用户操作菜单开始 -->
+    <view class="user_menu">
+        <!-- 订单管理开始 -->
+        <view class="orders_warp">
+            <view class="orders_title">我的订单</view>
+            <view class="orders_content">
+                <navigator url="/pages/order/index?type=1">
+                    <view class="iconfont icon-daifukuan"></view>
+                    <view class="order_name">待付款</view>
+                </navigator>
+                <navigator url="/pages/order/index?type=2">
+                    <view class="iconfont icon-daishouhuo"></view>
+                    <view class="order_name">待服务</view>
+                </navigator>
+                <navigator url="/pages/order/index?type=3">
+                    <view class="iconfont icon-tuikuan"></view>
+                    <view class="order_name">退款</view>
+                </navigator>
+                <navigator url="/pages/order/index?type=0">
+                    <view class="iconfont icon-dingdan"></view>
+                    <view class="order_name">全部订单</view>
+                </navigator>
+            </view>
+        </view>
+        <!-- 订单管理结束 -->
+
+        <!-- 收货地址开始 -->
+        <!-- <view class="address_warp" bindtap="handleEditAddress">
+            收货地址管理
+        </view> -->
+        <!-- 收货地址结束 -->
+
+        <!-- 应用相关信息开始 -->
+        <view class="app_info_warp">
+            <view class="app_info_item app_info_contact">
+                <text>联系客服</text>
+                <text>400-699-12345</text>
+            </view>
+            <view class="app_info_item">
+                <button open-type="feedback" class="feedback">意见反馈</button>
+            </view>
+            <view class="app_info_item">
+                关于我们
+            </view>
+            <view class="app_info_item">
+                <navigator url="/pages/setting/index">
+                    <view>
+                        用户设置
+                    </view>
+                </navigator>
+            </view>
+            <view class="app_info_item" wx:if="{{userInfo.admin == 1}}">
+                <navigator url="/pages/myPageManage/index">
+                    <view>
+                        管理我的主页
+                    </view>
+                </navigator>
+            </view>
+        </view>
+        <!-- 应用相关信息开始 -->
+
+    </view>
+    <!-- 用户操作菜单结束 -->
+
+
+</view>

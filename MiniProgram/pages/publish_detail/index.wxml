@@ -1,0 +1,124 @@
+<!--pages/publish_detail/index.wxml-->
+<wxs src="../../utils/tools.wxs" module="tools" />
+
+
+
+
+<!-- wxml文件编码原则：
+  先静后动，先样式再数据 -->
+<view class='container'>
+    <view class="header_bar">
+        <image wx:if="{{publishObj.imgList.length > 0}}" class='head-imagee' mode="widthFix" src='{{tools.filePathHandler(publishObj.imgList[0].src)}}'></image>
+        <image class='head-imagee' mode="widthFix" src='https://qq.yh31.com/tp/zjbq/202005071006406675.gif'></image>
+    </view>
+    <view class='author-date'>
+        <image wx:if="{{publishObj.userInfo.avatarUrl}}" class='avatar' mode="widthFix" src='{{tools.filePathHandler(publishObj.userInfo.avatarUrl)}}'></image>
+        <text class='author'>{{publishObj.userInfo.nickName}}</text>
+        <text class='const-text'>发表于</text>
+        <text class='date'>{{publishObj.pubtime}}</text>
+    </view>
+    <text class='title'>{{publishObj.title}}</text>
+    <view class='tool'>
+        <view class='cicle-img'>
+            <view>收藏</view>
+            <view>分享</view>
+        </view>
+        <view class='horizon'></view>
+    </view>
+    <text class='detail'>
+        {{publishObj.content}}
+    </text>
+
+    <!-- 点赞 -->
+    <!-- <view class='zan-view'>
+        <view class='trigon-view' style="display: flex;">
+            <view style="flex:1">
+                <image mode='aspectFill' style="height: 20px;" class='trigon' src='/icons/likefill.png' bindtap='changeLike'></image>
+                 <image wx:else mode='aspectFill' style="height: 20px;" class='trigon' src='/icons/_like.png'  bindtap='changeLike' data-pid="{{item.pid}}"></image> 
+            </view>
+            <view style="flex:1;line-height: 20px;color: royalblue;" bindtap=" openCommentDialog"> 回复 </view>
+            <navigator url="/pages/publish/index" style="line-height: 20px;color: darkred;width: 60rpx;margin-right: 50rpx;">
+                <view>举报</view>
+            </navigator>
+
+        </view>
+
+       
+        <view class='zan-bg-view' >
+            <view class='zan-user-view' wx:for-index="index">
+                <label bindtap='TouchZanUser' style="font-size: 0.8rem;">hello </label>
+          
+            </view>
+            <view style="float: left;margin: 0px 20rpx;color: #232323;">等100人觉得很赞</view>
+        </view>
+        <view class='line'></view>
+        
+
+    </view> -->
+
+    <view class='zan-view'>
+        <view class='trigon-view' style="display: flex;">
+            <view style="flex:1">
+                <image wx:if="{{publishObj.flagLike==true}}" mode='aspectFill' style="height: 20px;" class='trigon' src='/icons/likefill.png' bindtap='changeLike' data-pid="{{publishObj.pid}}"></image>
+                <image wx:else mode='aspectFill' style="height: 20px;" class='trigon' src='/icons/_like.png' bindtap='changeLike' data-pid="{{publishObj.pid}}"></image>
+            </view>
+            <view style="flex:1;line-height: 20px;color: royalblue;" data-name="{{publishObj.pid}}" bindtap="openCommentDialog"> 回复 </view>
+            <navigator url="/pages/publish/index" style="line-height: 20px;color: darkred;width: 60rpx;margin-right: 50rpx;">
+                <view>举报</view>
+            </navigator>
+
+        </view>
+
+        <!-- 点赞 -->
+        <view class='zan-bg-view' style="margin-top: 10px;">
+            <view class='zan-user-view' wx:for='{{publishObj.likeList}}' wx:key="likeObj" wx:for-item="likeObj" wx:for-index="index">
+                <label bindtap='TouchZanUser' data-name='{{likeObj.id}}' style="font-size: 0.8rem;">{{likeObj.nickName}} </label>
+                <!-- <text wx:if="{{index+1 < 5}}">,</text>
+                            <text wx:else>...</text> -->
+            </view>
+            <!-- <view wx:if="{{publishObj.LikeUnEnd}}" style="float: left;margin: 0px 20rpx;color: #232323;">等{{publishObj.LikeCount}}人觉得很赞</view> -->
+        </view>
+        <view class='line'></view>
+
+    </view>
+
+    <!-- 评论  是  下面 -->
+    <view>
+        <view class="result">{{item.result}}</view>
+    </view>
+    <view style="text-align:center;font-size:14px;color:#ccc;margin-top:20px;">以下是留言内容</view>
+    <view class="liuyanview" wx:for="{{publishObj.replyList}}" wx:key="reply" wx:for-item="replyObj" wx:for-index="index">
+        <view class="headimg">
+            <image src="https://qq.yh31.com/tp/zjbq/202005071006406675.gif"></image>
+        </view>
+        <view class="nickname_liuyantext">
+            <view class="nickname">{{replyObj.nickName}} <view class="time">{{replyObj.retime}}</view>
+            </view>
+            <view class="text">{{replyObj.msg}}</view>
+        </view>
+        <!-- 占位符 -->
+        <view style="width:100%;height:10px;"></view>
+    </view>
+
+    <view wx:if="{{showCommentDialog}}" class="bottom_section" style="position:fixed ;bottom:0vh;background-color: #fff;width: 750rpx;border: 1px solid #efefef;">
+        <form bindsubmit='loginForm'>
+            <view class="page-section">
+
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell weui-cell_input">
+                        <input class="weui-input" name="msg" placeholder="请输入" bindinput='getInputValue' style="height: 10vh;" />
+                    </view>
+                </view>
+            </view>
+
+            <view class="bottom_btn" style="display: flex;">
+                <button type="primary" formType="submit">send</button>
+                <button type="warn" bindtap="closeCommentDialog">Cancer</button>
+            </view>
+
+        </form>
+
+
+    </view>
+
+</view>

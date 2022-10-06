@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.MessageMapper">
+
+    <resultMap type="com.example.entity.Message" id="MessageResult">
+<!--        <association property="messageType" column="messageId" select="com.example.mapper.MessageMapper.getSenderMessage"></association>-->
+
+    </resultMap>
+
+<!--    <insert id="addMessage" parameterType="com.example.entity.Message" >-->
+<!--        -->
+<!--    </insert>-->
+    <!--    String myOpenId, String oppositeOpenId-->
+<!--    <select id="getSenderMessage" parameterType="Map" resultMap="MessageResult">-->
+<!--        select * from t_message where sendOpenID=#{myOpenId} and receiverOpenId=#{oppositeOpenId};-->
+<!--    </select>-->
+
+<!--    <select id="getReceiverMessage" parameterType="Map" resultMap="MessageResult">-->
+<!--        select * from t_message where sendOpenID=#{oppositeOpenId} and sendOpenID=#{myOpenId}-->
+<!--    </select>-->
+
+
+</mapper>

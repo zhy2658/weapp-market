@@ -1,0 +1,20 @@
+<!--pages/messageList/index.wxml-->
+<wxs src="../../utils/tools.wxs" module="tools" />
+
+
+
+<view>
+    <view wx:for="{{msgSessionList}}" wx:for-item="msgSession" wx:for-index="index" wx:key="msgSession">
+        <navigator url="/pages/chatroom/index?openid={{msgSession.openId}}" class="list-item" >
+
+            <view class="avt">
+                <image mode="widthFix" src="{{tools.filePathHandler(msgSession.avatarUrl)}}"></image>
+            </view>
+            <view class="msg">{{msgSession.nickName}}</view>
+            <view class="time">{{msgSession.ms_time}}</view>
+        </navigator>
+    </view>
+
+
+
+</view>

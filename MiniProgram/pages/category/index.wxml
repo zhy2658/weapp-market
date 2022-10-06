@@ -1,0 +1,51 @@
+<wxs src="../../utils/tools.wxs" module="tools" />
+
+<!-- tools.filePathHandler() -->
+
+<view class="cates">
+  <!-- 搜索框 start -->
+  <SearchBar></SearchBar>
+  <!-- 搜索框 end -->
+
+  <view class="cates_container">
+    <!-- 左侧菜单 start -->
+    <scroll-view class="left_menu" scroll-y>
+      <view class="menu_item {{ index==currentIndex?'active':'' }}"
+      wx:for="{{leftMenuList}}"
+      wx:key="*this"
+      bindtap="handleItemTap"
+      data-index="{{index}}">
+      {{item}}
+      </view>
+    </scroll-view>
+    <!-- 左侧菜单 end -->
+
+    <!-- 右侧产品内容 start -->
+    <scroll-view scroll-top="{{scrollTop}}" class="right_content" scroll-y>
+      <view class="product_group"
+        wx:for="{{rightContent}}"
+        wx:for-index="index1"
+        wx:for-item="item1"
+        wx:key="id">
+        <view class="product_title">
+          {{item1.name}}
+        </view>
+        <view class="product_list">
+          <navigator
+            wx:for="{{item1.userInfos}}"
+            wx:for-index="index2"
+            wx:for-item="item2"
+            wx:key="id"
+            url="/pages/product_detail/index?id={{item2.id}}">
+            <image mode="widthFix" src="{{tools.filePathHandler(item2.avatarUrl)}}"></image>
+            <view class="right">
+              <view class="product_name">{{item2.nickName}}</view>
+              <!-- <view class="product_price"> ¥ {{item2.price}}</view> -->
+            </view>
+          </navigator>
+        </view>
+      </view>
+    </scroll-view>
+    <!-- 右侧产品内容 end -->
+  </view>
+</view>

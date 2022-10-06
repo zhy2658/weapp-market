@@ -1,0 +1,27 @@
+/* 音乐播放器 */
+.music {
+  position: fixed;
+  width: 700rpx;
+  bottom: 80vh;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 40rpx 0rpx;
+  padding-right: 50rpx;
+  box-shadow: 1px 1px 4px #999;
+  z-index: 10;
+}
+.music image {
+  width: 100rpx;
+  height: 100rpx;
+}
+.music slider {
+  width: 450rpx;
+}
+.music .time {
+  width: 50rpx;
+  font-size: small;
+  color: #93c4db;
+}
+/* 音乐播放器 */

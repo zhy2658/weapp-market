@@ -1,0 +1,9 @@
+/* pages/orderManage/index.wxss */
+.user_row{
+    margin: 20px 0;
+    border-bottom: 1px solid #efefef;
+}
+.user_row view{
+    margin: 10px 0;
+    
+}

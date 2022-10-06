@@ -1,0 +1,70 @@
+<!-- 收货地址 开始 -->
+<view class="revice_address_row">
+  <!-- 当收货地址 -->
+  <!-- <view>
+    <view class="user_info">
+      <view class="user_info_item">{{address.provinceName+address.cityName+address.countyName}}</view>
+      <view class="user_info_item user_info_detail">{{address.detailInfo}}</view>
+      <text class="user_info_item" decode="{{true}}">{{address.userName}}&nbsp;&nbsp;{{address.telNumber}}</text>
+    </view>
+  </view> -->
+</view>
+<!-- 收货地址 结束 -->
+
+<view>
+    <view class="table">
+        <view class="tr bg-w" style="display: flex;">
+            <view class="th"  style="margin: 0 10px;">项目名</view>
+            <view class="th"  style="margin: 0 10px;">小时数</view>
+            <view class="th "  style="margin: 0 10px;">价格</view>
+            <view class="th "  style="margin: 0 10px;">操作</view>
+        </view>
+        <block wx:for="{{payitemList}}" wx:for-item="payitem" wx:key="payitem">
+            <view class="tr bg-g" style="display: flex; background-color: red;" wx:if="{{payitem.id == currentPayItemId}}">
+                <view class="td" style="margin: 0 10px;"> {{payitem.itemName}}</view>
+                <view class="td" style="margin: 0 10px;"> {{payitem.itemHours}}</view>
+                <view class="td" style="margin: 0 10px;"> {{payitem.price}}</view>
+            </view>
+            <view class="tr bg-g" style="display: flex;" wx:else>
+                <view class="td" style="margin: 0 10px;"> {{payitem.itemName}}</view>
+                <view class="td" style="margin: 0 10px;"> {{payitem.itemHours}}</view>
+                <view class="td" style="margin: 0 10px;"> {{payitem.price}}</view>
+                <view>
+                   <button bindtap="choosePayItem" data-payItemId="{{payitem.id}}">选择</button>
+                </view>
+            </view>
+        </block>
+    </view>
+</view>
+<view>总计时长：{{cart[0].totalHours}}</view>
+<view style="padding: 0 10vh; margin: 20px 0;">
+    手机号：
+    <input type="text" placeholder="tel" bindinput="changeTel"  name='tel' style="height: 40px; border-bottom: 1px solid #ccc;" />
+</view>
+<view style="padding: 0 10vh; margin: 20px 0;">
+    微信号：
+    <input type="text" placeholder="wxcode"  bindinput="changeWXId"  name='wxcode'  style="height: 40px; border-bottom: 1px solid #ccc;" />
+</view>
+<view style="padding: 0 10vh; margin: 20px 0;">
+   数量： <input type="text" placeholder="数量" value="{{totalNum}}" disabled="disabled"  style="height: 40px; border-bottom: 1px solid #ccc;" />
+</view>
+<!-- 购物车 开始 -->
+
+<!-- 购物车 结束 -->
+
+
+<!-- 底部工具栏 -->
+<view class="footer_tool">
+ 
+  <!-- 总价格 -->
+  <view class="total_price_wrap">
+    <view class="total_price">
+     共{{totalNum}}件,合计<text class="total_price_text" decode="{{true}}">&nbsp;¥{{totalPrice}}</text>
+    </view>
+  </view>
+
+  <!-- 结算 -->
+  <view class="order_pay_wrap" bindtap="handleOrderPay" >
+    去付款(限时免费)
+  </view>
+</view>

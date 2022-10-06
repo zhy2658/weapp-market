@@ -1,0 +1,17 @@
+<!--pages/myPageManage/index.wxml-->
+<wxs src="../../utils/tools.wxs" module="tools" />
+
+<view class="content">
+    <view>
+        <navigator url="/pages/orderManage/index">
+            <button>订单管理</button>
+        </navigator>
+    </view>
+
+
+    <button>个人主页管理</button>
+    <button>服务选项</button>
+
+    
+
+</view>

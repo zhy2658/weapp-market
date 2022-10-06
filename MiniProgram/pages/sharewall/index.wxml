@@ -1,0 +1,114 @@
+<!--pages/sharewall/index.wxml-->
+<wxs src="../../utils/tools.wxs" module="tools" />
+
+
+<view style="display: flex;" class="header">
+    <navigator url="/pages/publish/index">
+        <button style="border-right:2px solid #efefef;">编写</button>
+    </navigator>
+    <navigator url="/pages/mypublish/index">
+        <button>我的发布</button>
+    </navigator>
+
+</view>
+<scroll-view class='page' scroll-y='true'  bindscrolltolower='onScrolltolowe' >
+
+    <!-- 列表 -->
+    <view class='CircleList' wx:for='{{DataSource}}' wx:key="item">
+        <!-- 头像、昵称、内容 -->
+        <view class='body-view'>
+            <!-- 头像 -->
+            <view class='left-view' wx:if="{{item.userInfo}}">
+                <image class='user-icon' src='{{tools.filePathHandler(item.userInfo.avatarUrl)}}'></image>
+            </view>
+            <view class='right-view'>
+                <!-- 昵称 -->
+                <view class='user-name-view'>
+                    <navigator url="/pages/publish_detail/index?pid={{item.pid}}">
+                        <label class='user-name'>{{item.title}}</label>
+                    </navigator>
+                </view>
+                <!-- 内容 -->
+                <view class='user-content-view'>
+                    <navigator url="/pages/publish_detail/index?pid={{item.pid}}">
+                        <text class='user-content'>{{item.content}}</text>
+                    </navigator>
+                </view>
+                <!-- 图片 -->
+                <view class='photo-view' style="display: block;">
+
+                    <image class='photo' mode="widthFix" bindtap='LookPhoto' wx:for='{{item.imgList}}' data-list="{{item.imgList}}" wx:for-item="dImg" wx:key="dImg" data-photUrl='{{tools.filePathHandler(dImg.src)}}' src='{{tools.filePathHandler(dImg.src)}}' style='width:{{photoWidth}}px;height:{{photoWidth}}px'></image>
+
+                </view>
+                <!-- 地理位置 -->
+                <view wx:if="{{item.address}}" class='user-address-view'>
+                    <label>{{item.address}}</label>
+                </view>
+                <view style="height: 20px;"><label>{{item.pubtime}}</label></view>
+                <!-- 时间、删除按钮、点赞评论按钮 -->
+                <!-- <view class='TDD-view'>
+          
+          <button bindtap='delete'>删除</button>
+          <image data-isShow='{{isShow}}' bindtap='TouchDiscuss' src='/icons/_msg.png'></image>
+        </view> -->
+
+                <!-- 点赞 -->
+                <view class='zan-view'>
+                    <view class='trigon-view' style="display: flex;">
+                        <view style="flex:1">
+                            <image wx:if="{{item.flagLike==true}}" mode='aspectFill' style="height: 20px;" class='trigon' src='/icons/likefill.png' bindtap='changeLike' data-pid="{{item.pid}}"></image>
+                            <image wx:else mode='aspectFill' style="height: 20px;" class='trigon' src='/icons/_like.png' bindtap='changeLike' data-pid="{{item.pid}}"></image>
+                        </view>
+                        <view style="flex:1;line-height: 20px;color: royalblue;" data-name="{{item.pid}}" bindtap="openCommentDialog"> 回复 </view>
+                        <navigator url="/pages/publish/index" style="line-height: 20px;color: darkred;width: 60rpx;margin-right: 50rpx;">
+                            <view>举报</view>
+                        </navigator>
+
+                    </view>
+
+                    <!-- 点赞 -->
+                    <view class='zan-bg-view' style="margin-top: 10px;">
+                        <view class='zan-user-view' wx:for='{{item.likeList}}' wx:key="likeObj" wx:for-item="likeObj" wx:for-index="index">
+                            <label bindtap='TouchZanUser' data-name='{{likeObj.id}}' style="font-size: 0.8rem;">{{likeObj.nickName}} </label>
+                            <!-- <text wx:if="{{index+1 < 5}}">,</text>
+                            <text wx:else>...</text> -->
+                        </view>
+                        <view wx:if="{{item.LikeUnEnd}}" style="float: left;margin: 0px 20rpx;color: #232323;">等{{item.LikeCount}}人觉得很赞</view>
+                    </view>
+                    <view class='line'></view>
+                    <!-- 评论 -->
+                    <view class='discuss-view' style="padding-top: 10px;">
+                        <view class='discuss' wx:for='{{item.replyList}}' wx:key="replyObj" wx:for-item="replyObj">
+                            <label bindtap='TouchZanUser' data-name='{{replyObj.nickName}}' class='discuss-user' style="font-size: 0.8rem;">{{replyObj.nickName}}：</label>
+                            <label class='content' style="color: #454545;font-size: 0.8rem;">{{replyObj.msg}}</label>
+                        </view>
+                        <view wx:if="{{item.replyUnEnd}}" style="float: left;color: #232323;width: 100%;">已折叠{{item.replyCount-4}}条回复</view>
+                    </view>
+                </view>
+            </view>
+
+        </view>
+    </view>
+    <view wx:if="{{isBottom}}" style="font-size: 1rem;display: flex;justify-content: center; align-items: center;height: 10vh; color: #454545;">已经到底了！！！</view>
+
+</scroll-view>
+<view wx:if="{{showCommentDialog}}" class="bottom_section" style="position:fixed ;bottom:0vh;background-color: #fff;width: 750rpx;border: 1px solid #efefef;">
+        <form bindsubmit='loginForm'>
+            <view class="page-section">
+
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell weui-cell_input">
+                        <input class="weui-input" name="msg" placeholder="请输入" bindinput='getInputValue' style="height: 10vh;" />
+                    </view>
+                </view>
+            </view>
+
+            <view class="bottom_btn" style="display: flex;">
+                <button type="primary" formType="submit">send</button>
+                <button type="warn" bindtap="closeCommentDialog">Cancer</button>
+            </view>
+
+        </form>
+
+
+    </view>

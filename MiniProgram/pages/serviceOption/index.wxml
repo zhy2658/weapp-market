@@ -1,0 +1,19 @@
+<!--pages/serviceOption/index.wxml-->
+<text>pages/serviceOption/index.wxml</text>
+<view class="bg-white padding">
+    <view class="bg-cyan padding" style="display: flex; justify-content: space-around;" >
+        <view class="bg-cyan padding">项目</view>
+        <view class="bg-cyan padding">小时数</view>
+        <view class="bg-cyan padding">价格</view>
+        <view class="bg-cyan padding">操作</view>
+      </view>
+    <view class="grid col-1 margin-bottom text-center" wx:for="{{5}}" wx:key>
+      <!-- <view class="{{index%2==0?'bg-cyan':'bg-blue'}} padding" wx:for="{{(index+1)*2}}" wx:key>{{index+1}}</view> -->
+      <view class=" padding" style="display: flex; justify-content: space-around;" >
+        <view class="bg-cyan padding">抬棺</view>
+        <view class="bg-cyan padding">5</view>
+        <view class="bg-cyan padding">30</view>
+        <view class="bg-cyan padding">编辑</view>
+      </view>
+    </view>
+  </view>

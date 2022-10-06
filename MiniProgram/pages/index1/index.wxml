@@ -1,0 +1,132 @@
+<wxs src="../../utils/tools.wxs" module="tools" />
+
+<!-- tools.filePathHandler() -->
+<view>
+    <!-- 搜索框 start -->
+    <SearchBar></SearchBar>
+    <!-- 搜索框 end -->
+
+    <!-- 轮播图 开始 -->
+    <view class="index_swiper">
+        <view class="notice_float" bindtap="openNotice">
+            <view class="notice_float_title">通知: </view>
+            <view class="notice_float_content">
+                <view>今天天气良好今天天气良好今天天气良好今天天气良好今天天气良好</view>
+            </view>
+        </view>
+        <!-- 
+      1 swiper标签存在默认的宽度和高度
+        100% * 150px 
+      2 image标签也存在默认的宽度和高度
+        320px * 240px 
+      3 设计图片和轮播图
+        1 先看一下原图的宽高  600 * 300
+        2 让图片的高度自适应 宽度 等于100%
+        3 让swiper标签的高度 变成和图片的高一样即可 
+      4 图片标签
+        mode属性 渲染模式
+          widthFix  让图片的标签宽高 和 图片标签的内容的宽高都等比例的发生变化 
+     -->
+        <swiper autoplay indicator-dots circular>
+            <swiper-item wx:for="{{swiperList}}" wx:for-item="swiper" wx:key="id">
+                <navigator url="/pages/product_detail/index?id={{swiper.id}}">
+                    <image mode="widthFix" src="{{baseUrl+'image/swiper/'+swiper.swiperPic}}"></image>
+                </navigator>
+            </swiper-item>
+        </swiper>
+    </view>
+    <!-- 轮播图 结束 -->
+
+    <!-- 商品大类分类 开始 -->
+    <view class="index_bigType">
+        <view class="bigTypeRow">
+            <navigator bindtap="handleTypeJump" data-index="{{index}}" wx:for="{{bigTypeList_row1}}" wx:for-item="bigType" wx:for-index="index" wx:key="id" style="display: flex;flex-direction: column;">
+                <view style="padding: 10px; box-sizing: border-box;">
+                    <image mode="widthFix" style="width: 100rpx;" src="{{baseUrl+'image/bigType/'+bigType.image}}"></image>
+                </view>
+                <text style="flex: 1;">{{bigType.name}}</text>
+            </navigator>
+        </view>
+        <view class="bigTypeRow">
+            <navigator bindtap="handleTypeJump" data-index="{{index+5}}" wx:for="{{bigTypeList_row2}}" wx:for-item="bigType" wx:for-index="index" wx:key="id" style="display: flex;flex-direction: column;">
+                <view style="padding: 10px; box-sizing: border-box;">
+                    <image mode="widthFix" style="width: 100rpx;" src="{{baseUrl+'image/bigType/'+bigType.image}}"></image>
+                </view>
+                <text>{{bigType.name}}</text>
+            </navigator>
+        </view>
+
+    </view>
+    <!-- 商品大类分类 结束 -->
+
+    <!-- 商品热卖推荐 开始 -->
+    <view class="index_hot_product">
+        <view class="product_title">
+            情绪树洞
+        </view>
+        <view class="list">
+            <view class="product_detail" wx:for="{{hotProductList}}" wx:for-item="hotProduct" wx:for-index="index" wx:key="id">
+                <view style="position: relative;color: #454545;">
+                    <navigator url="/pages/product_detail/index?id={{hotProduct.detail_id}}" style="display:flex;align-items: center;">
+                        <image mode="widthFix" style="flex: 2;" src="{{tools.filePathHandler(hotProduct.avatarUrl)}}"></image>
+                        <view class="product_name" style="flex: 5;display: flex; flex-direction: column;">
+                            <view style="flex: 1;">{{hotProduct.nickName}}</view>
+                            <view class="user_age" style=" flex:1; height: 10vh;">
+                                <view wx:if="{{hotProduct.sex == 1}}" class="iconfont icon-nv" style="display: inline-block;color:salmon ;">{{hotProduct.age}}</view>
+                                <view wx:elif="{{hotProduct.sex == 2}}" class="iconfont icon-nan" style="display: inline-block;color: steelblue;">{{hotProduct.age}}</view>
+                                <view wx:elif="{{hotProduct.age>-1}}" class="iconfont icon-xingbie" style="display: inline-block;color: #454545;font-size: 1rem;">{{hotProduct.age}}</view>
+                                <view wx:else style="display: inline-block;color: #454545;">-</view>
+                            </view>
+                            <view class="user_describ" style=" flex:1;">
+                                {{hotProduct.description}}
+                            </view>
+                            <view class="tags_area" style="margin: 5px 0;flex: 1;">
+                                <view class="tags_area_item" wx:for="{{hotProduct.tags}}"   wx:for-item="tag" wx:key="tag" >
+                                    {{tag}}
+                                </view>
+                            </view>
+
+
+                        </view>
+                        <view style="flex: 1;"> </view>
+                    </navigator>
+                    <!-- <view class="product_price"  style="flex: 1;"> ¥ {{hotProduct.price}}</view> -->
+                    <view class="musicplay" style="position: absolute; right: 0;top: 1px;   ">
+                        <!-- 播放按钮 -->
+                        <view wx:if="{{!hotProduct.isPlay}}" class="playbtn iconfont icon-bofang" bindtap="userAudioPlay" data-index="{{index}}">
+                            {{hotProduct.audioTime}} "
+                        </view>
+                        <!-- 停止按钮 -->
+                        <view wx:else class="pausebtn iconfont icon-yuyin" bindtap="userAudioPause" data-index="{{index}}">
+                            {{hotProduct.audioTime}} "
+                        </view>
+                    </view>
+                    <!-- <button class="iconfont icon-biaoqianA01_zhibo-68" size="mini" style="position: absolute; right: 0;top: 1vh; color: #454545; font-size: 1.5rem;"></button> -->
+                </view>
+
+
+            </view>
+        </view>
+    </view>
+    <!-- 商品热卖推荐 结束 -->
+
+    <!-- 通知面板 -->
+    <view class="notice_window" wx:if="{{isShowNotice}}">
+        <view class="notice_row1">
+            <view>icon</view>
+            <view class="notice_title">通知</view>
+            <view class="notite_close" bindtap="closeNotice">收起</view>
+        </view>
+        <view class="notice_row2">
+            <view class="notite_content">
+                sdasda
+            </view>
+        </view>
+    </view>
+
+
+    <!-- 音乐播放器 开始 -->
+    <AudioPlay audioPlayObj="{{audioPlayObj}}" bindaudioClose="audioClose" bindaudioPause="audioPause" />
+    <!-- 音乐播放器 结束 -->
+
+</view>

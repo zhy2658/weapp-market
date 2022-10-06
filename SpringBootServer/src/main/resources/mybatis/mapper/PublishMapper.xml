@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.PublishMapper">
+
+    <resultMap type="com.example.entity.Publish" id="PublishResult">
+
+        <id property="pid" column="pid" />
+        <result property="title" column="title" />
+
+        <association property="userInfo" column="openId" select="com.example.mapper.WxUserInfoMapper.findByOpenId"></association>
+
+        <association property="replyList" column="pid" select="com.example.mapper.PublishReplyMapper.findByPId"></association>
+
+        <association property="likeList" column="pid" select="com.example.mapper.PublishLikeMapper.findByPId"></association>
+
+        <association property="imgList" column="pid" select="com.example.mapper.PublishImgMapper.findByPId"></association>
+    </resultMap>
+
+    <select id="getRandom"  resultMap="PublishResult">
+        select * from t_publish
+        <where>
+            status=1
+        </where>
+        ORDER BY pubtime DESC
+        <if test="start!=null and pageSize!=null">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
+
+    <select id="selectOneByPid"  resultMap="PublishResult">
+        select * from t_publish
+        <where>
+            status=1 and pid=#{pid}
+        </where>
+
+    </select>
+
+<!--    getAllPublishByStatus-->
+    <select id="getAllPublishByStatus"  resultMap="PublishResult">
+        select * from t_publish
+        <where>
+            status = #{status}
+        </where>
+        ORDER BY pubtime DESC
+        <if test="start!=null and pageSize!=null">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
+
+    <select id="getTotalByStatus"  resultType="Integer">
+        select count(*) from t_publish
+        <where>
+            status = #{status}
+        </where>
+    </select>
+
+
+</mapper>

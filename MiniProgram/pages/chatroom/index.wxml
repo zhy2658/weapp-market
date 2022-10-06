@@ -1,0 +1,57 @@
+<!--pages/chatroom/index.wxml-->
+<wxs src="../../utils/tools.wxs" module="tools" />
+
+
+<view>
+    <view>
+        <view class="container">
+            <!-- <view>聊天室人数:{{total}}</view> -->
+            <!-- <view><button>加入</button></view>
+            <view><button>退出</button></view> -->
+            <view wx:for="{{msgList}}" wx:for-item="msgItem" wx:for-index="index" wx:key="msgItem">
+                <view wx:if="{{!msgItem.mySelf}}">
+                    <view style="display: flex;">
+                        <view  style="width: 150rpx;text-align: center;" >{{msgItem.nickName}}: </view>
+                        <view style="width: 550rpx;word-break: break-all;">
+                            {{msgItem.msg}}
+                            <text>sasss</text>
+                        </view>
+                        
+                        <!-- <view ></view> -->
+                    </view>
+                    <view> </view>
+                </view>
+                <view wx:else>
+                    <view style="display: flex; flex-direction: row-reverse;flex-wrap: wrap; width: 100%;">
+                        <view style="width: 150rpx;text-align: center;" > :{{msgItem.nickName}}</view>
+                        <view  style="width:550rpx;word-break: break-all; text-align: right;">{{msgItem.msg}}</view>
+                    </view>
+                    <!-- <view></view> -->
+                </view>
+
+            </view>
+        </view>
+        <view class="list">
+
+            <view class="bottom_section">
+                <form bindsubmit='loginForm'>
+                    <view class="page-section" >
+                        <!-- <view class="weui-cells__title">可以自动聚焦的input</view> -->
+                        <view class="weui-cells weui-cells_after-title">
+                            <view class="weui-cell weui-cell_input">
+                                <input class="weui-input" name="msg" placeholder="请输入" bindinput='getInputValue' />
+                            </view>
+                        </view>
+                    </view>
+
+                    <view class="bottom_btn">
+                        <button formType="submit">send</button>
+                    </view>
+
+                </form>
+
+
+            </view>
+        </view>
+    </view>
+</view>

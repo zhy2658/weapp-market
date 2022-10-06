@@ -1,0 +1,14 @@
+
+var baseUrl = "http://localhost:8080";
+
+var filePathHandler = function (path) {
+    if(path.indexOf("https://") >-1 || path.indexOf("https://")  >-1)  return path;
+   else return baseUrl+path;
+    
+}
+module.exports = {
+    baseUrl: baseUrl,
+    filePathHandler: filePathHandler,
+    
+};
+module.exports.msg = "some msg";

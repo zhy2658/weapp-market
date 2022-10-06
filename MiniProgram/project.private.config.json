@@ -1,0 +1,128 @@
+{
+    "setting": {
+        "compileHotReLoad": true,
+        "urlCheck": false
+    },
+    "condition": {
+        "miniprogram": {
+            "list": [
+                {
+                    "name": "商品分类",
+                    "pathName": "pages/category/index",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "个人介绍",
+                    "pathName": "pages/product_detail/index",
+                    "query": "id=14",
+                    "scene": null
+                },
+                {
+                    "name": "收货地址",
+                    "pathName": "pages/cart/index",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "确认订单",
+                    "pathName": "pages/pay/index",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "个人中心",
+                    "pathName": "pages/my/index",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "订单查询",
+                    "pathName": "pages/order/index",
+                    "query": "type=0",
+                    "scene": null
+                },
+                {
+                    "name": "商品搜索",
+                    "pathName": "pages/search/index",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "代码测试页面",
+                    "pathName": "pages/testpage/index",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "情绪树洞",
+                    "pathName": "pages/index1/index",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "聊天室",
+                    "pathName": "pages/chatroom/index",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "消息列表",
+                    "pathName": "pages/messageList/index",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "说说编辑",
+                    "pathName": "pages/publish/index",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "我的发布",
+                    "pathName": "pages/mypublish/index",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "用户信息",
+                    "pathName": "pages/userInfo/index",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "设置",
+                    "pathName": "pages/setting/index",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "万能墙详细",
+                    "pathName": "pages/publish_detail/index",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "我的主页管理",
+                    "pathName": "pages/myPageManage/index",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "订单管理",
+                    "pathName": "pages/orderManage/index",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "name": "服务选项",
+                    "pathName": "pages/serviceOption/index",
+                    "query": "",
+                    "scene": null
+                }
+            ]
+        }
+    },
+    "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
+    "projectname": "java1234-mall-v1"
+}

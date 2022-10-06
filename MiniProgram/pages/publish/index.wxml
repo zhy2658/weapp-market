@@ -1,0 +1,39 @@
+<wxs src="../../utils/tools.wxs" module="tools" />
+
+
+
+<view class="container">
+    <form bindsubmit="sureUpload" bindreset="">
+        <view class="uploadContainer">
+            <view class='title'>
+                <input name="title" placeholder-class="placeholder" placeholder="标题" name="title" value="{{note.title}}" />
+            </view>
+            <!-- 内容· -->
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_input noteContent">
+                    <textarea disabled="{{inputDisable}}" name="content" class="text" bindinput="checkInput" placeholder="内容" maxlength="101" placeholder-style="color:grey;" />
+                </view>
+            </view>
+
+
+
+            <!-- 图片预览区域 -->
+            <view class="imgContainer">
+                <view class='imageInfo' wx:for="{{imgs}}" wx:for-item="item" wx:key="*this">
+                    <image src="{{item}}" data-index="{{index}}" mode="aspectFill" bindtap="previewImg">
+                        <icon type='cancel' class="delete-btn" data-index="{{index}}" catchtap="deleteImg"></icon>
+                    </image>
+                </view>
+            </view>
+            <!-- 备注 -->
+            <view class="page-section">
+                <view class="weui-cells__title note">提示:图片最多上传8张,点击X可以取消上传图片</view>
+
+            </view>
+            <view style="display:flex;position: fixed;bottom: 1vh;width: 750rpx;">
+                <button style="flex:1" class="upload-img-btn" bindtap="chooseImg" type='warn'> 增加图片</button>
+                <button formType="submit" style="flex:1" class="upload-img-btn"  type='primary'>上传</button>
+            </view>
+        </view>
+    </form>
+</view>

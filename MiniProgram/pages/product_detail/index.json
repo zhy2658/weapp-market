@@ -1,0 +1,6 @@
+{
+    "usingComponents": {
+        "AudioPlay":"../../components/AudioPlay/AudioPlay"
+      },
+  "navigationBarTitleText": "个人详情"
+}

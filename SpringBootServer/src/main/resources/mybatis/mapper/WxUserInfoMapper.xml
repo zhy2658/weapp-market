@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.WxUserInfoMapper">
+
+    <resultMap type="com.example.entity.WxUserInfo" id="WxUserInfoResult">
+    </resultMap>
+
+    <select id="findByOpenId" parameterType="String" resultMap="WxUserInfoResult">
+        select * from t_wxuserinfo where openid=#{openid}
+    </select>
+
+    <update id="update" parameterType="com.example.entity.WxUserInfo">
+        update t_wxuserinfo
+        <set>
+            <if test="nickName!=null and nickName!=''">
+                nickName=#{nickName},
+            </if>
+            <if test="wxid!=null and wxid!=''">
+                wxid=#{wxid},
+            </if>
+            <if test="avatarUrl!=null and avatarUrl!=''">
+                avatarUrl=#{avatarUrl},
+            </if>
+            <if test="sex!=null and sex!=null">
+                sex=#{sex},
+            </if>
+            <if test="tags!=null and tags!=''">
+                tags=#{tags},
+            </if>
+            <if test="isshow!=null and isshow!=''">
+                isshow=#{isshow},
+            </if>
+            <if test="age!=null and age!=''">
+                age=#{age},
+            </if>
+            <if test="ustatus!=null and ustatus!=''">
+                ustatus=#{ustatus},
+            </if>
+            <if test="small_id!=null and small_id!=''">
+                small_id=#{small_id},
+            </if>
+
+        </set>
+        where id=#{id} or openid =#{openid}
+    </update>
+
+
+</mapper>

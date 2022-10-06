@@ -1,0 +1,6 @@
+{
+    "usingComponents": {
+        "AudioPlay":"../../components/AudioPlay/AudioPlay",
+        "Recorder":"../../components/Recorder/Recorder"
+    }
+}

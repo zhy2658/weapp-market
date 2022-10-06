@@ -1,0 +1,75 @@
+<!--pages/mypublish/index.wxml-->
+<wxs src="../../utils/tools.wxs" module="tools" />
+
+
+<scroll-view class='page'>
+<view style="display: flex;">
+    <!-- <view></view> -->
+    <navigator url="/pages/publish/index">
+        <button style="border-right:2px solid #efefef;">编写</button>
+    </navigator>
+
+</view>
+  <!-- 列表 -->
+  <view class='CircleList' wx:for='{{DataSource}}' wx:key="item">
+    <!-- 头像、昵称、内容 -->
+    <view class='body-view'>
+      <!-- 头像 -->
+      <view class='left-view'>
+        <image class='user-icon' src='{{userInfo.avatarUrl}}'></image>
+      </view>
+      <view class='right-view'>
+        <!-- 昵称 -->
+        <view class='user-name-view'>
+          <label class='user-name'>{{item.title}}</label>
+        </view>
+        <!-- 内容 -->
+        <view class='user-content-view'>
+          <text class='user-content'>{{item.content}}</text>
+        </view>
+        <!-- 图片 -->
+        <view class='photo-view'>
+        
+            <image class='photo' bindtap='LookPhoto' wx:for='{{item.resource}}' data-list="{{item.resource}}" wx:for-item="dImg" wx:key="dImg" data-photUrl='{{dImg}}' src='{{dImg}}' style='width:{{photoWidth}}px;height:{{photoWidth}}px'></image>
+        
+        </view>
+        <!-- 地理位置 -->
+        <view class='user-address-view'>
+          <label>{{item.address}}</label>
+        </view>
+
+        <!-- 时间、删除按钮、点赞评论按钮 -->
+        <view class='TDD-view'>
+          <label>{{item.pubtime}}</label>
+          <button bindtap='delete'>删除</button>
+          <!-- <image data-isShow='{{isShow}}' bindtap='TouchDiscuss' src='/icons/_msg.png'></image> -->
+        </view>
+
+        <!-- 点赞 -->
+        <view class='zan-view'>
+          <!-- <view class='trigon-view'>
+            <image mode='aspectFill' class='trigon' src='/icons/_msg.png'></image>
+          </view> -->
+
+          <!-- 点赞 -->
+          <view class='zan-bg-view'>
+            <view class='zan-user-view' wx:for='{{item.zanSource}}' wx:key="item">
+              <label bindtap='TouchZanUser' data-name='{{item}}' class='zan-user'>{{item}},</label>
+            </view>
+          </view>
+          <view class='line'></view>
+          <view>状态：<text style="color:darkcyan;">{{statusOption[item.status]}}</text></view>
+          <!-- 评论 -->
+          <view class='discuss-view'>
+            <view class='discuss' wx:for='{{item.contnet}}' wx:key="item">
+              <label bindtap='TouchZanUser' data-name='{{item.firstname}}' class='discuss-user'>{{item.firstname}}：</label>
+              <label class='content'>{{item.content}}</label>
+            </view>
+          </view>
+        </view>
+      </view>
+
+    </view>
+  </view>
+</scroll-view>
+

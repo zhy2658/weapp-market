@@ -1,0 +1,8 @@
+<!--pages/setting/index.wxml-->
+<wxs src="../../utils/tools.wxs" module="tools" />
+
+
+
+<view class="content">
+    <button type="warn" bindtap="logout">注销</button>
+</view>

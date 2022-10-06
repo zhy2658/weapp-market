@@ -1,0 +1,76 @@
+{
+    "pages": [
+        "pages/category/index",
+        "pages/cart/index",
+        "pages/my/index",
+        "pages/search/index",
+        "pages/product_detail/index",
+        "pages/pay/index",
+        "pages/order/index",
+        "pages/index1/index",
+        "pages/chatroom/index",
+        "pages/messageList/index",
+        "pages/sharewall/index",
+        "pages/publish/index",
+        "pages/mypublish/index",
+        "pages/testpage/index",
+        "pages/userInfo/index",
+        "pages/setting/index",
+        "pages/publish_detail/index",
+        "pages/myPageManage/index",
+        "pages/orderManage/index",
+        "pages/serviceOption/index"
+    ],
+    "window": {
+        "backgroundTextStyle": "dark",
+        "navigationBarBackgroundColor": "#efefef",
+        "navigationBarTitleText": "青年时文",
+        "navigationBarTextStyle": "white",
+        "enablePullDownRefresh": true
+    },
+    "tabBar": {
+        "color": "#999",
+        "selectedColor": "#F03A53",
+        "backgroundColor": "#fafafa",
+        "position": "bottom",
+        "borderStyle": "black",
+        "list": [
+            {
+                "pagePath": "pages/index1/index",
+                "text": "情绪树洞",
+                "iconPath": "icons/_home.png",
+                "selectedIconPath": "icons/home.png"
+            },
+            {
+                "pagePath": "pages/sharewall/index",
+                "text": "万能墙",
+                "iconPath": "icons/_global.png",
+                "selectedIconPath": "icons/global.png"
+            },
+            {
+                "pagePath": "pages/category/index",
+                "text": "分类",
+                "iconPath": "icons/_category.png",
+                "selectedIconPath": "icons/category.png"
+            },
+            {
+                "pagePath": "pages/messageList/index",
+                "text": "消息",
+                "iconPath": "icons/_msg.png",
+                "selectedIconPath": "icons/msg.png"
+            },
+            {
+                "pagePath": "pages/my/index",
+                "text": "我的",
+                "iconPath": "icons/_my.png",
+                "selectedIconPath": "icons/my.png"
+            }
+        ]
+    },
+    "style": "v2",
+    "sitemapLocation": "sitemap.json",
+    "lazyCodeLoading": "requiredComponents",
+    "usingComponents": {
+        "cu-custom": "/colorui/components/cu-custom"
+    }
+}
