@@ -38,6 +38,8 @@ public class Order {
 
     private Integer pm_id;
 
+    private String servant_id;   //服务人
+
     @JsonSerialize(using=CustomDateTimeSerializer.class)
     private Date createDate; // 订单创建日期
 

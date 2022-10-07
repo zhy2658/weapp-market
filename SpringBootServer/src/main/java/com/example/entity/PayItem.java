@@ -1,6 +1,7 @@
 package com.example.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -18,6 +19,7 @@ public class PayItem implements Serializable {
 
     private Float price;
 
+    @JsonSerialize(using=CustomDateTimeSerializer.class)
     private Date create_time;
 
     private String itemName;

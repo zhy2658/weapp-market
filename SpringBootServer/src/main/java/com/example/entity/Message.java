@@ -2,6 +2,7 @@ package com.example.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -20,6 +21,7 @@ public class Message{
 
     private String msg;
 
+    @JsonSerialize(using=CustomDateTimeSerializer.class)
     private Date time;
 
     private int ms_id;

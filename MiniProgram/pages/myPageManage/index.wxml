@@ -10,7 +10,11 @@
 
 
     <button>个人主页管理</button>
-    <button>服务选项</button>
+    <view>
+        <navigator url="/pages/serviceOption/index">
+            <button>服务选项</button>
+        </navigator>
+    </view>
 
     
 

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+<!--    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>-->
+
+<!--    &lt;!&ndash;    <property name="CONSOLE" value="${-%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(-&#45;&#45;){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>&ndash;&gt;-->
+
+
+<!--    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">-->
+<!--        <encoder>-->
+<!--            <pattern>${CONSOLE_LOG_PATTERN}</pattern>-->
+<!--            <charset>${CONSOLE_LOG_CHARSET}</charset>-->
+<!--        </encoder>-->
+
+<!--    </appender>-->
+
+<!--    &lt;!&ndash;输出到文件&ndash;&gt;-->
+<!--    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--        &lt;!&ndash; 过滤器，只打印ERROR级别的日志 &ndash;&gt;-->
+<!--        &lt;!&ndash;        <filter class="ch.qos.logback.classic.filter.LevelFilter">&ndash;&gt;-->
+<!--        &lt;!&ndash;            <level>ERROR</level>&ndash;&gt;-->
+<!--        &lt;!&ndash;            <onMatch>ACCEPT</onMatch>&ndash;&gt;-->
+<!--        &lt;!&ndash;            <onMismatch>DENY</onMismatch>&ndash;&gt;-->
+<!--        &lt;!&ndash;        </filter>&ndash;&gt;-->
+<!--        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">-->
+<!--            &lt;!&ndash;格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符&ndash;&gt;-->
+<!--            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%-5level] %logger{50} - %msg%n</pattern>-->
+<!--            <charset>UTF-8</charset>-->
+<!--        </encoder>-->
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">-->
+<!--            &lt;!&ndash;日志文件输出的文件名&ndash;&gt;-->
+<!--            <FileNamePattern>${LOG_HOME}/${PROJECT_NAME}.error.%d{yyyy-MM-dd}.%i.log</FileNamePattern>-->
+<!--            &lt;!&ndash;日志文件保留天数&ndash;&gt;-->
+<!--            <MaxHistory>15</MaxHistory>-->
+<!--            &lt;!&ndash;日志文件最大的大小&ndash;&gt;-->
+<!--            <MaxFileSize>10MB</MaxFileSize>-->
+<!--        </rollingPolicy>-->
+
+
+<!--    </appender>-->
+
+
+
+<!--    <springProfile  name="dev"></springProfile>-->
+<!--    <springProfile  name="prod">-->
+<!--        <root LEVEL="INFO">-->
+<!--            &lt;!&ndash;            <appender-ref ref="CONSOLE"/>&ndash;&gt;-->
+<!--            <appender-ref ref="FILE"/>-->
+<!--        </root>-->
+<!--    </springProfile>-->
+
+
+
+
+</configuration>

@@ -19,7 +19,8 @@
         "pages/publish_detail/index",
         "pages/myPageManage/index",
         "pages/orderManage/index",
-        "pages/serviceOption/index"
+        "pages/serviceOption/index",
+        "pages/userOrder/index"
     ],
     "window": {
         "backgroundTextStyle": "dark",

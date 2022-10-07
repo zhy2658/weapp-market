@@ -27,6 +27,7 @@ Page({
         consignee: "",
         telNumber: "",
         currentPayItemId: "",
+        servant_id: '',
         // 《----------------以上是需要提交内容
 
 
@@ -54,14 +55,15 @@ Page({
             itemHours:options.itemHours,  //单小时数
             totalHours: options.itemHours * options.num, //服务总时长 
             totalPrice: options.price * options.num, //服务总时长 
-            goodsPic: options.avatarUrl
+            goodsPic: options.avatarUrl,
+            servant_id: openId
         }];
-        console.log("cart--",cart)
         this.setData({
             cart,
             currentPayItemId: options.id,
             totalNum: options.num,
-            totalPrice: options.num *  options.price
+            totalPrice: options.num *  options.price,
+            servant_id: openId
         })
        
         this.getByOpenId(openId);
@@ -169,6 +171,7 @@ Page({
             const consignee = this.data.consignee; // 请求体 收货人
             const telNumber = this.data.telNumber; // 请求体 联系电话
             const pm_id = this.data.currentPayItemId;   //项目id
+            const servant_id= this.data.servant_id;
             let goods = this.data.cart;
             //   let goods=[];
             //   购物车
@@ -186,7 +189,8 @@ Page({
                 consignee,
                 telNumber,
                 goods,
-                pm_id
+                pm_id,
+                servant_id
             }
             console.log("orderParams",  orderParams)
             // return;

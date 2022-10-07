@@ -2,6 +2,7 @@ package com.example.entity;
 
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 
 import java.util.Date;
@@ -14,6 +15,7 @@ public class MsgSession {
     private String openId;
     private String openId2;
 
+    @JsonSerialize(using=CustomDateTimeSerializer.class)
     private Date ms_time;
 
     public MsgSession( String openId, String openId2) {

@@ -1,0 +1,88 @@
+
+#需要手动配置项  ----->
+
+StaticRootPath: /www/springBootServer/static
+
+dataBaseName: db_java1234_mall
+
+#<-----需要手动配置项
+
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/${dataBaseName}?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: 1234
+
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto #id生成规则：数据库id自增
+  configuration:
+    map-underscore-to-camel-case: false
+    auto-mapping-behavior: full
+#    关闭日志
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+#      开始日志
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
+weixin:
+  jscode2sessionUrl: https://api.weixin.qq.com/sns/jscode2session
+  appid: wx2f451377383abd12
+  secret: b300a06d85296c5f98f90d0d92685fa4
+
+
+#微信支付配置
+# addid 公众账号ID
+# mch_id 商户号
+# device_info 设备号
+# key 商户的key【API密匙】
+# url api请求地址
+# notify_url 服务器异步通知页面路径
+weixinpayconfig:
+   appid: 无
+   mch_id: 无
+   key: 无
+   url: https://api.mch.weixin.qq.com/pay/unifiedorder
+   notify_url: https://3e31-222-184-165-54.ngrok.io/weixinpay/notifyUrl
+
+
+bigTypeImagesFilePath: ${StaticRootPath}/bigTypeImgs/
+
+productImagesFilePath: ${StaticRootPath}/productImgs/
+
+swiperImagesFilePath: ${StaticRootPath}/swiperImgs/
+
+productSwiperImagesFilePath: ${StaticRootPath}/productSwiperImgs/
+
+PublishImagesFilePath: ${StaticRootPath}/productIntroImgs/
+
+AudioFilePath: ${StaticRootPath}/audios/
+
+
+ws:
+  port: 8888
+  title: arduino服务器
+  host: 0.0.0.0
+  boss-count: 1
+  work-count: 100
+  allow-custom-requests: true
+  upgrade-timeout: 10000
+  ping-timeout: 60000
+  ping-interval: 25000
+
+
+
+
+
+

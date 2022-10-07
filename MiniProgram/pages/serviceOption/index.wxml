@@ -1,19 +1,82 @@
 <!--pages/serviceOption/index.wxml-->
-<text>pages/serviceOption/index.wxml</text>
 <view class="bg-white padding">
-    <view class="bg-cyan padding" style="display: flex; justify-content: space-around;" >
+    <view class="bg-cyan padding" style="display: flex; justify-content: space-around;">
         <view class="bg-cyan padding">项目</view>
         <view class="bg-cyan padding">小时数</view>
         <view class="bg-cyan padding">价格</view>
         <view class="bg-cyan padding">操作</view>
-      </view>
-    <view class="grid col-1 margin-bottom text-center" wx:for="{{5}}" wx:key>
-      <!-- <view class="{{index%2==0?'bg-cyan':'bg-blue'}} padding" wx:for="{{(index+1)*2}}" wx:key>{{index+1}}</view> -->
-      <view class=" padding" style="display: flex; justify-content: space-around;" >
-        <view class="bg-cyan padding">抬棺</view>
-        <view class="bg-cyan padding">5</view>
-        <view class="bg-cyan padding">30</view>
-        <view class="bg-cyan padding">编辑</view>
-      </view>
     </view>
-  </view>
+    <view>
+        <button bindtap="showAddModel">ADD</button>
+    </view>
+    <view class="grid col-1 margin-bottom text-center" wx:for="{{serviceItems}}" wx:for-item="item" wx:key="index" wx:for-index="index">
+        <!-- <view class="{{index%2==0?'bg-cyan':'bg-blue'}} padding" wx:for="{{(index+1)*2}}" wx:key>{{index+1}}</view> -->
+        <view class=" padding" style="display: flex; justify-content: space-around;">
+            <view class="bg-cyan padding">{{item.itemName}}</view>
+            <view class="bg-cyan padding">{{item.itemHours}}</view>
+            <view class="bg-cyan padding">{{item.price}}</view>
+            <view class="bg-cyan padding">
+                <button class="cu-btn bg-blue shadow margin-left" bindtap="showDeleteModal" data-id="{{item.id}}" style="width:200rpx">删除</button>
+            </view>
+        </view>
+    </view>
+</view>
+
+<!-- 删除确认框 -->
+<view class="cu-modal  {{isShowDeleteModel?'show':''}}">
+    <view class="cu-dialog">
+        <view class="cu-bar bg-white justify-end">
+            <view class="content">提示</view>
+            <view class="action" bindtap="hideDeleteModal">
+                <text class="cuIcon-close text-red"></text>
+            </view>
+        </view>
+        <view class="padding-xl">
+            确定要删除这个服务项目吗？
+        </view>
+        <view class="cu-bar bg-white">
+            <view class="action margin-0 flex-sub text-green ">
+            </view>
+            <view class="action margin-0 flex-sub text-green solid-left" bindtap="hideDeleteModal">取消</view>
+            <view class="action margin-0 flex-sub  solid-left" bindtap="confirmDelete">确定</view>
+        </view>
+    </view>
+</view>
+
+<!-- 增加项目确认框 -->
+<view class="cu-modal  {{isShowAddModel?'show':''}}">
+    <form bindsubmit="addServiceItem">
+        <view class="cu-dialog">
+            <view class="cu-bar bg-white justify-end">
+                <view class="content">增加项目</view>
+                <view class="action" bindtap="hideAddModel">
+                    <text class="cuIcon-close text-red"></text>
+                </view>
+            </view>
+            <view class="padding-xl">
+
+                <view class="cu-form-group margin-top">
+                    <view class="title">项目名</view>
+                    <input placeholder="项目名" name="itemName"></input>
+                </view>
+                <view class="cu-form-group">
+                    <view class="title">小时数</view>
+                    <input  type="number" placeholder="小时数" name="itemHours"></input>
+                </view>
+                <view class="cu-form-group">
+                    <view class="title">价格</view>
+                    <input type="number" placeholder="价格" name="price"></input>
+                </view>
+
+            </view>
+            <view class="cu-bar bg-white">
+                <view class="action margin-0 flex-sub text-green ">
+                </view>
+                <view class="action margin-0 flex-sub text-green solid-left" bindtap="hideAddModel">取消</view>
+                <view class="action margin-0 flex-sub  solid-left">
+                    <button formType="submit">确定</button>
+                </view>
+            </view>
+        </view>
+    </form>
+</view>

@@ -144,6 +144,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+      console.log("bottom")
     // 判断有没有下一页数据
     if(this.QueryParams.page>=this.totalPage){
       // 没有下一页数据
@@ -156,6 +157,9 @@ Page({
       this.QueryParams.page++;
       this.getOrders();
     }
+  },
+  onScrolltolowe(){
+    console.log("----")
   },
 
   /**

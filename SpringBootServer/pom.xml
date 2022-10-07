@@ -18,6 +18,26 @@
         <swagger.version>1.5.21</swagger.version>
         <weixin-java-mp.version>3.7.0</weixin-java-mp.version>
     </properties>
+    <!--开发环境设置-->
+    <profiles>
+        <profile>
+            <!-- 开发环境 -->
+            <id>dev</id>
+            <properties>
+                <environment>dev</environment>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <!-- 生产环境 -->
+        <profile>
+            <id>prod</id>
+            <properties>
+                <environment>prod</environment>
+            </properties>
+        </profile>
+    </profiles>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -210,6 +230,23 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
+<!--        打包文件排除-->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>application*.yml</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>application.yml</include>
+                    <include>application-${environment}.yml</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
 
 </project>

@@ -1,0 +1,7 @@
+/* pages/userOrder/index.wxss */
+.page{
+    height: 100vh;
+}
+.user_row{
+    padding: 20px 0;
+}

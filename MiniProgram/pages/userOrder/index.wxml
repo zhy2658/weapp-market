@@ -1,11 +1,12 @@
+<!--pages/userOrder/index.wxml-->
 <!--pages/orderManage/index.wxml-->
 
 
-<scroll-view class="page" scroll-y='true'  bindscrolltolower='onScrolltolower'>
+<scroll-view class="page" scroll-y='true' bindscrolltolower='onScrolltolower'>
     <!-- 顶部标题栏 -->
     <view class="cu-bar bg-white solid-bottom margin-top">
         <view class="action">
-            <text class="cuIcon-title text-orange "></text> 订单管理 {{total}}
+            <text class="cuIcon-title text-orange "></text> 我的订单
         </view>
         <view class="action">
             <button class="cu-btn bg-green shadow" bindtap="showModal" data-target="gridModal">显示 <text>({{showItem[showItemIndex]}})</text>
@@ -39,20 +40,20 @@
     </view>
     <!-- 服务显示 -->
     <!-- 0等待支付 -->
-    <view wx:if="{{showItemIndex == 0}}">   
+    <view wx:if="{{showItemIndex == 0}}">
         <view class="padding bg-white ">
             <view class="user_row" wx:for="{{orderList}}" wx:for-item="order" wx:for-index="index" wx:key="order">
                 <view>{{order.wxUserInfo.nickName}}:</view>
-                <view style="color: green;">等待用户付款....</view>
+                <view style="color: green;">等待付款....</view>
                 <view>项目: {{order.goods[0].goodsName}}</view>
-                <view>单价: {{order.goods[0].goodsPrice}} 元  /  {{order.goods[0].itemHours}}小时</view>
+                <view>单价: {{order.goods[0].goodsPrice}} 元 / {{order.goods[0].itemHours}}小时</view>
                 <view>数量: {{order.goods[0].goodsNumber}}</view>
                 <view>总时长: {{order.goods[0].totalHours}} 小时</view>
                 <view>需付款: {{order.totalPrice}}</view>
                 <!-- <view>结束时间: {{order.goods[0].serviceEnd}}</view> -->
-               
+
             </view>
-            
+
         </view>
     </view>
     <!-- 1正在服务 -->
@@ -61,11 +62,11 @@
             <view class="user_row" wx:for="{{orderList}}" wx:for-item="order" wx:for-index="index" wx:key="order">
                 <view>{{order.wxUserInfo.nickName}}:</view>
                 <view wx:if="{{order.goods[0].finishedPersent ==1}}" style="color: green;">
-                已到时间，点击确认已完成服务 <button type="primary" bindtap="confirmFinishedService" data-id="{{order.id}}">确认完成服务</button>
+                    <!-- 已到时间，点击确认已完成服务 <button type="primary" bindtap="confirmFinishedService" data-id="{{order.id}}">确认完成服务</button> -->
                 </view>
                 <view wx:else>还剩下 {{order.goods[0].restDay}} 天 {{order.goods[0].restHours}} 小时完成服务</view>
                 <view>项目: {{order.goods[0].goodsName}}</view>
-                <view>单价: {{order.goods[0].goodsPrice}} 元  /  {{order.goods[0].itemHours}}小时</view>
+                <view>单价: {{order.goods[0].goodsPrice}} 元 / {{order.goods[0].itemHours}}小时</view>
                 <view>数量: {{order.goods[0].goodsNumber}}</view>
                 <view>总时长: {{order.goods[0].totalHours}} 小时</view>
                 <view>实付款: {{order.totalPrice}}</view>
@@ -77,7 +78,7 @@
                     <text class="margin-left">{{order.goods[0].finishedPersent*100}}%</text>
                 </view>
             </view>
-            
+
         </view>
     </view>
     <!-- 2等待确认 -->
@@ -85,10 +86,12 @@
         <view class="padding bg-white ">
             <view class="user_row" wx:for="{{orderList}}" wx:for-item="order" wx:for-index="index" wx:key="order">
                 <view>{{order.wxUserInfo.nickName}}:</view>
-                <view wx:if="{{order.goods[0].finishedPersent ==1}}" style="color: green;">已完成服务,等待用户确认,剩4天系统自动确认</view>
+                <view wx:if="{{order.goods[0].finishedPersent ==1}}" style="color: green;">
+                  <button type="default" bindtap="confirmFinishedService" data-id="{{order.id}}">点击确定对方完成服务</button>
+                </view>
                 <view wx:else>还剩下 {{order.goods[0].restDay}} 天 {{order.goods[0].restHours}} 小时完成服务</view>
                 <view>项目: {{order.goods[0].goodsName}}</view>
-                <view>单价: {{order.goods[0].goodsPrice}} 元  /  {{order.goods[0].itemHours}}小时</view>
+                <view>单价: {{order.goods[0].goodsPrice}} 元 / {{order.goods[0].itemHours}}小时</view>
                 <view>数量: {{order.goods[0].goodsNumber}}</view>
                 <view>总时长: {{order.goods[0].totalHours}} 小时</view>
                 <view>实付款: {{order.totalPrice}}</view>
@@ -100,7 +103,7 @@
                     <text class="margin-left">{{order.goods[0].finishedPersent*100}}%</text>
                 </view>
             </view>
-            
+
         </view>
     </view>
     <!-- 3完成交易 -->
@@ -110,7 +113,7 @@
                 <view>{{order.wxUserInfo.nickName}}:</view>
                 <view>完成时间: {{order.goods[0].serviceEnd}}</view>
                 <view>项目: {{order.goods[0].goodsName}}</view>
-                <view>单价: {{order.goods[0].goodsPrice}} 元  /  {{order.goods[0].itemHours}}小时</view>
+                <view>单价: {{order.goods[0].goodsPrice}} 元 / {{order.goods[0].itemHours}}小时</view>
                 <view>数量: {{order.goods[0].goodsNumber}}</view>
                 <view>总时长: {{order.goods[0].totalHours}} 小时</view>
                 <view>实付款: {{order.totalPrice}}</view>
@@ -121,18 +124,17 @@
                     <text class="cuIcon-roundcheckfill text-green margin-left-sm"></text>
                 </view>
             </view>
-          
+
         </view>
     </view>
     <!-- 4请求退单中 -->
     <view wx:elif="{{showItemIndex == 4}}">
         请求退单中
     </view>
-   <!-- 5已经退单 -->
+    <!-- 5已经退单 -->
     <view wx:elif="{{showItemIndex == 5}}">
         已退单
     </view>
-
 
 
 </scroll-view>

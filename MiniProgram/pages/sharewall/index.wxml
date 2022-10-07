@@ -11,6 +11,7 @@
     </navigator>
 
 </view>
+
 <scroll-view class='page' scroll-y='true'  bindscrolltolower='onScrolltolowe' >
 
     <!-- 列表 -->
@@ -92,6 +93,7 @@
     <view wx:if="{{isBottom}}" style="font-size: 1rem;display: flex;justify-content: center; align-items: center;height: 10vh; color: #454545;">已经到底了！！！</view>
 
 </scroll-view>
+
 <view wx:if="{{showCommentDialog}}" class="bottom_section" style="position:fixed ;bottom:0vh;background-color: #fff;width: 750rpx;border: 1px solid #efefef;">
         <form bindsubmit='loginForm'>
             <view class="page-section">
@@ -111,4 +113,4 @@
         </form>
 
 
-    </view>
+</view>

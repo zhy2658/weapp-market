@@ -2,6 +2,7 @@ package com.example.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 
 import java.util.Date;
@@ -13,11 +14,18 @@ import java.util.Map;
 public class Publish {
     private int pid;
     private String title;
+
     private String content;
+
     private String address;
+
     private int isimg;
+
+    @JsonSerialize(using=CustomDateTimeSerializer.class)
     private Date pubtime;
+
     private int status;
+
     private String openId;
 
 

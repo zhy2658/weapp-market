@@ -8,8 +8,11 @@ import lombok.Data;
 @Data
 public class PublishImg {
     private int id;
+
     private int sort;
+
     private String src;
+
     private int pid;
 
 }

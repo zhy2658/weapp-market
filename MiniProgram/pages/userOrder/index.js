@@ -1,6 +1,6 @@
-// pages/orderManage/index.js
+// pages/userOrder/index.js
 // 导入request请求工具方法
-import { getBaseUrl, requestUtil } from "../../utils/requestUtil.js";
+import {getBaseUrl, requestUtil} from "../../utils/requestUtil.js";
 import regeneratorRuntime from '../../lib/runtime/runtime';
 
 Page({
@@ -10,20 +10,19 @@ Page({
      */
     data: {
         modalName: "",
-        showItemIndex: 0,
-        showItem: ["等待支付", "正在进行", "待确认", "完成"
-            // ,"请求退单中","已退单"
-        ],
+        showItemIndex: 1 ,
+        showItem:["等待支付","正在进行","待确认","完成"
+        // ,"请求退单中","已退单"
+    ],
 
-        orderList: [],
-
+        orderList:[],
         total: 0,
         totalPage: 0,
-        QueryParams: {
+        QueryParams:{
             type: 1,
-            page: 1, // 第几页
-            pageSize: 2 // 每页记录数
-        },
+            page:1, // 第几页
+            pageSize:2 // 每页记录数
+          },
     },
 
     /**
@@ -31,49 +30,50 @@ Page({
      */
     onLoad(options) {
         let that = this;
+        if(!isNaN(options.status)){
+            this.setData({
+                showItemIndex: options.status
+            })
+        }
 
-        // this.getOrder();
+        this.getOrder(this.data.showItemIndex);
         setTimeout(function () {
             that.setData({
                 loading: true
             })
         }, 500)
     },
-    async getOrder(status, operation) {
-        let QueryParams = this.data.QueryParams;
-        QueryParams.status = status;
+    async getOrder(status,operation){
+        let QueryParams=this.data.QueryParams;
+        QueryParams.type =status;
         this.setData({
             QueryParams
         })
-        const res = await requestUtil({
-            url: '/order/manage/getMyOrder',
+        const res=await requestUtil({
+            url:'/my/order/list' ,
             data: this.data.QueryParams
         });
         let orderList = [];
-        // for( ){
-
-        if (operation == "add") {
-            orderList = this.data.orderList;
-            orderList = orderList.concat(res.orderList)
+        if(operation == "add"){
+            orderList= this.data.orderList;
+            orderList=orderList.concat(res.orderList)
         }
-        else {
-            orderList = res.orderList;
+        else{
+            orderList=res.orderList;  
         }
-        // }
         this.setData({
             orderList: orderList,
             total: res.total,
             totalPage: res.totalPage
         })
-        console.log(res)
+       
     },
-    chooseShow(e) {
+    chooseShow(e){
         let QueryParams = this.data.QueryParams;
         QueryParams.page = 1;
         this.getOrder(e.currentTarget.dataset.index)
         this.setData({
             showItemIndex: e.currentTarget.dataset.index,
-            // total: 0,
             QueryParams
         })
     },
@@ -93,16 +93,16 @@ Page({
         //     unfinished: e.detail.value
         // });
     },
-    async confirmFinishedService(e) {
+    async confirmFinishedService(e){
         // console.log(e.target.dataset.id)
-        if (!e.target.dataset.id) return;
-        const res = await requestUtil({ url: '/order/manage/confirmFinishedService?order_id=' + e.target.dataset.id });
+        if(!e.target.dataset.id)return;
+        const res=await requestUtil({url:'/order/manage/confirmFinishedService?order_id='+ e.target.dataset.id });
         console.log(res);
 
     },
-    onScrolltolower() {
-        let QueryParams = this.data.QueryParams;
-        if (QueryParams.page >= this.data.totalPage) {
+    onScrolltolower(){
+        let QueryParams =  this.data.QueryParams;
+        if(QueryParams.page >= this.data.totalPage){
             console.log("已经到底部了");
             return;
         }
@@ -110,8 +110,18 @@ Page({
         this.setData({
             QueryParams
         })
-        this.getOrder(this.data.showItemIndex, "add");
-    },
+        this.getOrder(this.data.showItemIndex,"add");
+      },
+      async confirmFinishedService(e){
+        const res=await requestUtil({url:'/my/order/confirmOrder?order_id='+ e.target.dataset.id });
+        if(res.code==500){
+            console.log(res)
+        }
+        else{
+            this.getOrder(this.data.showItemIndex)
+        }
+        console.log(res);
+      },
 
     /**
      * 生命周期函数--监听页面初次渲染完成
