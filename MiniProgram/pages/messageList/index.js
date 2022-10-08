@@ -1,6 +1,6 @@
 // pages/messageList/index.js
 
-import {getBaseUrl, requestUtil} from "../../utils/requestUtil.js";
+import { getBaseUrl, requestUtil } from "../../utils/requestUtil.js";
 
 Page({
 
@@ -8,7 +8,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        baseUrl:"",
+        baseUrl: "",
         msgSessionList: []
     },
 
@@ -16,15 +16,15 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
-        const baseUrl=getBaseUrl();
+        const baseUrl = getBaseUrl();
         this.setData({
             baseUrl: baseUrl
-          })
+        })
         this.getMsgList();
-          
+
     },
-    async getMsgList(){
-        const result= await requestUtil({
+    async getMsgList() {
+        const result = await requestUtil({
             url: "/chat/getAllMsgSession",
 
         });
@@ -32,7 +32,45 @@ Page({
             msgSessionList: result
         });
         console.log(this.data.msgSessionList)
-        
+
+
+    },
+    // ListTouch触摸开始
+    ListTouchStart(e) {
+        this.setData({
+            ListTouchStart: e.touches[0].pageX
+        })
+    },
+    // ListTouch计算方向
+    ListTouchMove(e) {
+        this.setData({
+            ListTouchDirection: e.touches[0].pageX - this.data.ListTouchStart > 0 ? 'right' : 'left'
+        })
+    },
+    // ListTouch计算滚动
+    ListTouchEnd(e) {
+        if (this.data.ListTouchDirection == 'left') {
+            this.setData({
+                modalName: e.currentTarget.dataset.target
+            })
+        } else {
+            this.setData({
+                modalName: null
+            })
+        }
+        this.setData({
+            ListTouchDirection: null
+        })
+    },
+    openchatroom(e){
+        // console.log(e.currentTarget.dataset.openid)
+        wx.navigateTo({
+            url: '/pages/chatroom/index?openid='+e.currentTarget.dataset.openid
+            // url: 'page/chatroom/index'
+          });
+        //   wx.navigateTo({
+        //     url: '/pages/chatroom/index',
+        //   })
     },
     /**
      * 生命周期函数--监听页面初次渲染完成

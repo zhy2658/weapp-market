@@ -29,8 +29,8 @@ public class PublishServiceImpl implements PublishService {
     }
 
     @Override
-    public List<Map<String,Object>> getMyPublish(String openId) {
-        return publishMapper.getMyPublish(openId);
+    public List<Map<String,Object>> getMyPublish(PageBean pageBean) {
+        return publishMapper.getMyPublish(pageBean);
     }
 
     @Override

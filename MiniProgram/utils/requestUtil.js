@@ -3,7 +3,7 @@ let ajaxTimes = 0;
 
 const PROTOCOL = "http://";
 // 定义公共的url
-const IP="localhost";
+const IP = "localhost";
 // const IP = "47.92.54.83";
 const rootURL = PROTOCOL + IP
 let baseUrl = rootURL + ":8080/";
@@ -119,7 +119,7 @@ export const requestUtil = (params) => {
     var start = new Date().getTime();
 
     // 模拟网络延迟加载
-    while (true) if (new Date().getTime() - start > 1000 * 1) break;
+    // while (true) if (new Date().getTime() - start > 1000 * 1) break;
 
 
     return new Promise((resolve, reject) => {
@@ -128,9 +128,24 @@ export const requestUtil = (params) => {
             header: header,
             url: baseUrl + params.url,
             success: (result) => {
-                resolve(result.data);
+                if (result.data && (result.data.status == "403")) {
+                    console.log("success ", result.data.msg)
+                    wx.showToast({  
+                        title: result.data.msg,  
+                        icon: 'error',  
+                        duration: 2000  
+                    })    
+                    //清除缓存
+                    wx.clearStorage({
+                        success: (res) => {},
+                    }) 
+                }else{
+                    resolve(result.data);
+                }
+                
             },
             fail: (err) => {
+                console.log("err", err)
                 reject(err);
             },
             complete: () => {

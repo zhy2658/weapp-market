@@ -50,9 +50,11 @@ public class PublishController {
     }
 
     @RequestMapping("/get_mypublish")
-    public Map<String,Object> getMyPublish(HttpServletRequest request){
+    public Map<String,Object> getMyPublish(HttpServletRequest request,PageBean pageBean){
         String openId=(String)request.getSession().getAttribute("openId");
-        List<Map<String,Object>> publishs = pulishService.getMyPublish(openId);
+
+        pageBean.setQuery(openId);
+        List<Map<String,Object>> publishs = pulishService.getMyPublish(pageBean);
         Map map = new HashMap<String,Object>();
         map.put("publishs",publishs);
         return map;

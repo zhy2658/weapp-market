@@ -23,8 +23,8 @@ Page({
             audioSrc: ''
         },
         // 录音对象
-        recorderObj:{
-            showRecorder:false
+        recorderObj: {
+            showRecorder: false
         }
     },
 
@@ -172,7 +172,7 @@ Page({
         let audioObj = data.detail;
         console.log("data", audioObj);
         wx.uploadFile({
-            url: getBaseUrl() + 'users/uploadRecording?audioTime='+ audioObj.curTime,
+            url: getBaseUrl() + 'users/uploadRecording?audioTime=' + audioObj.curTime,
             filePath: audioObj.filePath,
             name: "file",
             data: {
@@ -206,14 +206,14 @@ Page({
         })
 
     },
-    showRecorder(){
+    showRecorder() {
         this.setData({
-            recorderObj:{
-                showRecorder:true
+            recorderObj: {
+                showRecorder: true
             }
         })
     },
-
+  
     /**
      * 生命周期函数--监听页面初次渲染完成
      */

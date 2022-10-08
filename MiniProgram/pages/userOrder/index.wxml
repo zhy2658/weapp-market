@@ -6,7 +6,7 @@
     <!-- 顶部标题栏 -->
     <view class="cu-bar bg-white solid-bottom margin-top">
         <view class="action">
-            <text class="cuIcon-title text-orange "></text> 我的订单
+            <text class="cuIcon-title text-orange "></text> 我的订单 {{total}}
         </view>
         <view class="action">
             <button class="cu-btn bg-green shadow" bindtap="showModal" data-target="gridModal">显示 <text>({{showItem[showItemIndex]}})</text>

@@ -1,13 +1,24 @@
 /* pages/mypublish/index.wxss */
 
 
+/* pages/sharewall/index.wxss */
+
 page {
     background: whitesmoke;
+    background-color: white;
 }
 
 .page {
     width: 100%;
+    height: 89vh;
     /* overflow-x: hidden */
+    /* padding-bottom: 5vh; */
+    /* background-color: red; */
+    box-sizing: border-box;
+}
+.header{
+    height: 10vh;
+    /* background-color: red; */
 }
 
 /* 列表 */
@@ -16,6 +27,11 @@ page {
     margin-bottom: 1px;
     border-bottom: 1px solid whitesmoke;
     border-top: 1px solid whitesmoke;
+    margin-top: 10px;
+}
+.CircleList:last-child{
+    padding-bottom: 40px;
+    /* background-color: blue; */
 }
 
 .body-view {
@@ -50,6 +66,7 @@ page {
     color: rgb(88, 103, 138);
     margin-top: 30rpx;
     margin-left: 10rpx;
+    font-size: 1rem;
 }
 
 /* 内容 */
@@ -58,18 +75,22 @@ page {
     font-size: 18px;
     line-height: 50rpx;
     margin-left: 10rpx;
+    font-size: 0.8rem;
 }
 
 /* 图片 */
 .photo-view {
-    background: rebeccapurple;
+    /* background: rebeccapurple; */
     margin-left: 10rpx;
     margin-bottom: 20rpx;
+    display: block;
+    width: 550rpx;
+    /* min-height: 40px; */
 }
 
 .photo {
     background: rgb(255, 166, 0);
-    float: left;
+    /* float: left; */
     margin-right: 10rpx;
     margin-top: 10rpx;
 }
@@ -140,11 +161,13 @@ page {
 .zan-bg-view {
     display: inline-block;
     width: 97%;
-    background: rgb(235, 235, 235);
+    /* background: rgb(235, 235, 235); */
     margin-right: 20rpx;
     margin-bottom: -11rpx;
     border-top-left-radius: 7rpx;
     border-top-right-radius: 7rpx;
+    font-size: 0.8rem;
+    color: #454545;
 }
 
 .zan-user-view {
@@ -154,6 +177,7 @@ page {
     margin-left: 10rpx;
     /* margin-top: 5rpx; */
     align-content: center;
+    
 }
 
 .zan-user {
@@ -173,10 +197,11 @@ page {
 .discuss-view {
     background: white;
     width: 97%;
+    font-size: 0.8rem;
 }
 
 .discuss {
-    background: rgb(235, 235, 235);
+    /* background: rgb(235, 235, 235); */
     line-height: 35rpx;
 }
 
@@ -203,6 +228,7 @@ page {
 }
 .user-content-view{
     color: #454545;
+    font-size: 0.8rem;
 }
 .user-address-view{
     color: #454545;

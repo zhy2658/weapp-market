@@ -7,7 +7,7 @@ var that
 const queryForm={
     query:'',
     pageNum:1,
-    pageSize:6
+    pageSize: 6
   }
 
 Page({

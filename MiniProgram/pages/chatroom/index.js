@@ -75,6 +75,11 @@ Page({
             url: "/chat/getMessage?openId=" + this.data.OppositeOpenId,
 
         });
+        for (let obj of result2) {
+            if (obj.mySelf) {
+                obj.avatarUrl = wx.getStorageSync('userInfo').avatarUrl;
+            }
+        }
         this.setData({
             msgList: result2
         })
@@ -94,6 +99,16 @@ Page({
         }
 
         // console.log(result)
+    },
+    InputFocus(e) {
+        this.setData({
+            InputBottom: e.detail.height
+        })
+    },
+    InputBlur(e) {
+        this.setData({
+            InputBottom: 0
+        })
     },
 
     /**

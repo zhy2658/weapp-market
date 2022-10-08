@@ -4,8 +4,8 @@
 
 
 <view>
-    <view wx:for="{{msgSessionList}}" wx:for-item="msgSession" wx:for-index="index" wx:key="msgSession">
-        <navigator url="/pages/chatroom/index?openid={{msgSession.openId}}" class="list-item" >
+    <!-- <view wx:for="{{msgSessionList}}" wx:for-item="msgSession" wx:for-index="index" wx:key="msgSession">
+        <navigator url="/pages/chatroom/index?openid={{msgSession.openId}}" class="list-item">
 
             <view class="avt">
                 <image mode="widthFix" src="{{tools.filePathHandler(msgSession.avatarUrl)}}"></image>
@@ -13,6 +13,30 @@
             <view class="msg">{{msgSession.nickName}}</view>
             <view class="time">{{msgSession.ms_time}}</view>
         </navigator>
+    </view> -->
+    <view class="cu-list menu-avatar">
+        <view class="cu-item {{modalName=='move-box-'+ index?'move-cur':''}}" wx:for="{{msgSessionList}}" wx:for-item="msgSession" wx:for-index="index" wx:key="msgSession" bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-{{index}}" bindtap="openchatroom" data-openId="{{msgSession.openId}}">
+            <!-- <navigator url="/pages/chatroom/index?openid={{msgSession.openId}}" class="list-item"> -->
+            <view class="cu-avatar round lg" style="background-image:url({{tools.filePathHandler(msgSession.avatarUrl)}});"></view>
+            <view class="content">
+                <view class="text-grey">{{msgSession.nickName}}</view>
+                <view class="text-gray text-sm">
+                    <text>你好</text>
+                    <!-- <text class="cuIcon-infofill text-red"></text> 消息未送达 -->
+                </view>
+            </view>
+            <view class="action">
+                <view class="text-grey text-xs">{{msgSession.ms_time}}</view>
+                <view class="cu-tag round bg-grey sm">1</view>
+            </view>
+            <view class="move">
+                <view class="bg-grey">置顶</view>
+                <view class="bg-red">删除</view>
+            </view>
+            <!-- </navigator> -->
+        </view>
+
+        <!-- -->
     </view>
 
 

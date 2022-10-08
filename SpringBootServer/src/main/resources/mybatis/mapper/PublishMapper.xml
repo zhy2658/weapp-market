@@ -29,6 +29,18 @@
         </if>
     </select>
 
+    <select id="getMyPublish"  resultMap="PublishResult">
+        select * from t_publish
+        <where>
+            openId = #{query}
+        </where>
+        ORDER BY pubtime DESC
+        <if test="start!=null and pageSize!=null">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
+
+
     <select id="selectOneByPid"  resultMap="PublishResult">
         select * from t_publish
         <where>

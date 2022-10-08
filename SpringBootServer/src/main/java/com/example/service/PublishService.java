@@ -12,7 +12,7 @@ public interface PublishService {
 
     void add(Publish pulish, List<PublishImg> pulishImgs);
 
-    List<Map<String, Object>> getMyPublish(String openId);
+    List<Map<String, Object>> getMyPublish(PageBean pageBean);
 
     List<Map<String, Object>> getAllPublishByStatus(Map<String, Object> pageMap);
 

@@ -29,8 +29,8 @@ public interface PublishMapper extends BaseMapper<Publish> {
     void addPublishImg(@Param(value = "list") List<PublishImg> publishImgs);
 
 
-    @Select("select * from t_publish where openId = #{openId} order by pubtime desc")
-    List<Map<String,Object>> getMyPublish(@Param("openId") String openId);
+//    @Select("select * from t_publish where openId = #{openId} order by pubtime desc")
+    List<Map<String,Object>> getMyPublish(PageBean pageBean);
 
 //    @Select("select * from t_publish where status = #{status}")
     List<Map<String,Object>> getAllPublishByStatus(Map<String,Object>pageMap);
