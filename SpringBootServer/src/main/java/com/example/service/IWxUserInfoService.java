@@ -16,6 +16,7 @@ public interface IWxUserInfoService extends IService<WxUserInfo> {
     WxUserInfo findByOpenId(String openId);
 
     void updateUserShow(String openId,int isshow);
+    void updateUserAdmin(String openId,Integer admin);
 
     Integer update(WxUserInfo wxUserInfo);
 

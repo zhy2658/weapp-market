@@ -23,6 +23,9 @@ public interface WxUserInfoMapper extends BaseMapper<WxUserInfo> {
     @Update("update t_wxuserinfo set isshow = #{isshow} where openid=#{openId}")
     public void updateUserShow(String openId,int isshow);
 
+    @Update("update t_wxuserinfo set admin = #{admin} where openid=#{openId}")
+    public void updateUserAdmin(String openId,Integer admin);
+
     public Integer update(WxUserInfo wxUserInfo);
 
 }

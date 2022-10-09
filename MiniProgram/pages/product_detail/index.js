@@ -73,6 +73,8 @@ Page({
 
     },
     choosePayItem() {
+
+
         this.showModal()
         // console.log("aa")
     },
@@ -161,6 +163,7 @@ Page({
         this.getProductDetail(options.id)
     },
     confirmOrder() {
+        let userInfo = wx.getStorageSync('userInfo');
         let id = this.data.gg_id;
         let itemName = this.data.gg_txt;
         let price = this.data.gg_price;
@@ -168,6 +171,30 @@ Page({
         let openId = this.data.userInfo.openid;
         let avatarUrl=this.data.userInfo.avatarUrl;
         let num=this.data.num;
+        if(!id){
+            wx.showToast({  
+                title: "请选择服务！",  
+                icon: 'error',  
+                duration: 2000  
+            })  
+            return;
+        }
+        if(!userInfo.openid){
+            wx.showToast({  
+                title: "请登录！",  
+                icon: 'error',  
+                duration: 2000  
+            })  
+            return;
+        }
+        if(openId == userInfo.openid){
+            wx.showToast({  
+                title: "是自己额！",  
+                icon: 'error',  
+                duration: 2000  
+            })  
+            return;
+        }
         wx.navigateTo({   //保留当前页面，跳转到应用内的某个页面（最多打开5个页面，之后按钮就没有响应的）后续可以使用wx.navigateBack 可以返回;
             url: `/pages/pay/index?id=${id}&itemName=${itemName}&price=${price}&itemHours=${itemHours}&openId=${openId}&num=${num}&avatarUrl=${avatarUrl}`
         })

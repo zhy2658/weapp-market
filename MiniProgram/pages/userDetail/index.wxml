@@ -1,0 +1,101 @@
+<!--pages/userDetail/index.wxml-->
+<wxs src="../../utils/tools.wxs" module="tools" />
+
+<Recorder recorderObj="{{recorderObj}}" bindonFileAddress="onFileAddress" />
+
+
+<view class="header">
+    <view class="header_row1">
+        <view class="avatar" style="margin-left: 50rpx;">
+            <image wx:if="{{userInfo.avatarUrl}}" src="{{tools.filePathHandler(userInfo.avatarUrl)}}" bindtap="changeAvatar">
+            </image>
+        </view>
+        <button class="cu-btn round" wx:if="{{disableEidt}}" bindtap="openEdit">编辑</button>
+        <button class="cu-btn round bg-red" wx:else bindtap="closeEdit" type="warn">取消编辑</button>
+    </view>
+    <view>
+        <!-- <view>语音</view> -->
+        <view class="info" style="color: teal;">
+            <button class="cu-btn icon" bindtap="playAudio">
+                <text class=" iconfont icon-bofang"></text>
+            </button>
+            <button class="cu-btn round " style="margin-top: 10px;" bindtap="showRecorder">录制</button>
+        </view>
+    </view>
+</view>
+<form bindsubmit="preSubmitForm">
+    <button wx:if='{{ !disableEidt }}' form-type="submit"> 提交</button>
+    <view class='container'>
+        <view class="cu-form-group margin-top">
+            <view class="title">昵称</view>
+            <input type="text" value=" {{userInfo.nickName}}" name="nickName" disabled='{{ disableEidt }}' />
+        </view>
+        <view class="cu-form-group">
+            <view class="title">微信号</view>
+            <input type="text" value=" {{userInfo.wxid}}" name="wxid" disabled='{{ disableEidt }}' />
+        </view>
+        <!-- <view class="cu-form-group">
+		<view class="title">性别</view>
+        <input type="text" value=" {{userInfo.sex}}" name="sex" disabled='{{ disableEidt }}' />
+	</view> -->
+        <view class="cu-form-group">
+            <view class="title">性别</view>
+            <switch class="switch-sex" checked="{{userInfo.sex == 1? false : true}}" name="sex" disabled='{{ disableEidt }}'></switch>
+        </view>
+        <view class="cu-form-group">
+            <view class="title">年龄</view>
+            <input type="text" value=" {{userInfo.age}}" name="age" disabled='{{ disableEidt }}' />
+        </view>
+        <view class="cu-form-group">
+            <view class="title">标签</view>
+            <input type="text" value=" {{userInfo.tags}}" name="tags" disabled='{{ disableEidt }}' />
+        </view>
+
+        <view>-------------------------------------------------</view>
+        <view class="cu-form-group">
+            <view class="title">简述</view>
+            <input type="text" value=" {{productObj.description}}" name="description" disabled='{{ disableEidt }}' />
+        </view>
+        <!-- <view class="cu-form-group">
+            <view class="title">分类</view>
+            <input type="text" value=" {{1}}" name="xxx" disabled='{{ disableEidt }}' />
+        </view> -->
+        <view class="cu-form-group">
+            <view class="title">详细介绍</view>
+            <!-- 点击编辑 -->
+            <rich-text nodes="{{productObj.productIntroImgs}}"></rich-text>
+        </view>
+        
+
+
+    </view>
+    <view class="cu-bar bg-white margin-top">
+		<view class="action">
+			照片上传
+		</view>
+		<view class="action">
+			{{productObj.productSwiperImageList.length}}/4
+		</view>
+	</view>
+	<view class="cu-form-group">
+		<view class="grid col-4 grid-square flex-sub">
+			<view class="bg-img" wx:for="{{productObj.productSwiperImageList}}" wx:key="{{index}}"  wx:for-item="imageObj" bindtap="ViewImage" data-url="{{imageObj.image}}">
+				<image wx:if="{{tools.isExistHttp(imageObj.image)}}" src="{{imageObj.image}}" mode='aspectFill'></image>
+                <image wx:else src="{{tools.filePathHandler('/image/productSwiperImgs/'+imageObj.image)}}" mode='aspectFill'></image>
+
+				<view wx:if="{{ !disableEidt }}" class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}" >
+					<text class="cuIcon-close" ></text>
+				</view>
+			</view>
+			<view class="solids" bindtap="ChooseImage" wx:if="{{productObj.productSwiperImageList.length<4}}">
+				<text class="cuIcon-cameraadd"></text>
+			</view>
+		</view>
+	</view>
+
+
+
+</form>
+<!-- 音乐播放器 开始 -->
+<AudioPlay audioPlayObj="{{audioPlayObj}}" bindaudioClose="audioClose" bindaudioPause="audioPause" />
+<!-- 音乐播放器 结束 -->

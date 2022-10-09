@@ -22,6 +22,12 @@ spring:
     url: jdbc:mysql://localhost:3306/${dataBaseName}?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     username: root
     password: 1234
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    encoding: UTF-8 #编码
+    suffix: .html #模板后缀
+    mode: HTML #模板
 
 mybatis-plus:
   global-config:

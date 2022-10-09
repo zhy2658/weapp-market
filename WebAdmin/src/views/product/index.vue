@@ -5,7 +5,7 @@
         <el-input placeholder="请输入商品名称..." clearable v-model="queryForm.query"></el-input>
       </el-col>
       <el-button type="primary" :icon="Search" @click="initProductList">搜索</el-button>
-      <el-button type="primary" @click="handleDialogValue()">添加商品</el-button>
+      <el-button type="primary" @click="handleDialogValue()">添加用户</el-button>
     </el-row>
     <el-table :data="tableData" stripe style="width: 100%">
 
@@ -54,8 +54,9 @@
           <el-button type="success" @click="handleChangeImage(scope.row)">更换图片</el-button>
           <el-button type="primary" @click="handleChangeSwiper(scope.row)">幻灯设置</el-button>
           <el-button type="primary" :icon="Edit" @click="handleDialogValue(scope.row)"></el-button>
-          <el-button type="danger" :icon="Delete" @click="handleDelete(scope.row.id)"></el-button>
+          <!-- <el-button type="danger" :icon="Delete" @click="handleDelete(scope.row.id)"></el-button> -->
           <el-button type="primary" @click="handleChangeProductSwiperImage(scope.row)">轮播图片设置</el-button>
+          <el-button type="primary" @click="handleAdminStatus(scope.row.userInfo.openid, 1)">提权</el-button>
         </template>
 
       </el-table-column>
@@ -255,6 +256,38 @@ const handleChangeProductSwiperImage = (row) => {
   productSwiperImageDialogVisible.value=true;
 }
 
+const handleAdminStatus = (openId,admin) => {
+  console.log(openId,admin)
+  ElMessageBox.confirm(
+    '您确定要更新该用户的公开状态',
+    '系统提示',
+    {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+    }
+  )
+    .then(async() => {
+
+      let res=await axios.get("admin/user/update_admin",{"openId":openId, "admin": admin});
+      if(res.data.code==0){
+        ElMessage({
+          type: 'success',
+          message: '执行成功！',
+        });
+        initUserList();
+      }else{
+        ElMessage({
+          type: 'error',
+          message: res.data.msg,
+        });
+      }
+
+    })
+    .catch(() => {
+
+    })
+}
 
 </script>
 

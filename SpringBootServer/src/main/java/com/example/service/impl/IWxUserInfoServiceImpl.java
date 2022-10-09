@@ -35,6 +35,11 @@ public class IWxUserInfoServiceImpl extends ServiceImpl<WxUserInfoMapper,WxUserI
     }
 
     @Override
+    public void updateUserAdmin(String openId, Integer admin) {
+        wxUserInfoMapper.updateUserAdmin(openId,admin);
+    }
+
+    @Override
     public Integer update(WxUserInfo wxUserInfo) {
 
         return wxUserInfoMapper.update(wxUserInfo);

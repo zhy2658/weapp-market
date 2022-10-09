@@ -69,6 +69,7 @@ public class BigTypeController {
                         queryWrapper
                                 .eq("small_id", smallType.getId())
                                 .eq("isshow", 1)
+                                .eq("admin",1)
                 ); //.eq("isshow", 1)
                 smallType.setUserInfos(userInfos);
             }

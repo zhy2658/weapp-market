@@ -44,10 +44,37 @@ public class AdminUserController {
         map.put("total",pageResult.getTotal());
         return R.ok(map);
     }
+    @RequestMapping("/allAdmin")
+    public R allAdmin(@RequestBody PageBean pageBean){
+//        System.out.println("----====="+pageBean);
+//        System.out.println(pageBean);
+        String query=pageBean.getQuery().trim();
+        Page<WxUserInfo> page=new Page<>(pageBean.getPageNum(),pageBean.getPageSize());
+        Page<WxUserInfo> pageResult = wxUserInfoService.page(page,
+                new QueryWrapper<WxUserInfo>()
+                        .like("nickName", query)
+                        .eq("admin",1)
+        );
+        Map<String,Object> map=new HashMap<>();
+        map.put("userList",pageResult.getRecords());
+        map.put("total",pageResult.getTotal());
+        return R.ok(map);
+    }
 
     @RequestMapping("/update_isshow")
     public R updateUserShow(@RequestParam("openId") String openId,@RequestParam("isshow") int isshow){
         wxUserInfoService.updateUserShow(openId,isshow);
+        Map<String,Object> map=new HashMap<>();
+        map.put("code", 0);
+        map.put("msg", "更新成功");
+        return R.ok(map);
+    }
+
+    @RequestMapping("/update_admin")
+    public R updateUserAdmin(@RequestParam("openId") String openId,
+                             @RequestParam("admin") Integer admin){
+
+        wxUserInfoService.updateUserAdmin(openId,admin);
         Map<String,Object> map=new HashMap<>();
         map.put("code", 0);
         map.put("msg", "更新成功");

@@ -72,6 +72,28 @@ Page({
         //     url: '/pages/chatroom/index',
         //   })
     },
+    onPullDownRefresh: function () {
+        // console.log("---")
+        this.onRefresh();
+    },
+    onRefresh: function () {
+        console.log("---")
+        //导航条加载动画
+        wx.showNavigationBarLoading()
+        //loading 提示框
+        wx.showLoading({
+            title: 'Loading...',
+        })
+        this.getMsgList();
+        // this.getRandom();
+        console.log("下拉刷新啦");
+        setTimeout(function () {
+            wx.hideLoading();
+            wx.hideNavigationBarLoading();
+            //停止下拉刷新
+            wx.stopPullDownRefresh();
+        }, 2000)
+    },
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
@@ -104,9 +126,7 @@ Page({
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
-    onPullDownRefresh() {
-
-    },
+  
 
     /**
      * 页面上拉触底事件的处理函数

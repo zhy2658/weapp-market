@@ -60,6 +60,7 @@
     <view wx:elif="{{showItemIndex == 1}}">
         <view class="padding bg-white ">
             <view class="user_row" wx:for="{{orderList}}" wx:for-item="order" wx:for-index="index" wx:key="order">
+                <button class="cu-btn round bg-red" type="default" style="width: 150rpx;">聊天</button>
                 <view>{{order.wxUserInfo.nickName}}:</view>
                 <view wx:if="{{order.goods[0].finishedPersent ==1}}" style="color: green;">
                     <!-- 已到时间，点击确认已完成服务 <button type="primary" bindtap="confirmFinishedService" data-id="{{order.id}}">确认完成服务</button> -->
@@ -85,6 +86,7 @@
     <view wx:elif="{{showItemIndex == 2}}">
         <view class="padding bg-white ">
             <view class="user_row" wx:for="{{orderList}}" wx:for-item="order" wx:for-index="index" wx:key="order">
+                <button class="cu-btn round bg-red" type="default" style="width: 150rpx;">聊天</button>
                 <view>{{order.wxUserInfo.nickName}}:</view>
                 <view wx:if="{{order.goods[0].finishedPersent ==1}}" style="color: green;">
                   <button type="default" bindtap="confirmFinishedService" data-id="{{order.id}}">点击确定对方完成服务</button>

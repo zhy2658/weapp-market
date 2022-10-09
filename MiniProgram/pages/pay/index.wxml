@@ -17,7 +17,7 @@
             <view class="th"  style="margin: 0 10px;">项目名</view>
             <view class="th"  style="margin: 0 10px;">小时数</view>
             <view class="th "  style="margin: 0 10px;">价格</view>
-            <view class="th "  style="margin: 0 10px;">操作</view>
+            <!-- <view class="th "  style="margin: 0 10px;">操作</view> -->
         </view>
         <block wx:for="{{payitemList}}" wx:for-item="payitem" wx:key="payitem">
             <view class="tr bg-g" style="display: flex; background-color: red;" wx:if="{{payitem.id == currentPayItemId}}">
@@ -29,9 +29,9 @@
                 <view class="td" style="margin: 0 10px;"> {{payitem.itemName}}</view>
                 <view class="td" style="margin: 0 10px;"> {{payitem.itemHours}}</view>
                 <view class="td" style="margin: 0 10px;"> {{payitem.price}}</view>
-                <view>
+                <!-- <view>
                    <button bindtap="choosePayItem" data-payItemId="{{payitem.id}}">选择</button>
-                </view>
+                </view> -->
             </view>
         </block>
     </view>

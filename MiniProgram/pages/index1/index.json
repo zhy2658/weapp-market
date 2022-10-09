@@ -3,5 +3,6 @@
     "SearchBar":"../../components/SearchBar/SearchBar",
     "AudioPlay":"../../components/AudioPlay/AudioPlay"
   },
-  "navigationBarTitleText": "青年时文-首页"
+  "navigationBarTitleText": "青年时文-首页",
+  "enablePullDownRefresh":true
 }

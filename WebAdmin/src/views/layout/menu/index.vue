@@ -14,7 +14,7 @@
 
     <el-menu-item index="user">
       <el-icon><user /></el-icon>
-      <span>用户展示</span>
+      <span>员工管理</span>
     </el-menu-item>
 
     <el-sub-menu index="3">

@@ -8,6 +8,6 @@
                 \ 174 \_________\_//>_//>_
                  \________________________|   SpringBoot版本:${spring-boot.version}
 ${AnsiColor.BRIGHT_CYAN}  -----------------------------------------------------------
-${AnsiColor.BRIGHT_CYAN} //                   恭喜你   没有BUG ！                     //
+${AnsiColor.BRIGHT_CYAN} //                   求求你不要出BUG ！                       //
 ${AnsiColor.BRIGHT_CYAN} //                SpringBoot游轮正在航行                     //
 ${AnsiColor.BRIGHT_CYAN}  -----------------------------------------------------------

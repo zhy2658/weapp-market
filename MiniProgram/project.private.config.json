@@ -125,6 +125,12 @@
                     "pathName": "pages/userOrder/index",
                     "query": "",
                     "scene": null
+                },
+                {
+                    "name": "主页管理",
+                    "pathName": "pages/userDetail/index",
+                    "query": "",
+                    "scene": null
                 }
             ]
         }

@@ -9,7 +9,12 @@
     </view>
 
 
-    <button>个人主页管理</button>
+    <view>
+        <navigator url="/pages/userDetail/index">
+            <button>个人主页管理</button>
+        </navigator>
+    </view> 
+
     <view>
         <navigator url="/pages/serviceOption/index">
             <button>服务选项</button>

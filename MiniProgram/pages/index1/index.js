@@ -157,7 +157,32 @@ Page({
             isShowPlayArea: false,
             isPlayAudio: false
         });
-    }
+    },
+    onPullDownRefresh: function () {
+        // console.log("---")
+        this.onRefresh();
+    },
+    onRefresh: function () {
+        //导航条加载动画
+        wx.showNavigationBarLoading()
+        //loading 提示框
+        wx.showLoading({
+            title: 'Loading...',
+        })
+        console.log("下拉index")
+        this.getSwiperList();
+        this.getBigTypeList();
+        this.getHotProductList();
+        // this.getRandom();
+        // console.log("下拉刷新啦");
+        setTimeout(function () {
+            wx.hideLoading();
+            wx.hideNavigationBarLoading();
+            //停止下拉刷新
+            wx.stopPullDownRefresh();
+        }, 2000)
+    },
+
 
 
 

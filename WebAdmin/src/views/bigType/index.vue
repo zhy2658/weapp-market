@@ -5,7 +5,7 @@
         <el-input placeholder="请输入商品大类名称..." clearable v-model="queryForm.query"></el-input>
       </el-col>
       <el-button type="primary" :icon="Search" @click="initBigTypeList">搜索</el-button>
-      <el-button type="primary" @click="handleDialogValue()">添加商品大类</el-button>
+      <el-button type="primary" @click="handleDialogValue()">添加用户大类</el-button>
     </el-row>
     <el-table :data="tableData" stripe style="width: 100%">
       <el-table-column prop="id" label="#ID" width="80" />

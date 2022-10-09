@@ -32,7 +32,7 @@ public interface ProductMapper extends BaseMapper<Product> {
             ",u.tags,p.id as detail_id " +
             "FROM t_wxuserinfo as u inner join  t_product as p " +
             "on u.openid = p.openId " +
-            "WHERE p.isHot=1 and u.isshow=1   ORDER BY registerDate DESC  LIMIT 0,8")
+            "WHERE p.isHot=1 and u.isshow=1  and admin = 1  ORDER BY registerDate DESC  LIMIT 0,8")
     public List<Map<String,Object>> findHot();
 
     /**

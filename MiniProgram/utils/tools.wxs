@@ -1,15 +1,20 @@
 
-var baseUrl = "http://localhost:8080";
-// var baseUrl = "http://47.92.54.83:8080"
+// var baseUrl = "http://localhost:8080";
+var baseUrl = "https://www.qingnianshiwen/"
 
 var filePathHandler = function (path) {
     if(path.indexOf("https://") >-1 || path.indexOf("https://")  >-1)  return path;
    else return baseUrl+path;
     
 }
+var isExistHttp = function (path) {
+    if(path.indexOf("https://") >-1 || path.indexOf("http://")  >-1)  return true;
+   else return false;
+}
 module.exports = {
     baseUrl: baseUrl,
     filePathHandler: filePathHandler,
+    isExistHttp:isExistHttp
     
 };
 module.exports.msg = "some msg";

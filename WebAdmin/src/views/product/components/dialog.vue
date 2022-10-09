@@ -11,9 +11,9 @@
         <el-input v-model="form.userInfo.nickName" style="width: 400px"></el-input>
       </el-form-item>
 
-      <el-form-item label="收费价格" prop="price">
+      <!-- <el-form-item label="收费价格" prop="price">
         <el-input v-model="form.price" style="width: 100px"></el-input>
-      </el-form-item>
+      </el-form-item> -->
 
       <!-- <el-form-item label="商品库存" prop="stock">
         <el-input v-model="form.stock" style="width: 100px"></el-input>
@@ -68,21 +68,21 @@
 
       <br/>
       <br/>
-      <el-form-item label="收费" >
+      <!-- <el-form-item label="收费" > -->
 <!--        <el-input
           v-model="form.productParaImgs"
           :rows="4"
           type="textarea"
         />-->
-      </el-form-item>
+      <!-- </el-form-item> -->
 
-      <QuillEditor
+      <!-- <QuillEditor
         v-model:content="form.productParaImgs"
         contentType="html"
         toolbar="full"
         theme="snow"
         style="height:200px"
-      />
+      /> -->
 
 
     </el-form>

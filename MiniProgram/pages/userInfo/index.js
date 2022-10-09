@@ -3,7 +3,7 @@
 import { getBaseUrl, requestUtil } from "../../utils/requestUtil.js";
 import regeneratorRuntime from '../../lib/runtime/runtime';
 
-
+let that;
 Page({
 
     /**
@@ -32,6 +32,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
+        that=this;
         const BaseUrl = getBaseUrl();
         this.setData({ BaseUrl })
 
@@ -111,17 +112,24 @@ Page({
 
     async submitForm(e) {
         // console.log(e.detail.value)
-        let formObj = e.detail.value;
         let userInfo = this.data.userInfo;
-        userInfo.nickName = formObj.nickName;
-        userInfo.sex = parseInt(formObj.sex);
-        userInfo.age = parseInt(formObj.age);
-        userInfo.tags = formObj.tags;
+        let formObj = e.detail.value;
+        formObj.openid=userInfo.openid;
+        formObj.id=userInfo.id;
+        formObj.sex = formObj.sex == true ? 2 : 1;
+        for(let key in formObj){
+            if(formObj[key].trim){
+                formObj[key]=formObj[key].trim()
+            }
+        }
+        
 
         const result = await requestUtil({
             url: "users/update_user",
             method: "POST",
-            data: userInfo
+            data: {
+                userInfo: formObj
+            }
 
         });
         if (result.code == 0) {
@@ -129,10 +137,12 @@ Page({
                 userInfo
             })
             wx.setStorageSync('userInfo', userInfo)
+            that.getDetail(userInfo.openid);
             this.setData({ disableEidt: true })
             wx.showModal({
                 title: '操作成功！',
                 success: function (res) {
+                   
                 }
             })
         }

@@ -37,7 +37,7 @@ public class WebAppConfigurer implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        String[] patterns=new String[]{"/adminLogin","/product/**","/bigType/**","/users/wxlogin","/weixinpay/**","/image/**","/webjars/**","/swagger-resources",
+        String[] patterns=new String[]{"/","/adminLogin","/product/**","/bigType/**","/users/wxlogin","/weixinpay/**","/image/**","/webjars/**","/swagger-resources",
                 "/publish/get_random"
         };
         registry.addInterceptor(sysInterceptor())
@@ -56,7 +56,7 @@ public class WebAppConfigurer implements WebMvcConfigurer {
         registry.addResourceHandler("/image/productParaImgs/**").addResourceLocations("file:"+StaticRootPath+"/productParaImgs/");
         registry.addResourceHandler("/uploads/audios/**").addResourceLocations("file:"+StaticRootPath+"/audios/");
         registry.addResourceHandler("/file/defaults/**").addResourceLocations("file:"+StaticRootPath+"/defaults/");
-    }
+       }
 
 
 
