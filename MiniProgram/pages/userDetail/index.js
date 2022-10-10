@@ -180,7 +180,7 @@ Page({
                         let imgTotal = productObj.productSwiperImageList.length;
                         let imgCount = 0;
                         for (let imgObj of productObj.productSwiperImageList) {
-                            if (imgObj.image.indexOf("http://") == -1 && imgObj.image.indexOf("https://") == -1) {
+                            if (imgObj.image.indexOf("wxfile://") == -1 && imgObj.image.indexOf("http://") == -1 && imgObj.image.indexOf("https://") == -1) {
                                 imgCount++;
                                 if (imgCount >= imgTotal) that.submitForm(e);
                                 continue;

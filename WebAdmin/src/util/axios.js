@@ -1,11 +1,14 @@
 // 引入axios
 import axios from 'axios';
+import {getServerUrl} from '../config/sys';
 
+// const baseUrl="https://www.qingnianshiwen.cn/";
 // 创建axios实例
 const httpService = axios.create({
   // url前缀-'http:xxx.xxx'
   // baseURL: process.env.BASE_API, // 需自定义
-  baseURL:'http://localhost:8080/',
+  // baseURL:'http://localhost:8080/',
+ 
   // 请求超时时间
   timeout: 3000 // 需自定义
 });
@@ -40,7 +43,7 @@ httpService.interceptors.response.use(function (response) {
 export function get(url, params = {}) {
   return new Promise((resolve, reject) => {
     httpService({
-      url: url,
+      url: getServerUrl()+ url,
       method: 'get',
       params: params
     }).then(response => {
@@ -59,7 +62,7 @@ export function get(url, params = {}) {
 export function post(url, params = {}) {
   return new Promise((resolve, reject) => {
     httpService({
-      url: url,
+      url: getServerUrl()+url,
       method: 'post',
       data: params
     }).then(response => {
@@ -80,7 +83,7 @@ export function post(url, params = {}) {
 export function fileUpload(url, params = {}) {
   return new Promise((resolve, reject) => {
     httpService({
-      url: url,
+      url:  getServerUrl()+url,
       method: 'post',
       data: params,
       headers: { 'Content-Type': 'multipart/form-data' }

@@ -7,7 +7,7 @@
         "pages/product_detail/index",
         "pages/pay/index",
         "pages/order/index",
-        "pages/index1/index",
+        "pages/index/index",
         "pages/chatroom/index",
         "pages/messageList/index",
         "pages/sharewall/index",
@@ -25,7 +25,7 @@
     ],
     "window": {
         "backgroundTextStyle": "dark",
-        "navigationBarBackgroundColor": "#efefef",
+        "navigationBarBackgroundColor": "#F03A53",
         "navigationBarTitleText": "青年时文",
         "navigationBarTextStyle": "white",
         "enablePullDownRefresh": true
@@ -38,7 +38,7 @@
         "borderStyle": "black",
         "list": [
             {
-                "pagePath": "pages/index1/index",
+                "pagePath": "pages/index/index",
                 "text": "情绪树洞",
                 "iconPath": "icons/_home.png",
                 "selectedIconPath": "icons/home.png"

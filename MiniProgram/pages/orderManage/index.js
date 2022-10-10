@@ -119,6 +119,16 @@ Page({
     onReady() {
 
     },
+    openchatroom(e){
+        // console.log(e.currentTarget.dataset.openid)
+        wx.navigateTo({
+            url: '/pages/chatroom/index?openid='+e.currentTarget.dataset.openid
+            // url: 'page/chatroom/index'
+          });
+        //   wx.navigateTo({
+        //     url: '/pages/chatroom/index',
+        //   })
+    },
 
     /**
      * 生命周期函数--监听页面显示
