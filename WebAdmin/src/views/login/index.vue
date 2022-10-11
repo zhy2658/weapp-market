@@ -24,7 +24,11 @@
       </el-form-item>
       <el-button type="primary" class="login-button" @click="handleLogin">登录</el-button>
     </el-form>
+    <div style="position: absolute; bottom: 10px; color: white ; left: 500px;">
+      <a href="http://beian.miit.gov.cn" style="color: white ;">鄂ICP备2022016222号-1</a>
+    </div>
   </div>
+  
 </template>
 
 <script setup>

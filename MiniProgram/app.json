@@ -25,7 +25,7 @@
     ],
     "window": {
         "backgroundTextStyle": "dark",
-        "navigationBarBackgroundColor": "#F03A53",
+        "navigationBarBackgroundColor": "#efefef",
         "navigationBarTitleText": "青年时文",
         "navigationBarTextStyle": "white",
         "enablePullDownRefresh": true

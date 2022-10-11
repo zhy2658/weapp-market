@@ -50,7 +50,7 @@ public class Product implements Serializable {
 
     private String audio;  //音频
 
-    private int audioTime; //音频秒数
+    private Integer audioTime; //音频秒数
 
     @TableField(select = false)
     private SmallType type; // 商品类比

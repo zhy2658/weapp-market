@@ -2,6 +2,10 @@
 <wxs src="../../utils/tools.wxs" module="tools" />
 
 <view class="content">
+	<view class="cu-form-group margin-top">
+		<view class="title">{{userStatus[currentStatus]}}</view>
+		<switch checked="{{currentStatus}}"  bindtap="changeStatus"></switch>
+	</view>
     <view>
         <navigator url="/pages/orderManage/index">
             <button>订单管理</button>

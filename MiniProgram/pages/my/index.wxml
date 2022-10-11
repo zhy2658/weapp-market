@@ -51,9 +51,9 @@
 
         <!-- 应用相关信息开始 -->
         <view class="app_info_warp">
-            <view class="app_info_item app_info_contact">
-                <text>联系客服</text>
-                <text>400-699-12345</text>
+            <view open-type="contact" class="app_info_item app_info_contact">
+               <button open-type="contact" class="feedback"> 联系客服</button> 
+                <!-- <text>400-699-12345</text> -->
             </view>
             <view class="app_info_item">
                 <button open-type="feedback" class="feedback">意见反馈</button>

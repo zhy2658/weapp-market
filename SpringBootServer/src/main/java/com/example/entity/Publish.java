@@ -12,19 +12,19 @@ import java.util.Map;
 @TableName("t_publish")
 @Data
 public class Publish {
-    private int pid;
+    private Integer pid;
     private String title;
 
     private String content;
 
     private String address;
 
-    private int isimg;
+    private Integer isimg;
 
     @JsonSerialize(using=CustomDateTimeSerializer.class)
     private Date pubtime;
 
-    private int status;
+    private Integer status;
 
     private String openId;
 

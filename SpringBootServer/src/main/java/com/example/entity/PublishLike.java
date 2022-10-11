@@ -12,12 +12,12 @@ import java.util.Date;
 @Data
 public class PublishLike implements Serializable {
 
-    private int id;
+    private Integer id;
 
     @JsonSerialize(using=CustomDateTimeSerializer.class)
     private Date ltime;
 
-    private int pid;
+    private Integer pid;
 
     private String openId;
 

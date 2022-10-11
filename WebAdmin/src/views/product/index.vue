@@ -27,7 +27,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="hot" label="热卖？" width="100" >
+      <el-table-column prop="hot" label="主页展示?" width="100" >
         <template v-slot="{row}">
           <el-switch v-model="row.hot" @change="hotChangeHandle(row)"/>
         </template>

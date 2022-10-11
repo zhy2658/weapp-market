@@ -39,10 +39,10 @@ Page({
                 ws.emit('connect', { msg: 'Hello World' }); // 参数一：发送消息的socket名，参数二: 发送的数据
                 // 接受服务端传来的消息
                 ws.on('connect', (res) => { // 参数一：接收消息的socket名，参数二：返回的信息 function 
-
+                    console.log("connect信息:",res);
                 });
                 ws.on('server_event', data => {
-                    console.log(data)
+                    console.log("server_event信息:",data)
                     let msgList = that.data.msgList;
                     msgList.push({ "username": "世界", "msg": data.msg })
                     that.setData({
@@ -83,7 +83,7 @@ Page({
         this.setData({
             msgList: result2
         })
-        console.log(result2)
+        // console.log(result2)
     },
     async loginForm(data) {
         if (data.detail.value.msg.trim() == "") {

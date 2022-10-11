@@ -1,18 +1,55 @@
 // pages/myPageManage/index.js
+// 导入request请求工具方法
+import { getBaseUrl, requestUtil } from "../../utils/requestUtil.js";
+import regeneratorRuntime from '../../lib/runtime/runtime';
+
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-
+        userStatus:["下线","在线接单"],
+        currentStatus: 0
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
-
+        let userInfo=wx.getStorageSync('userInfo');
+        this.setData({
+            currentStatus: userInfo.ustatus
+        })
+    },
+    async changeStatus(e){
+        let currentStatus=this.data.currentStatus;
+        currentStatus = currentStatus == 1 ? 0:1;
+        this.setData({
+            currentStatus
+        })
+        let userInfo=wx.getStorageSync('userInfo');
+        console.log(userInfo)
+        let formObj={
+            id: userInfo.id,
+            openid: userInfo.openid,
+            ustatus: currentStatus
+        };
+        // console.log(this.data.currentStatus)
+        const result = await requestUtil({
+            url: "users/update_user",
+            method: "POST",
+            data: {
+                userInfo: formObj
+            }
+        });
+        if(result.code == 0){
+            console.log(result)
+            userInfo.ustatus = currentStatus;
+            wx.setStorageSync('userInfo', userInfo);
+        }
+        
+        
     },
 
     /**

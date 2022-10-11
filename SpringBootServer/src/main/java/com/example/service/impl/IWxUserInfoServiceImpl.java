@@ -41,7 +41,7 @@ public class IWxUserInfoServiceImpl extends ServiceImpl<WxUserInfoMapper,WxUserI
 
     @Override
     public Integer update(WxUserInfo wxUserInfo) {
-
+        System.out.println("user:"+wxUserInfo);
         return wxUserInfoMapper.update(wxUserInfo);
     }
 }

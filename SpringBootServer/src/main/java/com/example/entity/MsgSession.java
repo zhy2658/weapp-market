@@ -11,7 +11,7 @@ import java.util.Date;
 @Data
 public class MsgSession {
 
-    private int ms_id;
+    private Integer ms_id;
     private String openId;
     private String openId2;
 

@@ -16,19 +16,24 @@
         <view class="tr bg-w" style="display: flex;">
             <view class="th"  style="margin: 0 10px;">项目名</view>
             <view class="th"  style="margin: 0 10px;">小时数</view>
-            <view class="th "  style="margin: 0 10px;">价格</view>
+            <view class="th "  style="margin: 0 10px;">单价</view>
+            <view class="th "  style="margin: 0 10px;">数量</view>
+            
             <!-- <view class="th "  style="margin: 0 10px;">操作</view> -->
         </view>
         <block wx:for="{{payitemList}}" wx:for-item="payitem" wx:key="payitem">
-            <view class="tr bg-g" style="display: flex; background-color: red;" wx:if="{{payitem.id == currentPayItemId}}">
+            <!-- <view class="tr bg-g" style="display: flex; " wx:if="{{payitem.id == currentPayItemId}}">
+                <view class="td" style="margin: 0 10px;"> {{payitem.itemName}}</view>
+                <view class="td" style="margin: 0 10px;"> {{payitem.itemHours}}</view>
+                 <view class="td" style="margin: 0 10px;"> {{payitem.price}}</view>
+                <view class="td" style="margin: 0 10px;"> {{totalNum}}</view>
+            </view> -->
+            <view class="tr bg-g" style="display: flex;" >
                 <view class="td" style="margin: 0 10px;"> {{payitem.itemName}}</view>
                 <view class="td" style="margin: 0 10px;"> {{payitem.itemHours}}</view>
                 <view class="td" style="margin: 0 10px;"> {{payitem.price}}</view>
-            </view>
-            <view class="tr bg-g" style="display: flex;" wx:else>
-                <view class="td" style="margin: 0 10px;"> {{payitem.itemName}}</view>
-                <view class="td" style="margin: 0 10px;"> {{payitem.itemHours}}</view>
-                <view class="td" style="margin: 0 10px;"> {{payitem.price}}</view>
+                <view class="td" style="margin: 0 10px;"> {{totalNum}}</view>
+                
                 <!-- <view>
                    <button bindtap="choosePayItem" data-payItemId="{{payitem.id}}">选择</button>
                 </view> -->
@@ -36,18 +41,39 @@
         </block>
     </view>
 </view>
-<view>总计时长：{{cart[0].totalHours}}</view>
-<view style="padding: 0 10vh; margin: 20px 0;">
-    手机号：
-    <input type="text" placeholder="tel" bindinput="changeTel"  name='tel' style="height: 40px; border-bottom: 1px solid #ccc;" />
-</view>
-<view style="padding: 0 10vh; margin: 20px 0;">
-    微信号：
-    <input type="text" placeholder="wxcode"  bindinput="changeWXId"  name='wxcode'  style="height: 40px; border-bottom: 1px solid #ccc;" />
-</view>
-<view style="padding: 0 10vh; margin: 20px 0;">
-   数量： <input type="text" placeholder="数量" value="{{totalNum}}" disabled="disabled"  style="height: 40px; border-bottom: 1px solid #ccc;" />
-</view>
+<view style="font-size: 0.8rem;margin-left: 40rpx;margin-top: 20px;">总计时长：{{cart[0].totalHours}} 小时</view>
+
+
+<view class="cu-bar bg-white solid-bottom margin-top" style="margin-top:30px">
+        <view class="action">
+            <text class="cuIcon-title text-orange "></text> 我们需要一些必要的信息，点击了解我们是如何保护你的信息的
+        </view>
+        <!-- <view class="action">
+            <button class="cu-btn bg-green shadow" bindtap="showModal" data-target="menuModal">设置</button>
+        </view> -->
+    </view>
+<view class="cu-form-group margin-top">
+		<view class="title">电话</view>
+		<input type="text" placeholder="tel" bindinput="changeTel"  name='tel'  />
+        <view class="cu-capsule radius">
+			<view class="cu-tag bg-blue">
+				+86
+			</view>
+			<view class="cu-tag line-blue">
+				中国大陆
+			</view>
+		</view>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">微信号</view>
+		<input type="text" placeholder="wxcode"  bindinput="changeWXId"  name='wxcode'  />
+	</view>
+	<!-- <view class="cu-form-group">
+		<view class="title">数量</view>
+        <input type="text" placeholder="数量" value="{{totalNum}}" disabled="disabled"  />
+	</view> -->
+
+
 <!-- 购物车 开始 -->
 
 <!-- 购物车 结束 -->

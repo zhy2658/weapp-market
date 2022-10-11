@@ -4,7 +4,12 @@ const App = getApp();
 
 let wsStatus = false;
 let onSocket = null;
-onSocket = io(geRootURL()+":8888", { 
+
+// let socketURL = "https://www.qingnianshiwen.cn/websocket/";
+let local="http://localhost:8888/";
+// console.log(socketURL)
+onSocket = io(local, { 
+    path: '/websocket/socket.io/',
     transports: ['websocket'] ,
     query: {
         'token': wx.getStorageSync('token')

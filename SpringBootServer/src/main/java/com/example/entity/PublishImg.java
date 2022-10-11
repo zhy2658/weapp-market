@@ -7,12 +7,12 @@ import lombok.Data;
 @TableName("t_publish_image")
 @Data
 public class PublishImg {
-    private int id;
+    private Integer id;
 
-    private int sort;
+    private Integer sort;
 
     private String src;
 
-    private int pid;
+    private Integer pid;
 
 }

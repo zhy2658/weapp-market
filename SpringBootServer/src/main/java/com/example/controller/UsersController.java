@@ -117,7 +117,6 @@ public class UsersController {
         try{
 //            基本信息
             WxUserInfo wxUserInfo = userAndProduct.getUserInfo();
-            System.out.println("user"+wxUserInfo);
             if(wxUserInfo!= null){
                 wxUserInfoService.update(wxUserInfo);
             }

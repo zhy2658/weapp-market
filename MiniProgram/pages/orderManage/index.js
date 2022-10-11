@@ -22,7 +22,7 @@ Page({
         QueryParams: {
             type: 1,
             page: 1, // 第几页
-            pageSize: 2 // 每页记录数
+            pageSize: 6 // 每页记录数
         },
     },
 

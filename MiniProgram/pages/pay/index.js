@@ -219,7 +219,7 @@ Page({
             });
 
             wx.navigateTo({
-                url: '/pages/order/index?type=0',
+                url: '/pages/userOrder/index?status=1',
             })
 
 

@@ -20,17 +20,20 @@
 
       <el-table-column prop="payDate" label="订单支付日期" width="200" />
 
-      <el-table-column prop="consignee" label="收货人" width="80" />
+      <el-table-column prop="consignee" label="微信号" width="80" />
 
       <el-table-column prop="telNumber" label="联系电话" width="150" />
 
-      <el-table-column prop="address" label="收货地址" width="400" />
+      <el-table-column prop="servant_id" label="接单员工" width="150" />
+
+      <!-- <el-table-column prop="address" label="收货地址" width="400" /> -->
 
       <el-table-column prop="action" label="操作" width="300" fixed="right">
         <template v-slot="scope">
           <el-button type="success"  @click="handleDialogValue(scope.row)">详情</el-button>
-          <el-button type="primary" @click="handleOrderStatus(scope.row.id,2)">发货</el-button>
-          <el-button type="primary" @click="handleOrderStatus(scope.row.id,3)">退货</el-button>
+          <!-- <el-button type="primary" @click="handleOrderStatus(scope.row.id,2)">发货</el-button> 
+          <el-button type="primary" @click="handleOrderStatus(scope.row.id,3)">退款</el-button>-->
+          <el-button type="danger" >退款</el-button>
           <el-button type="danger" :icon="Delete" @click="handleDelete(scope.row.id)"></el-button>
         </template>
 
@@ -183,13 +186,20 @@ const wxUserInfoNickNameFormatter = (row) => {
 
 const statusFormatter = (row) => {
   let status=row.status;
+  // 0 未支付 1 已经支付正在服务  2完成服务，待确认，3完成订单  4请求退单 5：已退单
   switch (status) {
+    case 0:
+      return "未支付";
     case 1:
-      return "待支付";
+      return "正在服务";
     case 2:
-      return "待发货"
+      return "完成服务";
     case 3:
-      return "退款/退货"
+      return "完成订单";
+    case 4:
+      return "请求退单";
+    case 5:
+      return "已退单";
   }
 }
 

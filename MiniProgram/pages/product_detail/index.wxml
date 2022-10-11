@@ -29,7 +29,7 @@
                 <view class="sign" style="background-color: #08F074;"></view>
                 <view style="color: #454545;">在线</view>
             </view>
-            <view wx:elif="{{userInfo.ustatus==2}}" class="user_status">
+            <view wx:elif="{{userInfo.ustatus==0}}" class="user_status">
                 <view class="sign" style="background-color: #aaa;"></view>
                 <view style="color: #454545;">暂时离线</view>
             </view>
@@ -116,7 +116,7 @@
         <button open-type="contact"></button>
     </view>
 
-    <navigator open-type="switchTab" url="/pages/cart/index" class="tool_item">
+    <navigator url="/pages/userOrder/index" class="tool_item">
         <view class="iconfont icon-biaoqiankuozhan_zixun-388"></view>
         <view>订单</view>
     </navigator>

@@ -24,7 +24,7 @@ public class Message{
     @JsonSerialize(using=CustomDateTimeSerializer.class)
     private Date time;
 
-    private int ms_id;
+    private Integer ms_id;
 
     @TableField(select = false,exist = false)
     private String nickName;

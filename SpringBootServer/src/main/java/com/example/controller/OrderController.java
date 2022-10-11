@@ -304,7 +304,7 @@ public class OrderController {
 //            支付人
             WxUserInfo wxUserInfo = iWxUserInfoService.getOne(
                     new QueryWrapper<WxUserInfo>()
-                            .eq("openid", order.getUserId())
+                            .eq("openid", order.getServant_id())
             );
             order.setWxUserInfo(wxUserInfo);
 

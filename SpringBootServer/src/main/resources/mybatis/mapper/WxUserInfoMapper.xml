@@ -23,22 +23,22 @@
             <if test="avatarUrl!=null and avatarUrl!=''">
                 avatarUrl=#{avatarUrl},
             </if>
-            <if test="sex!=null and sex!=null">
+            <if test="sex!=null">
                 sex=#{sex},
             </if>
             <if test="tags!=null and tags!=''">
                 tags=#{tags},
             </if>
-            <if test="isshow!=null and isshow!=''">
+            <if test="isshow!=null">
                 isshow=#{isshow},
             </if>
-            <if test="age!=null and age!=''">
+            <if test="age!=null">
                 age=#{age},
             </if>
-            <if test="ustatus!=null and ustatus!=''">
+            <if test="ustatus!=null ">
                 ustatus=#{ustatus},
             </if>
-            <if test="small_id!=null and small_id!=''">
+            <if test="small_id!=null ">
                 small_id=#{small_id},
             </if>
 

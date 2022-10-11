@@ -49,8 +49,8 @@ public class MsgSendService {
         socketIOServer.addConnectListener(client -> {
             String token = getClientToken(client, "token");
 //            System.out.println("token:"+ token);
-//            MyThread mThread1=new MyThread();
-//            mThread1.start();
+            MyThread mThread1=new MyThread();
+            mThread1.start();
             Claims claims=null;
             if ( (claims = checkToken(token)) !=null) {
                 openIdMap.put(client.getSessionId(),claims.getId());
@@ -118,17 +118,18 @@ public class MsgSendService {
         messageService.addMessage(message);
 
         CLIENT_MAP.forEach((key, value) -> {
-            System.out.println(openIdMap.get(key)+" ***** "+SendPacket.get("receiverOpenId"));
+            // System.out.println(openIdMap.get(key)+" ***** "+SendPacket.get("receiverOpenId"));
 
-            if(openIdMap.get(key).equals(SendPacket.get("receiverOpenId"))){
+            // System.out.println("比较mapkey--"+openIdMap.get(key)+"===???" + SendPacket.get("receiverOpenId")  );
+            // if(openIdMap.get(key).equals(SendPacket.get("receiverOpenId"))){
 
-//                System.out.println(Sender+" 发送给 "+SendPacket.get("receiverOpenId")
-//                        +" "+SendPacket.get("msg")+"  成功！！");
+            //    System.out.println(Sender+" 发送给 "+SendPacket.get("receiverOpenId")
+            //            +" "+SendPacket.get("msg")+"  成功！！");
+            // System.out.println("接收者：key"+key+"   value :"+value+"  openId:"+ openIdMap.get(key));
+            value.sendEvent("server_event", SendPacket);
 
-                value.sendEvent("server_event", SendPacket);
 
-
-            }
+            // }
             log.info("发送数据成功:{}", key);
 
         });

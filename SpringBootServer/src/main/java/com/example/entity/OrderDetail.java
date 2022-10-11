@@ -39,9 +39,9 @@ public class OrderDetail {
     @JsonSerialize(using=CustomDateTimeSerializer.class)
     private Date serviceEnd;    //结束时间
 
-    private int totalHours;  //总时长
+    private Integer totalHours;  //总时长
 
-    private int itemHours; //单时长
+    private Integer itemHours; //单时长
 
     private Float totalPrice; //总价
 

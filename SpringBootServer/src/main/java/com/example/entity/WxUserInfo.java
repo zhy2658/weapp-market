@@ -38,17 +38,17 @@ public class WxUserInfo implements Serializable {
     @JsonSerialize(using=CustomDateTimeSerializer.class)
     private Date lastLoginDate; // 最后登录日期
 
-    private int sex;
+    private Integer sex;
 
     private String tags;
 
-    private int isshow;  //0：不展示给别人的用户， 1：展示
+    private Integer isshow;  //0：不展示给别人的用户， 1：展示
 
-    private int age;
+    private Integer age;
 
     private String wxid;
 
-    private int ustatus;
+    private Integer ustatus;
 
     private Integer small_id;
 

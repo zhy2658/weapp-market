@@ -11,9 +11,9 @@ import java.util.Date;
 @Data
 public class PublishReply implements Serializable {
 
-    private int id;
+    private Integer id;
 
-    private int pid;
+    private Integer pid;
 
     private String openId;
 
