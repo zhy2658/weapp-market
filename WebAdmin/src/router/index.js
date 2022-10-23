@@ -16,8 +16,14 @@ const routes = [
           import( "../views/home/index"),
       },
       {
+        path: "/notice",
+        name: "通知管理",
+        component: () =>
+          import( "../views/notice"),
+      },
+      {
         path: "/user",
-        name: "所有用户",
+        name: "员工管理",
         component: () =>
           import( "../views/user"),
       },

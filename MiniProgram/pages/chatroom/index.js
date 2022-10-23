@@ -30,6 +30,7 @@ Page({
         that.setData({
             OppositeOpenId: options.openid
         });
+        /*
         // 监听socket 是否连接成功
         connect((status, ws) => {
             console.log(status)
@@ -63,10 +64,14 @@ Page({
                 // ...连接超时
             }
         })
+        */
 
         //获取聊天纪录
         this.getMessage();
 
+        setInterval(()=>{
+            this.getMessage();
+        },5000);
 
     },
     async getMessage() {
@@ -74,12 +79,12 @@ Page({
         const result2 = await requestUtil({
             url: "/chat/getMessage?openId=" + this.data.OppositeOpenId,
 
-        });
+        },true);
         for (let obj of result2) {
             if (obj.mySelf) {
                 obj.avatarUrl = wx.getStorageSync('userInfo').avatarUrl;
             }
-        }
+        }   
         this.setData({
             msgList: result2
         })

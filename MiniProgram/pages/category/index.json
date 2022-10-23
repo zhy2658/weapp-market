@@ -2,5 +2,5 @@
   "usingComponents": {
     "SearchBar":"../../components/SearchBar/SearchBar"
   },
-  "navigationBarTitleText": "商品分类"
+  "navigationBarTitleText": "服务分类"
 }

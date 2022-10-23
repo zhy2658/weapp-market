@@ -131,6 +131,12 @@
                     "pathName": "pages/userDetail/index",
                     "query": "",
                     "scene": null
+                },
+                {
+                    "name": "介绍编辑",
+                    "pathName": "pages/editIntro/index",
+                    "query": "",
+                    "scene": null
                 }
             ]
         }

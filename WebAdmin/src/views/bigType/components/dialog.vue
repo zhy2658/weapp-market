@@ -88,13 +88,13 @@ const rules=ref({
   name:[
     {
       required: true,
-      message: '请输入商品大类名称！',
+      message: '请输入用户大类名称！',
     }
   ],
   remark:[
     {
       required: true,
-      message: '请输入商品大类描述！',
+      message: '请输入用户大类描述！',
     },
   ]
 })

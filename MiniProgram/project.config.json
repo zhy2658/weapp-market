@@ -40,28 +40,9 @@
     },
     "compileType": "miniprogram",
     "libVersion": "2.20.2",
-    "appid": "wx2f451377383abd12",
+    "appid": "wx701c40aecafb5b56",
     "projectname": "java1234-mall-v1",
-    "condition": {
-        "search": {
-            "list": []
-        },
-        "conversation": {
-            "list": []
-        },
-        "game": {
-            "list": []
-        },
-        "plugin": {
-            "list": []
-        },
-        "gamePlugin": {
-            "list": []
-        },
-        "miniprogram": {
-            "list": []
-        }
-    },
+    "condition": {},
     "editorSetting": {
         "tabIndent": "insertSpaces",
         "tabSize": 4

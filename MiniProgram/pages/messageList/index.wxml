@@ -38,6 +38,9 @@
 
         <!-- -->
     </view>
+    <view wx:if="{{msgSessionList.length==0}}" style="text-align: center;">
+        <view style="margin-top: 50px;font-size: 1rem;color: #454545;">暂时没有会话额..</view>
+    </view>
 
 
 

@@ -6,19 +6,19 @@
         <view class="bg-cyan padding">价格</view>
         <view class="bg-cyan padding">操作</view>
     </view>
-    <view>
-        <button bindtap="showAddModel">ADD</button>
-    </view>
     <view class="grid col-1 margin-bottom text-center" wx:for="{{serviceItems}}" wx:for-item="item" wx:key="index" wx:for-index="index">
         <!-- <view class="{{index%2==0?'bg-cyan':'bg-blue'}} padding" wx:for="{{(index+1)*2}}" wx:key>{{index+1}}</view> -->
         <view class=" padding" style="display: flex; justify-content: space-around;">
-            <view class="bg-cyan padding">{{item.itemName}}</view>
-            <view class="bg-cyan padding">{{item.itemHours}}</view>
-            <view class="bg-cyan padding">{{item.price}}</view>
-            <view class="bg-cyan padding">
-                <button class="cu-btn bg-blue shadow margin-left" bindtap="showDeleteModal" data-id="{{item.id}}" style="width:200rpx">删除</button>
+            <view class=" padding">{{item.itemName}}</view>
+            <view class="padding">{{item.itemHours}}</view>
+            <view class=" padding">{{item.price}}</view>
+            <view class=" padding">
+                <button class="cu-btn bg-red shadow margin-left" bindtap="showDeleteModal" data-id="{{item.id}}" style="width:120rpx">删除</button>
             </view>
         </view>
+    </view>
+    <view>
+        <button bindtap="showAddModel" class="bg-blue">+新增</button>
     </view>
 </view>
 

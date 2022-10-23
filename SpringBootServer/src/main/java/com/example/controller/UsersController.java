@@ -86,6 +86,9 @@ public class UsersController {
             wxUserInfo.setOpenid(openid);
             wxUserInfo.setRegisterDate(new Date());
             wxUserInfo.setLastLoginDate(new Date());
+//            限制昵称长度
+            if(wxUserInfo.getNickName().length()>4 )
+                wxUserInfo.setNickName(wxUserInfo.getNickName().substring(0,4));
             wxUserInfoService.save(wxUserInfo);
             Product product = new Product();
             product.setOpenId(openid);

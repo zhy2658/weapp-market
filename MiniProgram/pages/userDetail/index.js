@@ -156,6 +156,30 @@ Page({
     },
     async preSubmitForm(e) {
         let that = this;
+        let formObj = e.detail.value;
+        console.log(formObj)
+        for(let key in formObj){
+            if(formObj[key].trim){
+                formObj[key]=formObj[key].trim()
+            }
+            if((key=="nickName" && formObj[key].length > 4) ||  formObj[key].length ==0){
+                wx.showToast({
+                    title: '昵称长度为1-4位',
+                    icon: 'none'
+                });
+                return;
+            }
+            if(key=="tags" && formObj[key].split(",").length > 3){
+                wx.showToast({
+                    title: '最多只有三个标签',
+                    icon: 'none'
+                });
+                return;
+            }
+
+        }
+        e.detail.value=formObj;
+
         var productObj = this.data.productObj;
         if (productObj.productSwiperImageList > 4) {
             wx.showToast({
@@ -259,11 +283,6 @@ Page({
     },
     async submitForm(e) {
         let formObj = e.detail.value;
-        for(let key in formObj){
-            if(formObj[key].trim){
-                formObj[key]=formObj[key].trim()
-            }
-        }
         let userInfo = this.data.userInfo;
         userInfo.nickName = formObj.nickName;
         userInfo.sex = formObj.sex == true ? 2 : 1;
@@ -274,21 +293,12 @@ Page({
         let productObj = this.data.productObj;
         productObj.productParaImgs = formObj.productParaImgs;
         productObj.description = formObj.description
-        productObj.productIntroImgs = formObj.productIntroImgs;
+        // productObj.productIntroImgs = formObj.productIntroImgs;
         if (productObj.productSwiperImageList.length > 0) {
             productObj.swiper = true;
             productObj.swiperPic = productObj.productSwiperImageList[0].image;
-            // productObj.productSwiperImageList = [];
-            // for (let imgObj of uploadedImgs) {
-            //     productObj.productSwiperImageList.push({
-            //         image: imgObj.title,
-            //         productId: productObj.id,
-            //         sort: imgObj.sort
-            //     })
-            // }
         }
 
-        // console.log("-----",this.data.productObj)
         const result = await requestUtil({
             url: "users/update_user",
             method: "POST",
@@ -399,8 +409,15 @@ Page({
     /**
      * 生命周期函数--监听页面显示
      */
-    onShow() {
-
+    onShow(options) {
+        if(this.data.productIntroImgs&&this.data.productIntroImgs.trim() != ''){
+            let productObj = this.data.productObj;
+            productObj.productIntroImgs=this.data.productIntroImgs.trim();
+            console.log(productObj.productIntroImgs)
+            this.setData({
+                productObj
+            })
+        }
     },
 
     /**

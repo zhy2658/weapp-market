@@ -46,7 +46,7 @@ public class Order {
     @JsonSerialize(using=CustomDateTimeSerializer.class)
     private Date payDate; // 订单支付日期
 
-    private Integer status=1; // 订单状态 1 未支付 2 已经支付/待收货 3 退款/退货
+    private Integer status=0; // 订单状态 0 未支付 1 已经支付正在服务  2完成服务，待确认，3完成订单  4请求退单 5：已退单
 
     @TableField(select = false,exist = false)
     private OrderDetail[] goods; // 订单商品详情

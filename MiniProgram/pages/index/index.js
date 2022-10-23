@@ -22,7 +22,8 @@ Page({
             isPlayAudio: false,
             audioSrc: ''
         },
-
+        // 通知
+        notice:{}
     },
     onLoad: function () {
         that = this;
@@ -33,7 +34,15 @@ Page({
         this.getSwiperList();
         this.getBigTypeList();
         this.getHotProductList();
+        this.getNewNotice();
 
+    },
+    async getNewNotice(){
+        const result = await requestUtil({ url: "/notice/getNew" });
+        this.setData({
+            notice: result.notice
+        })
+        console.log(result)
     },
     // 获取轮播图数据
     async getSwiperList() {

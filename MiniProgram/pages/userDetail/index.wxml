@@ -24,7 +24,7 @@
     </view>
 </view>
 <form bindsubmit="preSubmitForm">
-    <button wx:if='{{ !disableEidt }}' form-type="submit"> 提交</button>
+    <button wx:if='{{ !disableEidt }}' form-type="submit">保存</button>
     <view class='container'>
         <view class="cu-form-group margin-top">
             <view class="title">昵称</view>
@@ -65,6 +65,11 @@
             <!-- 点击编辑 -->
             <rich-text nodes="{{productObj.productIntroImgs}}"></rich-text>
         </view>
+        <view wx:if="{{!disableEidt}}">
+            <navigator url="/pages/editIntro/index">
+                <view class="title"  style="color: blue;" >点击编辑介绍</view>
+            </navigator>
+        </view>
         
 
 
@@ -87,7 +92,7 @@
 					<text class="cuIcon-close" ></text>
 				</view>
 			</view>
-			<view class="solids" bindtap="ChooseImage" wx:if="{{productObj.productSwiperImageList.length<4}}">
+			<view class="solids" bindtap="ChooseImage" wx:if="{{productObj.productSwiperImageList.length<4 && !disableEidt }}">
 				<text class="cuIcon-cameraadd"></text>
 			</view>
 		</view>

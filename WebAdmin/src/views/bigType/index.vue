@@ -2,7 +2,7 @@
   <el-card>
     <el-row :gutter="20" class="header">
       <el-col :span="7">
-        <el-input placeholder="请输入商品大类名称..." clearable v-model="queryForm.query"></el-input>
+        <el-input placeholder="请输入用户大类名称..." clearable v-model="queryForm.query"></el-input>
       </el-col>
       <el-button type="primary" :icon="Search" @click="initBigTypeList">搜索</el-button>
       <el-button type="primary" @click="handleDialogValue()">添加用户大类</el-button>
@@ -10,14 +10,14 @@
     <el-table :data="tableData" stripe style="width: 100%">
       <el-table-column prop="id" label="#ID" width="80" />
 
-      <el-table-column prop="name" label="商品大类名称" width="200" />
+      <el-table-column prop="name" label="用户大类名称" width="200" />
 
-      <el-table-column  prop="image" label="商品大类图片" width="200">
+      <el-table-column  prop="image" label="用户大类图片" width="200">
         <template v-slot="scope">
           <img :src="getServerUrl()+'/image/bigType/'+scope.row.image" width="80" height="80"/>
         </template>
       </el-table-column>
-      <el-table-column prop="remark" label="商品大类描述"/>
+      <el-table-column prop="remark" label="用户大类描述"/>
       <el-table-column prop="action" label="操作" width="300">
         <template v-slot="scope">
           <el-button type="success" @click="handleChangeImage(scope.row)">更换图片</el-button>

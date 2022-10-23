@@ -2,10 +2,10 @@
   <el-card>
     <el-row :gutter="20" class="header">
       <el-col :span="7">
-        <el-input placeholder="请输入商品名称..." clearable v-model="queryForm.query"></el-input>
+        <el-input placeholder="请输入用户名称..." clearable v-model="queryForm.query"></el-input>
       </el-col>
       <el-button type="primary" :icon="Search" @click="initProductList">搜索</el-button>
-      <el-button type="primary" @click="handleDialogValue()">添加用户</el-button>
+      <!-- <el-button type="primary" @click="handleDialogValue()">添加用户</el-button> -->
     </el-row>
     <el-table :data="tableData" stripe style="width: 100%">
 

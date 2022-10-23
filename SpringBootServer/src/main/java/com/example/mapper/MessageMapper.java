@@ -22,8 +22,8 @@ public interface MessageMapper extends BaseMapper<Message> {
             "VALUES (#{sendOpenID},#{receiverOpenId},#{msg},#{time},#{ms_id});")
     public Integer addMessage(Message message);
 
-    @Select("select * from t_message where sendOpenID = #{myOpenId} and receiverOpenId = #{oppositeOpenId} order by `time` desc limit 0,5;")
+    @Select("select * from t_message where sendOpenID = #{myOpenId} and receiverOpenId = #{oppositeOpenId} order by `time` desc limit 0,10;")
     public List<Message> getSenderMessage(Map<String,Object> map);
-    @Select("select * from t_message where sendOpenID = #{oppositeOpenId} and receiverOpenId = #{myOpenId} order by `time` desc limit 0,5; ")
+    @Select("select * from t_message where sendOpenID = #{oppositeOpenId} and receiverOpenId = #{myOpenId} order by `time` desc limit 0,10; ")
     public List<Message> getReceiverMessage(Map<String,Object> map);
 }

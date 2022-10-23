@@ -300,8 +300,11 @@ radio.radio[checked]::after {
 	background: var(--red) !important;
 	border-color: var(--red) !important;
 }
+switch.switch-sex .wx-switch-input:not([class*="bg-"]) {
+	background: #F03A53 !important;
+}
 
-.switch-sex[checked] .wx-switch-input {
+switch.switch-sex[checked] .wx-switch-input {
 	background: var(--blue) !important;
 	border-color: var(--blue) !important;
 }

@@ -12,6 +12,11 @@
       <span>首页</span>
     </el-menu-item>
 
+    <el-menu-item index="notice">
+      <el-icon><user /></el-icon>
+      <span>通知管理</span>
+    </el-menu-item>
+
     <el-menu-item index="user">
       <el-icon><user /></el-icon>
       <span>员工管理</span>

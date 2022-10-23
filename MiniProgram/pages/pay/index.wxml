@@ -1,5 +1,5 @@
 <!-- 收货地址 开始 -->
-<view class="revice_address_row">
+<!-- <view class="revice_address_row"> -->
   <!-- 当收货地址 -->
   <!-- <view>
     <view class="user_info">
@@ -8,7 +8,7 @@
       <text class="user_info_item" decode="{{true}}">{{address.userName}}&nbsp;&nbsp;{{address.telNumber}}</text>
     </view>
   </view> -->
-</view>
+<!-- </view> -->
 <!-- 收货地址 结束 -->
 
 <view>
@@ -28,7 +28,7 @@
                  <view class="td" style="margin: 0 10px;"> {{payitem.price}}</view>
                 <view class="td" style="margin: 0 10px;"> {{totalNum}}</view>
             </view> -->
-            <view class="tr bg-g" style="display: flex;" >
+            <view wx:if="{{currentPayItemId == payitem.id}}" class="tr bg-g" style="display: flex;" >
                 <view class="td" style="margin: 0 10px;"> {{payitem.itemName}}</view>
                 <view class="td" style="margin: 0 10px;"> {{payitem.itemHours}}</view>
                 <view class="td" style="margin: 0 10px;"> {{payitem.price}}</view>
@@ -46,7 +46,7 @@
 
 <view class="cu-bar bg-white solid-bottom margin-top" style="margin-top:30px">
         <view class="action">
-            <text class="cuIcon-title text-orange "></text> 我们需要一些必要的信息，点击了解我们是如何保护你的信息的
+            <text class="cuIcon-title text-orange "></text> 我们需要一些必要的信息
         </view>
         <!-- <view class="action">
             <button class="cu-btn bg-green shadow" bindtap="showModal" data-target="menuModal">设置</button>
@@ -54,7 +54,7 @@
     </view>
 <view class="cu-form-group margin-top">
 		<view class="title">电话</view>
-		<input type="text" placeholder="tel" bindinput="changeTel"  name='tel'  />
+		<input type="text" placeholder="手机号" bindinput="changeTel"  name='tel'  />
         <view class="cu-capsule radius">
 			<view class="cu-tag bg-blue">
 				+86
@@ -66,7 +66,7 @@
 	</view>
 	<view class="cu-form-group">
 		<view class="title">微信号</view>
-		<input type="text" placeholder="wxcode"  bindinput="changeWXId"  name='wxcode'  />
+		<input type="text" placeholder="微信号"  bindinput="changeWXId"  name='wxcode'  />
 	</view>
 	<!-- <view class="cu-form-group">
 		<view class="title">数量</view>
@@ -91,6 +91,6 @@
 
   <!-- 结算 -->
   <view class="order_pay_wrap" bindtap="handleOrderPay" >
-    去付款(限时免费)
+    付款
   </view>
 </view>

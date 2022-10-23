@@ -7,7 +7,7 @@ page {
 
 .page {
     width: 100%;
-    height: 89vh;
+    /* height: 100vh; */
     /* overflow-x: hidden */
     /* padding-bottom: 5vh; */
     /* background-color: red; */
@@ -15,7 +15,6 @@ page {
 }
 .header{
     height: 10vh;
-    /* background-color: red; */
 }
 
 /* 列表 */

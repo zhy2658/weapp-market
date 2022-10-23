@@ -107,6 +107,24 @@ Page({
     async handleOrderPay() {
         // 判断缓存中是否有token
         const token = wx.getStorageSync('token');
+        // consignee: "",
+        // telNumber: "",
+        // 手机号表单验证
+        if(isNaN(this.data.telNumber) || this.data.telNumber.trim().length != 11){
+            wx.showToast({
+                title: '请填写正确的电话号码',
+                icon: 'none'
+            });
+            return;
+        }
+         // 微信号表单验证
+        if(this.data.consignee.trim().length <6 || this.data.consignee.trim().length>25){
+            wx.showToast({
+                title: '请填写正确的微信号',
+                icon: 'none'
+            });
+            return;  
+        }
         if (!token) {
             // const {code}=await login();
             // wx.getUserProfile({
@@ -201,10 +219,18 @@ Page({
             console.log("orderNo:" + orderNo);
 
             // 暂不写   支付接口======》》》》
-            // const preparePayRes = await requestUtil({ url: "/my/order/preparePay", method: "POST", data: orderNo });
-            // console.log("preparePayRes:" + preparePayRes)
-            // let payRes = await requestPay(preparePayRes);
-
+            const preparePayRes = await requestUtil({ url: "/my/order/preparePay", method: "POST", data: orderNo });
+            console.log("preparePayRes:" + preparePayRes)
+            let payRes = await requestPay(preparePayRes);
+            
+            if(payRes.errMsg.indexOf("ok") != 0){
+                const preparePayRes = await requestUtil({ url: "/my/order/setOrderStatus", method: "POST",
+                 data:  {
+                        orderNo:orderNo
+                    } 
+                });
+            }
+            console.log(payRes)
              //  《《《======支付接口 暂不写   
 
             // 删除缓冲中 已经支付的商品

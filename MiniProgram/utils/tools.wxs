@@ -1,5 +1,5 @@
 
-var baseUrl = "http://localhost:8080";
+var baseUrl = "http://localhost:8080/";
 // var baseUrl = "https://www.qingnianshiwen.cn/"
 
 var filePathHandler = function (path) {

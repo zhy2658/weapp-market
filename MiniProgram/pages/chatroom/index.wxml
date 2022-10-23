@@ -39,10 +39,9 @@
                 <view class="date">2018年3月23日 13:23</view>
 
             </view> -->
-            <view class="cu-info">
-                与对方建立聊天成功！
-                <!-- <text class="text-blue">发送好友验证</text> -->
-            </view>
+            <!-- <view class="cu-info">
+               <text class="text-blue">与对方建立聊天成功！</text> 
+            </view> -->
             <view wx:for="{{msgList}}" wx:for-item="msgItem" wx:for-index="index" wx:key="msgItem">
                 <view class="cu-item" wx:if="{{!msgItem.mySelf}}">
                     <view class="cu-avatar radius" style="background-image:url({{tools.filePathHandler(msgItem.avatarUrl)}});"></view>

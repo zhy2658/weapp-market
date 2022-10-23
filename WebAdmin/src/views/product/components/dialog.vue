@@ -7,7 +7,7 @@
   >
     <el-form ref="formRef" :model="form" label-width="100px" :rules="rules">
 
-      <el-form-item label="昵称" prop="name">
+      <el-form-item label="昵称" prop="userInfo.nickName">
         <el-input v-model="form.userInfo.nickName" style="width: 400px"></el-input>
       </el-form-item>
 
@@ -44,17 +44,17 @@
       <el-form-item label="个人描述" prop="description">
         <el-input
           v-model="form.description"
-          :rows="4"
+          :rows="1"
           type="textarea"
         />
       </el-form-item>
 
       <el-form-item label="个人介绍" >
-<!--        <el-input
+       <!-- <el-input
           v-model="form.productIntroImgs"
           :rows="4"
           type="textarea"
-        />-->
+        /> -->
 
       </el-form-item>
 
@@ -152,33 +152,33 @@ const rules=ref({
   name:[
     {
       required: true,
-      message: '请输入商品小类名称！',
+      message: '请输入用户小类名称！',
     }
   ],
-  price:[
-    { required: true, message: '请输入商品价格!' },
-    { type: 'number', message: '商品价格是数值类型！',transform: (value) => Number(value) },
-  ],
-  stock:[
-    { required: true, message: '请输入商品库存!' },
-    { type: 'number', message: '商品库存是数值类型！',transform: (value) => Number(value) },
-  ],
+  // price:[
+  //   { required: true, message: '请输入用户价格!' },
+  //   { type: 'number', message: '用户价格是数值类型！',transform: (value) => Number(value) },
+  // ],
+  // stock:[
+  //   { required: true, message: '请输入用户库存!' },
+  //   { type: 'number', message: '用户库存是数值类型！',transform: (value) => Number(value) },
+  // ],
   description:[
     {
       required: true,
-      message: '请输入商品小类描述！',
+      message: '请输入用户小类描述！',
     },
   ],
   productIntroImgs:[
     {
       required: true,
-      message: '请输入商品介绍！',
+      message: '请输入用户介绍！',
     }
   ],
   productParaImgs:[
     {
       required: true,
-      message: '请输入商品参数！',
+      message: '请输入用户参数！',
     }
   ]
 })

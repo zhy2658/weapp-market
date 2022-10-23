@@ -8,7 +8,7 @@ const IP = "localhost";
 const rootURL = PROTOCOL + IP
 let baseUrl = rootURL + ":8080/";
 // let baseUrl = rootURL + "/";
-// baseUrl="https://www.qingnianshiwen.cn"
+// baseUrl="https://www.qingnianshiwen.cn/"
 
 
 
@@ -91,7 +91,7 @@ export const requestPay = (pay) => {
  * 后端请求工具类
  * @param {*} params 请求参数
  */
-export const requestUtil = (params) => {
+export const requestUtil = (params, disableLoading) => {
     // 判断 url中是否带有 /my/ 请求的是私有的路径 带上header token
     let header = { ...params.header };
 
@@ -108,12 +108,14 @@ export const requestUtil = (params) => {
     ajaxTimes++;
 
 
+    if (!disableLoading) {
+        // 显示加载中 效果
+        wx.showLoading({
+            title: "加载中",
+            mask: true
+        });
+    }
 
-    // 显示加载中 效果
-    wx.showLoading({
-        title: "加载中",
-        mask: true
-    });
 
 
 
@@ -131,19 +133,19 @@ export const requestUtil = (params) => {
             success: (result) => {
                 if (result.data && (result.data.status == "403")) {
                     console.log("success ", result.data.msg)
-                    wx.showToast({  
-                        title: result.data.msg,  
-                        icon: 'error',  
-                        duration: 2000  
-                    })    
+                    wx.showToast({
+                        title: result.data.msg,
+                        icon: 'error',
+                        duration: 2000
+                    })
                     //清除缓存
                     wx.clearStorage({
-                        success: (res) => {},
-                    }) 
-                }else{
+                        success: (res) => { },
+                    })
+                } else {
                     resolve(result.data);
                 }
-                
+
             },
             fail: (err) => {
                 console.log("err", err)

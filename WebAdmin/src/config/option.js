@@ -10,3 +10,8 @@ export function showOption(index){
     let option=["不公开","公开"];
     return option[index]
 }
+
+export function showIsTop(index){
+    let option=["否","是"];
+    return option[index]
+}

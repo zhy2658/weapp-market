@@ -2,7 +2,7 @@
 <wxs src="../../utils/tools.wxs" module="tools" />
 
 
-<view style="display: flex;" class="header">
+<!-- <view style="display: flex;" class="header">
     <navigator url="/pages/publish/index">
         <button style="border-right:2px solid #efefef;">编写</button>
     </navigator>
@@ -10,9 +10,12 @@
         <button>我的发布</button>
     </navigator>
 
-</view>
+</view> -->
+<navigator url="/pages/publish/index" class="solid-bottom text-xsl"  style="position: fixed;bottom: 4vh; right: 40rpx;box-shadow: 0 0 10rpx rgba(0, 0, 0, 0.1); border-radius: 50%;z-index: 1;background-color: #fff;">
+    <text class=" cuIcon-roundaddfill text-cyan"></text>
+</navigator>
 
-<scroll-view class='page' scroll-y='true'  bindscrolltolower='onScrolltolowe' >
+<scroll-view class='page' scroll-y='true' >
 
     <!-- 列表 -->
     <view class='CircleList' wx:for='{{DataSource}}' wx:key="item">
@@ -69,21 +72,23 @@
 
                     <!-- 点赞 -->
                     <view class='zan-bg-view' style="margin-top: 10px;">
+                        <view class='zan-user-view' wx:if="{{item.likeList.length>0}}"> <text class="cuIcon-like" style="font-size: 1rem;;"></text></view>
                         <view class='zan-user-view' wx:for='{{item.likeList}}' wx:key="likeObj" wx:for-item="likeObj" wx:for-index="index">
                             <label bindtap='TouchZanUser' data-name='{{likeObj.id}}' style="font-size: 0.8rem;">{{likeObj.nickName}} </label>
                             <!-- <text wx:if="{{index+1 < 5}}">,</text>
                             <text wx:else>...</text> -->
                         </view>
+                        
                         <view wx:if="{{item.LikeUnEnd}}" style="float: left;margin: 0px 20rpx;color: #232323;">等{{item.LikeCount}}人觉得很赞</view>
                     </view>
                     <view class='line'></view>
                     <!-- 评论 -->
                     <view class='discuss-view' style="padding-top: 10px;">
-                        <view class='discuss' wx:for='{{item.replyList}}' wx:key="replyObj" wx:for-item="replyObj">
+                        <view class='discuss' wx:for='{{item.replyList}}' wx:key="replyObj" wx:for-item="replyObj" style="margin-top: 2px;">
                             <label bindtap='TouchZanUser' data-name='{{replyObj.nickName}}' class='discuss-user' style="font-size: 0.8rem;">{{replyObj.nickName}}：</label>
                             <label class='content' style="color: #454545;font-size: 0.8rem;">{{replyObj.msg}}</label>
                         </view>
-                        <view wx:if="{{item.replyUnEnd}}" style="float: left;color: #232323;width: 100%;">已折叠{{item.replyCount-4}}条回复</view>
+                        <view wx:if="{{item.replyUnEnd}}" style="float: left;;width: 100%;margin-left: 7rpx;">已折叠{{item.replyCount-4}}条回复</view>
                     </view>
                 </view>
             </view>

@@ -60,7 +60,7 @@ public class OrderController {
             if (claims != null) {
                 String openId = claims.getId();
                 order.setUserId(openId);
-                order.setOrderNo("JAVA" + DateUtil.getCurrentDateStr());
+                order.setOrderNo("LY" + DateUtil.getCurrentDateStr());
                 order.setCreateDate(new Date());
                 System.out.println(openId);
             } else {
@@ -128,9 +128,10 @@ public class OrderController {
         map.put("notify_url", weixinpayProperties.getNotify_url());
         map.put("trade_type", "JSAPI"); // 交易类型
         map.put("out_trade_no", orderNo);
-        map.put("body", "java1234mall商品购买测试");
+        map.put("body", "语音/聊天服务");
         // map.put("total_fee", order.getTotalPrice().movePointRight(2));
-        map.put("total_fee", 1);  // 1分钱测试
+//         map.put("total_fee", 1);  // 1分钱测试
+        map.put("total_fee", order.getTotalPrice().movePointRight(2));
         // map.put("spbill_create_ip", getRemortIP(request)); // 终端IP
         map.put("spbill_create_ip", "127.0.0.1"); // 终端IP
         map.put("sign", getSign(map)); // 签名
@@ -166,6 +167,19 @@ public class OrderController {
 
     }
 
+    //把订单设置为已支付状态
+    @RequestMapping("/setOrderStatus")
+    public R setOrderStatus(@RequestBody Order order){
+        Map<String, Object> map = new HashMap<String, Object>();
+        //设置订单状态
+        order.setStatus(1);
+        orderService.update(order,
+                new QueryWrapper<Order>()
+                        .eq("orderNo",order.getOrderNo())
+        );
+
+        return R.ok(map);
+    }
 
     /**
      * 微信支付签名算法sign

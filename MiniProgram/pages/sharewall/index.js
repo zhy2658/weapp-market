@@ -236,6 +236,7 @@ Page({
         wx.showLoading({
             title: 'Loading...',
         })
+        queryForm.pageNum=1;
         this.getRandom();
         console.log("下拉刷新啦");
         setTimeout(function () {
@@ -245,9 +246,20 @@ Page({
             wx.stopPullDownRefresh();
         }, 2000)
     },
-    onScrolltolowe(){
-       this.getRandom("add");
-    }
+    // onScrolltolowe(){
+    //     // console.log("sssss")
+    //    this.getRandom("add");
+    // },
+    onReachBottom: function () {
+        //开启 Loading提示
+        // //开启 mask遮罩层 防止用户误触
+        // wx.showLoading({
+        //   title: '数据正在加载中...',
+        //   mask:true
+        // })
+        this.getRandom("add");
+    },
+
     
 
 })

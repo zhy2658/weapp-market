@@ -21,11 +21,12 @@
         "pages/orderManage/index",
         "pages/serviceOption/index",
         "pages/userOrder/index",
-        "pages/userDetail/index"
+        "pages/userDetail/index",
+        "pages/editIntro/index"
     ],
     "window": {
         "backgroundTextStyle": "dark",
-        "navigationBarBackgroundColor": "#efefef",
+        "navigationBarBackgroundColor": "#F03A53",
         "navigationBarTitleText": "青年时文",
         "navigationBarTextStyle": "white",
         "enablePullDownRefresh": true

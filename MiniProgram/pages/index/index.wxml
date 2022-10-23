@@ -11,7 +11,7 @@
         <view class="notice_float" bindtap="openNotice">
             <view class="notice_float_title">通知: </view>
             <view class="notice_float_content">
-                <view>今天天气良好今天天气良好今天天气良好今天天气良好今天天气良好</view>
+                <view>{{notice.message}}</view>
             </view>
         </view>
         <!-- 
@@ -42,7 +42,7 @@
         <view class="bigTypeRow">
             <navigator bindtap="handleTypeJump" data-index="{{index}}" wx:for="{{bigTypeList_row1}}" wx:for-item="bigType" wx:for-index="index" wx:key="id" style="display: flex;flex-direction: column;">
                 <view style="padding: 10px; box-sizing: border-box;">
-                    <image mode="widthFix" style="width: 100rpx;" src="{{baseUrl+'image/bigType/'+bigType.image}}"></image>
+                    <image mode="widthFix" style="width: 60rpx;" src="{{baseUrl+'image/bigType/'+bigType.image}}"></image>
                 </view>
                 <text style="flex: 1;">{{bigType.name}}</text>
             </navigator>
@@ -61,8 +61,13 @@
 
     <!-- 商品热卖推荐 开始 -->
     <view class="index_hot_product">
-        <view class="product_title">
-            情绪树洞
+        <view class="cu-bar bg-white solid-bottom" style="margin-top:10px;">
+            <view class='action'>
+                <text class='cuIcon-titles text-pink '></text> 情绪树洞
+            </view>
+            <!-- <view class='action'>
+                <switch class='sm' checked='{{isCard}}' bindchange='isCard'></switch>
+            </view> -->
         </view>
         <view class="list">
             <view class="product_detail" wx:for="{{hotProductList}}" wx:for-item="hotProduct" wx:for-index="index" wx:key="id">
@@ -81,7 +86,7 @@
                                 {{hotProduct.description}}
                             </view>
                             <view class="tags_area" style="margin: 5px 0;flex: 1;">
-                                <view class="tags_area_item" wx:for="{{hotProduct.tags}}"   wx:for-item="tag" wx:key="tag" >
+                                <view class="tags_area_item" wx:for="{{hotProduct.tags}}" wx:for-item="tag" wx:key="tag">
                                     {{tag}}
                                 </view>
                             </view>
@@ -101,8 +106,22 @@
                             {{hotProduct.audioTime}} "
                         </view>
                     </view>
+                    <!-- <view style="position: absolute;bottom: 15rpx; right: 0;">
+                    在线
+                    </view> -->
+                    <view style="display: flex; flex-direction: row;position: absolute;bottom: 15rpx; right: 0;">
+                        <view wx:if="{{hotProduct.ustatus==1}}" class="user_status" style="display: flex;justify-content: space-around;">
+                            <view style="color: #454545;">在线</view>
+                            <view class="sign" style="background-color: #08F074;"></view>
+                        </view>
+                        <!-- <view wx:elif="{{hotProduct.ustatus==0}}" class="user_status">
+                            <view class="sign" style="background-color: #aaa;"></view>
+                            <view style="color: #454545;">暂时离线</view>
+                        </view> -->
+                    </view>
                     <!-- <button class="iconfont icon-biaoqianA01_zhibo-68" size="mini" style="position: absolute; right: 0;top: 1vh; color: #454545; font-size: 1.5rem;"></button> -->
                 </view>
+
 
 
             </view>
@@ -113,16 +132,26 @@
     <!-- 通知面板 -->
     <view class="notice_window" wx:if="{{isShowNotice}}">
         <view class="notice_row1">
-            <view>icon</view>
-            <view class="notice_title">通知</view>
-            <view class="notite_close" bindtap="closeNotice">收起</view>
+            <!-- <view>-</view> -->
+            <view class="notice_title">{{notice.title}}</view>
+            <view class="action notite_close" bindtap="closeNotice" 
+            style="font-size: 2rem; position: absolute; right: -30rpx;top:-3.5vh;">
+                <text class="cuIcon-close text-red"></text>
+            </view>
+            <!-- <view class="notite_close" bindtap="closeNotice">收起</view> -->
         </view>
         <view class="notice_row2">
             <view class="notite_content">
-                sdasda
+                {{notice.message}}
             </view>
         </view>
+        <view style="margin:10px 0; width: 100%; text-align: center;border-top: 1px solid #efefef;">
+            <button class="cu-btn round bg-green"  bindtap="closeNotice" style=" margin-top: 10px;">我知道了</button>
+        </view>
     </view>
+
+    <!-- 遮罩 -->
+    <view wx:if="{{isShowNotice}}" class="zezhao"></view>
 
 
     <!-- 音乐播放器 开始 -->

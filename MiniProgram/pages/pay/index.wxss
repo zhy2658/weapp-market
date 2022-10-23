@@ -2,6 +2,10 @@ page {
   background-color: #fff;
   padding-bottom: 70rpx;
 }
+.table {
+  padding-top: 20rpx;
+  border: 1px solid #efefef;
+}
 .table > .bg-w {
   display: flex;
   justify-content: space-around;

@@ -11,31 +11,37 @@ page {
   flex: 2;
 }
 .cates .cates_container .left_menu .menu_item {
-  margin-top: 5rpx;
+  /* margin-top: 5rpx; */
   height: 80rpx;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 30rpx;
+  /* border-bottom: 1px solid #ccc; */
 }
 .cates .cates_container .left_menu .active {
   font-weight: bolder;
-  color: var(--themeColor);
-  border-left: 8rpx solid currentColor;
+  /* color: var(--themeColor); */
+  /* border-left: 8rpx solid currentColor; */
+  color: #fff;
+  background-color: var(--themeColor);
+ 
 }
 .cates .cates_container .right_content {
   flex: 5;
 }
 .cates .cates_container .right_content .product_group {
   padding: 30rpx 20rpx 30rpx 20rpx;
+  border-bottom: 1px solid #efefef;
 }
 .cates .cates_container .right_content .product_group .product_title {
   font-weight: bolder;
 }
 .cates .cates_container .right_content .product_group .product_list navigator {
   margin: 10rpx;
-  background-color: #F8F8F8;
+  /* background-color: #F8F8F8; */
   display: flex;
+  border-bottom: 1px solid #efefef;
 }
 .cates .cates_container .right_content .product_group .product_list navigator image {
   flex: 1;

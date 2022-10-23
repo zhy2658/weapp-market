@@ -28,11 +28,11 @@ public interface ProductMapper extends BaseMapper<Product> {
      * 查询热卖商品
      * @return
      */
-    @Select(" SELECT u.openid,u.sex,u.age,u.nickName,u.avatarUrl ,p.description,p.audio,p.audioTime " +
+    @Select(" SELECT u.openid,u.sex,u.age,u.nickName,u.avatarUrl,u.ustatus ,p.description,p.audio,p.audioTime " +
             ",u.tags,p.id as detail_id " +
             "FROM t_wxuserinfo as u inner join  t_product as p " +
             "on u.openid = p.openId " +
-            "WHERE p.isHot=1 and u.isshow=1  and admin = 1  ORDER BY registerDate DESC  LIMIT 0,8")
+            "WHERE p.isHot=1 and u.isshow=1  and admin = 1  ORDER BY u.ustatus DESC  LIMIT 0,8")
     public List<Map<String,Object>> findHot();
 
     /**

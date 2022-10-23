@@ -1,3 +1,6 @@
+page {
+  background-color: #fff;
+}
 .index_swiper {
   position: relative;
 }
@@ -5,18 +8,33 @@
   width: 750rpx;
   height: 375rpx;
 }
+.user_status {
+  display: inline-block;
+  font-size: 0.7rem;
+  width: 100rpx;
+  height: 50rpx;
+  display: flex;
+  align-items: center;
+}
+.user_status .sign {
+  width: 25rpx;
+  height: 25rpx;
+  border-radius: 50%;
+  margin-right: 5rpx;
+}
 .index_swiper swiper image {
   width: 100%;
 }
 .index_bigType {
   padding-top: 20rpx;
-  background-color: #F7F7F7;
+  background-color: #fff;
 }
 .index_bigType .bigTypeRow {
   display: flex;
   color: #454545;
   font-weight: 600;
   text-align: center;
+  background-color: #fff;
 }
 .index_bigType .bigTypeRow navigator {
   flex: 1;
@@ -41,6 +59,8 @@
   text-align: center;
   border-bottom: 1px solid #ccc;
   box-shadow: 2px 2px 4px #ccc;
+  padding: 20rpx 20rpx;
+  border-radius: 5px 5px;
 }
 .index_hot_product .list .product_detail navigator image {
   background-color: #F5F5F5;
@@ -65,6 +85,7 @@
   z-index: 1;
   display: flex;
   flex-direction: column;
+  z-index: 2;
 }
 .notice_row1 {
   display: flex;
@@ -161,4 +182,13 @@
   text-overflow: ellipsis;
   -webkit-box-orient: vertical;
   word-break: break-all;
+}
+.zezhao {
+  position: absolute;
+  width: 750rpx;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.7);
 }
