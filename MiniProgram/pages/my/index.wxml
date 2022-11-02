@@ -9,6 +9,10 @@
                 <image class="user_icon" src="{{tools.filePathHandler(userInfo.avatarUrl)}}"></image>
                 <view class="user_name">{{userInfo.nickName}}</view>
             </navigator>
+            <view style="margin-top:10px;color: #fff;">
+                <view>   <text class="cuIcon-moneybag" style="font-size: 1rem;color: gold;margin-right: 2px;"></text>   <text style="color: gold;">52</text></view>
+            </view>
+            
         </view>
 
         <view wx:else style=" height:100%;display: flex;align-items: center;justify-content: center;"><button bindtap="loginUser" type="primary">点击登录</button></view>

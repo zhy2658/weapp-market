@@ -1,5 +1,5 @@
-page{
-    background-color: #fff;
+page {
+  background-color: #fff;
 }
 .container {
   display: flex;
@@ -28,10 +28,10 @@ page{
   flex-direction: row;
   margin-left: 30rpx;
   margin-top: 20rpx;
-  font-size: 0.8rem;
+  font-size: 30rpx;
 }
 .author-date text {
-  font-size: 0.8rem;
+  font-size: 30rpx;
 }
 .avatar {
   height: 64rpx;
@@ -97,7 +97,7 @@ page{
   margin-right: 30rpx;
   line-height: 44rpx;
   letter-spacing: 2px;
-  font-size: 0.8rem;
+  font-size: 30rpx;
 }
 .input-style {
   width: 90%;
@@ -135,7 +135,6 @@ page{
   margin-top: -45px;
 }
 .nickname_liuyantext .nickname {
-  font-size: 15px;
   color: #999;
 }
 .nickname_liuyantext .nickname .time {
@@ -144,7 +143,6 @@ page{
   float: right;
 }
 .nickname_liuyantext .text {
-  font-size: 16px;
   color: #666;
 }
 /* 点赞 */
@@ -163,7 +161,7 @@ page{
   margin-bottom: -11rpx;
   border-top-left-radius: 7rpx;
   border-top-right-radius: 7rpx;
-  font-size: 0.8rem;
+  font-size: 30rpx;
   color: #454545;
   margin-top: 5vh;
 }

@@ -303,8 +303,9 @@ public class OrderController {
 //            System.out.println("date================"+orderDetail.getServiceStart());
             int restDay = (int) (endDate.getTime() - new Date().getTime()) / (1000 * 3600 * 24);
             int restHours = (int) (endDate.getTime() - new Date().getTime()) / (1000 * 3600);
-//            System.out.println(restHours+"---"+orderDetail.getTotalHours());
-            orderDetail.setFinishedPersent(1f - ((float) restHours / orderDetail.getTotalHours()));
+            int restMinutes = (int) (endDate.getTime() - new Date().getTime()) / (1000 * 60);
+//            System.out.println(restHours+"---"+orderDetail.getTotalHours()+"---"+restMinutes);
+            orderDetail.setFinishedPersent(1f - ((float) restMinutes / (orderDetail.getTotalHours()*60)));
             DecimalFormat df = new DecimalFormat("0.00");
             orderDetail.setFinishedPersent(Float.parseFloat(df.format(orderDetail.getFinishedPersent())));
             orderDetail.setFinishedPersent(
@@ -312,6 +313,7 @@ public class OrderController {
             );
             orderDetail.setRestHours(restHours > 0 ? (restHours % 24) : 0);
             orderDetail.setRestDay(restDay);
+            orderDetail.setRestMinutes(restMinutes > 0 ? (restMinutes % 60) : 0);
             orderDetails[0] = orderDetail;
             order.setGoods(orderDetails);
 

@@ -71,7 +71,7 @@ page {
     font-size: 18px;
     line-height: 50rpx;
     margin-left: 10rpx;
-    font-size: 0.8rem;
+    font-size: 30rpx;
 }
 
 /* 图片 */
@@ -162,7 +162,7 @@ page {
     margin-bottom: -11rpx;
     border-top-left-radius: 7rpx;
     border-top-right-radius: 7rpx;
-    font-size: 0.8rem;
+    font-size: 30rpx;
     color: #454545;
 }
 
@@ -193,7 +193,7 @@ page {
 .discuss-view {
     background: white;
     width: 97%;
-    font-size: 0.8rem;
+    font-size: 30rpx;
 }
 
 .discuss {
@@ -224,7 +224,7 @@ page {
 }
 .user-content-view{
     color: #454545;
-    font-size: 0.8rem;
+    font-size: 30rpx;
 }
 .user-address-view{
     color: #454545;

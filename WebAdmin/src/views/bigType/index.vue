@@ -104,10 +104,10 @@ const handleDialogValue = (row) => {
   if(row){
     id.value=row.id;
     console.log(id)
-    dialogTitle.value="商品大类修改"
+    dialogTitle.value="员工大类修改"
   }else{
     id.value=-1;
-    dialogTitle.value="商品大类添加"
+    dialogTitle.value="员工大类添加"
   }
   dialogVisible.value=true;
 }

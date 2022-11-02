@@ -54,6 +54,8 @@ public class WxUserInfo implements Serializable {
 
     private Integer admin;
 
+    private Integer employee_grade;
+
 
 
 //    小分类对象
@@ -62,6 +64,8 @@ public class WxUserInfo implements Serializable {
 
     @TableField(select = false,exist = false)
     private String code; // 微信用户code 前端传来的
+    @TableField(select = false,exist = false)
+    private Product detail; // 微信用户code 前端传来的
 
 
 

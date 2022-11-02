@@ -9,7 +9,7 @@
     </el-row>
     <el-table :data="tableData" stripe style="width: 100%">
 
-      <el-table-column prop="userInfo.nickName" label="昵称" width="300" fixed/>
+      <el-table-column prop="userInfo.nickName" label="昵称" width="100" fixed/>
 
       <el-table-column prop="userInfo.avatarUrl" label="头像" width="150"  >
         <template v-slot="{row}">
@@ -17,9 +17,9 @@
         </template>
       </el-table-column>
 
-      <!-- <el-table-column prop="price" label="商品价格" width="100" /> -->
+      <!-- <el-table-column prop="price" label="价格" width="100" /> -->
 
-      <!-- <el-table-column prop="stock" label="商品库存" width="100" /> -->
+      <!-- <el-table-column prop="stock" label="库存" width="100" /> -->
 
       <el-table-column prop="userInfo.smallType" :formatter="typeFormatter" label="分类" width="200">
       <template v-slot="{row}">

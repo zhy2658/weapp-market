@@ -81,8 +81,9 @@ public class OrderManageController {
 //            System.out.println("date================"+orderDetail.getServiceStart());
             int restDay = (int) (endDate.getTime() - new Date().getTime()) / (1000 * 3600 * 24);
             int restHours = (int) (endDate.getTime() - new Date().getTime()) / (1000 * 3600);
+            int restMinutes = (int) (endDate.getTime() - new Date().getTime()) / (1000 * 60);
 //            System.out.println(restHours+"---"+orderDetail.getTotalHours());
-            orderDetail.setFinishedPersent(1f - ((float) restHours / orderDetail.getTotalHours()));
+            orderDetail.setFinishedPersent(1f - ((float) restMinutes / (orderDetail.getTotalHours() * 60)));
             DecimalFormat df = new DecimalFormat("0.00");
             orderDetail.setFinishedPersent(Float.parseFloat(df.format(orderDetail.getFinishedPersent())));
             orderDetail.setFinishedPersent(
@@ -90,6 +91,7 @@ public class OrderManageController {
             );
             orderDetail.setRestHours(restHours > 0 ? (restHours % 24) : 0);
             orderDetail.setRestDay(restDay);
+            orderDetail.setRestMinutes(restMinutes > 0 ? (restMinutes % 60) : 0);
             orderDetails[0] = orderDetail;
             order.setGoods(orderDetails);
 
@@ -130,38 +132,38 @@ public class OrderManageController {
     }
 
     //创建服务项目
-    @RequestMapping("/createServiceItem")
-    public R createServiceItem(HttpServletRequest request, PayItem payItem) {
-        String openId = (String) request.getSession().getAttribute("openId");
-        payItem.setOpenId(openId);
-        try {
-            payItemService.save(payItem);
-        } catch (Exception e) {
-            System.out.println("sss");
-            return R.error("请确认参数是否填写完整！");
-        }
-        return R.ok();
-    }
+//    @RequestMapping("/createServiceItem")
+//    public R createServiceItem(HttpServletRequest request, PayItem payItem) {
+//        String openId = (String) request.getSession().getAttribute("openId");
+//        payItem.setOpenId(openId);
+//        try {
+//            payItemService.save(payItem);
+//        } catch (Exception e) {
+//            System.out.println("sss");
+//            return R.error("请确认参数是否填写完整！");
+//        }
+//        return R.ok();
+//    }
 
     //删除服务项目
 
 
     //查询所有服务项目
-    @RequestMapping("/getServiceItems")
-    public R getServiceItems(HttpServletRequest request) {
-        Map<String, Object> resMap = new HashMap<>();
-        String openId = (String) request.getSession().getAttribute("openId");
-        try {
-            List<PayItem> payItems = payItemService.list(
-                    new QueryWrapper<PayItem>()
-                            .eq("openId", openId)
-            );
-            resMap.put("payItems", payItems);
-        } catch (Exception e) {
-            return R.error("token失效，请重新登录！");
-        }
-        return R.ok(resMap);
-    }
+//    @RequestMapping("/getServiceItems")
+//    public R getServiceItems(HttpServletRequest request) {
+//        Map<String, Object> resMap = new HashMap<>();
+//        String openId = (String) request.getSession().getAttribute("openId");
+//        try {
+//            List<PayItem> payItems = payItemService.list(
+//                    new QueryWrapper<PayItem>()
+//                            .eq("openId", openId)
+//            );
+//            resMap.put("payItems", payItems);
+//        } catch (Exception e) {
+//            return R.error("token失效，请重新登录！");
+//        }
+//        return R.ok(resMap);
+//    }
 
     //根据id删除服务项目
     @RequestMapping("/deleteServiceItems")

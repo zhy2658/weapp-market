@@ -107,7 +107,7 @@ page {
 .notice_row2 {
   height: 100%;
   padding: 10px 20rpx;
-  font-size: 0.8rem;
+  font-size: 30rpx;
   /* background-color: red; */
 }
 .notice_float {
@@ -121,7 +121,7 @@ page {
   flex-direction: row;
   z-index: 1;
   color: white;
-  font-size: 0.8rem;
+  font-size: 30rpx;
   align-items: center;
   justify-content: left;
 }

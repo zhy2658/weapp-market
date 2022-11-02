@@ -123,7 +123,7 @@ const handleConfirm = () => {
     if (valid) {
        try{
         if(form.value.bigType.id==""){
-          ElMessage.error("请选择商品大类");
+          ElMessage.error("请选择员工大类");
           return;
         }
         let result=await axios.post("admin/smallType/save",form.value);

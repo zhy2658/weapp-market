@@ -46,7 +46,7 @@
        
         <view class='zan-bg-view' >
             <view class='zan-user-view' wx:for-index="index">
-                <label bindtap='TouchZanUser' style="font-size: 0.8rem;">hello </label>
+                <label bindtap='TouchZanUser' style="font-size: 30rpx;">hello </label>
           
             </view>
             <view style="float: left;margin: 0px 20rpx;color: #232323;">等100人觉得很赞</view>
@@ -57,14 +57,15 @@
     </view> -->
 
     <view class='zan-view'>
-        <view class='trigon-view' style="display: flex;">
+        <view class='trigon-view' style="display: flex;align-items: center;">
             <view style="flex:1">
                 <image wx:if="{{publishObj.flagLike==true}}" mode='aspectFill' style="height: 20px;" class='trigon' src='/icons/likefill.png' bindtap='changeLike' data-pid="{{publishObj.pid}}"></image>
                 <image wx:else mode='aspectFill' style="height: 20px;" class='trigon' src='/icons/_like.png' bindtap='changeLike' data-pid="{{publishObj.pid}}"></image>
             </view>
             <view style="flex:1;line-height: 20px;color: royalblue;" data-name="{{publishObj.pid}}" bindtap="openCommentDialog"> 回复 </view>
-            <navigator url="/pages/publish/index" style="line-height: 20px;color: darkred;width: 60rpx;margin-right: 50rpx;">
-                <view>举报</view>
+            <navigator url="/pages/conplain/index" style="line-height: 20px;color: darkred;width: 60rpx;margin-right: 50rpx;">
+            举报
+                <!-- <view > <button style="width: 180rpx;color: darkred;background-color: #fff; font-size: 0.7rem;margin-right: 50rpx;" open-type="feedback" class="feedback">举报</button></view> -->
             </navigator>
 
         </view>
@@ -72,7 +73,7 @@
         <!-- 点赞 -->
         <view class='zan-bg-view' style="margin-top: 10px;">
             <view class='zan-user-view' wx:for='{{publishObj.likeList}}' wx:key="likeObj" wx:for-item="likeObj" wx:for-index="index">
-                <label bindtap='TouchZanUser' data-name='{{likeObj.id}}' style="font-size: 0.8rem;">{{likeObj.nickName}} </label>
+                <label bindtap='TouchZanUser' data-name='{{likeObj.id}}' style="font-size: 30rpx;">{{likeObj.nickName}} </label>
                 <!-- <text wx:if="{{index+1 < 5}}">,</text>
                             <text wx:else>...</text> -->
             </view>
@@ -89,7 +90,7 @@
     <view style="text-align:center;font-size:14px;color:#ccc;margin-top:20px;">以下是留言内容</view>
     <view class="liuyanview" wx:for="{{publishObj.replyList}}" wx:key="reply" wx:for-item="replyObj" wx:for-index="index">
         <view class="headimg">
-            <image src="https://qq.yh31.com/tp/zjbq/202005071006406675.gif"></image>
+            <image src="{{tools.filePathHandler(replyObj.avatarUrl)}}"></image>
         </view>
         <view class="nickname_liuyantext">
             <view class="nickname">{{replyObj.nickName}} <view class="time">{{replyObj.retime}}</view>

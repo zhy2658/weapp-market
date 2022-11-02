@@ -34,10 +34,10 @@ public class PlayItemController {
     @Resource
     private PayItemService payItemService;
 
-    @RequestMapping("/getByOpenId")
-    public R getByOpenId(@RequestParam("openId") String openId){
+    @RequestMapping("/getByGrade")
+    public R getByGrade(@RequestParam("grade") String grade){
 
-        List<PayItem> payitemList = payItemService.list(new QueryWrapper<PayItem>().eq("openId",openId));
+        List<PayItem> payitemList = payItemService.list(new QueryWrapper<PayItem>().eq("grade",grade));
         Map<String,Object> map=new HashMap<>();
         map.put("payitemList",payitemList);
         return R.ok(map);

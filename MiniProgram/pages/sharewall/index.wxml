@@ -58,15 +58,16 @@
 
                 <!-- 点赞 -->
                 <view class='zan-view'>
-                    <view class='trigon-view' style="display: flex;">
+                    <view class='trigon-view' style="display: flex; align-items: center;">
                         <view style="flex:1">
                             <image wx:if="{{item.flagLike==true}}" mode='aspectFill' style="height: 20px;" class='trigon' src='/icons/likefill.png' bindtap='changeLike' data-pid="{{item.pid}}"></image>
                             <image wx:else mode='aspectFill' style="height: 20px;" class='trigon' src='/icons/_like.png' bindtap='changeLike' data-pid="{{item.pid}}"></image>
                         </view>
                         <view style="flex:1;line-height: 20px;color: royalblue;" data-name="{{item.pid}}" bindtap="openCommentDialog"> 回复 </view>
-                        <navigator url="/pages/publish/index" style="line-height: 20px;color: darkred;width: 60rpx;margin-right: 50rpx;">
-                            <view>举报</view>
+                        <navigator url="/pages/conplain/index" style="line-height: 20px;color: darkred;width: 60rpx;margin-right: 50rpx;">
+                            举报
                         </navigator>
+                        <!-- <view > <button style="width: 180rpx;color: darkred;background-color: #fff; font-size: 0.7rem;margin-right: 50rpx;" open-type="feedback" class="feedback"></button></view> -->
 
                     </view>
 
@@ -74,7 +75,7 @@
                     <view class='zan-bg-view' style="margin-top: 10px;">
                         <view class='zan-user-view' wx:if="{{item.likeList.length>0}}"> <text class="cuIcon-like" style="font-size: 1rem;;"></text></view>
                         <view class='zan-user-view' wx:for='{{item.likeList}}' wx:key="likeObj" wx:for-item="likeObj" wx:for-index="index">
-                            <label bindtap='TouchZanUser' data-name='{{likeObj.id}}' style="font-size: 0.8rem;">{{likeObj.nickName}} </label>
+                            <label bindtap='TouchZanUser' data-name='{{likeObj.id}}' style="font-size: 30rpx;">{{likeObj.nickName}} </label>
                             <!-- <text wx:if="{{index+1 < 5}}">,</text>
                             <text wx:else>...</text> -->
                         </view>
@@ -85,8 +86,8 @@
                     <!-- 评论 -->
                     <view class='discuss-view' style="padding-top: 10px;">
                         <view class='discuss' wx:for='{{item.replyList}}' wx:key="replyObj" wx:for-item="replyObj" style="margin-top: 2px;">
-                            <label bindtap='TouchZanUser' data-name='{{replyObj.nickName}}' class='discuss-user' style="font-size: 0.8rem;">{{replyObj.nickName}}：</label>
-                            <label class='content' style="color: #454545;font-size: 0.8rem;">{{replyObj.msg}}</label>
+                            <label bindtap='TouchZanUser' data-name='{{replyObj.nickName}}' class='discuss-user' style="font-size: 30rpx;">{{replyObj.nickName}}：</label>
+                            <label class='content' style="color: #454545;font-size: 30rpx;">{{replyObj.msg}}</label>
                         </view>
                         <view wx:if="{{item.replyUnEnd}}" style="float: left;;width: 100%;margin-left: 7rpx;">已折叠{{item.replyCount-4}}条回复</view>
                     </view>

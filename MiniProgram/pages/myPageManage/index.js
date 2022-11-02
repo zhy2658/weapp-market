@@ -19,7 +19,8 @@ Page({
     onLoad(options) {
         let userInfo=wx.getStorageSync('userInfo');
         this.setData({
-            currentStatus: userInfo.ustatus
+            currentStatus: userInfo.ustatus,
+            userInfo
         })
     },
     async changeStatus(e){

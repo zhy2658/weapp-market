@@ -73,7 +73,7 @@ public class ProductController {
     public R detail(Integer id){
         Product product = productService.getById(id);
         WxUserInfo userInfo = iWxUserInfoService.findByOpenId(product.getOpenId());
-        List<PayItem> payitemList = payItemService.list(new QueryWrapper<PayItem>().eq("openId",userInfo.getOpenid()));
+        List<PayItem> payitemList = payItemService.list(new QueryWrapper<PayItem>().eq("grade",userInfo.getEmployee_grade()));
         List<ProductSwiperImage> productSwiperImageList = productSwiperImageService.list(new QueryWrapper<ProductSwiperImage>().eq("productId", product.getId()).orderByAsc("sort"));
         product.setProductSwiperImageList(productSwiperImageList);
         Map<String,Object> map=new HashMap<>();
@@ -106,9 +106,18 @@ public class ProductController {
      */
     @GetMapping("/search")
     public R search(String q){
-        List<Product> producetList = productService.list(new QueryWrapper<Product>().like("name", q));
+        List<WxUserInfo> wxUserInfoListList = iWxUserInfoService.list(new QueryWrapper<WxUserInfo>().like("nickName", q).eq("admin",1));
+        for(WxUserInfo userInfo: wxUserInfoListList){
+            QueryWrapper<Product> productQueryWrapper=new QueryWrapper<>();
+            Product product =productService.getOne(
+                    productQueryWrapper
+                            .eq("openId",userInfo.getOpenid())
+            );
+            userInfo.setDetail(product);
+        }
+//        System.out.println("wxUserInfoListList--"+q+":"+wxUserInfoListList);
         Map<String,Object> map=new HashMap<>();
-        map.put("message",producetList);
+        map.put("message",wxUserInfoListList);
         return R.ok(map);
     }
 

@@ -2,7 +2,7 @@
 
   <el-dialog
     :model-value="imageDialogVisible"
-    title="商品大类图片更换"
+    title="员工大类图片更换"
     width="30%"
     @close="handleClose"
     center

@@ -3,6 +3,6 @@
     "SearchBar":"../../components/SearchBar/SearchBar",
     "AudioPlay":"../../components/AudioPlay/AudioPlay"
   },
-  "navigationBarTitleText": "青年时文-首页",
+  "navigationBarTitleText": "晚点的心声",
   "enablePullDownRefresh":true
 }

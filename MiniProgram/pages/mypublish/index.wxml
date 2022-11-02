@@ -73,7 +73,7 @@
                     <!-- 点赞 -->
                     <view class='zan-bg-view' style="margin-top: 10px;">
                         <view class='zan-user-view' wx:for='{{item.likeList}}' wx:key="likeObj" wx:for-item="likeObj" wx:for-index="index">
-                            <label bindtap='TouchZanUser' data-name='{{likeObj.id}}' style="font-size: 0.8rem;">{{likeObj.nickName}} </label>
+                            <label bindtap='TouchZanUser' data-name='{{likeObj.id}}' style="font-size: 30rpx;">{{likeObj.nickName}} </label>
                             <!-- <text wx:if="{{index+1 < 5}}">,</text>
                         <text wx:else>...</text> -->
                         </view>
@@ -83,8 +83,8 @@
                     <!-- 评论 -->
                     <view class='discuss-view' style="padding-top: 10px;">
                         <view class='discuss' wx:for='{{item.replyList}}' wx:key="replyObj" wx:for-item="replyObj">
-                            <label bindtap='TouchZanUser' data-name='{{replyObj.nickName}}' class='discuss-user' style="font-size: 0.8rem;">{{replyObj.nickName}}：</label>
-                            <label class='content' style="color: #454545;font-size: 0.8rem;">{{replyObj.msg}}</label>
+                            <label bindtap='TouchZanUser' data-name='{{replyObj.nickName}}' class='discuss-user' style="font-size: 30rpx;">{{replyObj.nickName}}：</label>
+                            <label class='content' style="color: #454545;font-size: 30rpx;">{{replyObj.msg}}</label>
                         </view>
                         <view wx:if="{{item.replyUnEnd}}" style="float: left;color: #232323;width: 100%;">已折叠{{item.replyCount-4}}条回复</view>
                     </view>

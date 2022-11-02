@@ -13,7 +13,7 @@ import java.util.Map;
 @Mapper
 public interface PublishReplyMapper extends BaseMapper<PublishReply> {
 
-    @Select("select p.id,p.pid,p.openId,p.msg,p.retime,u.nickName " +
+    @Select("select p.id,p.pid,p.openId,p.msg,p.retime,u.nickName,u.avatarUrl " +
             "from t_publish_reply as p inner join t_wxuserinfo as u " +
             "on p.openId = u.openid " +
             "where p.pid=#{pid} order by p.retime ")

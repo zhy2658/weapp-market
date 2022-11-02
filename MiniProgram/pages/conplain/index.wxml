@@ -1,0 +1,80 @@
+<!--返回按钮-->
+<!-- <view style="margin-top: {{CustomBar*5/8}}px;margin-left: 10px;color: black;">
+    <view class="cuIcon-back" bindtap="backPage"></view>
+</view> -->
+<!--标题-->
+<view class="flex justify-center margin-top">
+    <text class="text-xxl text-bold">请填写投诉信息</text>
+</view>
+
+<view class="margin">
+    <text class="text-gray text-sm">
+        非常抱歉给您带来不便，我们重视每一位用户的体验，请填写信息帮助我们明确问题。
+    </text>
+</view>
+
+<form bindsubmit="ok">
+    <!--投诉原因-->
+    <view class="cu-form-group margin-top-sm">
+        <view class="title text-bold">投诉原因</view>
+        <picker bindchange="pickerChange1" value="{{index}}" range="{{picker1}}" name='reason'>
+            <view class="picker">
+                {{index?picker1[index]:'请选择'}}
+            </view>
+        </picker>
+    </view>
+    <!--投诉描述-->
+    <view class="cu-bar bg-white margin-top">
+        <view class="action">
+            <text class="text-bold text-black">投诉描述</text>
+        </view>
+    </view>
+    <view class="cu-form-group">
+        <textarea maxlength="-1" placeholder="请填写10子以上的投诉原因以便我们核实情况" name='describe' />
+    </view>
+    <!--图片证据-->
+    <!-- <view class="cu-bar bg-white margin-top">
+        <view class="action">
+            <text class="text-bold text-black">图片证据</text>
+            <text>（选填）</text>
+        </view>
+        <view class="action">
+            {{imgList.length}}/4
+        </view>
+    </view> -->
+
+    <!-- <view class="cu-form-group">
+        <view class="grid col-4 grid-square flex-sub">
+            <view class="bg-img" wx:for="{{imgList}}" wx:key="*this" bindtap="ViewImage" data-url="{{imgList[index]}}">
+                <image src='{{imgList[index]}}' mode='aspectFill'></image>
+                <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
+                    <text class="cuIcon-close"></text>
+                </view>
+            </view>
+            <view class="solids" bindtap="ChooseImage" wx:if="{{imgList.length<4}}">
+                <text class="cuIcon-cameraadd"></text>
+            </view>
+        </view>
+    </view> -->
+    <!--按钮-->
+    <view class="flex-direction margin">
+        <button class="bg-green" formType="submit">提交</button>
+    </view>
+</form>
+
+<!--弹出框-->
+<view class="cu-modal {{modalName=='Modal'?'show':''}}">
+    <view class="cu-dialog">
+        <view class="cu-bar bg-white justify-end">
+            <view class="content">
+                <text class="text-bold">投诉成功</text>
+            </view>
+        </view>
+
+        <view class="bg-white padding-top">
+            <icon type="waiting" size="50"></icon>
+            <view class="margin-top">我们会在3个工作日处理，并做出改进！</view>
+            <button class="bg-green margin" bindtap="exit">返回</button>
+        </view>
+    </view>
+</view>

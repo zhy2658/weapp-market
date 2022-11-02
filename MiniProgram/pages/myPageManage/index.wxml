@@ -2,6 +2,7 @@
 <wxs src="../../utils/tools.wxs" module="tools" />
 
 <view class="content">
+    <view>我的员工等级是 <text style="color: red;font-size: 2rem;">{{userInfo.employee_grade}}</text>级</view>
 	<view class="cu-form-group margin-top">
 		<view class="title">{{userStatus[currentStatus]}}</view>
 		<switch checked="{{currentStatus}}"  bindtap="changeStatus"></switch>

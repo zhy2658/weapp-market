@@ -1,6 +1,6 @@
 
-// const baseUrl= "http://localhost:8080/"
-const baseUrl= "https://www.qingnianshiwen.cn/"
+const baseUrl= "http://localhost:8080/"
+// const baseUrl= "https://www.qingnianshiwen.cn/"
 
 export function getServerUrl(){
     return baseUrl;

@@ -58,6 +58,12 @@ const routes = [
           import( "../views/publish"),
       },
       {
+        path: "/serviceOption",
+        name: "服务选项",
+        component: () =>
+          import( "../views/serviceOption"),
+      },
+      {
         path: "/modifyPassword",
         name: "修改密码",
         component: () =>

@@ -44,7 +44,7 @@
 
 
     <!-- <view class="product_description">{{productObj.description}}</view> -->
-    <view style="padding: 0 30rpx; font-size: 0.8rem;position: relative;">
+    <view style="padding: 0 30rpx; font-size: 30rpx;position: relative;">
         <view style="padding-left: 21rpx">{{ productObj.description}}</view>
         <view wx:if="{{userInfo.tags}}" style="display: flex; margin: 5px 0;">
             <view style="color: teal;margin: 0 20rpx;text-align: center;border: 1px solid teal; width:100rpx; justify-content: left;border-radius: 4px;" wx:for="{{userInfo.tags}}" wx:for-item="tag" wx:key="tag">
@@ -88,7 +88,7 @@
     </view>
 
     <view class="desc_tabs" style="padding: 0 30rpx;padding-bottom: 10vh;">
-        <!-- <view class="tabs_title" style="font-size: 0.8rem; margin-top: 10vh;">
+        <!-- <view class="tabs_title" style="font-size:30rpx; margin-top: 10vh;">
             <view class="title_item" data-index="0">个人介绍</view>
             <view class="title_item {{activeIndex==0?'active':''}}" bindtap="handleItemTap" data-index="0">个人介绍</view>
             <view class="title_item {{activeIndex==1?'active':''}}" bindtap="handleItemTap" data-index="1">价格说明</view>
@@ -101,7 +101,7 @@
                 <switch class='sm' checked='{{isCard}}' bindchange='isCard'></switch>
             </view> -->
         </view>
-        <view class="tabs_content" style="font-size: 0.8rem; margin-top: 2vh;">
+        <view class="tabs_content" style="font-size: 30rpx; margin-top: 2vh;">
             <block wx:if="{{activeIndex==0}}">
                 <rich-text nodes="{{productObj.productIntroImgs}}"></rich-text>
             </block>

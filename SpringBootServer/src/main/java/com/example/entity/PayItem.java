@@ -2,6 +2,7 @@ package com.example.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.swagger.models.auth.In;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,9 +14,9 @@ public class PayItem implements Serializable {
 
     private Integer id;
 
-    private String openId;
+//    private String openId;
 
-    private Integer pid;
+//    private Integer pid;
 
     private Float price;
 
@@ -25,5 +26,7 @@ public class PayItem implements Serializable {
     private String itemName;
 
     private Integer itemHours;
+
+    private Integer grade;  //1级雇员  ，2:2级雇员   ...以此类推
 
 }

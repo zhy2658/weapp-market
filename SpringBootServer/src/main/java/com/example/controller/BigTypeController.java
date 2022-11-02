@@ -71,6 +71,15 @@ public class BigTypeController {
                                 .eq("isshow", 1)
                                 .eq("admin",1)
                 ); //.eq("isshow", 1)
+                for(WxUserInfo userInfo:userInfos){
+                    QueryWrapper<Product> productQueryWrapper=new QueryWrapper<>();
+                    Product product =productService.getOne(
+                            productQueryWrapper
+                                    .eq("openId",userInfo.getOpenid())
+                    );
+                    userInfo.setDetail(product);
+                }
+
                 smallType.setUserInfos(userInfos);
             }
 

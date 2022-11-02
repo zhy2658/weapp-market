@@ -114,10 +114,10 @@
                             <view style="color: #454545;">在线</view>
                             <view class="sign" style="background-color: #08F074;"></view>
                         </view>
-                        <!-- <view wx:elif="{{hotProduct.ustatus==0}}" class="user_status">
+                        <view wx:elif="{{hotProduct.ustatus==0}}" class="user_status"  style="display: flex;justify-content: space-around;">
+                            <view style="color: #454545;">离线</view>
                             <view class="sign" style="background-color: #aaa;"></view>
-                            <view style="color: #454545;">暂时离线</view>
-                        </view> -->
+                        </view>
                     </view>
                     <!-- <button class="iconfont icon-biaoqianA01_zhibo-68" size="mini" style="position: absolute; right: 0;top: 1vh; color: #454545; font-size: 1.5rem;"></button> -->
                 </view>

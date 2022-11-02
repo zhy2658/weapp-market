@@ -41,7 +41,7 @@
         </block>
     </view>
 </view>
-<view style="font-size: 0.8rem;margin-left: 40rpx;margin-top: 20px;">总计时长：{{cart[0].totalHours}} 小时</view>
+<view style="font-size: 30rpx;margin-left: 40rpx;margin-top: 20px;">总计时长：{{cart[0].totalHours}} 小时</view>
 
 
 <view class="cu-bar bg-white solid-bottom margin-top" style="margin-top:30px">
@@ -85,7 +85,7 @@
   <!-- 总价格 -->
   <view class="total_price_wrap">
     <view class="total_price">
-     共{{totalNum}}件,合计<text class="total_price_text" decode="{{true}}">&nbsp;¥{{totalPrice}}</text>
+     数量 {{totalNum}},合计<text class="total_price_text" decode="{{true}}">&nbsp;¥{{totalPrice}}</text>
     </view>
   </view>
 

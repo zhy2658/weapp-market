@@ -17,7 +17,7 @@
 
       <!-- <el-table-column type="index"   width="50" /> -->
 
-      <!-- <el-table-column prop="goodsPic" label="商品图片" width="200"  >
+      <!-- <el-table-column prop="goodsPic" label="图片" width="200"  >
         <template v-slot="scope">
           <img :src="getServerUrl()+'/image/product/'+scope.row.goodsPic" width="80" height="80"/>
         </template>
@@ -25,9 +25,9 @@
 
       <!-- <el-table-column prop="title" label="标题" /> -->
 
-      <!-- <el-table-column prop="goodsPrice" label="商品价格" width="100" /> -->
+      <!-- <el-table-column prop="goodsPrice" label="价格" width="100" /> -->
 
-      <!-- <el-table-column prop="goodsNumber" label="商品数量" width="100" /> -->
+      <!-- <el-table-column prop="goodsNumber" label="数量" width="100" /> -->
 
     <!-- </el-table> -->
   </el-dialog>

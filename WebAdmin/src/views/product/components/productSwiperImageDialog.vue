@@ -2,7 +2,7 @@
 
   <el-dialog
     :model-value="productSwiperImageDialogVisible"
-    title="商品轮播图片设置"
+    title="主页轮播图片设置"
     width="30%"
     @close="handleClose"
 

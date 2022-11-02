@@ -50,7 +50,11 @@
       <el-icon><tickets /></el-icon>
       <span>万能墙管理</span>
     </el-menu-item>
-
+    <el-menu-item index="serviceOption">
+      <el-icon><tickets /></el-icon>
+      <span>服务选项</span>
+    </el-menu-item>
+    
     <el-sub-menu index="11">
       <template #title >
         <el-icon><management /></el-icon>

@@ -99,14 +99,14 @@ const handleCurrentChange=(pageNum)=>{
 const handleDialogValue = (row) => {
   if(row){
     dialogValue.value=JSON.parse(JSON.stringify(row));
-    dialogTitle.value="商品小类修改"
+    dialogTitle.value="员工小类修改"
   }else{
     dialogValue.value={
       bigType:{
         id:""
       }
     }
-    dialogTitle.value="商品小类添加"
+    dialogTitle.value="员工小类添加"
   }
   dialogVisible.value=true;
 }

@@ -3,7 +3,7 @@
   <button bindtap="handleCancel"  hidden="{{!isFocus}}">取消</button>
 </view>
 <view class="search_content">
-  <navigator url="/pages/product_detail/index?id={{item.id}}" class="search_item" wx:for="{{productList}}" wx:key="id">
-    {{item.name}}
+  <navigator url="/pages/product_detail/index?id={{item.detail.id}}" class="search_item" wx:for="{{productList}}" wx:key="id">
+    {{item.nickName}}
   </navigator>
 </view>

@@ -83,8 +83,9 @@ Page({
         })
     },
     async getByOpenId(openId) {
-
-        const result = await requestUtil({ url: "/playitem/getByOpenId?openId=" + openId });
+        // console.log(wx.getStorageSync('userInfo'))
+        let grade = wx.getStorageSync('userInfo').employee_grade;
+        const result = await requestUtil({ url: "/playitem/getByGrade?grade=" + grade });
 
         this.setData({
             payitemList: result.payitemList

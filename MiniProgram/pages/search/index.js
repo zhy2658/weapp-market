@@ -42,6 +42,7 @@ Page({
     this.setData({
       productList:res.message
     })
+    // console.log()
   },
 
   // 点击 取消按钮

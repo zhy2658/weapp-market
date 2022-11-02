@@ -1,7 +1,7 @@
 <template>
   <el-dialog
     model-value="dialogVisible"
-    title="订单商品详情"
+    title="订单详情"
     width="40%"
     @close="handleClose"
   >
@@ -9,17 +9,17 @@
 
       <el-table-column type="index"   width="50" />
 
-      <el-table-column prop="goodsPic" label="商品图片" width="200"  >
+      <el-table-column prop="goodsPic" label="员工头像" width="200"  >
         <template v-slot="scope">
           <img :src="filePathHandler(scope.row.goodsPic)" width="80" height="80"/>
         </template>
       </el-table-column>
 
-      <el-table-column prop="goodsName" label="商品名称" />
+      <el-table-column prop="goodsName" label="员工昵称" />
 
-      <el-table-column prop="goodsPrice" label="商品价格" width="100" />
+      <el-table-column prop="goodsPrice" label="价格" width="100" />
 
-      <el-table-column prop="goodsNumber" label="商品数量" width="100" />
+      <el-table-column prop="goodsNumber" label="数量" width="100" />
 
     </el-table>
   </el-dialog>

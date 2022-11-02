@@ -11,11 +11,11 @@
         <el-input v-model="form.userInfo.nickName" style="width: 400px"></el-input>
       </el-form-item>
 
-      <!-- <el-form-item label="收费价格" prop="price">
+      <!-- <el-form-item label="价格" prop="price">
         <el-input v-model="form.price" style="width: 100px"></el-input>
       </el-form-item> -->
 
-      <!-- <el-form-item label="商品库存" prop="stock">
+      <!-- <el-form-item label="库存" prop="stock">
         <el-input v-model="form.stock" style="width: 100px"></el-input>
       </el-form-item> -->
 
@@ -204,7 +204,7 @@ initBigTypeSelectList();
 const handleConfirm = () => {
 
   if(form.value.userInfo.small_id==""){
-    ElMessage.error("请选择商品类别");
+    ElMessage.error("请选择员工类别");
     return;
   }
   formRef.value.validate(async (valid) => {

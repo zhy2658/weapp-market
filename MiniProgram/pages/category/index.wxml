@@ -36,7 +36,7 @@
             wx:for-index="index2"
             wx:for-item="item2"
             wx:key="id"
-            url="/pages/product_detail/index?id={{item2.id}}">
+            url="/pages/product_detail/index?id={{item2.detail.id}}">
             <image mode="widthFix" src="{{tools.filePathHandler(item2.avatarUrl)}}"></image>
             <view class="right">
               <view class="product_name">{{item2.nickName}}</view>

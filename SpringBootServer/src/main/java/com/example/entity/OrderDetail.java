@@ -55,6 +55,8 @@ public class OrderDetail {
     @TableField(select = false,exist = false)
     private int restHours;   //剩下多少小时
     @TableField(select = false,exist = false)
+    private int restMinutes; //剩下多少小时
+    @TableField(select = false,exist = false)
     private float finishedPersent;  //完成进度
     @TableField(select = false,exist = false)
     private WxUserInfo wxUserInfo;  //支付用户

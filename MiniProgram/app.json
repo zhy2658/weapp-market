@@ -22,12 +22,13 @@
         "pages/serviceOption/index",
         "pages/userOrder/index",
         "pages/userDetail/index",
-        "pages/editIntro/index"
+        "pages/editIntro/index",
+        "pages/conplain/index"
     ],
     "window": {
         "backgroundTextStyle": "dark",
         "navigationBarBackgroundColor": "#F03A53",
-        "navigationBarTitleText": "青年时文",
+        "navigationBarTitleText": "晚点的心声",
         "navigationBarTextStyle": "white",
         "enablePullDownRefresh": true
     },

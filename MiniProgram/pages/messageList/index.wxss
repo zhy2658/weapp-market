@@ -22,7 +22,7 @@
 .list-item .msg{
     flex: 6;
     /* background-color: #efefef; */
-    font-size: 0.8rem;
+    font-size: 30rpx;
 }
 .list-item .time{
     flex: 8;
