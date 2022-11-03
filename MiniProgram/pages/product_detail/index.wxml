@@ -21,7 +21,7 @@
 
     <view class="row1">
         <view wx:if="{{userInfo.avatarUrl}}" class="avatarArea2">
-            <image class='user-icon' src='{{tools.filePathHandler(userInfo.avatarUrl)}}' mode="widthFix"></image>
+            <image class='user-icon' src='{{tools.filePathHandler(userInfo.avatarUrl)}}' mode="aspectFill"  ></image>
         </view>
         <view class="row1_info">
             <view style="display: flex; flex-direction: row;">

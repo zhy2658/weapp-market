@@ -12,6 +12,7 @@ import com.example.service.IOrderService;
 import com.example.service.IWxUserInfoService;
 import com.example.util.*;
 import io.jsonwebtoken.Claims;
+import io.swagger.models.auth.In;
 import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -79,9 +80,9 @@ public class OrderController {
             OrderDetail orderDetail = goods[i];
             orderDetail.setMId(order.getId());
 //            时间处理
-            orderDetail.setServiceStart(new Date());
-            orderDetail.setServiceEnd(new Date(System.currentTimeMillis()
-                    + 3600L * 1000 * orderDetail.getItemHours() * orderDetail.getGoodsNumber()));
+//            orderDetail.setServiceStart(new Date());
+//            orderDetail.setServiceEnd(new Date(System.currentTimeMillis()
+//                    + 3600L * 1000 * orderDetail.getItemHours() * orderDetail.getGoodsNumber()));
 
             orderDetailService.save(orderDetail);
         }
@@ -89,6 +90,8 @@ public class OrderController {
         resultMap.put("orderNo", orderNo);
         return R.ok(resultMap);
     }
+
+
 
     /**
      * 预付款
@@ -298,22 +301,25 @@ public class OrderController {
             );
             OrderDetail[] orderDetails = new OrderDetail[1];
             OrderDetail orderDetail = orderDetailList.get(0);
-            Date startDate = orderDetail.getServiceStart();
-            Date endDate = orderDetail.getServiceEnd();
+            if(order.getStatus() != 1){
+                Date startDate = orderDetail.getServiceStart();
+                Date endDate = orderDetail.getServiceEnd();
 //            System.out.println("date================"+orderDetail.getServiceStart());
-            int restDay = (int) (endDate.getTime() - new Date().getTime()) / (1000 * 3600 * 24);
-            int restHours = (int) (endDate.getTime() - new Date().getTime()) / (1000 * 3600);
-            int restMinutes = (int) (endDate.getTime() - new Date().getTime()) / (1000 * 60);
+                int restDay = (int) (endDate.getTime() - new Date().getTime()) / (1000 * 3600 * 24);
+                int restHours = (int) (endDate.getTime() - new Date().getTime()) / (1000 * 3600);
+                int restMinutes = (int) (endDate.getTime() - new Date().getTime()) / (1000 * 60);
 //            System.out.println(restHours+"---"+orderDetail.getTotalHours()+"---"+restMinutes);
-            orderDetail.setFinishedPersent(1f - ((float) restMinutes / (orderDetail.getTotalHours()*60)));
-            DecimalFormat df = new DecimalFormat("0.00");
-            orderDetail.setFinishedPersent(Float.parseFloat(df.format(orderDetail.getFinishedPersent())));
-            orderDetail.setFinishedPersent(
-                    (orderDetail.getFinishedPersent() > 1) ? 1 : orderDetail.getFinishedPersent()
-            );
-            orderDetail.setRestHours(restHours > 0 ? (restHours % 24) : 0);
-            orderDetail.setRestDay(restDay);
-            orderDetail.setRestMinutes(restMinutes > 0 ? (restMinutes % 60) : 0);
+                orderDetail.setFinishedPersent(1f - ((float) restMinutes / (orderDetail.getTotalHours()*60)));
+                DecimalFormat df = new DecimalFormat("0.00");
+                orderDetail.setFinishedPersent(Float.parseFloat(df.format(orderDetail.getFinishedPersent())));
+                orderDetail.setFinishedPersent(
+                        (orderDetail.getFinishedPersent() > 1) ? 1 : orderDetail.getFinishedPersent()
+                );
+                orderDetail.setRestHours(restHours > 0 ? (restHours % 24) : 0);
+                orderDetail.setRestDay(restDay);
+                orderDetail.setRestMinutes(restMinutes > 0 ? (restMinutes % 60) : 0);
+
+            }
             orderDetails[0] = orderDetail;
             order.setGoods(orderDetails);
 
@@ -330,7 +336,7 @@ public class OrderController {
         resultMap.put("orderList", orderList);
         return R.ok(resultMap);
     }
-
+//    确定完成订单
     @RequestMapping("/confirmOrder")
     public R confirmOrder(HttpServletRequest request,@RequestParam("order_id") int order_id){
         Order order = orderService.getById(order_id);
@@ -341,7 +347,7 @@ public class OrderController {
         if (now.getTime() < orderDetail.getServiceEnd().getTime()) {
             return R.error("当前还不能确认完成服务");
         }
-        order.setStatus(3);
+        order.setStatus(4);
         orderService.updateById(order);
         return R.ok();
     }

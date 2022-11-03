@@ -96,6 +96,27 @@ Page({
         // this.setData({ userInfo, token });
 
     },
+    logout() {
+        let that=this;
+        wx.showModal({
+            title: '提示',
+            content: '确定注销',
+            success(res) {
+                if (res.confirm) {
+                    wx.clearStorage({
+                        success: (res) => {
+                            that.setData({
+                                isShowLogin:true      
+                            })
+                            
+                        },
+                    })
+                }
+            }
+
+        });
+
+    },
     // 点击 编辑收货地址
     handleEditAddress() {
         console.log("编辑收货地址")

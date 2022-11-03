@@ -11,7 +11,7 @@ Page({
     data: {
         modalName: "",
         showItemIndex: 1,
-        showItem: ["等待支付", "正在进行", "待确认", "完成"
+        showItem: ["未支付", "等待员工接单","正在进行", "待确认", "完成"
             // ,"请求退单中","已退单"
         ],
 
@@ -93,13 +93,13 @@ Page({
         //     unfinished: e.detail.value
         // });
     },
-    async confirmFinishedService(e) {
-        // console.log(e.target.dataset.id)
-        if (!e.target.dataset.id) return;
-        const res = await requestUtil({ url: '/order/manage/confirmFinishedService?order_id=' + e.target.dataset.id });
-        console.log(res);
+    // async confirmFinishedService(e) {
+    //     // console.log(e.target.dataset.id)
+    //     if (!e.target.dataset.id) return;
+    //     const res = await requestUtil({ url: '/order/manage/confirmFinishedService?order_id=' + e.target.dataset.id });
+    //     console.log(res);
 
-    },
+    // },
     onScrolltolower() {
         let QueryParams = this.data.QueryParams;
         if (QueryParams.page >= this.data.totalPage) {
@@ -112,7 +112,7 @@ Page({
         })
         this.getOrder(this.data.showItemIndex, "add");
     },
-    async confirmFinishedService(e) {
+    async confirmOrder(e) {
         const res = await requestUtil({ url: '/my/order/confirmOrder?order_id=' + e.target.dataset.id });
         if (res.code == 500) {
             console.log(res)

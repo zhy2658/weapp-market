@@ -12,14 +12,20 @@ import com.example.service.IWxUserInfoService;
 import com.example.service.PayItemService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Array;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @RestController
@@ -46,7 +52,7 @@ public class OrderManageController {
     private PayItemMapper payItemMapper;
 
     //获取我接受的订单
-    // 订单状态 0 未支付 1 已经支付，正在服务  2完成服务，待确认，3完成交易  4：已退单
+    // 订单状态 0 未支付 1等待员工接单 2 正在服务  3完成服务，待确认，4完成订单  5请求退单 6：已退单
     @RequestMapping("/getMyOrder")
     public R getMyOrder(HttpServletRequest request,
                         @RequestParam("status") int status,
@@ -76,22 +82,26 @@ public class OrderManageController {
             );
             OrderDetail[] orderDetails = new OrderDetail[1];
             OrderDetail orderDetail = orderDetailList.get(0);
-            Date startDate = orderDetail.getServiceStart();
-            Date endDate = orderDetail.getServiceEnd();
+//            1:  是员工未接单状态
+            if(order.getStatus() !=1){
+                Date startDate = orderDetail.getServiceStart();
+                Date endDate = orderDetail.getServiceEnd();
 //            System.out.println("date================"+orderDetail.getServiceStart());
-            int restDay = (int) (endDate.getTime() - new Date().getTime()) / (1000 * 3600 * 24);
-            int restHours = (int) (endDate.getTime() - new Date().getTime()) / (1000 * 3600);
-            int restMinutes = (int) (endDate.getTime() - new Date().getTime()) / (1000 * 60);
+                int restDay = (int) (endDate.getTime() - new Date().getTime()) / (1000 * 3600 * 24);
+                int restHours = (int) (endDate.getTime() - new Date().getTime()) / (1000 * 3600);
+                int restMinutes = (int) (endDate.getTime() - new Date().getTime()) / (1000 * 60);
 //            System.out.println(restHours+"---"+orderDetail.getTotalHours());
-            orderDetail.setFinishedPersent(1f - ((float) restMinutes / (orderDetail.getTotalHours() * 60)));
-            DecimalFormat df = new DecimalFormat("0.00");
-            orderDetail.setFinishedPersent(Float.parseFloat(df.format(orderDetail.getFinishedPersent())));
-            orderDetail.setFinishedPersent(
-                    (orderDetail.getFinishedPersent() > 1) ? 1 : orderDetail.getFinishedPersent()
-            );
-            orderDetail.setRestHours(restHours > 0 ? (restHours % 24) : 0);
-            orderDetail.setRestDay(restDay);
-            orderDetail.setRestMinutes(restMinutes > 0 ? (restMinutes % 60) : 0);
+                orderDetail.setFinishedPersent(1f - ((float) restMinutes / (orderDetail.getTotalHours() * 60)));
+                DecimalFormat df = new DecimalFormat("0.00");
+                orderDetail.setFinishedPersent(Float.parseFloat(df.format(orderDetail.getFinishedPersent())));
+                orderDetail.setFinishedPersent(
+                        (orderDetail.getFinishedPersent() > 1) ? 1 : orderDetail.getFinishedPersent()
+                );
+                orderDetail.setRestHours(restHours > 0 ? (restHours % 24) : 0);
+                orderDetail.setRestDay(restDay);
+                orderDetail.setRestMinutes(restMinutes > 0 ? (restMinutes % 60) : 0);
+            }
+
             orderDetails[0] = orderDetail;
             order.setGoods(orderDetails);
 
@@ -125,11 +135,29 @@ public class OrderManageController {
             return R.error("当前还不能确认完成服务");
         }
         System.out.println(order);
-        order.setStatus(2);
+        order.setStatus(3);
         orderService.updateById(order);
 
         return R.ok();
     }
+    @RequestMapping("/employTakeOrder")
+    public R employTakeOrders(@RequestParam("order_id") Integer orderId){
+        Order order =orderService.getById(orderId);
+        OrderDetail orderDetail = orderDetailService.getOne(
+                new QueryWrapper<OrderDetail>()
+                        .eq("mId",order.getId())
+        );
+//        服务开始结束时间处理
+        orderDetail.setServiceStart(new Date());
+        orderDetail.setServiceEnd(new Date(System.currentTimeMillis()
+                + 3600L * 1000 * orderDetail.getItemHours() * orderDetail.getGoodsNumber()));
+        order.setStatus(2);
+        orderService.updateById(order);
+        orderDetailService.updateById(orderDetail);
+        Map<String, Object> map = new HashMap<String, Object>();
+        return R.ok(map);
+    }
+
 
     //创建服务项目
 //    @RequestMapping("/createServiceItem")
@@ -177,5 +205,39 @@ public class OrderManageController {
         }
         return R.ok();
     }
+    //查询今日和本月接单量
+    @RequestMapping("/getOrderCount")
+    public R getServiceItems(HttpServletRequest request,@RequestBody(required = false)
+    TecherTime techerTime) {
+        Map<String, Object> resMap = new HashMap<>();
+        String openId = (String) request.getSession().getAttribute("openId");
+
+        System.out.println(techerTime);
+
+        String begin = techerTime.getBegin();
+        String end = techerTime.getEnd();
+
+        //判断条件是否为空
+//
+//        if (!StringUtils.isEmpty(begin)){
+//            wrapper.ge("gmt_create",begin);
+//        }
+//        if (!StringUtils.isEmpty(end)){
+//            wrapper.le("gmt_create",end);
+//        }
+
+
+        int todayOrder=orderService.count(
+                new QueryWrapper<Order>()
+                        .eq("servant_id",openId)
+                        .ne("status",1)
+                        .ge("createDate",begin)
+                        .le("createDate",end)
+        );
+
+        resMap.put("todayOrder",todayOrder);
+        return R.ok(resMap);
+    }
+
 
 }

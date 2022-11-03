@@ -187,14 +187,14 @@ Page({
             })  
             return;
         }
-        if(openId == userInfo.openid){
-            wx.showToast({  
-                title: "是自己额！",  
-                icon: 'error',  
-                duration: 2000  
-            })  
-            return;
-        }
+        // if(openId == userInfo.openid){
+        //     wx.showToast({  
+        //         title: "是自己额！",  
+        //         icon: 'error',  
+        //         duration: 2000  
+        //     })  
+        //     return;
+        // }
         wx.navigateTo({   //保留当前页面，跳转到应用内的某个页面（最多打开5个页面，之后按钮就没有响应的）后续可以使用wx.navigateBack 可以返回;
             url: `/pages/pay/index?id=${id}&itemName=${itemName}&price=${price}&itemHours=${itemHours}&openId=${openId}&num=${num}&avatarUrl=${avatarUrl}`
         })

@@ -37,7 +37,7 @@
             wx:for-item="item2"
             wx:key="id"
             url="/pages/product_detail/index?id={{item2.detail.id}}">
-            <image mode="widthFix" src="{{tools.filePathHandler(item2.avatarUrl)}}"></image>
+            <image  style="height: 55px; width: 55px; border:1px solid #efefef;" src="{{tools.filePathHandler(item2.avatarUrl)}}"></image>
             <view class="right">
               <view class="product_name">{{item2.nickName}}</view>
               <!-- <view class="product_price"> ¥ {{item2.price}}</view> -->

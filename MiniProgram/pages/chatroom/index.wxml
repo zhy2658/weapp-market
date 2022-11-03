@@ -98,13 +98,14 @@
         </view>
         <form bindsubmit='loginForm'>
             <view class="cu-bar foot input {{InputBottom!=0?'cur':''}}" style="bottom:{{InputBottom}}px">
-                <view class="action">
+                <!-- <view class="action">
                     <text class="cuIcon-sound text-grey"></text>
-                </view>
-                <input class="solid-bottom" bindfocus="InputFocus" bindblur="InputBlur" adjust-position="{{false}}" focus="{{false}}" maxlength="300" cursor-spacing="10" name="msg" bindinput='getInputValue'></input>
+                </view> -->
                 <view class="action">
                     <text class="cuIcon-emojifill text-grey"></text>
                 </view>
+                <input class="solid-bottom" bindfocus="InputFocus" bindblur="InputBlur" adjust-position="{{false}}" focus="{{false}}" maxlength="300" cursor-spacing="10" name="msg" bindinput='getInputValue' value="{{msgvalue}}"></input>
+                
                 <button class="cu-btn bg-green shadow" style="width: 200rpx;" formType="submit">发送</button>
             </view>
         </form>

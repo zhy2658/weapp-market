@@ -3,7 +3,7 @@
 <Recorder recorderObj="{{recorderObj}}" bindonFileAddress="onFileAddress" />
 
 
-<view class="header">
+<view class="header" style="background-image: url(https://www.qingnianshiwen.cn/file/defaults/bgbanner.jpg);">
     <view class="header_row1">
         <view class="avatar" style="margin-left: 50rpx;">
             <image wx:if="{{userInfo.avatarUrl}}" src="{{tools.filePathHandler(userInfo.avatarUrl)}}" bindtap="changeAvatar">

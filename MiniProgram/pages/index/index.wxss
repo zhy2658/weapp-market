@@ -54,7 +54,9 @@ page {
   flex-wrap: wrap;
 }
 .index_hot_product .list .product_detail {
-  margin: 15rpx;
+  margin-left: 25rpx;
+  margin-top: 5px;
+  margin-bottom: 5px;
   width: 700rpx;
   text-align: center;
   border-bottom: 1px solid #ccc;

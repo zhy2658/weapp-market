@@ -47,6 +47,10 @@ Page({
                 msg: data.detail.value.msg
             }
         });
+        this.setData({
+            msgvalue: ''
+           })
+    //    console.log(this.data.msgvalue)
         this.updateOne(this.data.currentReplayPid);
 
     },

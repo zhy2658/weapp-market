@@ -99,8 +99,11 @@ Page({
                 url: "/send?msg=" + data.detail.value.msg + "&openId=" + this.data.OppositeOpenId,
 
             });
+            this.setData({
+                msgvalue:""
+            });
             this.getMessage();
-            data.detail.value.msg = ""
+            // data.detail.value.msg = ""
         }
 
         // console.log(result)

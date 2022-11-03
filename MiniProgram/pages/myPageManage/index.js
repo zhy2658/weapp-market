@@ -21,7 +21,19 @@ Page({
         this.setData({
             currentStatus: userInfo.ustatus,
             userInfo
-        })
+        });
+        this.getOrderCount();
+    },
+    async getOrderCount(){
+        const result = await requestUtil({
+            url: "/order/manage/getOrderCount",
+            data:{
+                "begin":"2022-11-2 12:00:00",
+                "end":"2022-12-1 12:00:00",
+            },
+            method: "POST",
+        });
+        console.log(result)
     },
     async changeStatus(e){
         let currentStatus=this.data.currentStatus;

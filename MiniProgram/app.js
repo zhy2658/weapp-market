@@ -26,3 +26,11 @@ App({
         })
       },
 })
+
+// 暂时停用聊天
+// {
+//     "pagePath": "pages/messageList/index",
+//     "text": "消息",
+//     "iconPath": "icons/_msg.png",
+//     "selectedIconPath": "icons/msg.png"
+// },

@@ -11,7 +11,7 @@ Page({
     data: {
         modalName: "",
         showItemIndex: 0,
-        showItem: ["等待支付", "正在进行", "待确认", "完成"
+        showItem: ["未支付","等待接单", "正在进行", "待确认", "已完成"
             // ,"请求退单中","已退单"
         ],
 
@@ -97,8 +97,15 @@ Page({
         // console.log(e.target.dataset.id)
         if (!e.target.dataset.id) return;
         const res = await requestUtil({ url: '/order/manage/confirmFinishedService?order_id=' + e.target.dataset.id });
+        this.getOrder(2);
         console.log(res);
 
+    },
+    async employTakeOrder(e){
+        if (!e.target.dataset.id) return;
+        const res = await requestUtil({ url: '/order/manage/employTakeOrder?order_id=' + e.target.dataset.id });
+        this.getOrder(1)
+        console.log(res);
     },
     onScrolltolower() {
         let QueryParams = this.data.QueryParams;

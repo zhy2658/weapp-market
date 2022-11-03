@@ -62,11 +62,11 @@ page {
   font-weight: 700;
   margin-top: 30rpx;
   letter-spacing: 2px;
-  color: #ab556c;
+  color: #343434;
   font-size: 1.4rem;
 }
 .tool {
-  margin-top: 20rpx;
+  margin-top: 10rpx;
 }
 .cicle-img {
   float: right;

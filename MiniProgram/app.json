@@ -57,12 +57,7 @@
                 "iconPath": "icons/_category.png",
                 "selectedIconPath": "icons/category.png"
             },
-            {
-                "pagePath": "pages/messageList/index",
-                "text": "消息",
-                "iconPath": "icons/_msg.png",
-                "selectedIconPath": "icons/msg.png"
-            },
+          
             {
                 "pagePath": "pages/my/index",
                 "text": "我的",

@@ -73,7 +73,7 @@
             <view class="product_detail" wx:for="{{hotProductList}}" wx:for-item="hotProduct" wx:for-index="index" wx:key="id">
                 <view style="position: relative;color: #454545;">
                     <navigator url="/pages/product_detail/index?id={{hotProduct.detail_id}}" style="display:flex;align-items: center;">
-                        <image mode="widthFix" style="flex: 2;" src="{{tools.filePathHandler(hotProduct.avatarUrl)}}"></image>
+                        <image mode="aspectFit"   style="flex: 2; height: 90px;background-color: #fff;border: 1px solid #efefef;" src="{{tools.filePathHandler(hotProduct.avatarUrl)}}"></image>
                         <view class="product_name" style="flex: 5;display: flex; flex-direction: column;">
                             <view style="flex: 1;">{{hotProduct.nickName}}</view>
                             <view class="user_age" style=" flex:1; height: 10vh;">

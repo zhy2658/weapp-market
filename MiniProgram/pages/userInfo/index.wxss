@@ -9,7 +9,7 @@ view,text{
     width:200rpx;
 }
 .header{
-    height:40vh;
+    height:37vh;
     background-color:#b8b4b4;
     display: flex;
     justify-content: center;

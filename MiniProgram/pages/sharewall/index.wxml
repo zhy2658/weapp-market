@@ -11,9 +11,9 @@
     </navigator>
 
 </view> -->
-<navigator url="/pages/publish/index" class="solid-bottom text-xsl"  style="position: fixed;bottom: 4vh; right: 40rpx;box-shadow: 0 0 10rpx rgba(0, 0, 0, 0.1); border-radius: 50%;z-index: 1;background-color: #fff;">
+<!-- <navigator url="/pages/publish/index" class="solid-bottom text-xsl"  style="position: fixed;bottom: 4vh; right: 40rpx;box-shadow: 0 0 10rpx rgba(0, 0, 0, 0.1); border-radius: 50%;z-index: 1;background-color: #fff;">
     <text class=" cuIcon-roundaddfill text-cyan"></text>
-</navigator>
+</navigator> -->
 
 <scroll-view class='page' scroll-y='true' >
 
@@ -48,7 +48,7 @@
                 <view wx:if="{{item.address}}" class='user-address-view'>
                     <label>{{item.address}}</label>
                 </view>
-                <view style="height: 20px;"><label>{{item.pubtime}}</label></view>
+                <view style="height: 20px;"><label style="color:#999">{{item.pubtime}}</label></view>
                 <!-- 时间、删除按钮、点赞评论按钮 -->
                 <!-- <view class='TDD-view'>
           
@@ -106,14 +106,14 @@
 
                 <view class="weui-cells weui-cells_after-title">
                     <view class="weui-cell weui-cell_input">
-                        <input class="weui-input" name="msg" placeholder="请输入" bindinput='getInputValue' style="height: 10vh;" />
+                        <input class="weui-input" name="msg" value="{{msgvalue}}" placeholder="请输入" bindinput='getInputValue' style="height: 10vh;" />
                     </view>
                 </view>
             </view>
 
             <view class="bottom_btn" style="display: flex;">
-                <button type="primary" formType="submit">send</button>
-                <button type="warn" bindtap="closeCommentDialog">Cancer</button>
+                <button type="primary" formType="submit">发送</button>
+                <button type="warn" bindtap="closeCommentDialog">取消</button>
             </view>
 
         </form>
