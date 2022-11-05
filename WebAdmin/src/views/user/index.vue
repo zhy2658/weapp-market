@@ -5,13 +5,14 @@
         <el-input placeholder="请输入用户昵称..." clearable v-model="queryForm.query"></el-input>
       </el-col>
       <el-button type="primary" :icon="Search" @click="initUserList">搜索</el-button>
-
+      <el-button style="float:right;" type="primary" :icon="Setting" @click="showSetting">设置</el-button>
     </el-row>
+    
     <el-table :data="tableData" stripe style="width: 100%">
-      <el-table-column prop="id" label="#ID" width="80" />
+      <el-table-column prop="employee_id" label="员工号" width="80" />
 
       <el-table-column prop="nickName" label="用户昵称" width="200" />
-      <el-table-column prop="avatarUrl" label="头像" width="200">
+      <el-table-column prop="avatarUrl" label="头像" width="100">
         <template v-slot="scope">
           <img :src="filePathHandler(scope.row.avatarUrl)" width="50" height="50" />
         </template>
@@ -36,7 +37,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="action" label="操作" width="250" fixed="right">
+      <el-table-column v-if="isShowSetting" prop="action" label="操作" width="250" fixed="right" >
         <template v-slot="scope">
           <el-button type="primary" @click="handleShowStatus(scope.row.openid, 1)">公开</el-button>
           <el-button type="danger" @click="handleShowStatus(scope.row.openid, 0)">不公开</el-button>
@@ -83,7 +84,7 @@ const tableData = ref([
 
 ])
 
-
+const isShowSetting=ref(false)
 
 const initUserList = async () => {
   const res = await axios.post("admin/user/allAdmin", queryForm.value);
@@ -167,6 +168,13 @@ const handleAdminStatus = (openId, admin) => {
 
     })
 }
+const showSetting = () => {
+  if(isShowSetting.value)isShowSetting.value=false
+  else isShowSetting.value=true;
+}
+
+
+
 
 </script>
 

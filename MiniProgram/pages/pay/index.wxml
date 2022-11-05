@@ -45,15 +45,15 @@
 
 
 <view class="cu-bar bg-white solid-bottom margin-top" style="margin-top:30px">
-        <view class="action">
+        <!-- <view class="action">
             <text class="cuIcon-title text-orange "></text> 我们需要一些必要的信息
-        </view>
+        </view> -->
         <!-- <view class="action">
             <button class="cu-btn bg-green shadow" bindtap="showModal" data-target="menuModal">设置</button>
         </view> -->
     </view>
-<view class="cu-form-group margin-top">
-		<view class="title">电话</view>
+<!-- <view class="cu-form-group margin-top">
+		 <view class="title">电话</view>
 		<input type="text" placeholder="手机号" bindinput="changeTel"  name='tel'  />
         <view class="cu-capsule radius">
 			<view class="cu-tag bg-blue">
@@ -62,12 +62,12 @@
 			<view class="cu-tag line-blue">
 				中国大陆
 			</view>
-		</view>
-	</view>
+		</view> 
+	 </view>
 	<view class="cu-form-group">
 		<view class="title">微信号</view>
 		<input type="text" placeholder="微信号"  bindinput="changeWXId"  name='wxcode'  />
-	</view>
+	</view> -->
 	<!-- <view class="cu-form-group">
 		<view class="title">数量</view>
         <input type="text" placeholder="数量" value="{{totalNum}}" disabled="disabled"  />

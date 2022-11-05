@@ -29,7 +29,7 @@
                 <!-- 昵称 -->
                 <view class='user-name-view'>
                     <navigator url="/pages/publish_detail/index?pid={{item.pid}}">
-                        <label class='user-name'>{{item.title}}</label>
+                        <view class='user-name'>{{item.title}}</view>
                     </navigator>
                 </view>
                 <!-- 内容 -->
@@ -63,9 +63,11 @@
                             <image wx:if="{{item.flagLike==true}}" mode='aspectFill' style="height: 20px;" class='trigon' src='/icons/likefill.png' bindtap='changeLike' data-pid="{{item.pid}}"></image>
                             <image wx:else mode='aspectFill' style="height: 20px;" class='trigon' src='/icons/_like.png' bindtap='changeLike' data-pid="{{item.pid}}"></image>
                         </view>
-                        <view style="flex:1;line-height: 20px;color: royalblue;" data-name="{{item.pid}}" bindtap="openCommentDialog"> 回复 </view>
+                        <view style="flex:1;line-height: 20px;color: royalblue;" data-name="{{item.pid}}" bindtap="openCommentDialog"> 
+                        <!-- 回复  -->
+                        </view>
                         <navigator url="/pages/conplain/index" style="line-height: 20px;color: darkred;width: 60rpx;margin-right: 50rpx;">
-                            举报
+                            <!-- 举报 -->
                         </navigator>
                         <!-- <view > <button style="width: 180rpx;color: darkred;background-color: #fff; font-size: 0.7rem;margin-right: 50rpx;" open-type="feedback" class="feedback"></button></view> -->
 
@@ -84,13 +86,13 @@
                     </view>
                     <view class='line'></view>
                     <!-- 评论 -->
-                    <view class='discuss-view' style="padding-top: 10px;">
+                    <!-- <view class='discuss-view' style="padding-top: 10px;">
                         <view class='discuss' wx:for='{{item.replyList}}' wx:key="replyObj" wx:for-item="replyObj" style="margin-top: 2px;">
                             <label bindtap='TouchZanUser' data-name='{{replyObj.nickName}}' class='discuss-user' style="font-size: 30rpx;">{{replyObj.nickName}}：</label>
                             <label class='content' style="color: #454545;font-size: 30rpx;">{{replyObj.msg}}</label>
                         </view>
                         <view wx:if="{{item.replyUnEnd}}" style="float: left;;width: 100%;margin-left: 7rpx;">已折叠{{item.replyCount-4}}条回复</view>
-                    </view>
+                    </view> -->
                 </view>
             </view>
 

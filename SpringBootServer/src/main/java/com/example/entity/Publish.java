@@ -12,7 +12,9 @@ import java.util.Map;
 @TableName("t_publish")
 @Data
 public class Publish {
+
     private Integer pid;
+
     private String title;
 
     private String content;

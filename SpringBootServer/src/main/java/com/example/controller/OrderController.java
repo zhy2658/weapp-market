@@ -14,6 +14,7 @@ import com.example.util.*;
 import io.jsonwebtoken.Claims;
 import io.swagger.models.auth.In;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -173,13 +174,22 @@ public class OrderController {
     //把订单设置为已支付状态
     @RequestMapping("/setOrderStatus")
     public R setOrderStatus(@RequestBody Order order){
-        Map<String, Object> map = new HashMap<String, Object>();
-        //设置订单状态
-        order.setStatus(1);
-        orderService.update(order,
+        order=orderService.getOne(
                 new QueryWrapper<Order>()
                         .eq("orderNo",order.getOrderNo())
         );
+        Map<String, Object> map = new HashMap<String, Object>();
+        //设置订单状态
+        order.setStatus(1);
+        orderService.updateById(order);
+        WxUserInfo servantUser = iWxUserInfoService.findByOpenId(order.getServant_id());
+        String tel =servantUser.getTel();
+        String orderNo=order.getOrderNo();
+
+        //发送短信通知
+        HttpClientUtil.getInstance().sendHttpGet("http://sms.hutonginfo.com:9000/sms.aspx?action=send&userid=8038&account=2658991831@qq.com&password=zhy2958991831&mobile="+tel+"&content=【晚点的心声】您有新的订单("+orderNo+")等待处理，请及时查看！&sendTime=&extno=");
+
+//        System.out.println("httpEntityContent:" + httpEntityContent);
 
         return R.ok(map);
     }

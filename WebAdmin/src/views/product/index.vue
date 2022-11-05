@@ -6,6 +6,7 @@
       </el-col>
       <el-button type="primary" :icon="Search" @click="initProductList">搜索</el-button>
       <!-- <el-button type="primary" @click="handleDialogValue()">添加用户</el-button> -->
+      <el-button style="float:right;" type="primary" :icon="Setting" @click="showSetting">设置</el-button>
     </el-row>
     <el-table :data="tableData" stripe style="width: 100%">
 
@@ -49,7 +50,7 @@
 
       <el-table-column prop="description" label="描述" width="400" />
 
-      <el-table-column prop="action" label="操作" width="500" fixed="right">
+      <el-table-column v-if="isShowSetting" prop="action" label="操作" width="500" fixed="right">
         <template v-slot="scope">
           <el-button type="success" @click="handleChangeImage(scope.row)">更换图片</el-button>
           <el-button type="primary" @click="handleChangeSwiper(scope.row)">幻灯设置</el-button>
@@ -97,6 +98,7 @@ import ProductSwiperImageDialog from './components/productSwiperImageDialog'
 
 import {ElMessageBox,ElMessage} from 'element-plus'
 
+const isShowSetting=ref(false)
 const queryForm=ref({
   query:'',
   pageNum:1,
@@ -287,6 +289,10 @@ const handleAdminStatus = (openId,admin) => {
     .catch(() => {
 
     })
+}
+const showSetting = () => {
+  if(isShowSetting.value)isShowSetting.value=false
+  else isShowSetting.value=true;
 }
 
 </script>

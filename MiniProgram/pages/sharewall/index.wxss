@@ -63,6 +63,13 @@ page {
     margin-top: 30rpx;
     margin-left: 10rpx;
     font-size: 1rem;
+    color: #343434;
+    padding-right: 25rpx;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     font-weight: 600;
+    /*white-space: nowrap;
+    text-overflow: ellipsis; */
 }
 
 /* 内容 */
@@ -72,6 +79,7 @@ page {
     line-height: 50rpx;
     margin-left: 10rpx;
     font-size: 30rpx;
+    padding-right: 25rpx;
 }
 
 /* 图片 */

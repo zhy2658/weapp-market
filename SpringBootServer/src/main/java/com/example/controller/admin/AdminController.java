@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.constant.SystemConstant;
 import com.example.entity.Admin;
 import com.example.entity.R;
+import com.example.entity.WxUserInfo;
 import com.example.service.IAdminService;
+import com.example.service.IWxUserInfoService;
 import com.example.util.JwtUtils;
 import com.example.util.StringUtil;
 import org.slf4j.Logger;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,6 +34,9 @@ public class AdminController {
     @Autowired
     private IAdminService adminService;
 
+    @Resource
+    private IWxUserInfoService wxUserInfoService;
+
     private final static Logger logger= LoggerFactory.getLogger(AdminController.class);
 
     /**
@@ -38,7 +45,7 @@ public class AdminController {
      * @return
      */
     @PostMapping("/adminLogin")
-    public R adminLogin(@RequestBody Admin admin){
+    public R adminLogin(HttpServletRequest request, @RequestBody Admin admin){
         if(admin==null){
             return R.error();
         }
@@ -48,6 +55,24 @@ public class AdminController {
         if(StringUtil.isEmpty(admin.getPassword())){
             return R.error("密码不能为空！");
         }
+        WxUserInfo wxUserInfo = wxUserInfoService.getOne(new QueryWrapper<WxUserInfo>().eq("employee_id", admin.getUserName()));
+//        是员工情况
+        if (wxUserInfo != null){
+            Map<String,Object> resultMap=new HashMap<String,Object>();
+            if( wxUserInfo.getPassword()==null){
+                request.setAttribute("user",wxUserInfo);
+                resultMap.put("power","employee");
+                resultMap.put("isSetNewPwd",true);
+            }
+            else if(wxUserInfo.getPassword().equals(admin.getPassword())){
+                request.setAttribute("user",wxUserInfo);
+                resultMap.put("power","employee");
+                resultMap.put("isSetNewPwd",false);
+            }
+            return R.ok(resultMap);
+        }
+
+//        系统管理员情况
         Admin resultAdmin = adminService.getOne(new QueryWrapper<Admin>().eq("userName", admin.getUserName()));
         if(resultAdmin==null){
             return R.error("用户名不存在！");

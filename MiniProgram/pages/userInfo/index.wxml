@@ -28,10 +28,10 @@
             <view class="title">昵称</view>
             <input type="text" value=" {{userInfo.nickName}}" name="nickName" disabled='{{ disableEidt }}' />
         </view>
-        <view class="cu-form-group">
+        <!-- <view class="cu-form-group">
             <view class="title">微信号</view>
             <input type="text" value=" {{userInfo.wxid}}" name="wxid" disabled='{{ disableEidt }}' />
-        </view>
+        </view> -->
         <!-- <view class="cu-form-group">
 		<view class="title">性别</view>
         <input type="text" value=" {{userInfo.sex}}" name="sex" disabled='{{ disableEidt }}' />

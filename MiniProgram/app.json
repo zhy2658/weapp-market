@@ -11,8 +11,6 @@
         "pages/chatroom/index",
         "pages/messageList/index",
         "pages/sharewall/index",
-        "pages/publish/index",
-        "pages/mypublish/index",
         "pages/testpage/index",
         "pages/userInfo/index",
         "pages/setting/index",
@@ -21,8 +19,6 @@
         "pages/orderManage/index",
         "pages/serviceOption/index",
         "pages/userOrder/index",
-        "pages/userDetail/index",
-        "pages/editIntro/index",
         "pages/conplain/index"
     ],
     "window": {
@@ -57,7 +53,12 @@
                 "iconPath": "icons/_category.png",
                 "selectedIconPath": "icons/category.png"
             },
-          
+            {
+                "pagePath": "pages/messageList/index",
+                "text": "消息",
+                "iconPath": "icons/_msg.png",
+                "selectedIconPath": "icons/msg.png"
+            },
             {
                 "pagePath": "pages/my/index",
                 "text": "我的",

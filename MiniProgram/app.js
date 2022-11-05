@@ -34,3 +34,35 @@ App({
 //     "iconPath": "icons/_msg.png",
 //     "selectedIconPath": "icons/msg.png"
 // },
+
+// "pages/publish/index",
+// {
+//     "name": "说说编辑",
+//     "pathName": "pages/publish/index",
+//     "query": "",
+//     "scene": null
+// },
+
+// "pages/mypublish/index",
+// {
+//     "name": "我的发布",
+//     "pathName": "pages/mypublish/index",
+//     "query": "",
+//     "scene": null
+// },
+
+// "pages/userDetail/index",
+// {
+//     "name": "主页管理",
+//     "pathName": "pages/userDetail/index",
+//     "query": "",
+//     "scene": null
+// },
+
+// "pages/editIntro/index",
+// {
+//     "name": "介绍编辑",
+//     "pathName": "pages/editIntro/index",
+//     "query": "",
+//     "scene": null
+// }

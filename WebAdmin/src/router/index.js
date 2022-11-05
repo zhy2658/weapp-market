@@ -79,6 +79,39 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import( "../views/login"),
+  }, 
+  {
+    path: "/employee",
+    name: "员工信息",
+    component: () =>import( "../views/layout"),
+    // redirect:'/',
+    children:[
+      {
+        path: "/home",
+        name: "首页",
+        component: () =>
+          import( "../views/home/index"),
+      },
+      {
+        path: "/notice",
+        name: "通知管理",
+        component: () =>
+          import( "../views/notice"),
+      },
+      {
+        path: "/product",
+        name: "用户管理",
+        component: () =>
+          import( "../views/product"),
+      },
+
+      {
+        path: "/modifyPassword",
+        name: "修改密码",
+        component: () =>
+          import( "../views/modifyPassword"),
+      }
+    ]
   }
 ];
 

@@ -75,6 +75,9 @@ public class AdminUserController {
                              @RequestParam("admin") Integer admin){
 
         wxUserInfoService.updateUserAdmin(openId,admin);
+        WxUserInfo wxUserInfo= wxUserInfoService.findByOpenId(openId);
+        wxUserInfo.setEmployee_id(1000+wxUserInfo.getId());
+        wxUserInfoService.update(wxUserInfo);
         Map<String,Object> map=new HashMap<>();
         map.put("code", 0);
         map.put("msg", "更新成功");

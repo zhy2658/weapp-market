@@ -9,7 +9,6 @@ page {
 .header_bar {
   height: 30vh;
   overflow: hidden;
-  background-color: red;
 }
 .head-imagee {
   width: 100%;
@@ -91,7 +90,7 @@ page {
   z-index: -99;
 }
 .detail {
-  color: #666;
+  color: #454545;
   margin-left: 30rpx;
   margin-top: 20rpx;
   margin-right: 30rpx;

@@ -41,6 +41,15 @@
             <if test="small_id!=null ">
                 small_id=#{small_id},
             </if>
+            <if test="employee_id!=null ">
+                employee_id=#{employee_id},
+            </if>
+            <if test="password!=null and password!=''">
+                password=#{password},
+            </if>
+            <if test="tel!=null and tel!=''">
+                tel=#{tel},
+            </if>
 
         </set>
         where id=#{id} or openid =#{openid}

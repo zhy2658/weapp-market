@@ -2,14 +2,14 @@
   <div class="login-container">
     <el-form ref="formRef" :model="form" class="login-form" :rules="rules">
       <div class="title-container">
-        <h3 class="title">青年时文-管理员登录</h3>
+        <h3 class="title">青年时文-后台管理</h3>
       </div>
       <el-form-item prop="userName">
 <!--        <el-icon :size="20" class="svg-container">
           <edit />
         </el-icon>-->
         <svg-icon icon="user" class="svg-container"></svg-icon>
-        <el-input v-model="form.userName" placeholder="请输入用户名..."></el-input>
+        <el-input v-model="form.userName" placeholder="请输入员工号/用户名..."></el-input>
       </el-form-item>
       <el-form-item prop="password">
 <!--        <el-icon :size="20" class="svg-container">
@@ -50,7 +50,7 @@
     userName: [
       {
         required: true,
-        message: '请输入用户名！',
+        message: '请输入员工号/用户名！',
         trigger: 'blur',
       }],
     password:[
@@ -78,10 +78,26 @@
           let result=await axios.post("adminLogin",form.value);
           let data=result.data;
           if(data.code==0){
+            
+            if(data.power == "employee"){
+              
+              if(data.isSetNewPwd){
+                console.log("跳转")
+                router.replace("/")
+                // return
+              }
+              else router.replace("/")
+              
+              // return
+            }
+            else{
+              console.log(data)
             // ElMessage.info("登录成功！"+data.token);
-            window.sessionStorage.setItem("token",data.token);
-            window.sessionStorage.setItem("userInfo",JSON.stringify(form.value));
-            router.replace("/")
+              window.sessionStorage.setItem("token",data.token);
+              window.sessionStorage.setItem("userInfo",JSON.stringify(form.value));
+              router.replace("/")
+            }
+            
           }else{
             ElMessage.error(data.msg);
           }

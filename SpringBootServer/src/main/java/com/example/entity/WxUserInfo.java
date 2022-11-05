@@ -56,6 +56,12 @@ public class WxUserInfo implements Serializable {
 
     private Integer employee_grade;
 
+    private Integer employee_id;
+
+    private String password;
+
+    private String tel;
+
 
 
 //    小分类对象

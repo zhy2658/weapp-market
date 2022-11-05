@@ -111,21 +111,21 @@ Page({
         // consignee: "",
         // telNumber: "",
         // 手机号表单验证
-        if(isNaN(this.data.telNumber) || this.data.telNumber.trim().length != 11){
-            wx.showToast({
-                title: '请填写正确的电话号码',
-                icon: 'none'
-            });
-            return;
-        }
+        // if(isNaN(this.data.telNumber) || this.data.telNumber.trim().length != 11){
+        //     wx.showToast({
+        //         title: '请填写正确的电话号码',
+        //         icon: 'none'
+        //     });
+        //     return;
+        // }
          // 微信号表单验证
-        if(this.data.consignee.trim().length <6 || this.data.consignee.trim().length>25){
-            wx.showToast({
-                title: '请填写正确的微信号',
-                icon: 'none'
-            });
-            return;  
-        }
+        // if(this.data.consignee.trim().length <6 || this.data.consignee.trim().length>25){
+        //     wx.showToast({
+        //         title: '请填写正确的微信号',
+        //         icon: 'none'
+        //     });
+        //     return;  
+        // }
         if (!token) {
             // const {code}=await login();
             // wx.getUserProfile({
