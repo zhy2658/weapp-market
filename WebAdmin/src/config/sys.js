@@ -7,6 +7,7 @@ export function getServerUrl(){
 }
 
 export function filePathHandler(path){
+    if(!path)return path;
     if(path.indexOf("https://") >-1 || path.indexOf("https://")  >-1)  return path;
    else return baseUrl+path;
 }

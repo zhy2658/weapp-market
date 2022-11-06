@@ -200,7 +200,7 @@ const handleDelete = (id) => {
 const handlePublishStatus = (pid,status) => {
   console.log(pid,status)
   ElMessageBox.confirm(
-    '您确定要更新这个说说状态吗?',
+    '您确定要更新这个帖子状态吗?',
     '系统提示',
     {
       confirmButtonText: '确定',

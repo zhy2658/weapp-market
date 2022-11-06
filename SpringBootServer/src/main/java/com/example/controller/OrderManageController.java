@@ -83,7 +83,7 @@ public class OrderManageController {
             OrderDetail[] orderDetails = new OrderDetail[1];
             OrderDetail orderDetail = orderDetailList.get(0);
 //            1:  是员工未接单状态
-            if(order.getStatus() !=1){
+            if (order.getStatus() != 1) {
                 Date startDate = orderDetail.getServiceStart();
                 Date endDate = orderDetail.getServiceEnd();
 //            System.out.println("date================"+orderDetail.getServiceStart());
@@ -115,8 +115,8 @@ public class OrderManageController {
 
         Map<String, Object> resMap = new HashMap<String, Object>();
 
-        resMap.put("totalPage",Math.ceil( (float)total/ pageSize));
-        resMap.put("total",total);
+        resMap.put("totalPage", Math.ceil((float) total / pageSize));
+        resMap.put("total", total);
         resMap.put("page", page);
         resMap.put("orderList", orderList);
         return R.ok(resMap);
@@ -140,12 +140,13 @@ public class OrderManageController {
 
         return R.ok();
     }
+
     @RequestMapping("/employTakeOrder")
-    public R employTakeOrders(@RequestParam("order_id") Integer orderId){
-        Order order =orderService.getById(orderId);
+    public R employTakeOrders(@RequestParam("order_id") Integer orderId) {
+        Order order = orderService.getById(orderId);
         OrderDetail orderDetail = orderDetailService.getOne(
                 new QueryWrapper<OrderDetail>()
-                        .eq("mId",order.getId())
+                        .eq("mId", order.getId())
         );
 //        服务开始结束时间处理
         orderDetail.setServiceStart(new Date());
@@ -205,9 +206,10 @@ public class OrderManageController {
         }
         return R.ok();
     }
+
     //查询今日和本月接单量
     @RequestMapping("/getOrderCount")
-    public R getServiceItems(HttpServletRequest request,@RequestBody(required = false)
+    public R getServiceItems(HttpServletRequest request, @RequestBody(required = false)
     TecherTime techerTime) {
         Map<String, Object> resMap = new HashMap<>();
         String openId = (String) request.getSession().getAttribute("openId");
@@ -225,17 +227,47 @@ public class OrderManageController {
 //        if (!StringUtils.isEmpty(end)){
 //            wrapper.le("gmt_create",end);
 //        }
-
-
-        int todayOrder=orderService.count(
+        Float todayRevenue=0f;
+        int todayOrder = orderService.count(
                 new QueryWrapper<Order>()
-                        .eq("servant_id",openId)
-                        .ne("status",1)
-                        .ge("createDate",begin)
-                        .le("createDate",end)
+                        .eq("servant_id", openId)
+                        .ge("createDate", begin)
+                        .le("createDate", end)
+                        .and(
+                                wp -> wp.eq("status", 2)
+                                        .or()
+                                        .eq("status", 3)
+                                        .or()
+                                        .eq("status", 4)
+                        )
+        );
+        List<Order> orderList = orderService.list(
+                new QueryWrapper<Order>()
+                        .eq("servant_id", openId)
+                        .ge("createDate", begin)
+                        .le("createDate", end)
+                        .and(
+                                wp -> wp.eq("status", 2)
+                                        .or()
+                                        .eq("status", 3)
+                                        .or()
+                                        .eq("status", 4)
+                        )
+
+
         );
 
-        resMap.put("todayOrder",todayOrder);
+        for(Order order:orderList){
+            todayRevenue += order.getTotalPrice().floatValue();
+        }
+//        eq("servant_id",openId)
+//
+//                .ge("createDate",begin)
+//                .le("createDate",end)
+//                .ne("status",1)
+
+        resMap.put("todayOrder", todayOrder);
+        resMap.put("todayRevenue", todayRevenue);
         return R.ok(resMap);
     }
 

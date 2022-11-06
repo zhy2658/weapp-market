@@ -59,23 +59,34 @@ public class AdminController {
 //        是员工情况
         if (wxUserInfo != null){
             Map<String,Object> resultMap=new HashMap<String,Object>();
+            String openId= wxUserInfo.getOpenid();
             if( wxUserInfo.getPassword()==null){
-                request.setAttribute("user",wxUserInfo);
+                request.getSession().setAttribute("openId", openId);
+                String token = JwtUtils.createJWT(openId, wxUserInfo.getNickName(), SystemConstant.JWT_TTL);
                 resultMap.put("power","employee");
                 resultMap.put("isSetNewPwd",true);
+                resultMap.put("token", token);
+                resultMap.put("userInfo", wxUserInfo);
+                return R.ok(resultMap);
             }
             else if(wxUserInfo.getPassword().equals(admin.getPassword())){
-                request.setAttribute("user",wxUserInfo);
+                request.getSession().setAttribute("openId", openId);
+                String token = JwtUtils.createJWT(openId, wxUserInfo.getNickName(), SystemConstant.JWT_TTL);
                 resultMap.put("power","employee");
                 resultMap.put("isSetNewPwd",false);
+                resultMap.put("token", token);
+                resultMap.put("userInfo", wxUserInfo);
+                return R.ok(resultMap);
             }
-            return R.ok(resultMap);
+
+            return R.error("用户名或者密码错误！");
+
         }
 
 //        系统管理员情况
         Admin resultAdmin = adminService.getOne(new QueryWrapper<Admin>().eq("userName", admin.getUserName()));
         if(resultAdmin==null){
-            return R.error("用户名不存在！");
+            return R.error("用户名或者密码错误！");
         }
         if(!resultAdmin.getPassword().trim().equals(admin.getPassword())){
             return R.error("用户名或者密码错误！");

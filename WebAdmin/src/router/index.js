@@ -2,70 +2,107 @@ import { createRouter, createWebHashHistory } from "vue-router";
 
 
 const routes = [
-
   {
-    path: "/",
-    name: "首页",
+    path: "/employee",
+    name: "employee",
+    component: () =>import( "../views/layout2"),
+    // redirect:'/',
+    children:[
+      {
+        path: "/employee_home",
+        name: "employee_home",
+        component: () =>
+          import( "../views/employeePage/home/index"),
+      },
+      {
+        path: "/employee_userInfo",
+        name: "employee_userInfo",
+        component: () =>
+          import( "../views/employeePage/userInfo/index"),
+      },
+      {
+        path: "/employee_order",
+        name: "employee_order",
+        component: () =>
+          import( "../views/employeePage/order"),
+      },
+      {
+        path: "/employee_publish",
+        name: "employee_publish",
+        component: () =>
+          import( "../views/employeePage/publish"),
+      },
+      {
+        path: "/employee_modifyPassword",
+        name: "employee_modifyPassword",
+        component: () =>
+          import( "../views/employeePage/modifyPassword"),
+      }
+    ]
+  },
+  {
+    path: "/admin",
+    name: "admin",
     component: () =>import( "../views/layout"),
     redirect:'/home',
     children:[
       {
         path: "/home",
-        name: "首页",
+        name: "home",
         component: () =>
           import( "../views/home/index"),
       },
       {
         path: "/notice",
-        name: "通知管理",
+        name: "notice",
         component: () =>
           import( "../views/notice"),
       },
       {
         path: "/user",
-        name: "员工管理",
+        name: "user",
         component: () =>
           import( "../views/user"),
       },
       {
         path: "/bigType",
-        name: "用户大类管理",
+        name: "bigType",
         component: () =>
           import( "../views/bigType"),
       },
       {
         path: "/smallType",
-        name: "用户小类管理",
+        name: "smallType",
         component: () =>
           import( "../views/smallType"),
       },
       {
         path: "/product",
-        name: "用户管理",
+        name: "product",
         component: () =>
           import( "../views/product"),
       },
       {
         path: "/order",
-        name: "订单管理",
+        name: "order",
         component: () =>
           import( "../views/order"),
       },
       {
         path: "/publish",
-        name: "说说管理",
+        name: "publish",
         component: () =>
           import( "../views/publish"),
       },
       {
         path: "/serviceOption",
-        name: "服务选项",
+        name: "serviceOption",
         component: () =>
           import( "../views/serviceOption"),
       },
       {
         path: "/modifyPassword",
-        name: "修改密码",
+        name: "modifyPassword",
         component: () =>
           import( "../views/modifyPassword"),
       }
@@ -80,39 +117,7 @@ const routes = [
     component: () =>
       import( "../views/login"),
   }, 
-  {
-    path: "/employee",
-    name: "员工信息",
-    component: () =>import( "../views/layout"),
-    // redirect:'/',
-    children:[
-      {
-        path: "/home",
-        name: "首页",
-        component: () =>
-          import( "../views/home/index"),
-      },
-      {
-        path: "/notice",
-        name: "通知管理",
-        component: () =>
-          import( "../views/notice"),
-      },
-      {
-        path: "/product",
-        name: "用户管理",
-        component: () =>
-          import( "../views/product"),
-      },
-
-      {
-        path: "/modifyPassword",
-        name: "修改密码",
-        component: () =>
-          import( "../views/modifyPassword"),
-      }
-    ]
-  }
+  
 ];
 
 const router = createRouter({

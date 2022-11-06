@@ -8,7 +8,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-          // 以下是需要提交内容----------------》
+        // 以下是需要提交内容----------------》
         cart: [
             {
                 // goodsId: v.id,
@@ -17,7 +17,7 @@ Page({
                 goodsName: "吃饭",
                 // serviceStart:"2022-8-7 15:17:12",
                 // serviceEnd:"2023-8-7 15:17:12",
-                totalHours:24
+                totalHours: 24
                 // goodsPic: v.proPic
 
             }
@@ -33,8 +33,8 @@ Page({
 
 
         // address: {},
-        payitemList: [],    
-        
+        payitemList: [],
+
     },
 
     /**
@@ -48,11 +48,11 @@ Page({
         // serviceStart=serviceStart.Format("yyyy-MM-dd hh:mm:ss");
         // serviceEnd=serviceEnd.Format("yyyy-MM-dd hh:mm:ss");
         // var time2 = new Date().Format("yyyy-MM-dd HH:mm:ss");
-        let cart=[{
+        let cart = [{
             goodsNumber: options.num,  //数量
             goodsPrice: options.price,  //单价
             goodsName: options.itemName,  //服务名
-            itemHours:options.itemHours,  //单小时数
+            itemHours: options.itemHours,  //单小时数
             totalHours: options.itemHours * options.num, //服务总时长 
             totalPrice: options.price * options.num, //服务总时长 
             goodsPic: options.avatarUrl,
@@ -62,22 +62,22 @@ Page({
             cart,
             currentPayItemId: options.id,
             totalNum: options.num,
-            totalPrice: options.num *  options.price,
+            totalPrice: options.num * options.price,
             servant_id: openId
         })
-       
+
         this.getByOpenId(openId);
         const baseUrl = getBaseUrl();
         this.setData({
             baseUrl
         })
     },
-    changeTel(e){
+    changeTel(e) {
         this.setData({
-            telNumber:e.detail.value
+            telNumber: e.detail.value
         })
     },
-    changeWXId(e){
+    changeWXId(e) {
         this.setData({
             consignee: e.detail.value
         })
@@ -106,57 +106,67 @@ Page({
      * 点击支付
      */
     async handleOrderPay() {
-        // 判断缓存中是否有token
-        const token = wx.getStorageSync('token');
-        // consignee: "",
-        // telNumber: "",
-        // 手机号表单验证
-        // if(isNaN(this.data.telNumber) || this.data.telNumber.trim().length != 11){
-        //     wx.showToast({
-        //         title: '请填写正确的电话号码',
-        //         icon: 'none'
-        //     });
-        //     return;
-        // }
-         // 微信号表单验证
-        // if(this.data.consignee.trim().length <6 || this.data.consignee.trim().length>25){
-        //     wx.showToast({
-        //         title: '请填写正确的微信号',
-        //         icon: 'none'
-        //     });
-        //     return;  
-        // }
-        if (!token) {
-            // const {code}=await login();
-            // wx.getUserProfile({
-            //   desc: '获取用户信息',
-            //   success: (res)=>{
-            //     const {encryptedData,rawData,iv,signature}=res;
+        let that=this;
+        wx.showModal({
+            title: '提示',
+            content: '确定下单',
+            success(res) {
+                if (!res.confirm) return;
+                // 判断缓存中是否有token
+                const token = wx.getStorageSync('token');
+                // consignee: "",
+                // telNumber: "",
+                // 手机号表单验证
+                // if(isNaN(this.data.telNumber) || this.data.telNumber.trim().length != 11){
+                //     wx.showToast({
+                //         title: '请填写正确的电话号码',
+                //         icon: 'none'
+                //     });
+                //     return;
+                // }
+                // 微信号表单验证
+                // if(this.data.consignee.trim().length <6 || this.data.consignee.trim().length>25){
+                //     wx.showToast({
+                //         title: '请填写正确的微信号',
+                //         icon: 'none'
+                //     });
+                //     return;  
+                // }
+                if (!token) {
+                    // const {code}=await login();
+                    // wx.getUserProfile({
+                    //   desc: '获取用户信息',
+                    //   success: (res)=>{
+                    //     const {encryptedData,rawData,iv,signature}=res;
 
-            //     console.log(code,encryptedData,rawData,iv,signature)
-            //   },
-            //   fail:()=>{
-            //     console.log("登录失败")
-            //   }
-            // })
+                    //     console.log(code,encryptedData,rawData,iv,signature)
+                    //   },
+                    //   fail:()=>{
+                    //     console.log("登录失败")
+                    //   }
+                    // })
 
-            Promise.all([getLogin(), getUserProfile()]).then((res) => {
-                console.log(res)
-                let loginParam = {
-                    code: res[0].code,
-                    nickName: res[1].userInfo.nickName,
-                    avatarUrl: res[1].userInfo.avatarUrl
+                    Promise.all([getLogin(), getUserProfile()]).then((res) => {
+                        console.log(res)
+                        let loginParam = {
+                            code: res[0].code,
+                            nickName: res[1].userInfo.nickName,
+                            avatarUrl: res[1].userInfo.avatarUrl
+                        }
+                        console.log(loginParam);
+                        // 把用户信息放到缓存中
+                        // wx.setStorageSync('userInfo', res[1].userInfo);
+                        that.wxlogin(loginParam);
+                    })
+                } else {
+                    console.log("token:" + token);
+                    // 走支付 创建订单
+                    that.createOrder(token);
                 }
-                console.log(loginParam);
-                // 把用户信息放到缓存中
-                // wx.setStorageSync('userInfo', res[1].userInfo);
-                this.wxlogin(loginParam);
-            })
-        } else {
-            console.log("token:" + token);
-            // 走支付 创建订单
-            this.createOrder(token);
-        }
+            }
+
+        });
+
 
     },
 
@@ -190,7 +200,7 @@ Page({
             const consignee = this.data.consignee; // 请求体 收货人
             const telNumber = this.data.telNumber; // 请求体 联系电话
             const pm_id = this.data.currentPayItemId;   //项目id
-            const servant_id= this.data.servant_id;
+            const servant_id = this.data.servant_id;
             let goods = this.data.cart;
             //   let goods=[];
             //   购物车
@@ -211,28 +221,35 @@ Page({
                 pm_id,
                 servant_id
             }
-            console.log("orderParams",  orderParams)
+            console.log("orderParams", orderParams)
             // return;
-            const res = await requestUtil({ url: "/my/order/create", method: "POST", data: orderParams });
+            const res = await requestUtil({ url: "/my/order/payByCoin", method: "POST", data: orderParams });
 
             console.log(res.orderNo);
             let orderNo = res.orderNo;
             console.log("orderNo:" + orderNo);
 
-            // 暂不写   支付接口======》》》》
-            const preparePayRes = await requestUtil({ url: "/my/order/preparePay", method: "POST", data: orderNo });
-            console.log("preparePayRes:" + preparePayRes)
-            let payRes = await requestPay(preparePayRes);
-            
-            if(payRes.errMsg.indexOf("ok") != 0){
-                const preparePayRes = await requestUtil({ url: "/my/order/setOrderStatus", method: "POST",
-                 data:  {
-                        orderNo:orderNo
-                    } 
-                });
-            }
-            console.log(payRes)
-             //  《《《======支付接口 暂不写   
+            // const preparePayRes = await requestUtil({ url: "/my/order/payByCoin", method: "POST", data: orderNo });
+            // console.log("preparePayRes:" + preparePayRes)
+            // let payRes = await requestPay(preparePayRes);
+
+
+            //------------  现金支付---------------------2022-11-6注释
+            // const preparePayRes = await requestUtil({ url: "/my/order/preparePay", method: "POST", data: orderNo });
+            // console.log("preparePayRes:" + preparePayRes)
+            // let payRes = await requestPay(preparePayRes);
+
+            // if(payRes.errMsg.indexOf("ok") != 0){
+            //     const preparePayRes = await requestUtil({ url: "/my/order/setOrderStatus", method: "POST",
+            //      data:  {
+            //             orderNo:orderNo
+            //         } 
+            //     });
+            // }
+            // console.log(payRes)
+            //---------------现金支付---------------------2022-11-6注释
+
+            //  《《《======支付接口 暂不写   
 
             // 删除缓冲中 已经支付的商品
             // let newCart = wx.getStorageSync('cart');
@@ -241,9 +258,10 @@ Page({
             // wx.setStorageSync('cart', newCart);
 
             wx.showToast({
-                title: '支付成功',
+                title: '下单成功',
                 icon: 'none'
             });
+            this.getDetail();
 
             wx.navigateTo({
                 url: '/pages/userOrder/index?status=1',
@@ -253,12 +271,26 @@ Page({
         } catch (error) {
             console.log(error);
             wx.showToast({
-                title: '支付失败',
+                title: '下单失败',
                 icon: 'none'
             })
 
         }
 
+    },
+    async getDetail(){
+        let userInfo = wx.getStorageSync('userInfo');
+        const result = await requestUtil({ url: "/product/detailByopenId", data:{openid:userInfo.openid} });
+        // let audioPlayObj = this.data.audioPlayObj;
+        // audioPlayObj.audioSrc = this.data.BaseUrl+ result.message.audio;
+        userInfo=result.userInfo;
+        userInfo.coin = userInfo.coin.toFixed(0);
+        this.setData({
+            userInfo: result.userInfo,
+            // productObj: result.message,
+            // audioPlayObj
+        })
+        wx.setStorageSync('userInfo', userInfo)
     },
 
 
@@ -344,6 +376,6 @@ Date.prototype.Format = function (fmt) { //author: meizz
     };
     if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
     for (var k in o)
-    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
     return fmt;
 }

@@ -10,7 +10,7 @@
                 <view class="user_name">{{userInfo.nickName}}</view>
             </navigator>
             <view style="margin-top:10px;color: #fff;">
-                <view>   <text class="cuIcon-moneybag" style="font-size: 1rem;color: gold;margin-right: 2px;"></text>   <text style="color: gold;">52</text></view>
+                <view>   <text class="cuIcon-moneybag" style="font-size: 1rem;color: gold;margin-right: 2px;"></text>   <text style="color: gold;">{{userInfo.coin}}</text></view>
             </view>
             
         </view>
@@ -62,6 +62,13 @@
                     </view>
                 </navigator>
             </view> -->
+            <view class="app_info_item">
+                <navigator url="/pages/wallet/index">
+                    <view>
+                        我的钱包
+                    </view>
+                </navigator>
+            </view>
             <view open-type="contact" class="app_info_item app_info_contact">
                <button open-type="contact" class="feedback"> 联系客服</button> 
                 <!-- <text>400-699-12345</text> -->
@@ -69,6 +76,7 @@
             <view class="app_info_item">
                 <button open-type="feedback" class="feedback">意见反馈</button>
             </view>
+          
             <!-- <view class="app_info_item">
                 <navigator url="/pages/setting/index">
                     <view>

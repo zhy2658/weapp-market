@@ -27,6 +27,15 @@ export function memberGradeOption(){
     }
     return option
 }
+
+// export function sexOption(){
+//     // let option=["1级员工","2级员工","3级员工","4级员工","5级员工"];
+//     let option={
+//         "1": "女",
+//         "2": "男",
+//     }
+//     return option
+// }
 // export memberGradeOption={
 //     "1": "1级员工",
 //     "2": "2级员工",

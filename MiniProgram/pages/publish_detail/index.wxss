@@ -194,3 +194,7 @@ page {
   margin-top: 10rpx;
   margin-left: 10rpx;
 }
+.like_area {
+  display: flex;
+  align-items: center;
+}

@@ -1,6 +1,8 @@
 {
     "pages": [
+      
         "pages/category/index",
+        "pages/wallet/index",
         "pages/cart/index",
         "pages/my/index",
         "pages/search/index",
@@ -19,7 +21,9 @@
         "pages/orderManage/index",
         "pages/serviceOption/index",
         "pages/userOrder/index",
-        "pages/conplain/index"
+        "pages/conplain/index",
+        "pages/userDetail/index"
+        
     ],
     "window": {
         "backgroundTextStyle": "dark",

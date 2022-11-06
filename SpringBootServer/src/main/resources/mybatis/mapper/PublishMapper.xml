@@ -32,7 +32,7 @@
     <select id="getMyPublish"  resultMap="PublishResult">
         select * from t_publish
         <where>
-            openId = #{query}
+            openId = #{query} and status = #{status}
         </where>
         ORDER BY pubtime DESC
         <if test="start!=null and pageSize!=null">

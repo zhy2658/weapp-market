@@ -76,8 +76,8 @@
                     <!-- 点赞 -->
                     <view class='zan-bg-view' style="margin-top: 10px;">
                         <view class='zan-user-view' wx:if="{{item.likeList.length>0}}"> <text class="cuIcon-like" style="font-size: 1rem;;"></text></view>
-                        <view class='zan-user-view' wx:for='{{item.likeList}}' wx:key="likeObj" wx:for-item="likeObj" wx:for-index="index">
-                            <label bindtap='TouchZanUser' data-name='{{likeObj.id}}' style="font-size: 30rpx;">{{likeObj.nickName}} </label>
+                        <view class='zan-user-view like_area' wx:for='{{item.likeList}}' wx:key="likeObj" wx:for-item="likeObj" wx:for-index="index">
+                            <label bindtap='TouchZanUser' data-name='{{likeObj.id}}' style="font-size: 30rpx;">{{likeObj.nickName}}</label>
                             <!-- <text wx:if="{{index+1 < 5}}">,</text>
                             <text wx:else>...</text> -->
                         </view>

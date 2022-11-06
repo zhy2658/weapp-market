@@ -65,10 +65,10 @@
                  <button type="primary" bindtap="employTakeOrder" data-id="{{order.id}}">接单</button>
                 </view>
                 <view>项目: {{order.goods[0].goodsName}}</view>
-                <view>单价: {{order.goods[0].goodsPrice}} 元  /  {{order.goods[0].itemHours}}小时</view>
+                <view>单价: {{order.goods[0].goodsPrice}} 米粒  /  {{order.goods[0].itemHours}}小时</view>
                 <view>数量: {{order.goods[0].goodsNumber}}</view>
                 <view>服务时长: {{order.goods[0].totalHours}} 小时</view>
-                <view>实付款: {{order.totalPrice}}</view>
+                <view>总花费: {{order.totalPrice}} 米粒</view>
             </view>
             
         </view>
@@ -86,10 +86,10 @@
                 <view>项目: {{order.goods[0].goodsName}}</view>
                 <view>手机号:{{order.telNumber}}</view>
                 <view>微信号:{{order.consignee}}</view>
-                <view>单价: {{order.goods[0].goodsPrice}} 元  /  {{order.goods[0].itemHours}}小时</view>
+                <view>单价: {{order.goods[0].goodsPrice}} 米粒  /  {{order.goods[0].itemHours}}小时</view>
                 <view>数量: {{order.goods[0].goodsNumber}}</view>
                 <view>总时长: {{order.goods[0].totalHours}} 小时</view>
-                <view>实付款: {{order.totalPrice}}</view>
+                <view>总花费: {{order.totalPrice}} 米粒</view>
                 <view>结束时间: {{order.goods[0].serviceEnd}}</view>
                 <view class="flex">
                     <view class="cu-progress round sm striped active">
@@ -110,10 +110,10 @@
                 <view wx:if="{{order.goods[0].finishedPersent ==1}}" style="color: green;">已完成服务,等待用户确认,剩4天系统自动确认</view>
                 <view wx:else>还剩下 {{order.goods[0].restDay}} 天 {{order.goods[0].restHours}} 小时完成服务</view>
                 <view>项目: {{order.goods[0].goodsName}}</view>
-                <view>单价: {{order.goods[0].goodsPrice}} 元  /  {{order.goods[0].itemHours}}小时</view>
+                <view>单价: {{order.goods[0].goodsPrice}} 米粒  /  {{order.goods[0].itemHours}}小时</view>
                 <view>数量: {{order.goods[0].goodsNumber}}</view>
                 <view>总时长: {{order.goods[0].totalHours}} 小时</view>
-                <view>实付款: {{order.totalPrice}}</view>
+                <view>总花费: {{order.totalPrice}} 米粒</view>
                 <view>结束时间: {{order.goods[0].serviceEnd}}</view>
                 <view class="flex">
                     <view class="cu-progress round sm ">
@@ -132,10 +132,10 @@
                 <view>{{order.wxUserInfo.nickName}}:</view>
                 <view>完成时间: {{order.goods[0].serviceEnd}}</view>
                 <view>项目: {{order.goods[0].goodsName}}</view>
-                <view>单价: {{order.goods[0].goodsPrice}} 元  /  {{order.goods[0].itemHours}}小时</view>
+                <view>单价: {{order.goods[0].goodsPrice}} 米粒  /  {{order.goods[0].itemHours}}小时</view>
                 <view>数量: {{order.goods[0].goodsNumber}}</view>
                 <view>总时长: {{order.goods[0].totalHours}} 小时</view>
-                <view>实付款: {{order.totalPrice}}</view>
+                <view>总花费: {{order.totalPrice}} 米粒</view>
                 <view class="flex">
                     <view class="cu-progress round sm ">
                         <view class="bg-green" style="width:{{(order.goods[0].finishedPersent*100) +'%'}};"></view>

@@ -1,0 +1,47 @@
+page{
+    background-color: #fff;
+}
+view,text{
+    font-size: 1rem;
+    color: #454545;
+}
+.header button.cu-btn{
+    width:200rpx;
+}
+.header{
+    height:40vh;
+    background-color:#b8b4b4;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    flex-direction: column;
+}
+.header_row1{
+    display: flex;
+    /* justify-content: center; */
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+}
+.avatar image {
+    width: 150rpx;
+    height: 150rpx;
+    border-radius: 50%;
+}
+.container{
+    padding: 0 50rpx;
+}
+.row{
+    display: flex;
+    border-bottom: 1px solid #efefef;
+    padding: 2vh 30rpx;
+    
+
+}
+.row view{
+    flex: 1;
+    text-align: center;
+}
+.row .info{
+    color: #565656;
+}

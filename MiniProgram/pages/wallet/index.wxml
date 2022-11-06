@@ -1,0 +1,33 @@
+<!--pages/wallet/index.wxml-->
+<!-- <text>pages/wallet/index.wxml</text> -->
+<view class="top_info">
+    <view>米粒剩余：</view>
+    <view class="coin">{{userInfo.coin}}</view>
+</view>
+<view class="line"></view>
+<view class="cu-bar bg-white solid-bottom" style="margin-top:10px;">
+    <view class='action'>
+        <text class='cuIcon-titles text-pink '></text> 选择充值的米粒
+    </view>
+
+</view>
+<view class="recharge">
+    <view class="recharge_item{{ purchaseActive==index ?' active':''}}" wx:for="{{purchaseOption}}" wx:for-item="purchase" wx:for-index="index" wx:key="index" bindtap="changePurchaseActive" data-index="{{index}}" >
+        <view class="recharge_item_row1">米粒</view>
+        <view class="recharge_item_row2">
+            <view>{{purchase.coinNum}}</view>
+            <view>￥{{purchase.totalPrice}}</view>
+        </view>
+    </view>
+
+    <view class="recharge_item custom" bindtap="cancelPurchaseActive">
+        <view class="recharge_item_row1">自定义充值数量</view>
+        <view class="recharge_item_row2">
+            <view>
+                <input type="text" placeholder="请输入充值数量..." style="border-bottom:1px solid #efefef;" />
+            </view>
+            <view>￥10</view>
+        </view>
+    </view>
+    <button class="cu-btn round paybtn bg-green"  bindtap="pay">立即支付</button>
+</view>

@@ -74,7 +74,7 @@
 
         <!-- 点赞 -->
         <view class='zan-bg-view' style="margin-top: 10px;">
-            <view class='zan-user-view' wx:for='{{publishObj.likeList}}' wx:key="likeObj" wx:for-item="likeObj" wx:for-index="index">
+            <view class='zan-user-view like_area' wx:for='{{publishObj.likeList}}' wx:key="likeObj" wx:for-item="likeObj" wx:for-index="index">
                 <label bindtap='TouchZanUser' data-name='{{likeObj.id}}' style="font-size: 30rpx;">{{likeObj.nickName}} </label>
             </view>
         </view>

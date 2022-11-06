@@ -17,7 +17,7 @@
 </div>
     </div>
     <br>
-    <div>当前显示: <span style="color:darkcyan;">{{statusOption[status]}}的说说</span></div><br>
+    <div>当前显示: <span style="color:darkcyan;">{{statusOption[status]}}的帖子</span></div><br>
 
     <el-table :data="tableData" stripe style="width: 100%">
 
@@ -188,7 +188,7 @@ const handleDelete = (id) => {
 const handlePublishStatus = (pid,status) => {
   console.log(pid,status)
   ElMessageBox.confirm(
-    '您确定要更新这个说说状态吗?',
+    '您确定要更新这个帖子状态吗?',
     '系统提示',
     {
       confirmButtonText: '确定',

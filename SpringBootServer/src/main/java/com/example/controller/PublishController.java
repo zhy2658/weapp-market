@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.entity.*;
 import com.example.mapper.PublishImgMapper;
 import com.example.mapper.PublishLikeMapper;
@@ -50,7 +51,7 @@ public class PublishController {
     }
 
     @RequestMapping("/get_mypublish")
-    public Map<String,Object> getMyPublish(HttpServletRequest request,PageBean pageBean){
+    public Map<String,Object> getMyPublish(HttpServletRequest request,@RequestBody PageBean pageBean){
         String openId=(String)request.getSession().getAttribute("openId");
 
         pageBean.setQuery(openId);
@@ -134,5 +135,26 @@ public class PublishController {
             map.put("data", map2);
         }
         return map;
+    }
+    @GetMapping("/delete/{id}")
+    public R delete(HttpServletRequest request,@PathVariable(value = "id") Integer id){
+        String openId=(String) request.getSession().getAttribute("openId");
+        Publish publish=pulishService.getOne(
+                new QueryWrapper<Publish>()
+                        .eq("openId",openId)
+                        .eq("pid",id)
+        );
+        if(publish !=null){
+            publish.setStatus(3);
+            pulishService.update(publish,
+                    new QueryWrapper<Publish>()
+                            .eq("pid",publish.getPid())
+                    );
+        }
+
+        // 删除订单细表的数据
+//        orderDetailService.remove(new QueryWrapper<OrderDetail>().eq("mId",id));
+//        orderService.removeById(id);
+        return R.ok();
     }
 }

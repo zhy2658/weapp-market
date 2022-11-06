@@ -1,6 +1,6 @@
 
-var baseUrl = "http://localhost:8080/";
-// var baseUrl = "https://www.qingnianshiwen.cn/"
+// var baseUrl = "http://localhost:8080/";
+var baseUrl = "https://www.qingnianshiwen.cn/"
 
 var filePathHandler = function (path) {
     if(path.indexOf("https://") >-1 || path.indexOf("https://")  >-1|| path.indexOf("wxfile://")  >-1)  return path;
@@ -11,10 +11,50 @@ var isExistHttp = function (path) {
     if(path.indexOf("https://") >-1 || path.indexOf("http://")  >-1 || path.indexOf("wxfile://")  >-1)  return true;
    else return false;
 }
+
+var formatDateYMD =  function(date){
+
+	var year = date.getFullYear(),
+		month = date.getMonth() + 1,//月份是从0开始的
+		day = date.getDate(),
+		hour = date.getHours(),
+		min = date.getMinutes(),
+		sec = date.getSeconds();
+	var newTime = year + '-' +
+				month + '-' +
+				day ;
+	return newTime;			
+}
+var formatDate =  function(date){
+
+	var year = date.getFullYear(),
+		month = date.getMonth() + 1,//月份是从0开始的
+		day = date.getDate(),
+		hour = date.getHours(),
+		min = date.getMinutes(),
+		sec = date.getSeconds();
+	var newTime = year + '-' +
+				month + '-' +
+				day + ' ' +
+				hour + ':' +
+				min + ':' +
+				sec;
+	return newTime;			
+};
+var employeeGrade={
+    "1":"普通",
+    "2":"金牌",
+    "3":"镇店",
+    "4":"白金",
+}
+
 module.exports = {
     baseUrl: baseUrl,
     filePathHandler: filePathHandler,
-    isExistHttp:isExistHttp
+    isExistHttp:isExistHttp,
+    formatDate:formatDate,
+    formatDateYMD:formatDateYMD
     
 };
 module.exports.msg = "some msg";
+module.exports.employeeGrade=employeeGrade;

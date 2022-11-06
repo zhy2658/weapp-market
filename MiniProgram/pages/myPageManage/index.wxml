@@ -2,10 +2,10 @@
 <wxs src="../../utils/tools.wxs" module="tools" />
 
 <view class="content">
-    <view>我的员工等级是 <text style="color: red;font-size: 2rem;">{{userInfo.employee_grade}}</text>级</view>
-    <view>今日接单量：</view>
-    <view>今日在线时长：</view>
-    <view>今日收益：</view>
+    <view>我的店员等级是 <text style="color: red;font-size: 1rem;">{{tools.employeeGrade[userInfo.employee_grade]}}店员</text></view>
+    <view>今日接单量：{{basicInfo.todayOrder}}</view>
+    <!-- <view>今日在线时长：</view> -->
+    <view>今日收益：{{basicInfo.todayRevenue}}</view>
     <!-- <view>本月接单量：</view>
     <view>本月排名：</view>
     <view>本月被举报次数：</view> -->
@@ -20,11 +20,11 @@
     </view>
 
 
-    <!-- <view>
+    <view>
         <navigator url="/pages/userDetail/index">
             <button>个人主页管理</button>
         </navigator>
-    </view>  -->
+    </view> 
     <!-- <view>
         <navigator url="/pages/mypublish/index">
             <button>我的发布</button>

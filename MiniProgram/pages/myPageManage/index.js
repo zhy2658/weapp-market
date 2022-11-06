@@ -1,7 +1,14 @@
 // pages/myPageManage/index.js
 // 导入request请求工具方法
 import { getBaseUrl, requestUtil } from "../../utils/requestUtil.js";
+import { formatDate, formatDateYMD,getTodayBeginAndEnd } from "../../utils/tools.js";
 import regeneratorRuntime from '../../lib/runtime/runtime';
+
+const datetime={
+    begin:"2022-11-4 12:00:00",
+    end:"2022-12-1 12:00:00",
+}
+
 
 Page({
 
@@ -10,7 +17,8 @@ Page({
      */
     data: {
         userStatus:["下线","在线接单"],
-        currentStatus: 0
+        currentStatus: 0,
+        basicInfo:{}
     },
 
     /**
@@ -25,14 +33,21 @@ Page({
         this.getOrderCount();
     },
     async getOrderCount(){
+        let beginAndEnd=getTodayBeginAndEnd();
+        datetime.begin=beginAndEnd[0];
+        datetime.end=beginAndEnd[1];
+        console.log(datetime)
         const result = await requestUtil({
             url: "/order/manage/getOrderCount",
-            data:{
-                "begin":"2022-11-2 12:00:00",
-                "end":"2022-12-1 12:00:00",
-            },
+            data:datetime,
             method: "POST",
         });
+        if(result.code==0){
+            result.todayRevenue=result.todayRevenue.toFixed(2)
+            this.setData({
+                basicInfo:result
+            })
+        }
         console.log(result)
     },
     async changeStatus(e){

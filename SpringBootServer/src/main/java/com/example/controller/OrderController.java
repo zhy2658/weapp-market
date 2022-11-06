@@ -195,6 +195,70 @@ public class OrderController {
     }
 
     /**
+     * 通过米粒支付
+     */
+    @RequestMapping("/payByCoin")
+    public R PayByCoin(@RequestBody Order order, @RequestHeader(value = "token") String token) {
+        System.out.println("order" + order);
+        String openId=null;
+        if (StringUtil.isNotEmpty(token)) {
+            Claims claims = JwtUtils.validateJWT(token).getClaims();
+            if (claims != null) {
+                openId = claims.getId();
+                order.setUserId(openId);
+                order.setOrderNo("LY" + DateUtil.getCurrentDateStr());
+                order.setCreateDate(new Date());
+                System.out.println(openId);
+            } else {
+                return R.error(500, "鉴权失败！");
+            }
+        } else {
+            return R.error(500, "无权限访问！");
+        }
+        WxUserInfo wxUserInfo=iWxUserInfoService.getOne(
+                new QueryWrapper<WxUserInfo>()
+                        .eq("openid",openId)
+        );
+        if(wxUserInfo.getCoin() < order.getTotalPrice().floatValue()){
+            return R.error(500, "米粒余额不足");
+        }
+        Float restCoin=wxUserInfo.getCoin() - order.getTotalPrice().floatValue();
+        wxUserInfo.setCoin(restCoin);
+        iWxUserInfoService.updateById(wxUserInfo);
+
+
+        OrderDetail[] goods = order.getGoods();
+        order.setStatus(1);
+        orderService.save(order);
+        String orderNo = order.getOrderNo();
+
+        for (int i = 0; i < goods.length; i++) {
+            OrderDetail orderDetail = goods[i];
+            orderDetail.setMId(order.getId());
+//            时间处理
+//            orderDetail.setServiceStart(new Date());
+//            orderDetail.setServiceEnd(new Date(System.currentTimeMillis()
+//                    + 3600L * 1000 * orderDetail.getItemHours() * orderDetail.getGoodsNumber()));
+
+            orderDetailService.save(orderDetail);
+        }
+
+        WxUserInfo servantUser = iWxUserInfoService.findByOpenId(order.getServant_id());
+        String tel =servantUser.getTel();
+//        String orderNo = order.getOrderNo();
+
+        //发送短信通知
+        HttpClientUtil.getInstance().sendHttpGet("http://sms.hutonginfo.com:9000/sms.aspx?action=send&userid=8038&account=2658991831@qq.com&password=zhy2958991831&mobile="+tel+"&content=【晚点的心声】您有新的订单("+orderNo+")等待处理，请及时查看！&sendTime=&extno=");
+
+
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        resultMap.put("orderNo", orderNo);
+        return R.ok(resultMap);
+    }
+
+
+
+    /**
      * 微信支付签名算法sign
      */
     private String getSign(Map<String, Object> map) {

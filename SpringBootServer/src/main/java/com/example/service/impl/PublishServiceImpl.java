@@ -1,5 +1,7 @@
 package com.example.service.impl;
 
+
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.entity.PageBean;
 import com.example.entity.Publish;
 import com.example.entity.PublishImg;
@@ -12,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service("PublishService")
-public class PublishServiceImpl implements PublishService {
+public class PublishServiceImpl extends ServiceImpl<PublishMapper,Publish> implements PublishService {
 
     @Resource
     PublishMapper publishMapper;

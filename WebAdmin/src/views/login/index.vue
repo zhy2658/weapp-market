@@ -78,25 +78,27 @@
           let result=await axios.post("adminLogin",form.value);
           let data=result.data;
           if(data.code==0){
-            
+            let address="/admin";
             if(data.power == "employee"){
-              
+              address="/employee";
               if(data.isSetNewPwd){
-                console.log("跳转")
-                router.replace("/")
+                // console.log("跳转")
+                // router.replace("/")
                 // return
+                address="/employee";
               }
-              else router.replace("/")
-              
+              // else router.replace("/")
+              localStorage.setItem
               // return
             }
-            else{
+            // else{
               console.log(data)
             // ElMessage.info("登录成功！"+data.token);
               window.sessionStorage.setItem("token",data.token);
-              window.sessionStorage.setItem("userInfo",JSON.stringify(form.value));
-              router.replace("/")
-            }
+              if(data.power == "employee") window.sessionStorage.setItem("userInfo",JSON.stringify(data.userInfo));
+              else window.sessionStorage.setItem("userInfo",JSON.stringify(form.value));
+              router.replace(address)
+            // }
             
           }else{
             ElMessage.error(data.msg);

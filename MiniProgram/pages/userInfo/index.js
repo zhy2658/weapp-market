@@ -121,7 +121,7 @@ Page({
             if(formObj[key].trim){
                 formObj[key]=formObj[key].trim()
             }
-            if((key=="nickName" && formObj[key].length > 4) ||  formObj[key].length ==0){
+            if(key=="nickName" && (formObj[key].length > 4 ||  formObj[key].length ==0)){
                 wx.showToast({
                     title: '昵称长度为1-4位',
                     icon: 'none'

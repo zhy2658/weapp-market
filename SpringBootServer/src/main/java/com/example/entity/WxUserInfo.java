@@ -56,6 +56,8 @@ public class WxUserInfo implements Serializable {
 
     private Integer employee_grade;
 
+    private Float coin;
+
     private Integer employee_id;
 
     private String password;
@@ -72,6 +74,8 @@ public class WxUserInfo implements Serializable {
     private String code; // 微信用户code 前端传来的
     @TableField(select = false,exist = false)
     private Product detail; // 微信用户code 前端传来的
+    @TableField(select = false,exist = false)
+    private String newPassword;   //老密码
 
 
 

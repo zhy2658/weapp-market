@@ -66,7 +66,7 @@ export function post(url, params = {}) {
       method: 'post',
       data: params
     }).then(response => {
-      console.log(response)
+      // console.log(response)
       resolve(response);
     }).catch(error => {
       console.log(error)

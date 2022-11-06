@@ -159,7 +159,7 @@
         <image wx:if="{{userInfo.avatarUrl}}" class='user-icon' src='{{tools.filePathHandler(userInfo.avatarUrl)}}' mode="widthFix"></image>
     </view>
     <view class='column'>
-        <text class="sku-price">￥{{gg_price}}</text>
+        <text class="sku-price">{{gg_price}}米粒</text>
         <text class="sku-title">
             <block wx:if="{{gg_txt==''}}">请选择规格</block>
             <block wx:else>已选择{{gg_txt}}{{gg_hours}} 小时</block>

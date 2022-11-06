@@ -31,7 +31,7 @@
             <view wx:if="{{currentPayItemId == payitem.id}}" class="tr bg-g" style="display: flex;" >
                 <view class="td" style="margin: 0 10px;"> {{payitem.itemName}}</view>
                 <view class="td" style="margin: 0 10px;"> {{payitem.itemHours}}</view>
-                <view class="td" style="margin: 0 10px;"> {{payitem.price}}</view>
+                <view class="td" style="margin: 0 10px;"> {{payitem.price}}米粒</view>
                 <view class="td" style="margin: 0 10px;"> {{totalNum}}</view>
                 
                 <!-- <view>
@@ -85,7 +85,7 @@
   <!-- 总价格 -->
   <view class="total_price_wrap">
     <view class="total_price">
-     数量 {{totalNum}},合计<text class="total_price_text" decode="{{true}}">&nbsp;¥{{totalPrice}}</text>
+     数量 {{totalNum}},合计<text class="total_price_text" decode="{{true}}">&nbsp;{{totalPrice}}米粒</text>
     </view>
   </view>
 

@@ -1,5 +1,6 @@
 package com.example.entity;
 
+import io.swagger.models.auth.In;
 import lombok.Data;
 
 /**
@@ -17,6 +18,8 @@ public class PageBean {
     private int pageSize; // 每页记录数
     private int start;  // 起始页
     private String query; // 查询参数
+
+    private Integer status;  //状态
 
     public PageBean() {
     }

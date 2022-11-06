@@ -246,3 +246,7 @@ page {
 .TDD-view>button{
     color: #323232;
 }
+.like_area{
+    display: flex;
+    align-items: center;
+}

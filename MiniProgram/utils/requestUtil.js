@@ -1,14 +1,14 @@
 // 同时发送异步代码的次数
 let ajaxTimes = 0;
 
-const PROTOCOL = "http://";
+const PROTOCOL = "https://";
 // 定义公共的url
-const IP = "localhost";
-// const IP = "www.qingnianshiwen.cn";
+// const IP = "localhost";
+const IP = "www.qingnianshiwen.cn";
 const rootURL = PROTOCOL + IP
 let baseUrl = rootURL + ":8080/";
 // let baseUrl = rootURL + "/";
-// baseUrl="https://www.qingnianshiwen.cn/"
+baseUrl="https://www.qingnianshiwen.cn/"
 
 
 
