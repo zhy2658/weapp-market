@@ -49,8 +49,8 @@ public class MsgSendService {
         socketIOServer.addConnectListener(client -> {
             String token = getClientToken(client, "token");
 //            System.out.println("token:"+ token);
-            MyThread mThread1=new MyThread();
-            mThread1.start();
+//            MyThread mThread1=new MyThread();
+//            mThread1.start();
             Claims claims=null;
             if ( (claims = checkToken(token)) !=null) {
                 openIdMap.put(client.getSessionId(),claims.getId());

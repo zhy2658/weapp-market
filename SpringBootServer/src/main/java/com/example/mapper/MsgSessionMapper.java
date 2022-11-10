@@ -26,7 +26,7 @@ public interface MsgSessionMapper extends BaseMapper<MsgSession> {
 //    @Select("select * from t_msgsession where openId=#{openId} or openId2=#{openId_copy}")
     @Select("select * from t_msgsession as m inner join t_wxuserinfo as u " +
             "on m.openId = u.openid or m.openId2 = u.openid " +
-            "where (m.openId=#{openId} or m.openId2=#{openId_copy}) and u.openid!=#{openId_copy1}; ")
+            "where (m.openId=#{openId} or m.openId2=#{openId_copy}) and u.openid!=#{openId_copy1} and m.isShow=1; ")
     List<Map<String,Object>> getAllMsgSession(String openId, String openId_copy, String openId_copy1);
 
 }

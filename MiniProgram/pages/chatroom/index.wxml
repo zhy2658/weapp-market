@@ -63,8 +63,11 @@
                     </view>
                     <view class="cu-avatar radius" style="background-image:url({{tools.filePathHandler(msgItem.avatarUrl)}});"></view>
                     <view class="date"> {{ msgItem.time }}</view>
+                   
                 </view>
+                
             </view>
+            <view wx:if="{{isOrderEnd}}" style="height: 100px;color: red; text-align: center;">和Ta的订单已经完成，请及时续单哦！</view>
 
             <!-- <view class="cu-info round">对方撤回一条消息!</view> -->
 
@@ -104,9 +107,9 @@
                 <view class="action">
                     <text class="cuIcon-emojifill text-grey"></text>
                 </view>
-                <input class="solid-bottom" bindfocus="InputFocus" bindblur="InputBlur" adjust-position="{{false}}" focus="{{false}}" maxlength="300" cursor-spacing="10" name="msg" bindinput='getInputValue' value="{{msgvalue}}"></input>
+                <input class="solid-bottom" bindfocus="InputFocus" bindblur="InputBlur" adjust-position="{{false}}" focus="{{false}}" maxlength="300" cursor-spacing="10" name="msg" bindinput='getInputValue' value="{{msgvalue}}" disabled="{{isOrderEnd}}"></input>
                 
-                <button class="cu-btn bg-green shadow" style="width: 200rpx;" formType="submit">发送</button>
+                <button class="cu-btn bg-green shadow" style="width: 200rpx;" formType="submit" disabled="{{isOrderEnd}}">发送</button>
             </view>
         </form>
 

@@ -12,8 +12,11 @@
             <view class=" padding">{{item.itemName}}</view>
             <view class="padding">{{item.itemHours}}</view>
             <view class=" padding">{{item.price}}</view>
-            <view class=" padding">
+            <view wx:if="{{item.required ==1}}" class=" padding">
                 <button class="cu-btn bg-red shadow margin-left" bindtap="showDeleteModal" data-id="{{item.id}}" style="width:120rpx">删除</button>
+            </view>
+            <view wx:elif="{{item.required ==0}}" class=" padding">
+                <view style="border:1px solid #efefef;padding: 3px 10rpx;">必选</view>
             </view>
         </view>
     </view>
@@ -53,7 +56,11 @@
                     <text class="cuIcon-close text-red"></text>
                 </view>
             </view>
-            <view class="padding-xl">
+            <view class="gradeOption">
+                <view wx:for="{{extraPayitemList}}" wx:for-item="item" 
+                wx:for-index="index" wx:key="id" class="{{item.choosed?'active':''}}" data-index="{{index}}" bindtap="chooseServiceOption" data-id="{{item.id}}">{{item.itemName}} {{item.itemHours}}小时</view>
+            </view>
+            <!-- <view class="padding-xl">
 
                 <view class="cu-form-group margin-top">
                     <view class="title">项目名</view>
@@ -68,7 +75,7 @@
                     <input type="number" placeholder="价格" name="price"></input>
                 </view>
 
-            </view>
+            </view> -->
             <view class="cu-bar bg-white">
                 <view class="action margin-0 flex-sub text-green ">
                 </view>

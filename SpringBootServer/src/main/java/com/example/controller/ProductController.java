@@ -2,17 +2,12 @@ package com.example.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.entity.*;
-import com.example.service.IProductService;
-import com.example.service.IProductSwiperImageService;
-import com.example.service.IWxUserInfoService;
-import com.example.service.PayItemService;
+import com.example.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +34,9 @@ public class ProductController {
 
     @Resource
     private PayItemService payItemService;
+
+    @Resource
+    ExtraPayitemService extraPayitemService;
 
     /**
      * 查询轮播商品
@@ -70,10 +68,22 @@ public class ProductController {
      * @return
      */
     @RequestMapping("/detail")
-    public R detail(Integer id){
+    public R detail(HttpServletRequest request,Integer id){
         Product product = productService.getById(id);
         WxUserInfo userInfo = iWxUserInfoService.findByOpenId(product.getOpenId());
-        List<PayItem> payitemList = payItemService.list(new QueryWrapper<PayItem>().eq("grade",userInfo.getEmployee_grade()));
+        List<PayItem> payitemList = payItemService.list(
+                new QueryWrapper<PayItem>().
+                        eq("grade",userInfo.getEmployee_grade() )
+                        .eq("required",0)
+        );
+        List<ExtraPayitem> extraPayitemList = extraPayitemService.list(
+                new QueryWrapper<ExtraPayitem>()
+                        .eq("employee_id",userInfo.getOpenid())
+        );
+        for(ExtraPayitem extraPayitem : extraPayitemList){
+            PayItem payItem = payItemService.getById(extraPayitem.getPayitem_id());
+            payitemList.add(payItem);
+        }
         List<ProductSwiperImage> productSwiperImageList = productSwiperImageService.list(new QueryWrapper<ProductSwiperImage>().eq("productId", product.getId()).orderByAsc("sort"));
         product.setProductSwiperImageList(productSwiperImageList);
         Map<String,Object> map=new HashMap<>();
@@ -121,6 +131,30 @@ public class ProductController {
         return R.ok(map);
     }
 
+
+    @GetMapping("/listImg/{id}")
+    public R list(@PathVariable(value = "id") Integer id){
+        List<ProductSwiperImage> list = productSwiperImageService.list(new QueryWrapper<ProductSwiperImage>().eq("productId",id));
+        Map<String,Object> resultMap=new HashMap<>();
+        resultMap.put("productSwiperImageList",list);
+        return R.ok(resultMap);
+    }
+    @PostMapping("/addImg")
+    public R add(@RequestBody ProductSwiperImage productSwiperImage){
+        productSwiperImageService.saveOrUpdate(productSwiperImage);
+        return R.ok();
+    }
+
+    /**
+     * 删除
+     * @param id
+     * @return
+     */
+    @GetMapping("/deleteImg/{id}")
+    public R delete(@PathVariable(value = "id") Integer id){
+        productSwiperImageService.removeById(id);
+        return R.ok();
+    }
 
 
 }

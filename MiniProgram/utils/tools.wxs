@@ -1,4 +1,3 @@
-
 // var baseUrl = "http://localhost:8080/";
 var baseUrl = "https://www.qingnianshiwen.cn/"
 
@@ -25,6 +24,10 @@ var formatDateYMD =  function(date){
 				day ;
 	return newTime;			
 }
+var formaStrYMD =  function(str){
+
+	return str.split(" ")[0];			
+}
 var formatDate =  function(date){
 
 	var year = date.getFullYear(),
@@ -41,11 +44,21 @@ var formatDate =  function(date){
 				sec;
 	return newTime;			
 };
+
+var countLength =  function(arr){
+    if(!arr.length)return 0
+    return arr.length;
+}
+
 var employeeGrade={
     "1":"普通",
     "2":"金牌",
     "3":"镇店",
     "4":"白金",
+}
+var sexOption={
+    "1":"女",
+    "2":"男"
 }
 
 module.exports = {
@@ -53,7 +66,10 @@ module.exports = {
     filePathHandler: filePathHandler,
     isExistHttp:isExistHttp,
     formatDate:formatDate,
-    formatDateYMD:formatDateYMD
+    formatDateYMD: formatDateYMD,
+    formaStrYMD:formaStrYMD,
+    countLength:countLength,
+    sexOption:sexOption
     
 };
 module.exports.msg = "some msg";

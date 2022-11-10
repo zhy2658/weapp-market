@@ -1,4 +1,5 @@
 // app.js
+import { getBaseUrl, requestUtil } from "./utils/requestUtil.js";
 App({
     globalData: {
         index: -1
@@ -16,6 +17,12 @@ App({
         }, 2000);
     },
     onLaunch: function() {
+        this.audioCtx = wx.createInnerAudioContext();
+        this.audioCtx.src = "./files/hint.mp3";
+         //轮询获取消息
+        setInterval(()=>{
+            this.getMsgList()
+        },10000);
         wx.getSystemInfo({
           success: e => {
             this.globalData.StatusBar = e.statusBarHeight;
@@ -25,6 +32,50 @@ App({
           }
         })
       },
+
+      //轮询获取消息
+      async getMsgList() {
+          let that=this;
+        const result = await requestUtil({
+            url: "/chat/getAllMsgSession",
+
+        },true);
+        let openId = wx.getStorageSync('openId');
+        let msgSessionList=wx.getStorageSync('msgSessionList');
+        if(msgSessionList == "" || result.length > msgSessionList.length){
+            console.log("------result.length > msgSessionList-")
+            that.audioCtx.play();
+            wx.setStorageSync('msgSessionList', result);
+            wx.showTabBarRedDot({
+                // index 是导航栏的索引 就是在第几个导航上显示
+                  index: 3,
+                })
+            return;
+        }
+        //比较是否与上次不一样
+        for(let i=0;i<result.length;i++){
+            // console.log("result[i] ",result[i] )
+            // console.log(result[i]["message"].time,msgSessionList[i]["message"].time)
+            if(!result[i] || !(result[i]["message"])|| !(result[i]["message"].time))continue;
+            
+            for(let msgSession of msgSessionList){
+                
+                if( (msgSession.openId == result[i].openId ) &&
+                    (msgSession.message.time != result[i]["message"].time  ) &&
+                msgSessionList[i]["message"].sendOpenID != openId){
+                    that.audioCtx.play();
+                    wx.showTabBarRedDot({
+                        // index 是导航栏的索引 就是在第几个导航上显示
+                          index: 3,
+                        })
+                    wx.setStorageSync('msgSessionList', result);
+                }
+            }
+            
+        }
+       
+    
+    },
 })
 
 // 暂时停用聊天
@@ -66,3 +117,10 @@ App({
 //     "query": "",
 //     "scene": null
 // }
+
+// {
+//     "pagePath": "pages/category/index",
+//     "text": "分类",
+//     "iconPath": "icons/_category.png",
+//     "selectedIconPath": "icons/category.png"
+// },

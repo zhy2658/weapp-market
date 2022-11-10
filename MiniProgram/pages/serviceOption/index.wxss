@@ -1,1 +1,17 @@
 /* pages/serviceOption/index.wxss */
+.gradeOption{
+    display: flex;
+   flex-wrap: wrap;
+}
+.gradeOption>view{
+    border:2px solid #B5E6F7;
+    padding: 3px 10px;
+    border-radius: 10px 10px;
+    margin: 0 20rpx;
+    color: #B5E6F7;
+    margin-top: 10px;
+}
+.gradeOption>view.active{
+    background-color: #B5E6F7;
+    color: #fff;
+}

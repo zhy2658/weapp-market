@@ -1,11 +1,12 @@
 package com.example.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.entity.MsgSession;
 
 import java.util.List;
 import java.util.Map;
 
-public interface MsgSessionService {
+public interface MsgSessionService extends IService<MsgSession> {
 
     int add(MsgSession msgSession);
 

@@ -11,11 +11,33 @@
  Target Server Version : 50736 (5.7.36)
  File Encoding         : 65001
 
- Date: 06/11/2022 15:18:24
+ Date: 10/11/2022 22:51:07
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for attention
+-- ----------------------------
+DROP TABLE IF EXISTS `attention`;
+CREATE TABLE `attention`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `opposite_id` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `attention_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `employee_id123213`(`opposite_id`) USING BTREE,
+  INDEX `user_id12323`(`user_id`) USING BTREE,
+  CONSTRAINT `employee_id123213` FOREIGN KEY (`opposite_id`) REFERENCES `t_wxuserinfo` (`openid`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `user_id12323` FOREIGN KEY (`user_id`) REFERENCES `t_wxuserinfo` (`openid`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of attention
+-- ----------------------------
+INSERT INTO `attention` VALUES (1, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'sssss', '2022-11-10 21:54:41');
+INSERT INTO `attention` VALUES (3, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '2022-11-10 21:54:41');
 
 -- ----------------------------
 -- Table structure for t_admin
@@ -100,6 +122,27 @@ INSERT INTO `t_conplain_type` VALUES (4, '冒充他人诈骗');
 INSERT INTO `t_conplain_type` VALUES (5, '其它');
 
 -- ----------------------------
+-- Table structure for t_extra_payitem
+-- ----------------------------
+DROP TABLE IF EXISTS `t_extra_payitem`;
+CREATE TABLE `t_extra_payitem`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `payitem_id` int(11) NOT NULL COMMENT '支付选项id',
+  `employee_id` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '员工id',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `employee_id`(`employee_id`) USING BTREE,
+  INDEX `payitem_id22`(`payitem_id`) USING BTREE,
+  CONSTRAINT `employee_id` FOREIGN KEY (`employee_id`) REFERENCES `t_wxuserinfo` (`openid`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `payitem_id22` FOREIGN KEY (`payitem_id`) REFERENCES `t_payitem` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_extra_payitem
+-- ----------------------------
+INSERT INTO `t_extra_payitem` VALUES (3, 2, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
+INSERT INTO `t_extra_payitem` VALUES (4, 3, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
+
+-- ----------------------------
 -- Table structure for t_message
 -- ----------------------------
 DROP TABLE IF EXISTS `t_message`;
@@ -110,96 +153,97 @@ CREATE TABLE `t_message`  (
   `msg` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `ms_id` int(11) NOT NULL,
+  `isRead` int(11) NOT NULL DEFAULT 0 COMMENT '0:未读    1:已读',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `ms_id22`(`ms_id`) USING BTREE,
-  CONSTRAINT `ms_id22` FOREIGN KEY (`ms_id`) REFERENCES `t_msgsession` (`ms_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 97 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+  CONSTRAINT `ms_id_mesage` FOREIGN KEY (`ms_id`) REFERENCES `t_msgsession` (`ms_id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 98 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_message
 -- ----------------------------
-INSERT INTO `t_message` VALUES (2, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', 'hello', '2022-09-25 14:11:49', 1);
-INSERT INTO `t_message` VALUES (3, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', 'hello', '2022-09-25 14:31:34', 1);
-INSERT INTO `t_message` VALUES (4, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', 'hello', '2022-09-25 14:32:53', 1);
-INSERT INTO `t_message` VALUES (5, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', 'hello', '2022-09-25 14:37:11', 1);
-INSERT INTO `t_message` VALUES (6, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '333', '2022-09-25 14:52:24', 1);
-INSERT INTO `t_message` VALUES (7, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'on yes', '2022-09-25 14:52:45', 1);
-INSERT INTO `t_message` VALUES (8, 'sssss', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '44421232111111111111111111111111111111111111111111sadsafsafas', '2022-09-25 14:54:55', 1);
-INSERT INTO `t_message` VALUES (9, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'ohWWn5fWj72e_5-043_qsk', '111', '2022-09-25 14:55:15', 1);
-INSERT INTO `t_message` VALUES (10, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'ohWWsk', '111', '2022-09-25 14:55:24', 1);
-INSERT INTO `t_message` VALUES (11, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '1111', '2022-09-25 14:55:30', 1);
-INSERT INTO `t_message` VALUES (12, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'hello', '2022-09-25 14:57:29', 1);
-INSERT INTO `t_message` VALUES (13, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '111', '2022-09-25 14:58:20', 1);
-INSERT INTO `t_message` VALUES (14, 'sssss', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '11122', '2022-09-25 14:58:24', 1);
-INSERT INTO `t_message` VALUES (15, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '111223123', '2022-09-25 14:58:29', 1);
-INSERT INTO `t_message` VALUES (16, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '111223123123', '2022-09-25 14:58:34', 1);
-INSERT INTO `t_message` VALUES (17, 'ohWWn5CNE3xxfWj72e_5-043_qsk', '11111ohWWn5CNE3xxfWj72e_5-043_qsk', '2222', '2022-09-25 14:58:48', 1);
-INSERT INTO `t_message` VALUES (18, 'ohWWn5CNE3xxfWj72e_5-043_qsk', '11111ohWWn5CNE3xxfWj72e_5-043_qsk', '222222', '2022-09-25 14:58:51', 1);
-INSERT INTO `t_message` VALUES (19, 'ohWWn5CNE3xxfWj72e_5-043_qsk', '11111ohWWn5CNE3xxfWj72e_5-043_qsk', '222222', '2022-09-25 15:01:14', 1);
-INSERT INTO `t_message` VALUES (20, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '11', '2022-09-25 15:01:26', 1);
-INSERT INTO `t_message` VALUES (21, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '1122', '2022-09-25 15:01:28', 1);
-INSERT INTO `t_message` VALUES (22, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '22', '2022-09-25 15:06:32', 1);
-INSERT INTO `t_message` VALUES (23, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '', '2022-09-25 15:55:46', 1);
-INSERT INTO `t_message` VALUES (24, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '22222', '2022-09-25 20:17:38', 1);
-INSERT INTO `t_message` VALUES (25, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '????', '2022-09-25 20:18:18', 1);
-INSERT INTO `t_message` VALUES (26, 'sssss', 'hello122222222222222222222222222222223sdfsadsadsfdsfdsfds', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '2022-09-25 20:20:35', 1);
-INSERT INTO `t_message` VALUES (27, 'sssss', 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'hello Mr.Justice', '2022-09-25 20:21:41', 1);
-INSERT INTO `t_message` VALUES (28, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '11', '2022-09-25 20:34:50', 1);
-INSERT INTO `t_message` VALUES (29, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '11', '2022-09-25 20:41:31', 1);
-INSERT INTO `t_message` VALUES (30, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', 'asdsadddddddddddddddddddddddadsadsadsadsadsadasdas', '2022-09-25 20:59:15', 1);
-INSERT INTO `t_message` VALUES (31, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '11111111111111111111111111111111111111111sadsadsadsadsaaaaaaaaaaaaaaaaaa', '2022-09-25 21:02:24', 1);
-INSERT INTO `t_message` VALUES (45, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '11asda', '2022-09-25 21:29:06', 1);
-INSERT INTO `t_message` VALUES (46, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', 'myu12551', '2022-09-25 21:33:44', 1);
-INSERT INTO `t_message` VALUES (47, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '对象', '2022-09-26 14:23:28', 1);
-INSERT INTO `t_message` VALUES (48, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '是的', '2022-09-26 21:48:53', 1);
-INSERT INTO `t_message` VALUES (49, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', 'sure是的！！！！', '2022-09-26 21:49:06', 1);
-INSERT INTO `t_message` VALUES (50, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', 'halma卡', '2022-09-27 13:12:53', 1);
-INSERT INTO `t_message` VALUES (51, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '2dsdas', '2022-09-27 18:52:14', 1);
-INSERT INTO `t_message` VALUES (52, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '聊天', '2022-09-27 18:58:49', 1);
-INSERT INTO `t_message` VALUES (53, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '2222', '2022-09-27 19:03:01', 1);
-INSERT INTO `t_message` VALUES (54, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '刘备', '2022-09-27 19:13:34', 1);
-INSERT INTO `t_message` VALUES (55, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '刘强', '2022-09-27 21:10:41', 1);
-INSERT INTO `t_message` VALUES (56, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', 'yes', '2022-09-28 09:55:47', 1);
-INSERT INTO `t_message` VALUES (57, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', 'youaha', '2022-09-28 09:59:56', 1);
-INSERT INTO `t_message` VALUES (58, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '545啊空间', '2022-09-28 13:29:45', 10);
-INSERT INTO `t_message` VALUES (59, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', 'yousa挺好', '2022-09-28 13:30:23', 10);
-INSERT INTO `t_message` VALUES (60, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', 'hhlle', '2022-10-02 17:28:04', 1);
-INSERT INTO `t_message` VALUES (61, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', 'hello', '2022-10-08 16:26:41', 1);
-INSERT INTO `t_message` VALUES (62, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', 'shide', '2022-10-08 16:26:52', 1);
-INSERT INTO `t_message` VALUES (63, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '1111111111111akdsjhsakdbksajdbksadbksajdbjsakbdjasjdksajndjksandksadnas', '2022-10-08 16:38:13', 1);
-INSERT INTO `t_message` VALUES (64, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '22', '2022-10-10 22:09:15', 1);
-INSERT INTO `t_message` VALUES (65, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '33', '2022-10-10 22:09:25', 10);
-INSERT INTO `t_message` VALUES (66, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '332', '2022-10-10 22:09:30', 10);
-INSERT INTO `t_message` VALUES (67, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '332', '2022-10-10 22:09:31', 10);
-INSERT INTO `t_message` VALUES (68, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '11', '2022-10-10 22:09:54', 10);
-INSERT INTO `t_message` VALUES (69, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '113', '2022-10-10 22:10:08', 10);
-INSERT INTO `t_message` VALUES (70, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '11', '2022-10-10 22:11:07', 10);
-INSERT INTO `t_message` VALUES (71, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '1133', '2022-10-10 22:11:15', 10);
-INSERT INTO `t_message` VALUES (72, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '1133333', '2022-10-10 22:11:52', 10);
-INSERT INTO `t_message` VALUES (73, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '1133333', '2022-10-10 22:11:54', 10);
-INSERT INTO `t_message` VALUES (74, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '1133333111', '2022-10-10 22:11:56', 10);
-INSERT INTO `t_message` VALUES (75, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '113333311133', '2022-10-10 22:11:58', 10);
-INSERT INTO `t_message` VALUES (76, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '222', '2022-10-22 17:43:54', 11);
-INSERT INTO `t_message` VALUES (77, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '22', '2022-10-22 17:53:07', 11);
-INSERT INTO `t_message` VALUES (78, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '2233', '2022-10-22 17:53:08', 11);
-INSERT INTO `t_message` VALUES (79, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '2233', '2022-10-22 17:53:09', 11);
-INSERT INTO `t_message` VALUES (80, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '2233333', '2022-10-22 17:53:11', 11);
-INSERT INTO `t_message` VALUES (81, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '223333', '2022-10-22 17:53:12', 11);
-INSERT INTO `t_message` VALUES (82, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '223333', '2022-10-22 17:53:13', 11);
-INSERT INTO `t_message` VALUES (83, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '2233', '2022-10-22 17:53:14', 11);
-INSERT INTO `t_message` VALUES (84, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '22', '2022-10-22 17:53:15', 11);
-INSERT INTO `t_message` VALUES (85, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '688', '2022-10-22 17:53:33', 11);
-INSERT INTO `t_message` VALUES (86, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '688666', '2022-10-22 17:53:34', 11);
-INSERT INTO `t_message` VALUES (87, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '11132', '2022-11-03 15:44:59', 11);
-INSERT INTO `t_message` VALUES (88, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '12123', '2022-11-03 15:45:02', 11);
-INSERT INTO `t_message` VALUES (89, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '213213', '2022-11-03 15:45:05', 11);
-INSERT INTO `t_message` VALUES (90, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '123213532', '2022-11-03 15:45:08', 11);
-INSERT INTO `t_message` VALUES (91, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'asdasd123', '2022-11-03 15:46:04', 11);
-INSERT INTO `t_message` VALUES (92, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'ss', '2022-11-03 15:46:07', 11);
-INSERT INTO `t_message` VALUES (93, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'hello', '2022-11-04 14:08:57', 17);
-INSERT INTO `t_message` VALUES (94, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'o5fzY4tawihCUzJhDivPkt6LvAUU', 'hello', '2022-11-04 22:56:19', 18);
-INSERT INTO `t_message` VALUES (95, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'o5fzY4tawihCUzJhDivPkt6LvAUU', '加微信zhy2658', '2022-11-04 22:56:38', 18);
-INSERT INTO `t_message` VALUES (96, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'o5fzY4sF5taFEGKUzOjxtTYWADfw', '加微信zhy2658', '2022-11-04 23:13:55', 19);
+INSERT INTO `t_message` VALUES (2, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', 'hello', '2022-09-25 14:11:49', 1, 0);
+INSERT INTO `t_message` VALUES (3, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', 'hello', '2022-09-25 14:31:34', 1, 0);
+INSERT INTO `t_message` VALUES (4, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', 'hello', '2022-09-25 14:32:53', 1, 0);
+INSERT INTO `t_message` VALUES (5, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', 'hello', '2022-09-25 14:37:11', 1, 0);
+INSERT INTO `t_message` VALUES (6, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '333', '2022-09-25 14:52:24', 1, 0);
+INSERT INTO `t_message` VALUES (7, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'on yes', '2022-09-25 14:52:45', 1, 0);
+INSERT INTO `t_message` VALUES (8, 'sssss', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '44421232111111111111111111111111111111111111111111sadsafsafas', '2022-09-25 14:54:55', 1, 0);
+INSERT INTO `t_message` VALUES (9, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'ohWWn5fWj72e_5-043_qsk', '111', '2022-09-25 14:55:15', 1, 0);
+INSERT INTO `t_message` VALUES (10, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'ohWWsk', '111', '2022-09-25 14:55:24', 1, 0);
+INSERT INTO `t_message` VALUES (11, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '1111', '2022-09-25 14:55:30', 1, 0);
+INSERT INTO `t_message` VALUES (12, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'hello', '2022-09-25 14:57:29', 1, 0);
+INSERT INTO `t_message` VALUES (13, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '111', '2022-09-25 14:58:20', 1, 0);
+INSERT INTO `t_message` VALUES (14, 'sssss', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '11122', '2022-09-25 14:58:24', 1, 0);
+INSERT INTO `t_message` VALUES (15, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '111223123', '2022-09-25 14:58:29', 1, 0);
+INSERT INTO `t_message` VALUES (16, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '111223123123', '2022-09-25 14:58:34', 1, 0);
+INSERT INTO `t_message` VALUES (17, 'ohWWn5CNE3xxfWj72e_5-043_qsk', '11111ohWWn5CNE3xxfWj72e_5-043_qsk', '2222', '2022-09-25 14:58:48', 1, 0);
+INSERT INTO `t_message` VALUES (18, 'ohWWn5CNE3xxfWj72e_5-043_qsk', '11111ohWWn5CNE3xxfWj72e_5-043_qsk', '222222', '2022-09-25 14:58:51', 1, 0);
+INSERT INTO `t_message` VALUES (19, 'ohWWn5CNE3xxfWj72e_5-043_qsk', '11111ohWWn5CNE3xxfWj72e_5-043_qsk', '222222', '2022-09-25 15:01:14', 1, 0);
+INSERT INTO `t_message` VALUES (20, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '11', '2022-09-25 15:01:26', 1, 0);
+INSERT INTO `t_message` VALUES (21, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '1122', '2022-09-25 15:01:28', 1, 0);
+INSERT INTO `t_message` VALUES (22, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '22', '2022-09-25 15:06:32', 1, 0);
+INSERT INTO `t_message` VALUES (23, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '', '2022-09-25 15:55:46', 1, 0);
+INSERT INTO `t_message` VALUES (24, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '22222', '2022-09-25 20:17:38', 1, 0);
+INSERT INTO `t_message` VALUES (25, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '????', '2022-09-25 20:18:18', 1, 0);
+INSERT INTO `t_message` VALUES (26, 'sssss', 'hello122222222222222222222222222222223sdfsadsadsfdsfdsfds', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '2022-09-25 20:20:35', 1, 0);
+INSERT INTO `t_message` VALUES (27, 'sssss', 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'hello Mr.Justice', '2022-09-25 20:21:41', 1, 0);
+INSERT INTO `t_message` VALUES (28, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '11', '2022-09-25 20:34:50', 1, 0);
+INSERT INTO `t_message` VALUES (29, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '11', '2022-09-25 20:41:31', 1, 0);
+INSERT INTO `t_message` VALUES (30, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', 'asdsadddddddddddddddddddddddadsadsadsadsadsadasdas', '2022-09-25 20:59:15', 1, 0);
+INSERT INTO `t_message` VALUES (31, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '11111111111111111111111111111111111111111sadsadsadsadsaaaaaaaaaaaaaaaaaa', '2022-09-25 21:02:24', 1, 0);
+INSERT INTO `t_message` VALUES (45, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '11asda', '2022-09-25 21:29:06', 1, 0);
+INSERT INTO `t_message` VALUES (46, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', 'myu12551', '2022-09-25 21:33:44', 1, 0);
+INSERT INTO `t_message` VALUES (47, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '对象', '2022-09-26 14:23:28', 1, 0);
+INSERT INTO `t_message` VALUES (48, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '是的', '2022-09-26 21:48:53', 1, 0);
+INSERT INTO `t_message` VALUES (49, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', 'sure是的！！！！', '2022-09-26 21:49:06', 1, 0);
+INSERT INTO `t_message` VALUES (50, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', 'halma卡', '2022-09-27 13:12:53', 1, 0);
+INSERT INTO `t_message` VALUES (51, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '2dsdas', '2022-09-27 18:52:14', 1, 0);
+INSERT INTO `t_message` VALUES (52, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '聊天', '2022-09-27 18:58:49', 1, 0);
+INSERT INTO `t_message` VALUES (53, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '2222', '2022-09-27 19:03:01', 1, 0);
+INSERT INTO `t_message` VALUES (54, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '刘备', '2022-09-27 19:13:34', 1, 0);
+INSERT INTO `t_message` VALUES (55, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '刘强', '2022-09-27 21:10:41', 1, 0);
+INSERT INTO `t_message` VALUES (56, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', 'yes', '2022-09-28 09:55:47', 1, 0);
+INSERT INTO `t_message` VALUES (57, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', 'youaha', '2022-09-28 09:59:56', 1, 0);
+INSERT INTO `t_message` VALUES (58, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '545啊空间', '2022-09-28 13:29:45', 10, 0);
+INSERT INTO `t_message` VALUES (59, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', 'yousa挺好', '2022-09-28 13:30:23', 10, 0);
+INSERT INTO `t_message` VALUES (60, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', 'hhlle', '2022-10-02 17:28:04', 1, 0);
+INSERT INTO `t_message` VALUES (61, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', 'hello', '2022-10-08 16:26:41', 1, 0);
+INSERT INTO `t_message` VALUES (62, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', 'shide', '2022-10-08 16:26:52', 1, 0);
+INSERT INTO `t_message` VALUES (63, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '1111111111111akdsjhsakdbksajdbksadbksajdbjsakbdjasjdksajndjksandksadnas', '2022-10-08 16:38:13', 1, 0);
+INSERT INTO `t_message` VALUES (64, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '22', '2022-10-10 22:09:15', 1, 0);
+INSERT INTO `t_message` VALUES (65, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '33', '2022-10-10 22:09:25', 10, 0);
+INSERT INTO `t_message` VALUES (66, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '332', '2022-10-10 22:09:30', 10, 0);
+INSERT INTO `t_message` VALUES (67, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '332', '2022-10-10 22:09:31', 10, 0);
+INSERT INTO `t_message` VALUES (68, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '11', '2022-10-10 22:09:54', 10, 0);
+INSERT INTO `t_message` VALUES (69, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '113', '2022-10-10 22:10:08', 10, 0);
+INSERT INTO `t_message` VALUES (70, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '11', '2022-10-10 22:11:07', 10, 0);
+INSERT INTO `t_message` VALUES (71, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '1133', '2022-10-10 22:11:15', 10, 0);
+INSERT INTO `t_message` VALUES (72, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '1133333', '2022-10-10 22:11:52', 10, 0);
+INSERT INTO `t_message` VALUES (73, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '1133333', '2022-10-10 22:11:54', 10, 0);
+INSERT INTO `t_message` VALUES (74, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '1133333111', '2022-10-10 22:11:56', 10, 0);
+INSERT INTO `t_message` VALUES (75, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '113333311133', '2022-10-10 22:11:58', 10, 0);
+INSERT INTO `t_message` VALUES (76, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '222', '2022-10-22 17:43:54', 11, 0);
+INSERT INTO `t_message` VALUES (77, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '22', '2022-10-22 17:53:07', 11, 0);
+INSERT INTO `t_message` VALUES (78, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '2233', '2022-10-22 17:53:08', 11, 0);
+INSERT INTO `t_message` VALUES (79, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '2233', '2022-10-22 17:53:09', 11, 0);
+INSERT INTO `t_message` VALUES (80, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '2233333', '2022-10-22 17:53:11', 11, 0);
+INSERT INTO `t_message` VALUES (81, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '223333', '2022-10-22 17:53:12', 11, 0);
+INSERT INTO `t_message` VALUES (82, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '223333', '2022-10-22 17:53:13', 11, 0);
+INSERT INTO `t_message` VALUES (83, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '2233', '2022-10-22 17:53:14', 11, 0);
+INSERT INTO `t_message` VALUES (84, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '22', '2022-10-22 17:53:15', 11, 0);
+INSERT INTO `t_message` VALUES (85, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '688', '2022-10-22 17:53:33', 11, 0);
+INSERT INTO `t_message` VALUES (86, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '688666', '2022-10-22 17:53:34', 11, 0);
+INSERT INTO `t_message` VALUES (87, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '11132', '2022-11-03 15:44:59', 11, 0);
+INSERT INTO `t_message` VALUES (88, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '12123', '2022-11-03 15:45:02', 11, 0);
+INSERT INTO `t_message` VALUES (89, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '213213', '2022-11-03 15:45:05', 11, 0);
+INSERT INTO `t_message` VALUES (90, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '123213532', '2022-11-03 15:45:08', 11, 0);
+INSERT INTO `t_message` VALUES (91, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'asdasd123', '2022-11-03 15:46:04', 11, 0);
+INSERT INTO `t_message` VALUES (92, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'ss', '2022-11-03 15:46:07', 11, 0);
+INSERT INTO `t_message` VALUES (93, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'hello', '2022-11-04 14:08:57', 17, 0);
+INSERT INTO `t_message` VALUES (94, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'o5fzY4tawihCUzJhDivPkt6LvAUU', 'hello', '2022-11-04 22:56:19', 18, 0);
+INSERT INTO `t_message` VALUES (95, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'o5fzY4tawihCUzJhDivPkt6LvAUU', '加微信zhy2658', '2022-11-04 22:56:38', 18, 1);
+INSERT INTO `t_message` VALUES (97, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '1', '2022-11-07 16:36:16', 11, 1);
 
 -- ----------------------------
 -- Table structure for t_msgsession
@@ -210,22 +254,22 @@ CREATE TABLE `t_msgsession`  (
   `openId` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `openId2` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `ms_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `isShow` int(11) NOT NULL DEFAULT 1 COMMENT '0:不显示   1：显示',
   PRIMARY KEY (`ms_id`) USING BTREE,
   INDEX `openid2_ms`(`openId2`) USING BTREE,
   INDEX `openId_ms`(`openId`) USING BTREE,
   CONSTRAINT `openId_ms` FOREIGN KEY (`openId`) REFERENCES `t_wxuserinfo` (`openid`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `openid2_ms` FOREIGN KEY (`openId2`) REFERENCES `t_wxuserinfo` (`openid`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_msgsession
 -- ----------------------------
-INSERT INTO `t_msgsession` VALUES (1, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '2022-09-27 12:34:35');
-INSERT INTO `t_msgsession` VALUES (10, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '2022-09-28 09:59:55');
-INSERT INTO `t_msgsession` VALUES (11, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '2022-10-22 17:43:53');
-INSERT INTO `t_msgsession` VALUES (17, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', '2022-11-04 14:08:57');
-INSERT INTO `t_msgsession` VALUES (18, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'o5fzY4tawihCUzJhDivPkt6LvAUU', '2022-11-04 22:56:19');
-INSERT INTO `t_msgsession` VALUES (19, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'o5fzY4sF5taFEGKUzOjxtTYWADfw', '2022-11-04 23:13:54');
+INSERT INTO `t_msgsession` VALUES (1, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'sssss', '2022-09-27 12:34:35', 1);
+INSERT INTO `t_msgsession` VALUES (10, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '2022-09-28 09:59:55', 1);
+INSERT INTO `t_msgsession` VALUES (11, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '2022-10-22 17:43:53', 1);
+INSERT INTO `t_msgsession` VALUES (17, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', '2022-11-04 14:08:57', 1);
+INSERT INTO `t_msgsession` VALUES (18, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'o5fzY4tawihCUzJhDivPkt6LvAUU', '2022-11-04 22:56:19', 1);
 
 -- ----------------------------
 -- Table structure for t_notice
@@ -261,50 +305,27 @@ CREATE TABLE `t_order`  (
   `telNumber` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '联系电话',
   `createDate` datetime NULL DEFAULT NULL COMMENT '订单创建日期',
   `payDate` datetime NULL DEFAULT NULL COMMENT '订单支付日期',
-  `status` int(11) NULL DEFAULT 0 COMMENT '0 未支付 1等待员工接单 2 正在服务  3完成服务，待确认，4完成订单  5请求退单 6：已退单',
+  `status` int(11) NULL DEFAULT 0 COMMENT '0 未支付 1等待员工接单 2 正在服务  3完成服务，待确认，4完成订单  5请求退单 6：已退单 7：随机派单中  8：删除',
   `pm_id` int(11) NULL DEFAULT NULL COMMENT '支付选项id',
   `servant_id` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '服务人',
+  `order_count` int(11) NOT NULL DEFAULT 1 COMMENT '第几次下同样的单',
+  `type` int(11) NOT NULL DEFAULT 0 COMMENT '0:指定单，  1:随机单',
+  `random_sex` int(11) NULL DEFAULT -1 COMMENT '性别可以接的随机单   1：女    2：男',
+  `random_grade` int(11) NULL DEFAULT 1 COMMENT '至少要几级员工才可以接这个单子',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `orderNo`(`orderNo`) USING BTREE,
   INDEX `pm_id`(`pm_id`) USING BTREE,
-  INDEX `savant_id`(`servant_id`) USING BTREE,
-  CONSTRAINT `savant_id` FOREIGN KEY (`servant_id`) REFERENCES `t_wxuserinfo` (`openid`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 212 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+  INDEX `savant_id`(`servant_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 233 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_order
 -- ----------------------------
-INSERT INTO `t_order` VALUES (180, 'LY20221103084135000000464', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 0.02, NULL, 'zhy2658', '17362388926', '2022-11-03 20:41:35', NULL, 3, 21, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
-INSERT INTO `t_order` VALUES (181, 'LY20221103084339000000241', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 0.01, NULL, 'zhy541', '17362388926', '2022-11-03 20:43:39', NULL, 4, 1, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
-INSERT INTO `t_order` VALUES (183, 'LY20221104073506000000949', 'o5fzY4tkTpwTcsbdKBupOz2BM8U0', 0.01, NULL, 'ss6643', '18692903740', '2022-11-04 07:35:07', NULL, 1, 1, 'o30ur5JpAsAUyGBkR0uW4IxvahR8');
-INSERT INTO `t_order` VALUES (184, 'LY20221104021242000000467', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 0.01, NULL, '', '', '2022-11-04 14:12:42', NULL, 0, 1, 'o30ur5JpAsAUyGBkR0uW4IxvahR8');
-INSERT INTO `t_order` VALUES (185, 'LY20221104021254000000659', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 0.02, NULL, '', '', '2022-11-04 14:12:55', NULL, 0, 21, 'o30ur5JpAsAUyGBkR0uW4IxvahR8');
-INSERT INTO `t_order` VALUES (186, 'LY20221104024819000000272', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 0.01, NULL, '', '', '2022-11-04 14:48:19', NULL, 0, 1, 'ohWWn5CNE3xxfWj72e_5-043_qsk');
-INSERT INTO `t_order` VALUES (187, 'LY20221104105535000000298', 'o5fzY4tawihCUzJhDivPkt6LvAUU', 0.02, NULL, '', '', '2022-11-04 22:55:35', NULL, 2, 21, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
-INSERT INTO `t_order` VALUES (188, 'LY20221104110832000000097', 'o5fzY4sF5taFEGKUzOjxtTYWADfw', 0.01, NULL, '', '', '2022-11-04 23:08:32', NULL, 2, 1, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
-INSERT INTO `t_order` VALUES (189, 'LY20221105112737000000924', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 0.02, NULL, '', '', '2022-11-05 11:27:38', NULL, 1, 21, 'ohWWn5CNE3xxfWj72e_5-043_qsk');
-INSERT INTO `t_order` VALUES (190, 'LY20221105112927000000147', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 0.01, NULL, '', '', '2022-11-05 11:29:27', NULL, 1, 1, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
-INSERT INTO `t_order` VALUES (191, 'LY20221105113329000000437', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 0.01, NULL, '', '', '2022-11-05 11:33:29', NULL, 0, 1, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
-INSERT INTO `t_order` VALUES (192, 'LY20221105113342000000628', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 0.01, NULL, '', '', '2022-11-05 11:33:43', NULL, 2, 1, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
-INSERT INTO `t_order` VALUES (193, 'LY20221106104341000000947', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 10.00, NULL, '', '', '2022-11-06 10:43:42', NULL, 0, 1, 'o30ur5JpAsAUyGBkR0uW4IxvahR8');
-INSERT INTO `t_order` VALUES (194, 'LY20221106104343000000062', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 10.00, NULL, '', '', '2022-11-06 10:43:43', NULL, 0, 1, 'o30ur5JpAsAUyGBkR0uW4IxvahR8');
-INSERT INTO `t_order` VALUES (195, 'LY20221106104343000000980', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 10.00, NULL, '', '', '2022-11-06 10:43:44', NULL, 0, 1, 'o30ur5JpAsAUyGBkR0uW4IxvahR8');
-INSERT INTO `t_order` VALUES (196, 'LY20221106104354000000546', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 10.00, NULL, '', '', '2022-11-06 10:43:55', NULL, 0, 1, 'o30ur5JpAsAUyGBkR0uW4IxvahR8');
-INSERT INTO `t_order` VALUES (197, 'LY20221106104355000000415', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 10.00, NULL, '', '', '2022-11-06 10:43:55', NULL, 0, 1, 'o30ur5JpAsAUyGBkR0uW4IxvahR8');
-INSERT INTO `t_order` VALUES (198, 'LY20221106104356000000556', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 10.00, NULL, '', '', '2022-11-06 10:43:57', NULL, 0, 1, 'o30ur5JpAsAUyGBkR0uW4IxvahR8');
-INSERT INTO `t_order` VALUES (199, 'LY20221106104357000000661', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 10.00, NULL, '', '', '2022-11-06 10:43:58', NULL, 0, 1, 'o30ur5JpAsAUyGBkR0uW4IxvahR8');
-INSERT INTO `t_order` VALUES (200, 'LY20221106104421000000161', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 10.00, NULL, '', '', '2022-11-06 10:44:21', NULL, 0, 1, 'o30ur5JpAsAUyGBkR0uW4IxvahR8');
-INSERT INTO `t_order` VALUES (201, 'LY20221106104500000000147', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 10.00, NULL, '', '', '2022-11-06 10:45:00', NULL, 0, 1, 'testopen');
-INSERT INTO `t_order` VALUES (202, 'LY20221106104501000000056', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 10.00, NULL, '', '', '2022-11-06 10:45:01', NULL, 0, 1, 'testopen');
-INSERT INTO `t_order` VALUES (203, 'LY20221106104501000000760', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 10.00, NULL, '', '', '2022-11-06 10:45:02', NULL, 0, 1, 'testopen');
-INSERT INTO `t_order` VALUES (204, 'LY20221106104502000000343', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 10.00, NULL, '', '', '2022-11-06 10:45:02', NULL, 0, 1, 'testopen');
-INSERT INTO `t_order` VALUES (205, 'LY20221106104502000000922', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 10.00, NULL, '', '', '2022-11-06 10:45:03', NULL, 0, 1, 'testopen');
-INSERT INTO `t_order` VALUES (206, 'LY20221106104503000000425', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 10.00, NULL, '', '', '2022-11-06 10:45:03', NULL, 0, 1, 'testopen');
-INSERT INTO `t_order` VALUES (207, 'LY20221106104504000000052', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 10.00, NULL, '', '', '2022-11-06 10:45:04', NULL, 0, 1, 'testopen');
-INSERT INTO `t_order` VALUES (208, 'LY20221106025937000000169', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 10.00, NULL, '', '', '2022-11-06 14:59:37', NULL, 1, 1, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
-INSERT INTO `t_order` VALUES (209, 'LY20221106030540000000216', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 70.00, NULL, '', '', '2022-11-06 15:05:40', NULL, 2, 1, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
-INSERT INTO `t_order` VALUES (210, 'LY20221106030736000000678', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 49.00, NULL, '', '', '2022-11-06 15:07:37', NULL, 1, 23, 'ohWWn5CNE3xxfWj72e_5-043_qsk');
-INSERT INTO `t_order` VALUES (211, 'LY20221106031137000000520', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 20.00, NULL, '', '', '2022-11-06 15:11:38', NULL, 1, 21, 'sssss');
+INSERT INTO `t_order` VALUES (228, 'LY20221110061934000000337', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 20.00, NULL, '', '', '2022-11-10 18:19:34', '2022-11-10 18:19:34', 2, 3, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 1, 0, -1, 1);
+INSERT INTO `t_order` VALUES (229, 'LY20221110062009000000725', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 22.00, NULL, '', '', '2022-11-10 18:20:10', '2022-11-10 18:20:10', 1, 22, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 2, 0, -1, 1);
+INSERT INTO `t_order` VALUES (230, 'LY20221110062218000000167', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60.00, NULL, NULL, NULL, '2022-11-10 18:22:18', '2022-11-10 18:22:18', 1, 3, NULL, 1, 1, 1, 1);
+INSERT INTO `t_order` VALUES (231, 'LY20221110062303000000968', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 22.00, NULL, '', '', '2022-11-10 18:23:04', '2022-11-10 18:23:04', 1, 22, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 3, 0, -1, 1);
+INSERT INTO `t_order` VALUES (232, 'LY20221110062347000000572', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 100.00, NULL, NULL, NULL, '2022-11-10 18:23:48', '2022-11-10 18:23:48', 1, 0, NULL, 1, 1, 1, 2);
 
 -- ----------------------------
 -- Table structure for t_order_detail
@@ -327,42 +348,16 @@ CREATE TABLE `t_order_detail`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `mId`(`mId`) USING BTREE,
   CONSTRAINT `t_order_detail_ibfk_1` FOREIGN KEY (`mId`) REFERENCES `t_order` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 231 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 252 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_order_detail
 -- ----------------------------
-INSERT INTO `t_order_detail` VALUES (200, 180, NULL, 1, 0.02, '语音', '/image/product/20221101112646000000771.jpg', '2022-11-04 12:51:48', '2022-11-04 22:51:48', 10, 10, 0.02, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
-INSERT INTO `t_order_detail` VALUES (201, 181, NULL, 1, 0.01, '体验聊天', '/image/product/20221101112646000000771.jpg', '2022-11-03 20:57:18', '2022-11-03 21:57:18', 1, 1, 0.01, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
-INSERT INTO `t_order_detail` VALUES (202, 183, NULL, 1, 0.01, '体验聊天', '/image/product/20220929101806000000898.jpg', NULL, NULL, 1, 1, 0.01, 'o30ur5JpAsAUyGBkR0uW4IxvahR8');
-INSERT INTO `t_order_detail` VALUES (203, 184, NULL, 1, 0.01, '体验聊天', '/image/product/20220929101806000000898.jpg', NULL, NULL, 1, 1, 0.01, 'o30ur5JpAsAUyGBkR0uW4IxvahR8');
-INSERT INTO `t_order_detail` VALUES (204, 185, NULL, 1, 0.02, '语音', '/image/product/20220929101806000000898.jpg', NULL, NULL, 10, 10, 0.02, 'o30ur5JpAsAUyGBkR0uW4IxvahR8');
-INSERT INTO `t_order_detail` VALUES (205, 186, NULL, 1, 0.01, '体验聊天', '/image/product/20221101113122000000052.jpg', NULL, NULL, 1, 1, 0.01, 'ohWWn5CNE3xxfWj72e_5-043_qsk');
-INSERT INTO `t_order_detail` VALUES (206, 187, NULL, 1, 0.02, '语音', '/image/product/20221101112646000000771.jpg', '2022-11-04 23:03:27', '2022-11-05 09:03:27', 10, 10, 0.02, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
-INSERT INTO `t_order_detail` VALUES (207, 188, NULL, 1, 0.01, '体验聊天', '/image/product/20221101112646000000771.jpg', '2022-11-04 23:10:53', '2022-11-05 00:10:53', 1, 1, 0.01, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
-INSERT INTO `t_order_detail` VALUES (208, 189, NULL, 1, 0.02, '语音', '/image/product/20221101113122000000052.jpg', NULL, NULL, 10, 10, 0.02, 'ohWWn5CNE3xxfWj72e_5-043_qsk');
-INSERT INTO `t_order_detail` VALUES (209, 190, NULL, 1, 0.01, '体验聊天', '/image/product/20221101112646000000771.jpg', NULL, NULL, 1, 1, 0.01, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
-INSERT INTO `t_order_detail` VALUES (210, 191, NULL, 1, 0.01, '体验聊天', '/image/product/20221101112646000000771.jpg', NULL, NULL, 1, 1, 0.01, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
-INSERT INTO `t_order_detail` VALUES (211, 192, NULL, 1, 0.01, '体验聊天', '/image/product/20221101112646000000771.jpg', '2022-11-05 22:22:07', '2022-11-05 23:22:07', 1, 1, 0.01, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
-INSERT INTO `t_order_detail` VALUES (212, 193, NULL, 1, 10.00, '体验聊天', '/image/product/20220929101806000000898.jpg', NULL, NULL, 1, 1, 10, 'o30ur5JpAsAUyGBkR0uW4IxvahR8');
-INSERT INTO `t_order_detail` VALUES (213, 194, NULL, 1, 10.00, '体验聊天', '/image/product/20220929101806000000898.jpg', NULL, NULL, 1, 1, 10, 'o30ur5JpAsAUyGBkR0uW4IxvahR8');
-INSERT INTO `t_order_detail` VALUES (214, 195, NULL, 1, 10.00, '体验聊天', '/image/product/20220929101806000000898.jpg', NULL, NULL, 1, 1, 10, 'o30ur5JpAsAUyGBkR0uW4IxvahR8');
-INSERT INTO `t_order_detail` VALUES (215, 196, NULL, 1, 10.00, '体验聊天', '/image/product/20220929101806000000898.jpg', NULL, NULL, 1, 1, 10, 'o30ur5JpAsAUyGBkR0uW4IxvahR8');
-INSERT INTO `t_order_detail` VALUES (216, 197, NULL, 1, 10.00, '体验聊天', '/image/product/20220929101806000000898.jpg', NULL, NULL, 1, 1, 10, 'o30ur5JpAsAUyGBkR0uW4IxvahR8');
-INSERT INTO `t_order_detail` VALUES (217, 198, NULL, 1, 10.00, '体验聊天', '/image/product/20220929101806000000898.jpg', NULL, NULL, 1, 1, 10, 'o30ur5JpAsAUyGBkR0uW4IxvahR8');
-INSERT INTO `t_order_detail` VALUES (218, 199, NULL, 1, 10.00, '体验聊天', '/image/product/20220929101806000000898.jpg', NULL, NULL, 1, 1, 10, 'o30ur5JpAsAUyGBkR0uW4IxvahR8');
-INSERT INTO `t_order_detail` VALUES (219, 200, NULL, 1, 10.00, '体验聊天', '/image/product/20220929101806000000898.jpg', NULL, NULL, 1, 1, 10, 'o30ur5JpAsAUyGBkR0uW4IxvahR8');
-INSERT INTO `t_order_detail` VALUES (220, 201, NULL, 1, 10.00, '体验聊天', '/image/product/20220929101726000000503.jpg', NULL, NULL, 1, 1, 10, 'testopen');
-INSERT INTO `t_order_detail` VALUES (221, 202, NULL, 1, 10.00, '体验聊天', '/image/product/20220929101726000000503.jpg', NULL, NULL, 1, 1, 10, 'testopen');
-INSERT INTO `t_order_detail` VALUES (222, 203, NULL, 1, 10.00, '体验聊天', '/image/product/20220929101726000000503.jpg', NULL, NULL, 1, 1, 10, 'testopen');
-INSERT INTO `t_order_detail` VALUES (223, 204, NULL, 1, 10.00, '体验聊天', '/image/product/20220929101726000000503.jpg', NULL, NULL, 1, 1, 10, 'testopen');
-INSERT INTO `t_order_detail` VALUES (224, 205, NULL, 1, 10.00, '体验聊天', '/image/product/20220929101726000000503.jpg', NULL, NULL, 1, 1, 10, 'testopen');
-INSERT INTO `t_order_detail` VALUES (225, 206, NULL, 1, 10.00, '体验聊天', '/image/product/20220929101726000000503.jpg', NULL, NULL, 1, 1, 10, 'testopen');
-INSERT INTO `t_order_detail` VALUES (226, 207, NULL, 1, 10.00, '体验聊天', '/image/product/20220929101726000000503.jpg', NULL, NULL, 1, 1, 10, 'testopen');
-INSERT INTO `t_order_detail` VALUES (227, 208, NULL, 1, 10.00, '体验聊天', '/image/product/20221101112646000000771.jpg', NULL, NULL, 1, 1, 10, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
-INSERT INTO `t_order_detail` VALUES (228, 209, NULL, 7, 10.00, '体验聊天', '/image/product/20221101112646000000771.jpg', '2022-11-06 15:05:53', '2022-11-06 22:05:53', 7, 1, 70, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
-INSERT INTO `t_order_detail` VALUES (229, 210, NULL, 1, 49.00, '跳舞', '/image/product/20221101113122000000052.jpg', NULL, NULL, 10, 10, 49, 'ohWWn5CNE3xxfWj72e_5-043_qsk');
-INSERT INTO `t_order_detail` VALUES (230, 211, NULL, 1, 20.00, '语音', '/image/product/20220930122212000000177.jpg', NULL, NULL, 10, 10, 20, 'sssss');
+INSERT INTO `t_order_detail` VALUES (247, 228, NULL, 1, 20.00, 'LOL', '/image/product/20221106105658000000870.jpg', '2022-11-10 18:23:30', '2022-11-10 21:23:30', 3, 3, 20, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
+INSERT INTO `t_order_detail` VALUES (248, 229, NULL, 1, 22.00, '唱歌', '/image/product/20221106105658000000870.jpg', NULL, NULL, 2, 2, 22, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
+INSERT INTO `t_order_detail` VALUES (249, 230, NULL, 3, 20.00, 'LOL', NULL, NULL, NULL, 9, 3, 60, NULL);
+INSERT INTO `t_order_detail` VALUES (250, 231, NULL, 1, 22.00, '唱歌', '/image/product/20221106105658000000870.jpg', NULL, NULL, 2, 2, 22, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
+INSERT INTO `t_order_detail` VALUES (251, 232, NULL, 1, 100.00, '语音', NULL, NULL, NULL, 10, 10, 100, NULL);
 
 -- ----------------------------
 -- Table structure for t_payitem
@@ -375,19 +370,22 @@ CREATE TABLE `t_payitem`  (
   `itemName` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `itemHours` int(10) NOT NULL COMMENT '小时数',
   `grade` int(11) NULL DEFAULT NULL COMMENT '1级雇员  ，2:2级雇员   ...以此类推',
+  `required` int(11) NOT NULL DEFAULT 0 COMMENT '0:必选    1:可选',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_payitem
 -- ----------------------------
-INSERT INTO `t_payitem` VALUES (1, 10, '2022-10-23 22:50:51', '体验聊天', 1, 1);
-INSERT INTO `t_payitem` VALUES (21, 20, '2022-10-24 14:50:51', '语音', 10, 1);
-INSERT INTO `t_payitem` VALUES (22, 22, '2022-10-24 14:54:43', '唱歌', 2, 1);
-INSERT INTO `t_payitem` VALUES (23, 49, '2022-10-24 06:55:08', '跳舞', 10, 1);
-INSERT INTO `t_payitem` VALUES (24, 100, '2022-10-23 22:56:04', '语音', 10, 2);
-INSERT INTO `t_payitem` VALUES (25, 200, '2022-10-23 22:56:32', '唱歌', 2, 2);
-INSERT INTO `t_payitem` VALUES (28, 50, '2022-11-02 14:12:20', '喝酒', 2, 2);
+INSERT INTO `t_payitem` VALUES (1, 10, '2022-10-23 22:50:51', '体验聊天', 1, 1, 0);
+INSERT INTO `t_payitem` VALUES (2, 10, '2022-11-10 15:51:45', '游戏', 5, 1, 1);
+INSERT INTO `t_payitem` VALUES (3, 20, '2022-11-10 15:52:08', 'LOL', 3, 1, 1);
+INSERT INTO `t_payitem` VALUES (21, 20, '2022-10-24 14:50:51', '语音', 10, 1, 0);
+INSERT INTO `t_payitem` VALUES (22, 22, '2022-10-24 14:54:43', '唱歌', 2, 1, 0);
+INSERT INTO `t_payitem` VALUES (23, 49, '2022-10-24 06:55:08', '跳舞', 10, 1, 0);
+INSERT INTO `t_payitem` VALUES (24, 100, '2022-10-23 22:56:04', '语音', 10, 2, 0);
+INSERT INTO `t_payitem` VALUES (25, 200, '2022-10-23 22:56:32', '唱歌', 2, 2, 0);
+INSERT INTO `t_payitem` VALUES (28, 50, '2022-11-02 14:12:20', '喝酒', 2, 2, 0);
 
 -- ----------------------------
 -- Table structure for t_product
@@ -421,7 +419,6 @@ CREATE TABLE `t_product`  (
 -- ----------------------------
 -- Records of t_product
 -- ----------------------------
-INSERT INTO `t_product` VALUES (8, 'Yousa', 1199.00, 1111, 'default.jpg', b'1', b'0', 'default.jpg', 0, NULL, '2022-10-09 21:43:09', '<p>欢迎下单</p>', NULL, '欢迎下单', 'testopen', NULL, 50);
 INSERT INTO `t_product` VALUES (9, '杰克Jack', 2999.00, 1111, 'default.jpg', b'1', b'0', '20221011103945000000703.jpg', 0, NULL, '2021-12-28 21:36:34', '<h2>天气冷了，要穿衣服呢</h2>', '<p>This is paramThis is paramThis is param</p><p>This is param</p><p>This is param</p><p>This is param</p><p>This is param</p><p>This is paramThis is param</p>', '最好的服务', 'sssss', '/uploads/audios/testaudio.mp3', 22);
 INSERT INTO `t_product` VALUES (10, '冷鸟', 1399.00, 2222, '20220929081244000000369.jpg', b'1', b'1', '20221101113108000000384.jpg', -1, NULL, '2021-11-28 21:36:34', '<p>&nbsp;隔壁室友的朋友终于回去了,拥挤的两室一厅少了一个人还是一样的拥挤,听室友说,那个女孩子可能还会回上海,这次她回家好象去征求父母的意见,天哪!如果是真的,那我会疯掉的,原本像家的合住,现在看上去没有一点温暖,拜托假设不要实现,不然,我会重新点燃搬家的火苗.</p><p><br></p><p>&nbsp;&nbsp;老大回来了,本想说很多话的我,似乎没有和想象的一样.上班时间大家还是老样子.只是回到家\"捧\"着电视就不理电脑.呵!好象没有之前想的那样感情处的那么好.......</p><p><br></p><p>&nbsp;&nbsp;家里已经3天没有做饭了.不甘心只有我一个人在厨房折腾,是自私还是计较?不想多分辨.只是心里的平衡点让自己为自己讨公道.现在的大家,没有以前那样一起忙里忙外一起分担,是我计较了还是大家变了?</p><p style=\"text-align: center;\"><br></p>', '<p>23123lo 我是冷鸟</p>', '强大神秘', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '/uploads/audios/20221008012216000000422.mp3', 3);
 INSERT INTO `t_product` VALUES (11, '黑色', 2499.00, 3322, '7.png', b'1', b'0', '20221022085808000000025.jpg', 0, NULL, '2021-11-28 21:36:34', '<p> </p><p>\"</p>', NULL, 'yousa', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '/uploads/audios/testaudio3.mp3', 44);
@@ -432,8 +429,9 @@ INSERT INTO `t_product` VALUES (15, NULL, NULL, NULL, 'default.jpg', b'0', b'0',
 INSERT INTO `t_product` VALUES (16, NULL, NULL, NULL, 'default.jpg', b'0', b'0', 'default.jpg', 0, NULL, NULL, NULL, NULL, NULL, 'o5fzY4mx1IOFvHEfy70OMnikVrdE', NULL, 0);
 INSERT INTO `t_product` VALUES (17, NULL, NULL, NULL, 'default.jpg', b'0', b'0', 'default.jpg', 0, NULL, NULL, NULL, NULL, NULL, 'o5fzY4tawihCUzJhDivPkt6LvAUU', NULL, 0);
 INSERT INTO `t_product` VALUES (18, NULL, NULL, NULL, 'default.jpg', b'0', b'0', 'default.jpg', 0, NULL, NULL, NULL, NULL, NULL, 'o5fzY4jxeP2_Th0r0hpAa_ht-fUE', NULL, 0);
-INSERT INTO `t_product` VALUES (19, NULL, NULL, NULL, 'default.jpg', b'0', b'0', 'default.jpg', 0, NULL, NULL, NULL, NULL, NULL, 'o5fzY4tF2wY3OWRscEWf8LssBAi0', NULL, 0);
-INSERT INTO `t_product` VALUES (20, NULL, NULL, NULL, 'default.jpg', b'0', b'0', 'default.jpg', 0, NULL, NULL, NULL, NULL, NULL, 'o5fzY4sF5taFEGKUzOjxtTYWADfw', NULL, 0);
+INSERT INTO `t_product` VALUES (19, '22', NULL, NULL, 'default.jpg', b'0', b'0', 'default.jpg', 0, NULL, NULL, NULL, NULL, NULL, 'o5fzY4tF2wY3OWRscEWf8LssBAi0', NULL, 0);
+INSERT INTO `t_product` VALUES (22, 'Yousa', 1199.00, 1111, 'default.jpg', b'1', b'0', 'default.jpg', 0, NULL, '2022-10-09 21:43:09', '<p>欢迎下单</p>', NULL, '欢迎下单', 'testopen', NULL, 50);
+INSERT INTO `t_product` VALUES (23, NULL, NULL, NULL, 'default.jpg', b'0', b'0', 'default.jpg', 0, NULL, NULL, NULL, NULL, '爱吃鸡排', 'o5fzY4tkTpwTcsbdKBupOz2BM8U0', NULL, 0);
 
 -- ----------------------------
 -- Table structure for t_product_swiper_image
@@ -445,7 +443,7 @@ CREATE TABLE `t_product_swiper_image`  (
   `sort` int(11) NULL DEFAULT NULL COMMENT '排序',
   `productId` int(11) NULL DEFAULT NULL COMMENT '所属商品id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 155 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 182 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_product_swiper_image
@@ -461,12 +459,12 @@ INSERT INTO `t_product_swiper_image` VALUES (8, '11.jpg', 1, 4);
 INSERT INTO `t_product_swiper_image` VALUES (9, '22.jpg', 2, 4);
 INSERT INTO `t_product_swiper_image` VALUES (10, '33.jpg', 3, 4);
 INSERT INTO `t_product_swiper_image` VALUES (11, '44.jpg', 4, 4);
-INSERT INTO `t_product_swiper_image` VALUES (12, '111.jpg', 1, 16);
 INSERT INTO `t_product_swiper_image` VALUES (13, '222.jpg', 2, 16);
 INSERT INTO `t_product_swiper_image` VALUES (14, '333.jpg', 3, 16);
 INSERT INTO `t_product_swiper_image` VALUES (138, '20221101113139000000898.jpg', 0, 10);
 INSERT INTO `t_product_swiper_image` VALUES (139, '20221101113149000000355.jpg', 0, 10);
-INSERT INTO `t_product_swiper_image` VALUES (154, '20221101112947000000748.jpg', NULL, 12);
+INSERT INTO `t_product_swiper_image` VALUES (180, '20221101112947000000748.jpg', NULL, 12);
+INSERT INTO `t_product_swiper_image` VALUES (181, '20221106101104000000612.jpg', 0, 12);
 
 -- ----------------------------
 -- Table structure for t_publish
@@ -484,7 +482,7 @@ CREATE TABLE `t_publish`  (
   PRIMARY KEY (`pid`) USING BTREE,
   INDEX `openid_publish`(`openId`) USING BTREE,
   CONSTRAINT `openid_publish` FOREIGN KEY (`openId`) REFERENCES `t_wxuserinfo` (`openid`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 53 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 55 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_publish
@@ -511,6 +509,8 @@ INSERT INTO `t_publish` VALUES (49, '表情包”我冲死了“的背后，是�
 INSERT INTO `t_publish` VALUES (50, '越成功、越伟大，就越该谦恭行事', '“骄则满，满则溢。”在人生低谷时，我们往往小心翼翼，如履薄冰，自然不会有傲慢的情绪，反而是功成名就之时，很容易让人心绪不稳。但其实越成功、越伟大，就越该谦恭行事。\r\n\r\n', NULL, 1, '2022-11-01 23:23:54', 1, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
 INSERT INTO `t_publish` VALUES (51, '常见咖啡图', '我们经常会听到美式咖啡、拿铁、摩卡、卡布奇诺，这些咖啡有什么区别大家都了解吗?', NULL, 1, '2022-11-03 23:32:20', 1, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
 INSERT INTO `t_publish` VALUES (52, '4', '444', NULL, NULL, '2022-11-06 10:04:07', 0, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
+INSERT INTO `t_publish` VALUES (53, '常见咖啡图', '我们经常会听到美式咖啡、拿铁、摩卡、卡布奇诺，这些咖啡有什么区别大家都了解吗?', NULL, 1, '2022-11-06 19:45:18', 0, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
+INSERT INTO `t_publish` VALUES (54, '2123', 'adsadsad', NULL, NULL, '2022-11-06 21:47:51', 0, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
 
 -- ----------------------------
 -- Table structure for t_publish_image
@@ -524,7 +524,7 @@ CREATE TABLE `t_publish_image`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `pid_11`(`pid`) USING BTREE,
   CONSTRAINT `pid_11` FOREIGN KEY (`pid`) REFERENCES `t_publish` (`pid`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 84 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 94 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_publish_image
@@ -562,6 +562,9 @@ INSERT INTO `t_publish_image` VALUES (80, '/image/productIntroImgs/2022100211191
 INSERT INTO `t_publish_image` VALUES (81, '/image/productIntroImgs/20221002111911000000712.jpg', 1, 49);
 INSERT INTO `t_publish_image` VALUES (82, '/image/productIntroImgs/20221101112354000000351.jpg', 0, 50);
 INSERT INTO `t_publish_image` VALUES (83, '/image/productIntroImgs/20221103113220000000572.jpg', 0, 51);
+INSERT INTO `t_publish_image` VALUES (88, '/image/productIntroImgs/20221106092940000000712.jpg', 0, 52);
+INSERT INTO `t_publish_image` VALUES (89, '/image/productIntroImgs/20221106093453000000881.jpg', 0, 52);
+INSERT INTO `t_publish_image` VALUES (93, '/image/productIntroImgs/20221106094801000000703.jpg', 0, 54);
 
 -- ----------------------------
 -- Table structure for t_publish_like
@@ -665,6 +668,25 @@ INSERT INTO `t_publish_reply` VALUES (44, 50, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', '1
 INSERT INTO `t_publish_reply` VALUES (45, 51, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', '妙啊', '2022-11-03 23:36:11');
 
 -- ----------------------------
+-- Table structure for t_random_order
+-- ----------------------------
+DROP TABLE IF EXISTS `t_random_order`;
+CREATE TABLE `t_random_order`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sex` int(11) NOT NULL COMMENT '1:女   2:男',
+  `grade` int(11) NOT NULL COMMENT '员工等级',
+  `quantity` int(11) NOT NULL COMMENT '数量',
+  `payItem_id` int(11) NOT NULL COMMENT '服务选项id',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `payItem_id`(`payItem_id`) USING BTREE,
+  CONSTRAINT `payItem_id` FOREIGN KEY (`payItem_id`) REFERENCES `t_payitem` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_random_order
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for t_smalltype
 -- ----------------------------
 DROP TABLE IF EXISTS `t_smalltype`;
@@ -703,7 +725,7 @@ CREATE TABLE `t_topup_record`  (
   UNIQUE INDEX `topuopNo`(`topupNo`) USING BTREE,
   INDEX `open_id_toup`(`openId`) USING BTREE,
   CONSTRAINT `open_id_toup` FOREIGN KEY (`openId`) REFERENCES `t_wxuserinfo` (`openid`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_topup_record
@@ -718,6 +740,10 @@ INSERT INTO `t_topup_record` VALUES (7, 'LYTOPUP20221106022432000000700', 'o5fzY
 INSERT INTO `t_topup_record` VALUES (8, 'LYTOPUP20221106023350000000301', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 200, 0.02, '2022-11-06 14:33:50', 1);
 INSERT INTO `t_topup_record` VALUES (9, 'LYTOPUP20221106023620000000145', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 2000, 100, '2022-11-06 14:36:20', 0);
 INSERT INTO `t_topup_record` VALUES (10, 'LYTOPUP20221106023755000000224', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 0.01, '2022-11-06 14:37:55', 1);
+INSERT INTO `t_topup_record` VALUES (11, 'LYTOPUP20221108073545000000905', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 0.01, '2022-11-08 19:35:45', 0);
+INSERT INTO `t_topup_record` VALUES (12, 'LYTOPUP20221108073554000000664', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 0.01, '2022-11-08 19:35:54', 0);
+INSERT INTO `t_topup_record` VALUES (13, 'LYTOPUP20221108073619000000499', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 0.01, '2022-11-08 19:36:19', 0);
+INSERT INTO `t_topup_record` VALUES (14, 'LYTOPUP20221108073833000000719', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 0.01, '2022-11-08 19:38:33', 0);
 
 -- ----------------------------
 -- Table structure for t_wxuserinfo
@@ -742,22 +768,21 @@ CREATE TABLE `t_wxuserinfo`  (
   `coin` float NOT NULL DEFAULT 0,
   `employee_id` int(11) NULL DEFAULT NULL COMMENT '员工号',
   `password` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '外部登录密码',
-  `tel` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `tel` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '联系方式',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `openid`(`openid`) USING BTREE,
   UNIQUE INDEX `employ_id`(`employee_id`) USING BTREE,
   INDEX `small_id_user`(`small_id`) USING BTREE,
   CONSTRAINT `small_id_user` FOREIGN KEY (`small_id`) REFERENCES `t_smalltype` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_wxuserinfo
 -- ----------------------------
-INSERT INTO `t_wxuserinfo` VALUES (5, 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '小峰', '/image/product/20220929101806000000898.jpg', '2022-01-08 22:19:11', '2022-02-21 08:20:09', 0, '魔法,知识,命运', 1, 15, '-', 1, 1, 1, 1, 0, 1005, NULL, NULL);
 INSERT INTO `t_wxuserinfo` VALUES (6, 'ohWWn5CNE3xxfWj72e_5-043_qsk', '猫猫不易', '/image/product/20221101113122000000052.jpg', '2022-09-23 21:33:08', '2022-10-20 22:32:43', 1, '爱吃饭,爱喝水', 1, 15, 'yousa2658', 1, 5, 1, 1, 0, 1006, NULL, NULL);
 INSERT INTO `t_wxuserinfo` VALUES (7, 'sssss', 'Rose', '/image/product/20220930122212000000177.jpg', '2022-09-25 19:34:45', '2022-09-25 19:34:46', 2, '命运,魔法,诡秘', 1, 12, '-', 0, 10, 1, 1, 0, 1007, NULL, NULL);
 INSERT INTO `t_wxuserinfo` VALUES (8, 'testopen', '张三', '/image/product/20220929101726000000503.jpg', '2022-09-29 17:36:22', '2022-09-29 17:36:24', 0, '垃圾老,逃不过命运', 1, NULL, '-', 0, 13, 1, 1, 0, 1008, NULL, NULL);
-INSERT INTO `t_wxuserinfo` VALUES (9, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'yosa', '/image/product/20221101112646000000771.jpg', '2022-10-22 14:47:36', '2022-11-04 19:32:04', 1, '干饭,爱喝饮料,游泳健将', 1, 19, 'zhy2658', 0, 51, 1, 1, 165, 1009, '1234', '17362388926');
+INSERT INTO `t_wxuserinfo` VALUES (9, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'yosa', '/image/product/20221106105658000000870.jpg', '2022-10-22 14:47:36', '2022-11-10 16:07:34', 1, '干饭,爱喝饮料,游泳健将', 1, 19, 'zhy2658', 1, 51, 1, 1, 4734, 1009, '1234', '17362388926');
 INSERT INTO `t_wxuserinfo` VALUES (10, 'o5fzY4p9Fo5B3MwnnbsZWpC1FMA4', '超_越梦', 'https://thirdwx.qlogo.cn/mmopen/vi_32/XAxTcGFpib3p316ak4Pdia0gFic2ykNwibDjpJsHicEyBw8Ahw9iafPMKoN0I7ouBUJibRPRKxgrRNXQT3COaFOjrjPSg/132', '2022-11-04 08:08:00', '2022-11-04 08:08:00', 0, NULL, 0, NULL, '-', 1, NULL, 0, 1, 0, NULL, NULL, NULL);
 INSERT INTO `t_wxuserinfo` VALUES (11, 'o5fzY4jngjpThhytLGqpMk7lq73o', '辛福', 'https://thirdwx.qlogo.cn/mmopen/vi_32/PiajxSqBRaEIARE6ibpu3FkwBJKRu1lZibicL0ReWcH2uq4bA70KZmiamiaibjLqL7maogyiaPhBbG1iao2o5PtAuE3AvAA/132', '2022-11-04 11:12:32', '2022-11-04 11:12:32', 0, NULL, 0, NULL, '-', 1, NULL, 0, 1, 0, NULL, NULL, NULL);
 INSERT INTO `t_wxuserinfo` VALUES (12, 'o5fzY4hooYpm0pEEyfJQvwdFHef8', '蓝色妖姬', 'https://thirdwx.qlogo.cn/mmopen/vi_32/PiajxSqBRaEJ56LQpjibjCicrsLlZlHcj6VUb2bwjBBm9Rpk6eZajaGROZ0Wf6ogY3ttpbnf6ibOGlcXtibxPVpUE5A/132', '2022-11-04 12:53:27', '2022-11-04 12:53:27', 0, NULL, 0, NULL, '-', 1, NULL, 0, 1, 0, NULL, NULL, NULL);
@@ -765,7 +790,9 @@ INSERT INTO `t_wxuserinfo` VALUES (13, 'o5fzY4mx1IOFvHEfy70OMnikVrdE', 'Shin', '
 INSERT INTO `t_wxuserinfo` VALUES (14, 'o5fzY4tawihCUzJhDivPkt6LvAUU', '丶', 'https://thirdwx.qlogo.cn/mmopen/vi_32/9aqxseO00Yak0dj0lpC0vWFjoI23uw275ramQh6E3ib7WwzuHjBQDTKIqOgzXGvB0nGwD2aKGyic1JH3yxITPNWA/132', '2022-11-04 14:10:16', '2022-11-04 14:10:16', 0, NULL, 0, NULL, '-', 1, NULL, 0, 1, 0, NULL, NULL, NULL);
 INSERT INTO `t_wxuserinfo` VALUES (15, 'o5fzY4jxeP2_Th0r0hpAa_ht-fUE', '小倩', 'https://thirdwx.qlogo.cn/mmopen/vi_32/4dBMq5ZIsiaqwHZDOV8z51JtRatBWmYYmYhx6zZEk0UKXSvWQrhPgbXwC3rN8pDeRCLRxG6RfvsqZ55PTueIVsQ/132', '2022-11-04 14:16:54', '2022-11-04 19:50:01', 0, NULL, 0, NULL, '-', 1, NULL, 0, 1, 0, NULL, NULL, NULL);
 INSERT INTO `t_wxuserinfo` VALUES (16, 'o5fzY4tF2wY3OWRscEWf8LssBAi0', '超级大可', 'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKxBgRjib2ECXkvd8RhosJm1fTQial7HRZjbnGibQiavBltECdVknibSqFoUYvGvtVP2JBqUxKSclWlsOw/132', '2022-11-04 14:42:36', '2022-11-04 14:42:36', 0, NULL, 0, NULL, '-', 1, NULL, 0, 1, 0, NULL, NULL, NULL);
-INSERT INTO `t_wxuserinfo` VALUES (17, 'o5fzY4sF5taFEGKUzOjxtTYWADfw', '渡', 'https://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83ep8ZZx6omRkOnOnoalnnkjh2Gun2dthfibvHZFhrgenQ3pOfBic8x8Fu9ANwia27dp6h7VXYdMP64fUQ/132', '2022-11-04 23:08:21', '2022-11-04 23:08:21', 0, NULL, 0, NULL, '-', 1, NULL, 0, 1, 0, NULL, NULL, NULL);
+INSERT INTO `t_wxuserinfo` VALUES (17, 'o5fzY4sF5taFEGKUzOjxtTYWADfw', '渡', 'https://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83ep8ZZx6omRkOnOnoalnnkjh2Gun2dthfibvHZFhrgenQ3pOfBic8x8Fu9ANwia27dp6h7VXYdMP64fUQ/132', '2022-11-04 23:08:21', '2022-11-04 23:08:21', 0, NULL, 0, NULL, '-', 1, NULL, 0, 1, 100, NULL, NULL, NULL);
+INSERT INTO `t_wxuserinfo` VALUES (19, 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '小峰', '/image/product/20220929101806000000898.jpg', '2022-01-08 22:19:11', '2022-02-21 08:20:09', 0, '魔法,知识,命运', 1, 15, '-', 1, 1, 1, 1, 0, 1005, NULL, NULL);
+INSERT INTO `t_wxuserinfo` VALUES (20, 'o5fzY4tkTpwTcsbdKBupOz2BM8U0', 'ikun', 'https://thirdwx.qlogo.cn/mmopen/vi_32/hnKp3DsVbdCmLEuUx3eiac6szOcpiblb8SicoPtbp0IxObcRlJkqyWm0URrGq0aiaBETuyNBzh7jXHFZLU5IzBfuGw/132', '2022-11-10 08:51:28', '2022-11-10 08:51:28', 2, '力大无穷', 1, 18, 'sos9234', 1, NULL, 1, 1, 0, 1019, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for temp_file

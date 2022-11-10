@@ -15,23 +15,25 @@
         </navigator>
     </view> -->
     <view class="cu-list menu-avatar">
-        <view class="cu-item {{modalName=='move-box-'+ index?'move-cur':''}}" wx:for="{{msgSessionList}}" wx:for-item="msgSession" wx:for-index="index" wx:key="msgSession" bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-{{index}}" bindtap="openchatroom" data-openId="{{msgSession.openId}}">
+        <view class="cu-item {{modalName=='move-box-'+ index?'move-cur':''}}" wx:for="{{msgSessionList}}" wx:for-item="msgSession" wx:for-index="index" wx:key="msgSession" bindtouchstart="ListTouchStart" bindtouchmove="ListTouchMove" bindtouchend="ListTouchEnd" data-target="move-box-{{index}}" >
             <!-- <navigator url="/pages/chatroom/index?openid={{msgSession.openId}}" class="list-item"> -->
-            <view class="cu-avatar round lg" style="background-image:url({{tools.filePathHandler(msgSession.avatarUrl)}});" ></view>
-            <view class="content">
-                <view class="text-grey">{{msgSession.nickName}}</view>
+            <view class="cu-avatar round lg" style="background-image:url({{tools.filePathHandler(msgSession.avatarUrl)}});" bindtap="openchatroom" data-openId="{{msgSession.openId}}" data-messageid="{{msgSession.message.id}}"></view>
+            <view class="content" bindtap="openchatroom" data-openId="{{msgSession.openId}}" data-messageid="{{msgSession.message.id}}">
+                <view class="text-grey">{{msgSession.nickName}}
+                    <text wx:if="{{msgSession.isOrderEnd}}" style="padding-left: 20rpx;color: red;">[订单完成]</text>
+                </view>
                 <view class="text-gray text-sm">
-                    <text>点击建立连接</text>
+                    <text>{{msgSession.message.msg}}</text>
                     <!-- <text class="cuIcon-infofill text-red"></text> 消息未送达 -->
                 </view>
             </view>
-            <view class="action">
-                <view class="text-grey text-xs">{{msgSession.ms_time}}</view>
-                <view class="cu-tag round bg-grey sm">1</view>
+            <view class="action" bindtap="openchatroom" data-openId="{{msgSession.openId}}">
+                <view class="text-grey text-xs">{{tools.formaStrYMD(msgSession.message.time)}}</view>
+                <view wx:if="{{msgSession.message.isRead==0 && userInfo.openid !=msgSession.message.openId}}" class="cu-tag round bg-red sm">新消息</view>
             </view>
             <view class="move">
-                <view class="bg-grey">置顶</view>
-                <view class="bg-red">删除</view>
+                <!-- <view class="bg-grey">置顶</view> -->
+                <view class="bg-red" bindtap="removeItem" data-index="{{index}}">删除</view>
             </view>
             <!-- </navigator> -->
         </view>
@@ -39,7 +41,7 @@
         <!-- -->
     </view>
     <view wx:if="{{msgSessionList.length==0}}" style="text-align: center;">
-        <view style="margin-top: 50px;font-size: 1rem;color: #454545;">暂时没有会话额..</view>
+        <view style="margin-top: 50px;font-size: 1rem;color: #454545;">暂时没有会话哦...</view>
     </view>
 
 

@@ -10,10 +10,16 @@ Page({
      */
     data: {
         modalName: "",
-        showItemIndex: 0,
-        showItem: ["未支付","等待接单", "正在进行", "待确认", "已完成"
-            // ,"请求退单中","已退单"
-        ],
+        showItemIndex: 1,
+        showItem: {
+            // "0": "未支付",
+            "1": "等待接单",
+            "2":"正在进行", 
+            "3":"待确认", 
+            "4":"已完成",
+            // "5":"请求退单中",
+            // "6":"已退单"
+        },
 
         orderList: [],
 
@@ -32,7 +38,7 @@ Page({
     onLoad(options) {
         let that = this;
 
-        // this.getOrder();
+        this.getOrder(this.data.showItemIndex);
         setTimeout(function () {
             that.setData({
                 loading: true

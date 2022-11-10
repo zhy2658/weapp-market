@@ -6,6 +6,19 @@
       </el-col>
       <el-button type="primary" :icon="Search" @click="initOrderList">搜索</el-button>
     </el-row>
+    <div>
+      <div class="demo">
+        <span>筛选：</span>
+        <el-select v-model="status" @change="selectPlatform">
+          <el-option v-for="(item, index) in orderStatusOption()" :key="index" :value='index' :label='item' v-show="index!=0">{{ item }}
+          </el-option>
+        </el-select>
+
+
+      </div>
+    </div>
+    <br>
+    <div>当前显示: <span style="color:darkcyan;">{{ orderStatusOption()[status] }}的订单</span></div><br>
     <el-table :data="tableData" stripe style="width: 100%">
 
       <el-table-column prop="orderNo" label="订单号" width="250" fixed/>
@@ -20,21 +33,19 @@
 
       <el-table-column prop="payDate" label="订单支付日期" width="200" />
 
-      <el-table-column prop="consignee" label="微信号" width="80" />
+      <!-- <el-table-column prop="consignee" label="微信号" width="80" /> -->
 
-      <el-table-column prop="telNumber" label="联系电话" width="150" />
+      <!-- <el-table-column prop="telNumber" label="联系电话" width="150" /> -->
 
-      <el-table-column prop="servant_id" label="接单员工" width="150" />
+      <!-- <el-table-column prop="servant_id" label="接单员工" width="150" /> -->
 
       <!-- <el-table-column prop="address" label="收货地址" width="400" /> -->
 
-      <el-table-column prop="action" label="操作" width="300" fixed="right">
+      <el-table-column prop="action" label="操作" width="100" fixed="right">
         <template v-slot="scope">
-          <el-button type="success"  @click="handleDialogValue(scope.row)">详情</el-button>
-          <!-- <el-button type="primary" @click="handleOrderStatus(scope.row.id,2)">发货</el-button> 
-          <el-button type="primary" @click="handleOrderStatus(scope.row.id,3)">退款</el-button>-->
-          <el-button type="danger" >退款</el-button>
-          <el-button type="danger" :icon="Delete" @click="handleDelete(scope.row.id)"></el-button>
+         <el-button type="success"  @click="handleDialogValue(scope.row)">详情</el-button>
+          <!-- <el-button type="danger" >退款</el-button> -->
+          <!-- <el-button type="danger" :icon="Delete" @click="handleDelete(scope.row.id)"></el-button> -->
         </template>
 
       </el-table-column>
@@ -67,8 +78,14 @@ import { ref } from 'vue'
 import  axios from '@/util/axios'
 import {getServerUrl,filePathHandler} from "@/config/sys";
 import Dialog from './components/dialog'
+import { orderStatusOption} from "@/config/option.js";
 
 import {ElMessageBox,ElMessage} from 'element-plus'
+
+
+// const statusOption = orderStatusOption();
+
+let status = ref(2)
 
 const queryForm=ref({
   query:'',
@@ -87,12 +104,14 @@ const id=ref(-1)
 
 const initOrderList=async()=>{
   console.log('xxx')
-  const res=await axios.post("admin/order/list",queryForm.value);
+  queryForm.value.status=status;
+  queryForm.value.page=queryForm.value.pageNum;
+  const res=await axios.get("order/manage/getMyOrder",queryForm.value);
   tableData.value=res.data.orderList;
   total.value=res.data.total;
 }
 
-// initOrderList();
+initOrderList();
 
 const dialogVisible=ref(false)
 
@@ -113,6 +132,12 @@ const handleCurrentChange=(pageNum)=>{
 const handleDialogValue = (row) => {
   id.value=row.id;
   dialogVisible.value=true;
+}
+const selectPlatform = (value) => {
+  initOrderList();
+  // this.$forceUpdate()//强制更新
+  // console.log("event -------------------   ",value)
+  // this.value = this.queryParams
 }
 
 const handleDelete = (id) => {
@@ -184,23 +209,24 @@ const wxUserInfoNickNameFormatter = (row) => {
   return row.wxUserInfo.nickName;
 }
 
-const statusFormatter = (row) => {
+const statusFormatter = (row) => {  
   let status=row.status;
+  return orderStatusOption()[status];
   // 0 未支付 1 已经支付正在服务  2完成服务，待确认，3完成订单  4请求退单 5：已退单
-  switch (status) {
-    case 0:
-      return "未支付";
-    case 1:
-      return "正在服务";
-    case 2:
-      return "完成服务";
-    case 3:
-      return "完成订单";
-    case 4:
-      return "请求退单";
-    case 5:
-      return "已退单";
-  }
+  // switch (status) {
+  //   case 0:
+  //     return "未支付";
+  //   case 1:
+  //     return "正在服务";
+  //   case 2:
+  //     return "完成服务";
+  //   case 3:
+  //     return "完成订单";
+  //   case 4:
+  //     return "请求退单";
+  //   case 5:
+  //     return "已退单";
+  // }
 }
 
 

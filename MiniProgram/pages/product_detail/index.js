@@ -180,11 +180,14 @@ Page({
             return;
         }
         if(!userInfo.openid){
-            wx.showToast({  
-                title: "请登录！",  
-                icon: 'error',  
-                duration: 2000  
-            })  
+            // wx.showToast({  
+            //     title: "请登录！",  
+            //     icon: 'error',  
+            //     duration: 2000  
+            // })  
+            wx.switchTab({
+                url: '/pages/my/index'
+              });
             return;
         }
         // if(openId == userInfo.openid){

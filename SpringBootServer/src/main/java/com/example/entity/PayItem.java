@@ -29,4 +29,6 @@ public class PayItem implements Serializable {
 
     private Integer grade;  //1级雇员  ，2:2级雇员   ...以此类推
 
+    private Integer required;   //是否必选    0:必选    1:可选
+
 }

@@ -43,7 +43,7 @@ Page({
             method: "POST",
         });
         if(result.code==0){
-            result.todayRevenue=result.todayRevenue.toFixed(2)
+            result.todayRevenue=result.todayRevenue.toFixed(0)
             this.setData({
                 basicInfo:result
             })

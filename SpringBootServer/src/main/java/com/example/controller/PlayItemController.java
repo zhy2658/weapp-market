@@ -42,4 +42,11 @@ public class PlayItemController {
         map.put("payitemList",payitemList);
         return R.ok(map);
     }
+    @RequestMapping("/getByAllGrade")
+    public R getByAllGrade(@RequestParam("grade") String grade){
+        List<PayItem> payitemList = payItemService.list(new QueryWrapper<PayItem>().eq("grade",grade));
+        Map<String,Object> map=new HashMap<>();
+        map.put("payitemList",payitemList);
+        return R.ok(map);
+    }
 }

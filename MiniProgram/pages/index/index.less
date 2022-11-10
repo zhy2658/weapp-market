@@ -98,10 +98,9 @@ page{
     left: 75rpx;
     background-color: #fff;
     border: 1px solid #efefef;
-    z-index: 1;
+    z-index: 3;
     display: flex;
     flex-direction: column;
-    z-index: 2;
 }
 
 .notice_row1 {
@@ -219,12 +218,157 @@ page{
 }
 
 .zezhao{
-    position: absolute;
+    position: fixed;
     width: 750rpx;
     height: 100vh;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 2;
     background-color: rgba(0, 0, 0, 0.7);
     // background-color: red;
+}
+.blindbox{
+    position: fixed;
+    width: 600rpx;
+    height: 420px;
+    background-color: #fff;
+    top: 100px;
+    left: 75rpx;
+    box-shadow: 2px 2px 4px #787878;
+    z-index: 3;
+    padding: 10px 40rpx;
+    border-radius: 5px 5px;
+}
+.closebtn{
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.closebtn>text{
+    font-size: 48rpx;
+}
+.blindbox>.layer1>view{
+    margin: 10px 0;
+}
+.blindbox>.layer2>view{
+    margin: 10px 0;
+}
+.sexOption{
+    display: flex;
+    justify-content: space-around;
+    
+}
+.sexOption>view{
+    width: 90px;
+    height: 90px;
+    // background-color: red;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.sexOption>view.female{
+    border: 4px solid #FCB6D2;
+}
+.sexOption>view.male{
+    border: 4px solid #B5E6F7;
+}
+.sexOption>view.female.active{
+    // border: 4px solid #FCB6D2;
+    background-color: #FCB6D2;
+}
+.sexOption>view.male.active{
+    // border: 4px solid #B5E6F7;
+    background-color: #B5E6F7;
+}
+.sexOption>view>text{
+    font-size: 100rpx;
+}
+.sexOption>view.male>text{
+    color: #B5E6F7;
+}
+.sexOption>view.female>text{
+    color: #FCB6D2;
+}
+.sexOption>view.male.active>text{
+    color: #fff;
+}
+.sexOption>view.female.active>text{
+    color: #fff;
+}
+.gradeOption{
+    display: flex;
+   flex-wrap: wrap;
+}
+.gradeOption>view{
+    border:2px solid #B5E6F7;
+    padding: 3px 10px;
+    border-radius: 10px 10px;
+    margin: 0 20rpx;
+    color: #B5E6F7;
+    margin-top: 10px;
+}
+.gradeOption>view.active{
+    background-color: #B5E6F7;
+    color: #fff;
+}
+.price{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+.price view{
+    margin-top: 20px;
+    font-size: 50rpx;
+    color: #454545;
+}
+.paybtn{
+    width:95% !important;
+    height: 40px !important;
+    font-size: 36rpx;
+}
+
+.quantity-position {
+    position: relative;
+    margin-top:5px;
+    right:50rpx;
+    width: 250rpx;
+    // background-color: red;
+    // display: flex;
+  }
+  .stepper {  
+    width: 80px;  
+    height: 26px;  
+    /*给主容器设一个边框*/  
+    border: 1px solid #ccc;  
+    border-radius: 3px;  
+    margin:0 auto;  
+    display: flex;
+}  
+  
+/*加号和减号*/  
+.stepper text {  
+    width: 19px;  
+    line-height: 26px;  
+    text-align: center;  
+    float: left;  
+}  
+  
+/*数值*/  
+.stepper input {  
+  padding:0px;
+    width: 40px;  
+    height: 26px;  
+    float: left;  
+    margin: 0 auto;  
+    text-align: center;  
+    font-size: 12px;  
+    /*给中间的input设置左右边框即可*/  
+    border-left: 1px solid #ccc;  
+    border-right: 1px solid #ccc;  
+}  
+  
+/*普通样式*/  
+.stepper .normal{  
+    color: black;  
 }

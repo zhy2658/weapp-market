@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    我的基本信息 <br><br>
+    你好！晚点的心声的店员 <br><br>
     <!-- <h2 style="color:red" >您当前未设置密码，请尽快设置</h2> -->
   </div>
 

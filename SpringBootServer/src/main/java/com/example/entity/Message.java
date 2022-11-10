@@ -3,6 +3,7 @@ package com.example.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -26,6 +27,8 @@ public class Message{
 
     private Integer ms_id;
 
+    private Integer isRead;
+
     @TableField(select = false,exist = false)
     private String nickName;
 
@@ -43,6 +46,7 @@ public class Message{
         this.time=time;
         this.ms_id=ms_id;
     }
+    public Message(){}
 
 //    public Message(Object id, String sender, String receiverOpenId, String msg, Date time) {
 //    }

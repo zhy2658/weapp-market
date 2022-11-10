@@ -5,7 +5,7 @@
     <view>我的店员等级是 <text style="color: red;font-size: 1rem;">{{tools.employeeGrade[userInfo.employee_grade]}}店员</text></view>
     <view>今日接单量：{{basicInfo.todayOrder}}</view>
     <!-- <view>今日在线时长：</view> -->
-    <view>今日收益：{{basicInfo.todayRevenue}}</view>
+    <view>今日收益：{{basicInfo.todayRevenue}} 米粒</view>
     <!-- <view>本月接单量：</view>
     <view>本月排名：</view>
     <view>本月被举报次数：</view> -->
@@ -13,6 +13,11 @@
 		<view class="title">{{userStatus[currentStatus]}}</view>
 		<switch checked="{{currentStatus}}"  bindtap="changeStatus"></switch>
 	</view>
+    <view>
+        <navigator url="/pages/randomOrder/index">
+            <button>随机订单</button>
+        </navigator>
+    </view>
     <view>
         <navigator url="/pages/orderManage/index">
             <button>订单管理</button>
@@ -35,6 +40,11 @@
         <!-- <navigator url="/pages/serviceOption/index"> -->
             <button>统计</button>
         <!-- </navigator> -->
+    </view>
+    <view>
+        <navigator url="/pages/serviceOption/index">
+            <button>服务选项</button>
+        </navigator>
     </view>
 
     

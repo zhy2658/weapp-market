@@ -22,7 +22,9 @@
             <button class="cu-btn round " style="margin-top: 10px;" bindtap="showRecorder">录制</button>
         </view>
     </view>
+   
 </view>
+<view wx:if="{{!userInfo.tel ||userInfo.tel.length!=11 }}" style="font-size: 30rpx;color: red;padding: 2px 10rpx;">*检测到您未正确填写联系方式，请尽快填写，用于接收订单信息</view>
 <form bindsubmit="preSubmitForm">
     <button wx:if='{{ !disableEidt }}' form-type="submit">保存</button>
     <view class='container'>
@@ -31,7 +33,11 @@
             <input type="text" value=" {{userInfo.nickName}}" name="nickName" disabled='{{ disableEidt }}' />
         </view>
         <view class="cu-form-group">
-            <view class="title">微信号</view>
+            <view class="title">联系方式</view>
+            <input  type="text" value=" {{userInfo.tel}}" name="tel" disabled='{{ disableEidt }}' />
+        </view>
+        <view class="cu-form-group">
+            <view class="title">weixin</view>
             <input type="text" value=" {{userInfo.wxid}}" name="wxid" disabled='{{ disableEidt }}' />
         </view>
         <!-- <view class="cu-form-group">

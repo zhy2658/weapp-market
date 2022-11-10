@@ -11,7 +11,8 @@ Page({
         isShowDeleteModel: false,  //删除框
         isShowAddModel: false,  //增加框
         serviceItems:[],
-        waitingDeleteId:-1
+        waitingDeleteId:-1,
+        extraPayitemList:[]
     },
 
     /**
@@ -29,7 +30,7 @@ Page({
     },
     async confirmDelete(){
         const res=await requestUtil({
-            url:'/order/manage/deleteServiceItems?payitem_id='+this.data.waitingDeleteId  })
+            url:'/order/manage/deleteExtraServiceItem?id='+this.data.waitingDeleteId  })
         if(res.code === 500){
             console.log(res)
         }
@@ -42,9 +43,28 @@ Page({
     },
     async addServiceItem(e){
         let form =e.detail.value;
+        console.log(this.data.extraPayitemList)
+        
+        let submitExtraPayItem = [];
+        for(let extraPayItem of this.data.extraPayitemList){
+            let exist=false;
+            for(let payItem of this.data.serviceItems){
+                if(payItem.id == extraPayItem.id){
+                    exist=true;
+                   break;
+                }
+            }
+            if(!exist && extraPayItem.choosed){
+                submitExtraPayItem.push({
+                    payitem_id: extraPayItem.id
+                });
+            }
+        }
+        console.log(submitExtraPayItem );
         const res=await requestUtil({
-            url:'/order/manage/createServiceItem' ,
-            data:form
+            url:'/order/manage/addExtreServiceItem' ,
+            data: submitExtraPayItem,
+            method:"POST"
         }   );
         if(res.code == 500){
             console.log(res)
@@ -67,7 +87,14 @@ Page({
         console.log(this.data.serviceItems);
 
     },
-
+    chooseServiceOption(e) {
+        let index = e.target.dataset.index;
+        let extraPayitemList=this.data.extraPayitemList;
+        extraPayitemList[index].choosed = extraPayitemList[index].choosed ==true?false :true;
+        this.setData({
+            extraPayitemList
+        })
+    },
     showDeleteModal(e) {
         this.setData({
             isShowDeleteModel: true,
@@ -79,10 +106,25 @@ Page({
             isShowDeleteModel: false
         })
     },
-    showAddModel(){
+    async showAddModel(){
         this.setData({
             isShowAddModel: true
         })
+        const res=await requestUtil({ url:'/order/manage/getExtraServiceItems' });
+        if(res.code == 0){
+            let extraPayitemList=res.extraPayitemList;
+            for(let payItem of this.data.serviceItems){
+                for(let extraPayItem of extraPayitemList){
+                    if(payItem.id == extraPayItem.id){
+                        extraPayItem.choosed=true
+                    }
+                }   
+            }    
+            this.setData({
+                extraPayitemList: res.extraPayitemList
+            })
+        }
+        // console.log(res);
     },
     hideAddModel(){
         this.setData({

@@ -6,8 +6,7 @@
         <div class="container">
             <!-- {{userInfo.nickName}} -->
             <div class="fileInputContainer">
-                <input class="fileInput" id="" type="file" name="avatarUrl" disabled>
-                <img class="avatarImg" :src="filePathHandler(userInfo.avatarUrl)" alt="">
+                <img class="avatarImg"  :src="filePathHandler(userInfo.avatarUrl)" @click="handleChangeImage" alt="">
             </div>
             <div class="Content-Main">
                 <!-- <form action="" method="post" class="form-userInfo"> -->
@@ -43,7 +42,8 @@
                 </label>
                 <label>
                     <span>手机号 :</span>
-                    <input type="email" name="email" placeholder="" v-model="userInfo.tel" :disabled="!isEdit">
+                    <input v-if="userInfo.tel" type="email" name="email" placeholder="" v-model="userInfo.tel" :disabled="!isEdit">
+                    <input v-else style="color:red" type="email" name="email" placeholder="" value="必填，用于接收下单信息"  disabled=""/>
                 </label>
                 <label>
                     <span>年龄:</span>
@@ -80,7 +80,7 @@
                     </el-image>
                     <br>
                     最多上传四张照片
-                    <el-button type="default">上传照片</el-button>
+                    <el-button type="default" @click="handleChangeProductSwiperImage">上传照片</el-button>
                 </div>
 
 
@@ -92,6 +92,9 @@
         </div>
 
     </div>
+    <ProductSwiperImageDialog :productId="detailObj.id" v-model="productSwiperImageDialogVisible"></ProductSwiperImageDialog>
+    <ImageDialog v-model="imageDialogVisible" :id="id" :uid="uid"  @initUserList="initUserList"/>
+  
 
 </template>
 <script setup>
@@ -104,11 +107,19 @@ import { showOption, adminOption, sexOption } from "@/config/option.js";
 
 import { ElMessageBox, ElMessage } from 'element-plus'
 
+import ProductSwiperImageDialog from './components/productSwiperImageDialog'
+import ImageDialog from './components/imageDialog'
+
 
 const srcList = ref([
     'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
 ]);
 
+const productSwiperImageDialogVisible = ref(false)
+const imageDialogVisible=ref(false)
+
+const id=ref(-1)
+const uid=ref(-1)
 
 const isEdit = ref(false)
 const userInfo = ref({});
@@ -167,6 +178,18 @@ const sumbitForm = async () => {
         ElMessage.success("操作成功！");
     }
 
+}
+
+const handleChangeImage = (row) => {
+  id.value=userInfo.value.id;
+  uid.value=userInfo.value.id;
+  imageDialogVisible.value=true;
+}
+
+const handleChangeProductSwiperImage = (row) => {
+  // id.value=row.id;
+  // uid.value=row.userInfo.id;
+  productSwiperImageDialogVisible.value = true;
 }
 
 
@@ -232,6 +255,7 @@ const eidtForm = () => {
 }
 
 .avatarImg {
+    cursor: pointer;
     width: 99px;
     height: 99px;
     border: 2px solid #efefef;

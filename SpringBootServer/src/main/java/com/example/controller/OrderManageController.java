@@ -6,10 +6,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.entity.*;
 import com.example.mapper.PayItemMapper;
 import com.example.properties.WeixinpayProperties;
-import com.example.service.IOrderDetailService;
-import com.example.service.IOrderService;
-import com.example.service.IWxUserInfoService;
-import com.example.service.PayItemService;
+import com.example.service.*;
+import io.jsonwebtoken.Claims;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,6 +45,9 @@ public class OrderManageController {
 
     @Resource
     private PayItemService payItemService;
+
+    @Resource
+    private ExtraPayitemService extraPayitemService;
 
     @Resource
     private PayItemMapper payItemMapper;
@@ -159,48 +160,114 @@ public class OrderManageController {
         return R.ok(map);
     }
 
+    @RequestMapping("/employTakeOrderByRandom")
+    public R employTakeOrderByRandom(HttpServletRequest request, @RequestParam("order_id") Integer orderId) {
+
+        String openId = (String) request.getSession().getAttribute("openId");
+        WxUserInfo userInfo = iWxUserInfoService.findByOpenId(openId);
+        Order order = orderService.getById(orderId);
+        //判断是否有资格
+        if ((order.getRandom_sex() == -1 || userInfo.getSex() == order.getRandom_sex())
+                && userInfo.getEmployee_grade() >= order.getRandom_grade()) {
+        } else {
+            return R.error("抱歉！你没有资格接此单");
+        }
+        OrderDetail orderDetail = orderDetailService.getOne(
+                new QueryWrapper<OrderDetail>()
+                        .eq("mId", order.getId())
+        );
+//        服务开始结束时间处理
+        orderDetail.setServiceStart(new Date());
+        orderDetail.setServiceEnd(new Date(System.currentTimeMillis()
+                + 3600L * 1000 * orderDetail.getItemHours() * orderDetail.getGoodsNumber()));
+        order.setStatus(2);
+        order.setServant_id(openId);
+        orderDetail.setServant_id(openId);
+        orderDetail.setGoodsPic(userInfo.getAvatarUrl());
+        orderService.updateById(order);
+        orderDetailService.updateById(orderDetail);
+        Map<String, Object> map = new HashMap<String, Object>();
+        return R.ok(map);
+    }
+
 
     //创建服务项目
-//    @RequestMapping("/createServiceItem")
-//    public R createServiceItem(HttpServletRequest request, PayItem payItem) {
-//        String openId = (String) request.getSession().getAttribute("openId");
-//        payItem.setOpenId(openId);
-//        try {
-//            payItemService.save(payItem);
-//        } catch (Exception e) {
-//            System.out.println("sss");
-//            return R.error("请确认参数是否填写完整！");
-//        }
-//        return R.ok();
-//    }
+    @RequestMapping("/addExtreServiceItem")
+    public R addExtreServiceItem(HttpServletRequest request, @RequestBody List<ExtraPayitem> extraPayitemList) {
+        String openId = (String) request.getSession().getAttribute("openId");
+
+        try {
+            for(ExtraPayitem extraPayitem:extraPayitemList){
+                extraPayitem.setEmployee_id(openId);
+                extraPayitemService.save(extraPayitem);
+            }
+        } catch (Exception e) {
+            System.out.println("sss");
+            return R.error("请确认参数是否填写完整！");
+        }
+        return R.ok();
+    }
 
     //删除服务项目
 
 
     //查询所有服务项目
-//    @RequestMapping("/getServiceItems")
-//    public R getServiceItems(HttpServletRequest request) {
-//        Map<String, Object> resMap = new HashMap<>();
-//        String openId = (String) request.getSession().getAttribute("openId");
-//        try {
-//            List<PayItem> payItems = payItemService.list(
-//                    new QueryWrapper<PayItem>()
-//                            .eq("openId", openId)
-//            );
-//            resMap.put("payItems", payItems);
-//        } catch (Exception e) {
-//            return R.error("token失效，请重新登录！");
-//        }
-//        return R.ok(resMap);
-//    }
+    @RequestMapping("/getServiceItems")
+    public R getServiceItems(HttpServletRequest request) {
+        Map<String, Object> resMap = new HashMap<>();
+        String openId = (String) request.getSession().getAttribute("openId");
+
+        WxUserInfo wxUserInfo = iWxUserInfoService.findByOpenId(openId);
+        System.out.println(" wxUserInfo.getEmployee_grade()" + wxUserInfo.getEmployee_grade());
+        List<PayItem> payItems = payItemService.list(
+                new QueryWrapper<PayItem>()
+                        .eq("grade", wxUserInfo.getEmployee_grade())
+                        .eq("required", 0)
+        );
+        List<ExtraPayitem> extraPayitemList = extraPayitemService.list(
+            new QueryWrapper<ExtraPayitem>()
+                    .eq("employee_id",openId)
+        );
+        for(ExtraPayitem extraPayitem : extraPayitemList){
+            PayItem payItem = payItemService.getById(extraPayitem.getPayitem_id());
+            payItems.add(payItem);
+        }
+        System.out.println(payItems);
+
+        resMap.put("payItems", payItems);
+
+        return R.ok(resMap);
+    }
+    //查询所有服务项目
+    @RequestMapping("/getExtraServiceItems")
+    public R getExtraServiceItems(HttpServletRequest request) {
+        Map<String, Object> resMap = new HashMap<>();
+        String openId = (String) request.getSession().getAttribute("openId");
+
+        WxUserInfo wxUserInfo = iWxUserInfoService.findByOpenId(openId);
+        List<PayItem> extraPayitemList = payItemService.list(
+                new QueryWrapper<PayItem>()
+                        .eq("grade", wxUserInfo.getEmployee_grade())
+                        .eq("required", 1)
+        );
+
+        resMap.put("extraPayitemList", extraPayitemList);
+
+        return R.ok(resMap);
+    }
 
     //根据id删除服务项目
-    @RequestMapping("/deleteServiceItems")
-    public R deleteServiceItems(HttpServletRequest request,
-                                @RequestParam("payitem_id") int payitem_id) {
+    @RequestMapping("/deleteExtraServiceItem")
+    public R deleteExtraServiceItem(HttpServletRequest request,
+                                @RequestParam("id") int id) {
+        String openId = (String) request.getSession().getAttribute("openId");
         try {
-            System.out.println(payitem_id);
-            payItemMapper.deleteById(payitem_id);
+            ExtraPayitem extraPayitem=extraPayitemService.getOne(
+                    new QueryWrapper<ExtraPayitem>()
+                            .eq("payitem_id",id)
+                            .eq("employee_id",openId)
+            );
+            extraPayitemService.removeById(extraPayitem.getId());
         } catch (Exception e) {
             return R.error("删除失败，请确定id是否正确");
         }
@@ -209,7 +276,7 @@ public class OrderManageController {
 
     //查询今日和本月接单量
     @RequestMapping("/getOrderCount")
-    public R getServiceItems(HttpServletRequest request, @RequestBody(required = false)
+    public R getOrderCount(HttpServletRequest request, @RequestBody(required = false)
     TecherTime techerTime) {
         Map<String, Object> resMap = new HashMap<>();
         String openId = (String) request.getSession().getAttribute("openId");
@@ -227,7 +294,7 @@ public class OrderManageController {
 //        if (!StringUtils.isEmpty(end)){
 //            wrapper.le("gmt_create",end);
 //        }
-        Float todayRevenue=0f;
+        Float todayRevenue = 0f;
         int todayOrder = orderService.count(
                 new QueryWrapper<Order>()
                         .eq("servant_id", openId)
@@ -257,7 +324,7 @@ public class OrderManageController {
 
         );
 
-        for(Order order:orderList){
+        for (Order order : orderList) {
             todayRevenue += order.getTotalPrice().floatValue();
         }
 //        eq("servant_id",openId)
@@ -268,6 +335,56 @@ public class OrderManageController {
 
         resMap.put("todayOrder", todayOrder);
         resMap.put("todayRevenue", todayRevenue);
+        return R.ok(resMap);
+    }
+
+    //    获取随机单
+    @RequestMapping("/getRandomOrder")
+    public R getRandomOrder(HttpServletRequest request,
+                            @RequestParam("page") Integer page,
+                            @RequestParam("pageSize") Integer pageSize) {
+
+        String openId = (String) request.getSession().getAttribute("openId");
+
+        Page<Order> pageOrder = new Page<>(page, pageSize); // 定义分页
+
+        Page<Order> orderReslut = orderService.page(pageOrder,
+                new QueryWrapper<Order>()
+                        .eq("status", 1)
+                        .eq("type", 1)
+        );
+        Integer total = orderService.getBaseMapper().selectCount(
+                new QueryWrapper<Order>()
+                        .eq("status", 1)
+                        .eq("type", 1)
+        );
+        List<Order> orderList = orderReslut.getRecords();
+        for (Order order : orderList) {
+//            System.out.println(order);
+            List<OrderDetail> orderDetailList = orderDetailService.list(
+                    new QueryWrapper<OrderDetail>()
+                            .eq("mId", order.getId())
+            );
+            OrderDetail[] orderDetails = new OrderDetail[1];
+            OrderDetail orderDetail = orderDetailList.get(0);
+
+            orderDetails[0] = orderDetail;
+            order.setGoods(orderDetails);
+
+//            支付人
+            WxUserInfo wxUserInfo = iWxUserInfoService.getOne(
+                    new QueryWrapper<WxUserInfo>()
+                            .eq("openid", order.getUserId())
+            );
+            order.setWxUserInfo(wxUserInfo);
+        }
+
+        Map<String, Object> resMap = new HashMap<String, Object>();
+
+        resMap.put("totalPage", Math.ceil((float) total / pageSize));
+        resMap.put("total", total);
+        resMap.put("page", page);
+        resMap.put("orderList", orderList);
         return R.ok(resMap);
     }
 

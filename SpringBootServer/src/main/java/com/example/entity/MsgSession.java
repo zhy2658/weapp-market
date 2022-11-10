@@ -18,6 +18,8 @@ public class MsgSession {
     @JsonSerialize(using=CustomDateTimeSerializer.class)
     private Date ms_time;
 
+    private Integer isShow;
+
     public MsgSession( String openId, String openId2) {
         this.openId=openId;
         this.openId2=openId2;

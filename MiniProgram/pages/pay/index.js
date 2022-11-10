@@ -259,13 +259,18 @@ Page({
 
             wx.showToast({
                 title: '下单成功',
-                icon: 'none'
+                icon: 'success'
             });
             this.getDetail();
 
-            wx.navigateTo({
-                url: '/pages/userOrder/index?status=1',
-            })
+           setTimeout(()=>{
+                // wx.reLanch({
+                //     url: '/pages/userOrder/index'
+                // })
+                wx.navigateTo({
+                    url: '/pages/userOrder/index?status=1',
+                })
+           },500)
 
 
         } catch (error) {

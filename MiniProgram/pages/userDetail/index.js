@@ -169,6 +169,13 @@ Page({
                 });
                 return;
             }
+            if(key=="tel" &&  formObj[key].length != 11){
+                wx.showToast({
+                    title: '请填写正确的联系方式',
+                    icon: 'none'
+                });
+                return;
+            }
             if(key=="tags" && formObj[key].split(",").length > 3){
                 wx.showToast({
                     title: '最多只有三个标签',
@@ -288,6 +295,7 @@ Page({
         userInfo.sex = formObj.sex == true ? 2 : 1;
         userInfo.age = parseInt(formObj.age);
         userInfo.wxid = formObj.wxid;
+        userInfo.tel = formObj.tel;
         userInfo.tags = formObj.tags;
         // userInfo.small_id=
         let productObj = this.data.productObj;

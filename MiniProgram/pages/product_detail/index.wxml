@@ -161,13 +161,13 @@
     <view class='column'>
         <text class="sku-price">{{gg_price}}米粒</text>
         <text class="sku-title">
-            <block wx:if="{{gg_txt==''}}">请选择规格</block>
+            <block wx:if="{{gg_txt==''}}">请选择服务类型</block>
             <block wx:else>已选择{{gg_txt}}{{gg_hours}} 小时</block>
         </text>
     </view>
     <text class="line"></text>
     <view class='guige'>
-        <text class="gg-title">规格</text>
+        <text class="gg-title">服务类型</text>
         <view class='gg'>
             <text wx:for="{{payitemList}}" wx:key="item" wx:for-item="item" class="{{gg_id==item.id?'active':''}}" data-id="{{item.id}}" data-txt="{{item.itemName}}" data-price='{{item.price}}' data-hours='{{item.itemHours}}' bindtap="filter">{{item.itemName}}-{{item.itemHours}} 小时</text>
         </view>

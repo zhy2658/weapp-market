@@ -11,6 +11,7 @@ Page({
         motto: 'Hello World',
         total: 0,
         OppositeOpenId: null,
+        isOrderEnd:false,
         msgList: [
             // {"username":"星星先生","msg": "hello world"},
             // {"username":"正义小姐","msg": "赞美愚者先生"},
@@ -68,10 +69,29 @@ Page({
 
         //获取聊天纪录
         this.getMessage();
+        this.judgeChatEnd();
 
-        setInterval(()=>{
+        clearInterval(this.data.getMessageSign);
+        let getMessageSign=setInterval(()=>{
             this.getMessage();
         },5000);
+        this.setData({
+            getMessageSign:getMessageSign
+        })
+
+    },
+    async judgeChatEnd(){
+        const result2 = await requestUtil({
+            url: "/chat/judgeChatEnd?openId=" + this.data.OppositeOpenId,
+
+        },true);
+        if(result2.code ==0){
+            console.log("---",result2.isOrderEnd)
+            this.setData({
+                isOrderEnd: result2.isOrderEnd
+            })
+        }
+        console.log(result2)
 
     },
     async getMessage() {
@@ -137,14 +157,14 @@ Page({
      * 生命周期函数--监听页面隐藏
      */
     onHide() {
-
+        clearInterval(this.data.getMessageSign);
     },
 
     /**
      * 生命周期函数--监听页面卸载
      */
     onUnload() {
-
+        clearInterval(this.data.getMessageSign);
     },
 
     /**

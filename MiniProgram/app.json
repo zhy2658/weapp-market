@@ -1,6 +1,12 @@
 {
     "pages": [
-      
+        "pages/index/index",
+        "pages/attention/index",
+        "pages/serviceOption/index",
+        "pages/randomOrder/index",
+        "pages/myPageManage/index",
+        "pages/orderManage/index",
+        "pages/userOrder/index",
         "pages/category/index",
         "pages/wallet/index",
         "pages/cart/index",
@@ -9,7 +15,6 @@
         "pages/product_detail/index",
         "pages/pay/index",
         "pages/order/index",
-        "pages/index/index",
         "pages/chatroom/index",
         "pages/messageList/index",
         "pages/sharewall/index",
@@ -17,10 +22,6 @@
         "pages/userInfo/index",
         "pages/setting/index",
         "pages/publish_detail/index",
-        "pages/myPageManage/index",
-        "pages/orderManage/index",
-        "pages/serviceOption/index",
-        "pages/userOrder/index",
         "pages/conplain/index",
         "pages/userDetail/index"
         
@@ -50,12 +51,6 @@
                 "text": "万能墙",
                 "iconPath": "icons/_global.png",
                 "selectedIconPath": "icons/global.png"
-            },
-            {
-                "pagePath": "pages/category/index",
-                "text": "分类",
-                "iconPath": "icons/_category.png",
-                "selectedIconPath": "icons/category.png"
             },
             {
                 "pagePath": "pages/messageList/index",

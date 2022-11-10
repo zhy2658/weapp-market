@@ -25,25 +25,27 @@
     <view class="user_menu">
         <!-- 订单管理开始 -->
         <view class="orders_warp">
-            <view class="orders_title">我的订单</view>
-            <view class="orders_content">
-                <navigator url="/pages/userOrder/index?status=0">
+            <navigator url="/pages/userOrder/index?status=1">
+                     <view class="orders_title">我的订单</view>
+        </navigator>
+            <!-- <view class="orders_content">
+                <navigator url="/pages/userOrder/index?status=1">
                     <view class="iconfont icon-daifukuan"></view>
-                    <view class="order_name">待付款</view>
+                    <view class="order_name">待接单</view>
                 </navigator>
-                <navigator url="/pages/userOrder/index?type=1">
+                <navigator url="/pages/userOrder/index?type=2">
                     <view class="iconfont icon-daishouhuo"></view>
                     <view class="order_name">正在服务</view>
                 </navigator>
-                <navigator url="/pages/userOrder/index?type=4">
+                <navigator url="/pages/userOrder/index?type=3">
                     <view class="iconfont icon-tuikuan"></view>
-                    <view class="order_name">退款</view>
+                    <view class="order_name">待确认</view>
                 </navigator>
                 <navigator url="/pages/userOrder/index?type=-1">
                     <view class="iconfont icon-dingdan"></view>
-                    <view class="order_name">全部订单</view>
+                    <view class="order_name">已完成</view>
                 </navigator>
-            </view>
+            </view> -->
         </view>
         <!-- 订单管理结束 -->
 
@@ -62,10 +64,18 @@
                     </view>
                 </navigator>
             </view> -->
+            
             <view class="app_info_item">
                 <navigator url="/pages/wallet/index">
                     <view>
                         我的钱包
+                    </view>
+                </navigator>
+            </view>
+            <view class="app_info_item">
+                <navigator url="/pages/attention/index">
+                    <view>
+                        关注列表
                     </view>
                 </navigator>
             </view>

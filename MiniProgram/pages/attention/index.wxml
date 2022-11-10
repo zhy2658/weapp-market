@@ -1,0 +1,39 @@
+<!--pages/attention/index.wxml-->
+
+<wxs src="../../utils/tools.wxs" module="tools" />
+
+<view class="cu-bar search bg-white">
+    <view class="search-form round">
+      <text class="cuIcon-search"></text>
+      <input type="text"  placeholder="搜索店员" confirm-type="search"></input>
+    </view>
+    <view class="action">
+      <button class="cu-btn bg-green shadow-blur round" style="width: 150rpx;">搜索</button>
+    </view>
+  </view>
+<view class="cu-bar bg-white">
+    <view class="action">
+      <text class="cuIcon-titles text-green"></text>
+      <text class="text-xl text-bold">我的关注</text>
+    </view>
+  </view>
+<view class="cu-list menu-avatar">
+    <view class="cu-item " wx:for="{{userInfoList}}" wx:for-item="userInfo" wx:for-index="index" wx:key="id">
+        <view class="cu-avatar round lg" style="background-image:url({{tools.filePathHandler(userInfo.avatarUrl)}});">
+            <!-- <view class="cu-tag badge">99+</view> -->
+        </view>
+        <view class="content">
+            <view class="text-grey">
+                <text class="text-cut">{{userInfo.nickName}}</text>
+                <view class="cu-tag round bg-orange sm">{{tools.employeeGrade[userInfo.employee_grade]}}店员</view>
+            </view>
+            <view class="text-gray text-sm flex">
+                <text class="text-cut" >{{userInfo.tags}}</text>
+            </view>
+        </view>
+        <view class="action">
+            <button class="cu-btn bg-gray shadow-blur round" style="width: 100rpx;" bindtap="closeAttention" data-openid="{{userInfo.openid}}"><text class="cuIcon-favorfill" style="font-size: 40rpx; color: #F03A53;" data-openid="{{userInfo.openid}}"></text></button>
+        </view>
+    </view>
+  
+</view>

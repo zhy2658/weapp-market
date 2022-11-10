@@ -9,12 +9,22 @@ Page({
         swiperList: [],
         baseUrl: '',
         bigTypeList: [],
-        bigTypeList_row1: [],
+        bigTypeList_row1: [
+            // {
+            //     id: 1,
+            //     image: "20221022045741000000756.jpg",
+            //     name: "盲盒",
+            //     remark: "连麦"
+            // }
+        ],
         bigTypeList_row2: [],
         hotProductList: [],
 
         // 通知面板
-        isShowNotice:false,
+        isShowNotice: false,
+
+        // 显示遮罩
+        isShowLayer: false,
 
         // 音乐播放器对象
         audioPlayObj: {
@@ -23,7 +33,19 @@ Page({
             audioSrc: ''
         },
         // 通知
-        notice:{}
+        notice: {},
+        payitemList: [],
+        layer: 1,
+        minusStatus: "normal",
+        serviceIndex: 0,
+        coinNum: 0,
+        blindbox: {
+            sex: 1,
+            grade: 1,
+            id: 0,
+            num: 1
+        },
+        showBlindbox: false
     },
     onLoad: function () {
         that = this;
@@ -37,7 +59,7 @@ Page({
         this.getNewNotice();
 
     },
-    async getNewNotice(){
+    async getNewNotice() {
         const result = await requestUtil({ url: "/notice/getNew" });
         this.setData({
             notice: result.notice
@@ -61,7 +83,61 @@ Page({
             baseUrl: baseUrl
         })
     },
+    blindBox() {
+        this.setData({
+            showBlindbox: true,
+            isShowLayer: true
+        })
+    },
+    closeBlindBox() {
+        this.setData({
+            showBlindbox: false,
+            isShowLayer: false,
+            layer: 1
+        })
+    },
+    chooseSexOption(e) {
+        this.data.blindbox.sex = e.target.dataset.value;
+        this.setData({
+            blindbox: this.data.blindbox
+        })
+    },
+    chooseGradeOption(e) {
+        this.data.blindbox.grade = e.target.dataset.value;
+        this.setData({
+            blindbox: this.data.blindbox
+        })
+    },
+    chooseServiceOption(e) {
+        this.data.serviceIndex = e.target.dataset.value;
+        this.data.blindbox.id = e.target.dataset.id;
+        let coinNum = this.data.payitemList[this.data.serviceIndex].price * this.data.blindbox.num;
+        this.setData({
+            serviceIndex: this.data.serviceIndex,
+            blindbox: this.data.blindbox,
+            coinNum
+        })
+    },
+    inlayer(e) {
+        this.setData({
+            layer: e.target.dataset.index
+        })
 
+        this.getServiceOption();
+    },
+    async getServiceOption() {
+        const result = await requestUtil({ url: "/playitem/getByAllGrade?grade=" + this.data.blindbox.grade });
+        if (result.code == 0) {
+            this.setData({
+                payitemList: result.payitemList
+            })
+            let coinNum = this.data.payitemList[this.data.serviceIndex].price * this.data.blindbox.num;
+            this.setData({
+                coinNum
+            })
+        }
+        // console.log(result)
+    },
     // 获取商品大类数据
     async getBigTypeList() {
         const result = await requestUtil({ url: "/bigType/findAll" });
@@ -85,10 +161,10 @@ Page({
         console.log(result.users);
         for (let users of result.users) {
             users.isPlay = false;
-            if(users.tags){
-                users.tags=users.tags.split(",");
+            if (users.tags) {
+                users.tags = users.tags.split(",");
             }
-            
+
         }
         this.setData({
             hotProductList: result.users
@@ -146,14 +222,106 @@ Page({
     audioPause() {
         console.log("pause")
     },
-    closeNotice(){
-        this.setData({isShowNotice:false})
+    closeNotice() {
+        this.setData({ isShowNotice: false, isShowLayer: false })
     },
-    openNotice(){
-        this.setData({isShowNotice:true})
+    openNotice() {
+        this.setData({ isShowNotice: true, isShowLayer: true })
     },
+    /* 点击减号 */
+    bindMinus: function () {
+        var num = this.data.blindbox.num;
+        // 如果大于1时，才可以减  
+        if (num > 1) {
+            num--;
+        }
+        // 只有大于一件的时候，才能normal状态，否则disable状态  
+        var minusStatus = num <= 1 ? 'disabled' : 'normal';
+        this.data.blindbox.num = num;
+        let coinNum = this.data.payitemList[this.data.serviceIndex].price * this.data.blindbox.num;
+        // 将数值与状态写回  
+        this.setData({
+            blindbox: this.data.blindbox,
+            minusStatus: minusStatus,
+            coinNum
+        });
+    },
+    /* 点击加号 */
+    bindPlus: function () {
+        var num = this.data.blindbox.num;
+        // 不作过多考虑自增1  
+        num++;
+        // 只有大于一件的时候，才能normal状态，否则disable状态  
+        var minusStatus = num < 1 ? 'disabled' : 'normal';
+        // 将数值与状态写回  
+        this.data.blindbox.num = num;
+        let coinNum = this.data.payitemList[this.data.serviceIndex].price * this.data.blindbox.num;
+        this.setData({
+            blindbox: this.data.blindbox,
+            minusStatus: minusStatus,
+            coinNum
+        });
+    },
+    async payByCoin() {
+        let that = this;
+        wx.showModal({
+            title: '提示',
+            content: '确定下单',
+            success(res) {
+                if (!res.confirm) return;
+                that.payByCoinHandler();
 
+            }
+        });
+    },
+    async payByCoinHandler() {
+        let blindbox = this.data.blindbox;
+        let payitem = this.data.payitemList[this.data.serviceIndex];
+        console.log(blindbox)
+        let good = {
+            goodsNumber: blindbox.num,  //数量
+            goodsPrice: payitem.price,  //单价
+            goodsName: payitem.itemName,  //服务名
+            itemHours: payitem.itemHours,  //单小时数
+            totalHours: payitem.itemHours * blindbox.num, //服务总时长 
+            totalPrice: payitem.price * blindbox.num, //总价
+            goodsPic: null,
+            servant_id: null,
 
+        };
+        let coinNum = payitem.price * blindbox.num;
+        let goodsList = [good];
+        const orderParams = {
+            totalPrice: coinNum,
+            // address,
+            goods: goodsList,
+            pm_id: blindbox.id,
+            random_grade: blindbox.grade,
+            servant_id: null,
+            status: 7,  //表示请求随机单委托
+            type: 1,    //表示请求随机单委托
+            random_sex: blindbox.sex
+        }
+        console.log(orderParams)
+        const res = await requestUtil({ url: "/my/order/payRandom0rder", method: "POST", data: orderParams });
+        if(res.code == 0){
+            wx.showToast({
+                title: '下单成功',
+                icon: 'success'
+            });
+          this.setData({
+            showBlindbox: false,
+            isShowLayer: false,
+            layer: 1
+          })  
+        }
+        else{
+            wx.showToast({
+                title: '下单失败',
+                icon: 'error'
+            });
+        }
+    },
     //页面关闭时，停止播放
     onHide() {
         this.setData({

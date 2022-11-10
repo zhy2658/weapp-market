@@ -3,6 +3,7 @@ package com.example.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import io.swagger.models.auth.In;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -39,6 +40,14 @@ public class Order {
     private Integer pm_id;
 
     private String servant_id;   //服务人
+
+    private Integer order_count;  //第几次下同样的单子
+
+    private Integer type; // 0:指定单，  1:随机单
+
+    private Integer random_sex;    //性别可以接的随机单   1：女    2：男
+
+    private Integer random_grade;   //至少要几级员工才可以接这个单子
 
     @JsonSerialize(using=CustomDateTimeSerializer.class)
     private Date createDate; // 订单创建日期

@@ -62,6 +62,25 @@ public class PublishController {
 
     }
 
+    @PostMapping("/addImg")
+    public R add(@RequestBody PublishImg publishImg){
+        publishImgMapper.insert(publishImg);
+        return R.ok();
+    }
+    @GetMapping("/deleteImg/{id}")
+    public R deleteImg(@PathVariable(value = "id") Integer id){
+        publishImgMapper.deleteById(id);
+        return R.ok();
+    }
+    @GetMapping("/listImg/{id}")
+    public R listImg(@PathVariable(value = "id") Integer id){
+        System.out.println(id);
+        List<PublishImg> list = publishImgMapper.selectList (new QueryWrapper<PublishImg>().eq("pid",id));
+        Map<String,Object> resultMap=new HashMap<>();
+        resultMap.put("productSwiperImageList",list);
+        return R.ok(resultMap);
+    }
+
     @GetMapping ("/get_random")
     public Map<String,Object> geRandom(PageBean pageBean){
 //        System.out.println(pageBean);
