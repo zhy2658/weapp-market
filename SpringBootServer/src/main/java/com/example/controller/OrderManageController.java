@@ -84,7 +84,7 @@ public class OrderManageController {
             OrderDetail[] orderDetails = new OrderDetail[1];
             OrderDetail orderDetail = orderDetailList.get(0);
 //            1:  是员工未接单状态
-            if (order.getStatus() != 1) {
+            if (orderDetail.getServiceEnd() != null) {
                 Date startDate = orderDetail.getServiceStart();
                 Date endDate = orderDetail.getServiceEnd();
 //            System.out.println("date================"+orderDetail.getServiceStart());
@@ -386,6 +386,33 @@ public class OrderManageController {
         resMap.put("page", page);
         resMap.put("orderList", orderList);
         return R.ok(resMap);
+    }
+
+    //    拒接订单
+    @RequestMapping("/refuseOrder")
+    public R cancelOrder(HttpServletRequest request,
+                         @RequestParam("order_id") int order_id,
+                         @RequestParam("user_id") String user_id){
+        System.out.println("order_id:"+order_id);
+        System.out.println("user_id:"+user_id);
+        String openId= (String) request.getSession().getAttribute("openId");
+        Order order = orderService.getById(order_id);
+        if( order.getServant_id().equals(openId) == false || order.getStatus() != 1){
+            return R.error("只能拒绝未接的订单哦！");
+        }
+
+        order.setStatus(9);
+        orderService.updateById(order);
+//        退还米粒
+        WxUserInfo userInfo = iWxUserInfoService.findByOpenId(user_id);
+        float totalOrder=order.getTotalPrice().floatValue();
+//        totalOrder = totalOrder * 0.95f;
+//        退还金额
+        float coinTotal= userInfo.getCoin() + totalOrder;
+        userInfo.setCoin(coinTotal);
+        iWxUserInfoService.updateById(userInfo);
+
+        return R.ok();
     }
 
 

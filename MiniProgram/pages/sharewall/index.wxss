@@ -2,7 +2,7 @@
 
 page {
     background: whitesmoke;
-    background-color: white;
+    /* background-color: white; */
 }
 
 .page {
@@ -21,9 +21,9 @@ page {
 .CircleList {
     background: white;
     margin-bottom: 1px;
-    border-bottom: 1px solid whitesmoke;
+    /* border-bottom: 1px solid whitesmoke; */
     border-top: 1px solid whitesmoke;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 .CircleList:last-child{
     padding-bottom: 40px;
@@ -41,8 +41,29 @@ page {
 
 .right-view {
     /* background: red; */
-}
+    /* display: flex; */
 
+}
+.user-name{
+    display: flex;
+    align-items: center;
+    
+}
+.user-name .cu-tag{
+    margin-left: 10rpx;
+}
+.user-name-view{
+    display: flex;
+    align-items: center;
+    /* border: 1px solid #efefef; */
+}
+.user-name-view-row2{
+    flex: 3;
+}
+.user-name-view .action{
+    width: 140rpx;
+    text-align: center;
+}
 /* 头像 */
 .user-icon {
     /* display: flex; */
@@ -80,6 +101,7 @@ page {
     margin-left: 10rpx;
     font-size: 30rpx;
     padding-right: 25rpx;
+    
 }
 
 /* 图片 */
@@ -87,16 +109,24 @@ page {
     /* background: rebeccapurple; */
     margin-left: 10rpx;
     margin-bottom: 20rpx;
-    display: block;
-    width: 550rpx;
+    display: flex;
+    justify-content: center;
+    width: 750rpx;
+    /* 宽度剩下710 */
+    padding: 0 20rpx;  
     /* min-height: 40px; */
 }
-
+ /* 宽度剩下710 */
 .photo {
     background: #fff;
+    width: 220rpx;
+    height: 220rpx;
     /* float: left; */
-    margin-right: 10rpx;
-    margin-top: 10rpx;
+    /* margin-right: 10rpx; */
+    margin: 0 5rpx;
+    margin-top: 5rpx;
+    border: 1px solid #efefef;
+
 }
 
 /* 地理位置 */
@@ -233,6 +263,14 @@ page {
 .user-content-view{
     color: #454545;
     font-size: 30rpx;
+    padding: 4px 20rpx;
+    max-height: 110px;
+    display: -webkit-box;
+    overflow: hidden;
+    /* white-space: nowrap; */
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    text-overflow: ellipsis;
 }
 .user-address-view{
     color: #454545;
@@ -249,4 +287,60 @@ page {
 .like_area{
     display: flex;
     align-items: center;
+}
+
+.user-operation{
+    display: flex;
+    flex-direction: row;
+    width: 750rpx;
+    height: 30px;
+    justify-content: space-around;
+    margin-top: 10px;
+    /* align-items: center; */
+    /* align-content: center; */
+    /* justify-content: center; */
+}
+.user-operation view {
+    /* border: 1px solid #efefef; */
+    width: 210rpx;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    /* color: #676767; */
+    /* background-color: #fff;s */
+
+}
+.user-operation view button {
+    height: 25px;
+    width: 140rpx;
+    margin: 0;
+    padding: 0;
+    color: #565656;
+    font-weight: normal;
+    background-color: #fff;
+}
+.user-operation-zan{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.user-operation-zan text:first-child{
+    margin-right: 5rpx;
+    font-size: 40rpx;
+    
+}
+.user-operation-zan text.active{
+   color: #F03A53 !important;
+}
+
+.action_btn{
+    color: #676767;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 150rpx !important;
+    
+    /* background-color: #efefef !important; */
 }

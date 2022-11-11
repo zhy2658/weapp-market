@@ -19,6 +19,7 @@ Page({
             "4":"已完成",
             // "5":"请求退单中",
             // "6":"已退单"
+            "9":"已拒接",
         },
 
         orderList: [],
@@ -112,6 +113,46 @@ Page({
         const res = await requestUtil({ url: '/order/manage/employTakeOrder?order_id=' + e.target.dataset.id });
         this.getOrder(1)
         console.log(res);
+    },
+    async cancelOrder(e){
+        let that =this;
+        console.log(e);
+        wx.showModal({
+            title: '提示',
+            content: '确认拒接',
+            success: async(confirm)=> {
+                if (!confirm.confirm) return;
+                const res = await requestUtil({
+                     url: '/order/manage/refuseOrder?order_id=' + e.target.dataset.id,
+                     data: {
+                        order_id:  e.currentTarget.dataset.id,
+                        user_id: e.currentTarget.dataset.userid
+                     }
+                    
+                    });
+                if (res.code == 500) {
+                    console.log(res)
+                    wx.showToast({
+                        title: res.msg,
+                        icon: 'error',
+                        duration: 1500
+                    });
+                }
+                else {
+                    that.data.QueryParams.page=1;
+                    that.setData({
+                        QueryParams:that.data.QueryParams
+                    })
+                    that.getOrder(that.data.showItemIndex)
+                    wx.showToast({
+                        title: '拒接成功',
+                        icon: 'success'
+                    });
+                }
+
+            }
+        });
+        
     },
     onScrolltolower() {
         let QueryParams = this.data.QueryParams;

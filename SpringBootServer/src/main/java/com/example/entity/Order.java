@@ -57,6 +57,8 @@ public class Order {
 
     private Integer status=0; // 订单状态 0 未支付 1等待员工接单 2 正在服务  3完成服务，待确认，4完成订单  5请求退单 6：已退单
 
+   private String remark;
+
     @TableField(select = false,exist = false)
     private OrderDetail[] goods; // 订单商品详情
 

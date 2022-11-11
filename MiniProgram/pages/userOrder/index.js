@@ -19,6 +19,7 @@ Page({
             "4":"已完成",
             // "5":"请求退单中",
             // "6":"已退单"
+            "9":"被拒绝",
         },
 
         orderList: [],
@@ -74,6 +75,38 @@ Page({
         })
 
     },
+    async cancelOrder(e){
+        let that =this;
+        wx.showModal({
+            title: '提示',
+            content: '为防止恶意下单,取消将收取5%的手续费，是否继续？',
+            success: async(confirm)=> {
+                if (!confirm.confirm) return;
+                const res = await requestUtil({ url: '/my/order/cancelOrder?order_id=' + e.target.dataset.id });
+                if (res.code == 500) {
+                    console.log(res)
+                    wx.showToast({
+                        title: res.msg,
+                        icon: 'error',
+                        duration: 1500
+                    });
+                }
+                else {
+                    that.data.QueryParams.page=1;
+                    that.setData({
+                        QueryParams:that.data.QueryParams
+                    })
+                    that.getOrder(that.data.showItemIndex)
+                    wx.showToast({
+                        title: '取消成功',
+                        icon: 'success'
+                    });
+                }
+
+            }
+        });
+        
+    },
     chooseShow(e) {
         let QueryParams = this.data.QueryParams;
         QueryParams.page = 1;
@@ -122,11 +155,24 @@ Page({
         const res = await requestUtil({ url: '/my/order/confirmOrder?order_id=' + e.target.dataset.id });
         if (res.code == 500) {
             console.log(res)
+            wx.showToast({
+                title: res.msg,
+                icon: 'error',
+                duration: 1500
+            });
         }
         else {
+            this.data.QueryParams.page=1;
+            this.setData({
+                QueryParams:this.data.QueryParams
+            })
             this.getOrder(this.data.showItemIndex)
+            wx.showToast({
+                title: '确认成功！',
+                icon: 'success',
+                duration: 1500
+            });
         }
-        console.log(res);
     },
     openchatroom(e) {
         // console.log(e.currentTarget.dataset.openid)

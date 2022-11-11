@@ -2,11 +2,9 @@ package com.example.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.example.entity.Attention;
-import com.example.entity.PayItem;
-import com.example.entity.R;
-import com.example.entity.WxUserInfo;
+import com.example.entity.*;
 import com.example.service.AttentionService;
+import com.example.service.IProductService;
 import com.example.service.IWxUserInfoService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +27,9 @@ public class AttentionController {
     @Resource
     AttentionService attentionService;
 
+    @Resource
+    IProductService iproductService;
+
 
     @RequestMapping("/list")
     public R list(HttpServletRequest request){
@@ -39,10 +40,18 @@ public class AttentionController {
                         .eq("user_id",openId)
         );
         List<WxUserInfo> userInfoList = new ArrayList<>();
-        for(Attention attention : attentionList){
+        for(Attention attention : attentionList) {
             WxUserInfo userInfo = wxUserInfoService.findByOpenId(attention.getOpposite_id());
+            Product product=iproductService.getOne(
+                    new QueryWrapper<Product>()
+                            .eq("openId",userInfo.getOpenid())
+            );
+            Product newProduct=new Product();
+            newProduct.setId(product.getId());
+            userInfo.setDetail(newProduct);
             userInfoList.add(userInfo);
         }
+
         Map<String,Object> map=new HashMap<>();
         map.put("userInfoList",userInfoList);
         return R.ok(map);
@@ -62,10 +71,17 @@ public class AttentionController {
     @RequestMapping("/add")
     public R add(HttpServletRequest request,@RequestParam("opposite_id") String opposite_id){
         String openId = (String) request.getSession().getAttribute("openId");
-        Attention attention =new Attention();
-        attention.setUser_id(openId);
-        attention.setOpposite_id(opposite_id);
-        attentionService.save(attention);
+        int isExist=attentionService.count(
+                new QueryWrapper<Attention>()
+                        .eq("user_id",openId)
+                        .eq("opposite_id",opposite_id)
+        );
+        if(isExist==0){
+            Attention attention =new Attention();
+            attention.setUser_id(openId);
+            attention.setOpposite_id(opposite_id);
+            attentionService.save(attention);
+        }
         Map<String,Object> map=new HashMap<>();
         return R.ok(map);
     }

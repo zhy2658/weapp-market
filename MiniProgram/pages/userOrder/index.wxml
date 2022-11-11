@@ -100,8 +100,9 @@
                     <view class="total medium_font">总花费：{{order.totalPrice}}米粒</view>
                 </view>
                 <view>创建时间: {{order.createDate}}</view>
+                <view wx:if="{{order.remark}}">备注: {{order.remark}}</view>
                 <view class="order_row4"> 
-                    <button class="cu-btn bg-red shadow" style="width: 230rpx !important;">  取消订单 <text class='cuIcon-exit text-white btn_icon '></text></button>
+                    <button class="cu-btn bg-red shadow" bindtap="cancelOrder" data-id="{{order.id}}" style="width: 230rpx !important;">  取消订单 <text class='cuIcon-exit text-white btn_icon '></text></button>
                     <!-- <button class="cu-btn bg-blue shadow" >  确定 <text class='cuIcon-check text-white btn_icon '></text></button>
                     <button class="cu-btn bg-blue shadow" >  联系 <text class='cuIcon-commentfill text-white btn_icon '></text></button> -->
                 </view> 
@@ -165,6 +166,7 @@
                     <text class="margin-left">{{order.goods[0].finishedPersent*100}}%</text>
                 </view>
                 <view>结束时间: {{order.goods[0].serviceEnd}}</view>
+                <view wx:if="{{order.remark}}">备注: {{order.remark}}</view>
                 <view class="order_row4"> 
                     <button class="cu-btn bg-blue shadow"  bindtap="openchatroom" data-openId="{{order.wxUserInfo.openid}}">  联系 <text class='cuIcon-commentfill text-white btn_icon '></text></button>
                     <!-- <button class="cu-btn bg-blue shadow" >  确定 <text class='cuIcon-check text-white btn_icon '></text></button>-->
@@ -225,6 +227,7 @@
                 </view>
                 <!-- <view class="flex" style="margin-top: 5px;padding-top: 5px;border-top: 1px solid #efefef;"></view> -->
                 <view>结束时间: {{order.goods[0].serviceEnd}}</view>
+                <view wx:if="{{order.remark}}">备注: {{order.remark}}</view>
                 <view class="order_row4"> 
                     <!-- <button class="cu-btn bg-blue shadow"  bindtap="openchatroom" data-openId="{{order.wxUserInfo.openid}}">  联系 <text class='cuIcon-commentfill text-white btn_icon '></text></button> -->
                     <button class="cu-btn bg-blue shadow" style="width: 230rpx !important;" bindtap="confirmOrder" data-id="{{order.id}}">  确定完成 <text class='cuIcon-check text-white btn_icon '></text></button>
@@ -281,6 +284,7 @@
                 </view>
                 <!-- <view class="flex" style="margin-top: 5px;padding-top: 5px;border-top: 1px solid #efefef;"></view> -->
                 <view>结束时间: {{order.goods[0].serviceEnd}}</view>
+                <view wx:if="{{order.remark}}">备注: {{order.remark}}</view>
                 <view class="order_row4"> 
                     <view> 对此订单有疑问？</view>
                     <!-- <button class="cu-btn bg-blue shadow"  bindtap="openchatroom" data-openId="{{order.wxUserInfo.openid}}">  联系 <text class='cuIcon-commentfill text-white btn_icon '></text></button> 
@@ -296,6 +300,49 @@
     <!-- 6已经退单 -->
     <view wx:elif="{{showItemIndex == 6}}">
         已退单
+    </view>
+     <!-- 9被拒绝 -->
+     <view wx:elif="{{showItemIndex == 9}}">
+        <view class="user_row" wx:for="{{orderList}}" wx:for-item="order" wx:for-index="index" wx:key="order">
+                <view class="order_row1">
+                    <view class="iconarea"><text class='cuIcon-cartfill text-gray btn_icon '></text></view>
+                    <view class="medium_font">
+                    {{order.wxUserInfo.nickName}}
+                    <text wx:if="{{order.order_count > 1}}" style="color: #F03A53;">
+                    <!-- [第{{order.order_count}}次续单] -->
+                    </text>
+                    </view>
+                    <view class="text-green">被拒接，已退还米粒</view>
+                </view>
+                <view class="order_row2">
+                    <view style="width: 50px; margin: 0 20rpx;">
+                        <image mode="aspectFit" style="height: 50px;border-radius: 50%;background-color: #fff;border: 1px solid #565656;" src="{{tools.filePathHandler(order.goods[0].goodsPic)}}"></image>
+                    </view>
+                    <view class="order_row2_service">
+                        <view class="medium_font">{{order.goods[0].goodsName}}服务</view>
+                        <view>{{order.goods[0].itemHours}}小时</view>
+                        <view wx:if="{{order.type == 0}}">指定单</view>
+                        <view wx:else>随机单</view>
+                    </view>
+                    <view>
+                        <view class="medium_font" style="color: #343434;">{{order.goods[0].goodsPrice}}米粒</view>
+                        <view style="text-align: right;">x{{order.goods[0].goodsNumber}}</view>
+                    </view>
+                </view>
+                <view class="order_row3">
+                    <view class="total medium_font">总时长：{{order.goods[0].totalHours}} 小时</view>
+                    <view class="total medium_font">总花费：{{order.totalPrice}}米粒</view>
+                    
+                </view>
+                <!-- <view class="flex" style="margin-top: 5px;padding-top: 5px;border-top: 1px solid #efefef;"></view> -->
+                <view>创建时间: {{order.createDate}}</view>
+                <view wx:if="{{order.remark}}">备注: {{order.remark}}</view>
+                <view class="order_row4"> 
+                    <view> 对此订单有疑问？</view>
+                    <!-- <button class="cu-btn bg-blue shadow"  bindtap="openchatroom" data-openId="{{order.wxUserInfo.openid}}">  联系 <text class='cuIcon-commentfill text-white btn_icon '></text></button> 
+                    <button class="cu-btn bg-blue shadow" style="width: 230rpx !important;" bindtap="confirmOrder" data-id="{{order.id}}">  确定完成 <text class='cuIcon-check text-white btn_icon '></text></button>-->
+                </view> 
+            </view>
     </view>
 
 

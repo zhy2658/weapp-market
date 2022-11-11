@@ -23,6 +23,7 @@
             <!-- <view class="cu-tag badge">99+</view> -->
         </view>
         <view class="content">
+            <navigator url="/pages/product_detail/index?id={{userInfo.detail.id}}">
             <view class="text-grey">
                 <text class="text-cut">{{userInfo.nickName}}</text>
                 <view class="cu-tag round bg-orange sm">{{tools.employeeGrade[userInfo.employee_grade]}}店员</view>
@@ -30,6 +31,7 @@
             <view class="text-gray text-sm flex">
                 <text class="text-cut" >{{userInfo.tags}}</text>
             </view>
+            </navigator>
         </view>
         <view class="action">
             <button class="cu-btn bg-gray shadow-blur round" style="width: 100rpx;" bindtap="closeAttention" data-openid="{{userInfo.openid}}"><text class="cuIcon-favorfill" style="font-size: 40rpx; color: #F03A53;" data-openid="{{userInfo.openid}}"></text></button>

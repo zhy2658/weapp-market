@@ -1,5 +1,6 @@
 {
     "pages": [
+        "pages/sharewall/index",
         "pages/index/index",
         "pages/attention/index",
         "pages/serviceOption/index",
@@ -17,7 +18,7 @@
         "pages/order/index",
         "pages/chatroom/index",
         "pages/messageList/index",
-        "pages/sharewall/index",
+        
         "pages/testpage/index",
         "pages/userInfo/index",
         "pages/setting/index",

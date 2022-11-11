@@ -43,7 +43,8 @@ Page({
             sex: 1,
             grade: 1,
             id: 0,
-            num: 1
+            num: 1,
+            msg:""
         },
         showBlindbox: false
     },
@@ -65,6 +66,13 @@ Page({
             notice: result.notice
         })
         console.log(result)
+    },
+    bindRemark(e){
+        let blindbox= this.data.blindbox;
+        blindbox.msg=e.detail.value;
+        this.setData({
+            blindBox:blindbox
+        })
     },
     // 获取轮播图数据
     async getSwiperList() {
@@ -178,9 +186,9 @@ Page({
         const app = getApp();
         app.globalData.index = index;
 
-        wx.switchTab({
+        wx.navigateTo({
             url: '/pages/category/index'
-        })
+        });
     },
     userAudioPlay(e) {
         let index = e.target.dataset.index;
@@ -300,7 +308,8 @@ Page({
             servant_id: null,
             status: 7,  //表示请求随机单委托
             type: 1,    //表示请求随机单委托
-            random_sex: blindbox.sex
+            random_sex: blindbox.sex,
+            remark: blindbox.msg
         }
         console.log(orderParams)
         const res = await requestUtil({ url: "/my/order/payRandom0rder", method: "POST", data: orderParams });

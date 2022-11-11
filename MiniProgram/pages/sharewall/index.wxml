@@ -15,22 +15,42 @@
     <text class=" cuIcon-roundaddfill text-cyan"></text>
 </navigator> -->
 
-<scroll-view class='page' scroll-y='true' >
+<scroll-view class='page' scroll-y='true'>
 
     <!-- 列表 -->
-    <view class='CircleList' wx:for='{{DataSource}}' wx:key="item">
+    <view class='CircleList' wx:for='{{DataSource}}' wx:key="item" wx:for-index="index">
         <!-- 头像、昵称、内容 -->
         <view class='body-view'>
-            <!-- 头像 -->
-            <view class='left-view' wx:if="{{item.userInfo}}">
-                <image class='user-icon' src='{{tools.filePathHandler(item.userInfo.avatarUrl)}}'></image>
-            </view>
+
             <view class='right-view'>
+
                 <!-- 昵称 -->
-                <view class='user-name-view'>
-                    <navigator url="/pages/publish_detail/index?pid={{item.pid}}">
-                        <view class='user-name'>{{item.title}}</view>
-                    </navigator>
+                <view class='user-name-view' style="margin-bottom: 4px;">
+                    <!-- 头像 -->
+                    <view class='left-view' wx:if="{{item.userInfo}}">
+                        <image class='user-icon' style="border-radius: 50%; " src='{{tools.filePathHandler(item.userInfo.avatarUrl)}}'></image>
+                        <!-- <view style="text-align: center;margin-top: 4px;">{{item.userInfo.nickName}}</view> -->
+                    </view>
+                    <view class="user-name-view-row2">
+                        <!-- <navigator url="/pages/product_detail/index?id={{userInfo.detail.id}}"> -->
+                        <navigator url="/pages/publish_detail/index?pid={{item.pid}}">
+                            <view class='user-name' style="font-size:30rpx">
+                                {{item.userInfo.nickName}}
+                                <view class="cu-tag round bg-orange sm">{{tools.employeeGrade[item.userInfo.employee_grade]}}店员</view>
+                            </view>
+                        </navigator>
+                        <view style="height: 20px;"><label style="color:#999">6天前</label></view>
+                    </view>
+                    <view class="action">
+                        <button wx:if="{{item.attention}}" class="cu-btn bg-gray shadow-blur round action_btn" style="width: 100rpx; background-color: #fff" bindtap="removeAttention" data-openid="{{item.userInfo.openid}}" data-index="{{index}}" data-pid="{{item.pid}}">
+                            <text class="cuIcon-friendadd" style="font-size: 40rpx; color: gray; " data-openid="{{item.userInfo.openid}}" data-index="{{index}}" data-pid="{{item.pid}}"></text>
+                            <text style="font-size: 30rpx;" data-openid="{{item.userInfo.openid}}" data-index="{{index}}" data-pid="{{item.pid}}">已关注</text>
+                        </button>
+                        <button wx:else class="cu-btn bg-gray shadow-blur round" style="width: 100rpx; background-color: #F03A53;" bindtap="addAttention" data-openid="{{item.userInfo.openid}}" data-index="{{index}}" data-pid="{{item.pid}}">
+                            <text class="cuIcon-friendadd" style="font-size: 40rpx; color: #fff; " data-openid="{{item.userInfo.openid}}" data-index="{{index}}" data-pid="{{item.pid}}"></text>
+                        </button>
+                    </view>
+
                 </view>
                 <!-- 内容 -->
                 <view class='user-content-view'>
@@ -41,14 +61,27 @@
                 <!-- 图片 -->
                 <view class='photo-view' style="display: block;">
 
-                    <image class='photo' mode="widthFix" bindtap='LookPhoto' wx:for='{{item.imgList}}' data-list="{{item.imgList}}" wx:for-item="dImg" wx:key="dImg" data-photUrl='{{tools.filePathHandler(dImg.src)}}' src='{{tools.filePathHandler(dImg.src)}}' style='width:{{photoWidth}}px;height:{{photoWidth}}px'></image>
+                    <image class='photo' mode="aspectFill" bindtap='LookPhoto' wx:for='{{item.imgList}}' data-list="{{item.imgList}}" wx:for-item="dImg" wx:key="dImg" data-photUrl='{{tools.filePathHandler(dImg.src)}}' src='{{tools.filePathHandler(dImg.src)}}' style='border-radius: 4px 4px;'></image>
 
                 </view>
                 <!-- 地理位置 -->
                 <view wx:if="{{item.address}}" class='user-address-view'>
                     <label>{{item.address}}</label>
                 </view>
-                <view style="height: 20px;"><label style="color:#999">{{item.pubtime}}</label></view>
+                <view class="user-operation">
+                    <view class="user-operation-zan">
+                        <button class="user-operation-zan" open-type="share" data-pid="{{item.pid}}" data-index="{{index}}">
+                            <text class="cuIcon-forward"></text>
+                            <text>转发</text>
+                        </button>
+                    </view>
+                    <view class="user-operation-zan">
+                        <text wx:if="{{item.flagLike==true}}" class="cuIcon-likefill active" bindtap='changeLike' data-pid="{{item.pid}}"></text>
+                        <text wx:else class="cuIcon-like" bindtap='changeLike' data-pid="{{item.pid}}"></text>
+                        <text style="color: #676767;">{{item.LikeCount}}</text>
+                    </view>
+                </view>
+
                 <!-- 时间、删除按钮、点赞评论按钮 -->
                 <!-- <view class='TDD-view'>
           
@@ -57,68 +90,64 @@
         </view> -->
 
                 <!-- 点赞 -->
-                <view class='zan-view'>
+                <!-- <view class='zan-view'>
                     <view class='trigon-view' style="display: flex; align-items: center;">
                         <view style="flex:1">
                             <image wx:if="{{item.flagLike==true}}" mode='aspectFill' style="height: 20px;" class='trigon' src='/icons/likefill.png' bindtap='changeLike' data-pid="{{item.pid}}"></image>
                             <image wx:else mode='aspectFill' style="height: 20px;" class='trigon' src='/icons/_like.png' bindtap='changeLike' data-pid="{{item.pid}}"></image>
                         </view>
-                        <view style="flex:1;line-height: 20px;color: royalblue;" data-name="{{item.pid}}" bindtap="openCommentDialog"> 
-                        <!-- 回复  -->
+                        <view style="flex:1;line-height: 20px;color: royalblue;" data-name="{{item.pid}}" bindtap="openCommentDialog">7
                         </view>
-                        <navigator url="/pages/conplain/index" style="line-height: 20px;color: darkred;width: 60rpx;margin-right: 50rpx;">
-                            <!-- 举报 -->
-                        </navigator>
-                        <!-- <view > <button style="width: 180rpx;color: darkred;background-color: #fff; font-size: 0.7rem;margin-right: 50rpx;" open-type="feedback" class="feedback"></button></view> -->
+                        <navigator url="/pages/conplain/index" style="line-height: 20px;color: darkred;width: 60rpx;margin-right: 50rpx;">7
+                        </navigator>7
 
                     </view>
-
-                    <!-- 点赞 -->
+\
                     <view class='zan-bg-view' style="margin-top: 10px;">
                         <view class='zan-user-view' wx:if="{{item.likeList.length>0}}"> <text class="cuIcon-like" style="font-size: 1rem;;"></text></view>
                         <view class='zan-user-view like_area' wx:for='{{item.likeList}}' wx:key="likeObj" wx:for-item="likeObj" wx:for-index="index">
                             <label bindtap='TouchZanUser' data-name='{{likeObj.id}}' style="font-size: 30rpx;">{{likeObj.nickName}}</label>
-                            <!-- <text wx:if="{{index+1 < 5}}">,</text>
-                            <text wx:else>...</text> -->
+                         <text wx:if="{{index+1 < 5}}">,</text>
+                            <text wx:else>...</text> 
                         </view>
-                        
+
                         <view wx:if="{{item.LikeUnEnd}}" style="float: left;margin: 0px 20rpx;color: #232323;">等{{item.LikeCount}}人觉得很赞</view>
                     </view>
                     <view class='line'></view>
-                    <!-- 评论 -->
-                    <!-- <view class='discuss-view' style="padding-top: 10px;">
+               
+                    <view class='discuss-view' style="padding-top: 10px;">
                         <view class='discuss' wx:for='{{item.replyList}}' wx:key="replyObj" wx:for-item="replyObj" style="margin-top: 2px;">
                             <label bindtap='TouchZanUser' data-name='{{replyObj.nickName}}' class='discuss-user' style="font-size: 30rpx;">{{replyObj.nickName}}：</label>
                             <label class='content' style="color: #454545;font-size: 30rpx;">{{replyObj.msg}}</label>
                         </view>
                         <view wx:if="{{item.replyUnEnd}}" style="float: left;;width: 100%;margin-left: 7rpx;">已折叠{{item.replyCount-4}}条回复</view>
-                    </view> -->
-                </view>
+                    </view> 
+                </view> -->
             </view>
 
         </view>
     </view>
-    <view wx:if="{{isBottom}}" style="font-size: 1rem;display: flex;justify-content: center; align-items: center;height: 10vh; color: #454545;">已经到底了！！！</view>
+    <view wx:if="{{isBottom}}" style="font-size: 1rem;display: flex;justify-content: center; align-items: center;height: 10vh; color: #454545;">没有了哦</view>
 
 </scroll-view>
 
 <view wx:if="{{showCommentDialog}}" class="bottom_section" style="position:fixed ;bottom:0vh;background-color: #fff;width: 750rpx;border: 1px solid #efefef;">
-        <form bindsubmit='loginForm'>
-            <view class="page-section">
+    <form bindsubmit='loginForm'>
+        <view class="page-section">
 
-                <view class="weui-cells weui-cells_after-title">
-                    <view class="weui-cell weui-cell_input">
-                        <input class="weui-input" name="msg" value="{{msgvalue}}" placeholder="请输入" bindinput='getInputValue' style="height: 10vh;" />
-                    </view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_input">
+                    <input class="weui-input" name="msg" value="{{msgvalue}}" placeholder="请输入" bindinput='getInputValue' style="height: 10vh;" />
                 </view>
             </view>
+        </view>
 
-            <view class="bottom_btn" style="display: flex;">
-                <button type="primary" formType="submit">发送</button>
-                <button type="warn" bindtap="closeCommentDialog">取消</button>
-            </view>
+        <view class="bottom_btn" style="display: flex;">
+            <button type="primary" formType="submit">发送</button>
+            <button type="warn" bindtap="closeCommentDialog">取消</button>
+        </view>
 
-        </form>
+    </form>
 
 
 </view>

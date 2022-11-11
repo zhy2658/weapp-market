@@ -31,7 +31,7 @@ Page({
         // 《----------------以上是需要提交内容
 
 
-
+        remark:"",
         // address: {},
         payitemList: [],
 
@@ -75,6 +75,11 @@ Page({
     changeTel(e) {
         this.setData({
             telNumber: e.detail.value
+        })
+    },
+    changeRemark(e) {
+        this.setData({
+            remark: e.detail.value
         })
     },
     changeWXId(e) {
@@ -199,6 +204,7 @@ Page({
             //   const address=this.data.address.provinceName+this.data.address.cityName+this.data.address.countyName+this.data.address.detailInfo; // 请求体 收货地址
             const consignee = this.data.consignee; // 请求体 收货人
             const telNumber = this.data.telNumber; // 请求体 联系电话
+            const remark = this.data.remark; // 请求体 联系电话
             const pm_id = this.data.currentPayItemId;   //项目id
             const servant_id = this.data.servant_id;
             let goods = this.data.cart;
@@ -217,6 +223,7 @@ Page({
                 // address,
                 consignee,
                 telNumber,
+                remark,
                 goods,
                 pm_id,
                 servant_id

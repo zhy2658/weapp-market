@@ -45,6 +45,7 @@
 
 
 <view class="cu-bar bg-white solid-bottom margin-top" style="margin-top:30px">
+
         <!-- <view class="action">
             <text class="cuIcon-title text-orange "></text> 我们需要一些必要的信息
         </view> -->
@@ -52,6 +53,18 @@
             <button class="cu-btn bg-green shadow" bindtap="showModal" data-target="menuModal">设置</button>
         </view> -->
     </view>
+    <view class="cu-form-group margin-top">
+		 <view class="title">备注</view>
+		<input type="text" placeholder="备注" bindinput="changeRemark"  name='remark' style="border-bottom: 1px solid #efefef;"  />
+        <!-- <view class="cu-capsule radius">
+			<view class="cu-tag bg-blue">
+				+86
+			</view>
+			<view class="cu-tag line-blue">
+				中国大陆
+			</view>
+		</view>  -->
+	 </view>
 <!-- <view class="cu-form-group margin-top">
 		 <view class="title">电话</view>
 		<input type="text" placeholder="手机号" bindinput="changeTel"  name='tel'  />

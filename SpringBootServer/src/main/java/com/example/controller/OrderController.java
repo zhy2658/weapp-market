@@ -77,6 +77,13 @@ public class OrderController {
                 new QueryWrapper<Order>()
                         .eq("userId",openId)
                         .eq("servant_id",order.getServant_id())
+                        .and(
+                                wp -> wp.eq("status", 2)
+                                        .or()
+                                        .eq("status", 3)
+                                        .or()
+                                        .eq("status", 4)
+                        )
         );
         System.out.println(orderCount);
         order.setOrder_count(orderCount+1);
@@ -239,6 +246,13 @@ public class OrderController {
                 new QueryWrapper<Order>()
                         .eq("userId",openId)
                         .eq("servant_id",order.getServant_id())
+                        .and(
+                                wp -> wp.eq("status", 2)
+                                        .or()
+                                        .eq("status", 3)
+                                        .or()
+                                        .eq("status", 4)
+                        )
         );
         System.out.println(orderCount);
         order.setOrder_count(orderCount+1);
@@ -442,7 +456,7 @@ public class OrderController {
             );
             OrderDetail[] orderDetails = new OrderDetail[1];
             OrderDetail orderDetail = orderDetailList.get(0);
-            if(order.getStatus() != 1){
+            if( orderDetail.getServiceEnd() != null){
                 Date startDate = orderDetail.getServiceStart();
                 Date endDate = orderDetail.getServiceEnd();
 //            System.out.println("date================"+orderDetail.getServiceStart());
@@ -490,6 +504,27 @@ public class OrderController {
         }
         order.setStatus(4);
         orderService.updateById(order);
+        return R.ok();
+    }
+    //    取消订单
+    @RequestMapping("/cancelOrder")
+    public R cancelOrder(HttpServletRequest request,@RequestParam("order_id") int order_id){
+        String openId= (String) request.getSession().getAttribute("openId");
+        Order order = orderService.getById(order_id);
+        if( order.getUserId().equals(openId)==false || order.getStatus() != 1){
+            return R.error("只能取消未接单的订单哦！");
+        }
+        order.setStatus(8);
+        orderService.updateById(order);
+//        退还米粒
+        WxUserInfo userInfo = iWxUserInfoService.findByOpenId(openId);
+        float totalOrder=order.getTotalPrice().floatValue();
+        totalOrder = totalOrder * 0.95f;
+//        退还金额
+        float coinTotal= userInfo.getCoin() + totalOrder;
+        userInfo.setCoin(coinTotal);
+        iWxUserInfoService.updateById(userInfo);
+
         return R.ok();
     }
 }

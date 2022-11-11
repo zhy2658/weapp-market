@@ -205,6 +205,9 @@
                
                 <!-- <input type="text" placeholder="1" value="1" /> -->
             </view>
+            <view>
+                <input type="number" value="{{blindbox.msg}}" bindinput='bindRemark'  placeholder="备注" style="border-bottom:1px solid #efefef;" />
+            </view>
             <view class="price">
                 <view>{{coinNum}}米粒</view>
             </view>

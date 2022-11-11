@@ -16,10 +16,11 @@ Page({
      */
     data: {
         DataSource: [],
+        attentionList:[],
 
         showCommentDialog: false,
         currentReplayPid: -1,
-        photoWidth: wx.getSystemInfoSync().windowWidth / 5,
+        photoWidth: wx.getSystemInfoSync().windowWidth / 4,
 
         popTop: 0, //弹出点赞评论框的位置
         popWidth: 0, //弹出框宽度
@@ -35,8 +36,16 @@ Page({
         that = this;
         const BaseUrl = getBaseUrl();
         this.setData({ BaseUrl })
-
         this.getRandom();
+    },
+    async getAttentionList(){
+        const result = await requestUtil({ url: "/attention/list"});
+        if(result.code == 0){
+            this.setData({
+                attentionList:result.userInfoList
+            })
+            this.checkAttention();
+        }
     },
     async loginForm(data) {
         if (data.detail.value.msg.trim() == "" && this.data.currentReplayPid) return;
@@ -62,6 +71,26 @@ Page({
             }
         });
         let changedPublish = result3.publish;
+         // 点赞过多删掉
+         changedPublish.LikeCount = changedPublish.likeList.length;
+         // if (obj.likeList.length > 5) {
+         //     obj.LikeCount = obj.likeList.length;
+         //     obj.LikeUnEnd = true;
+         //     obj.likeList.length = 5;
+         // }
+         // 回复过多删掉
+         if (changedPublish.replyList.length > 4) {
+            changedPublish.replyCount = changedPublish.replyList.length;
+            changedPublish.replyUnEnd = true;
+            changedPublish.replyList.length = 4;
+         }
+         //多余内容删掉
+         if (changedPublish.content.length > 70) {
+            changedPublish.content =changedPublish.content.substr(0, 70);
+            changedPublish.content = changedPublish.content + "..."
+         }
+
+         changedPublish.flagLike = false;
         let userInfo = wx.getStorageSync('userInfo');
         for (let like of changedPublish.likeList) {
             if (like.openId == userInfo.openid) {
@@ -77,7 +106,27 @@ Page({
         }
         this.setData({
             DataSource
+        });
+        this.getAttentionList();
+    },
+    checkAttention(){
+        let attentionList=this.data.attentionList;
+        let DataSource=this.data.DataSource;
+        console.log(attentionList)
+        for(let publish of DataSource){
+            publish.attention=false;
+            for(let attention of attentionList){
+                if(publish.userInfo.openid == attention.openid){
+                    publish.attention=true;
+                    break
+                }
+            }     
+        }
+        console.log(DataSource)
+        this.setData({
+            DataSource: DataSource
         })
+       
     },
     async changeLike(e) {
         console.log(e.currentTarget.dataset.name)
@@ -87,6 +136,7 @@ Page({
                 pid: e.currentTarget.dataset.pid
             }
         });
+        
         this.updateOne(e.currentTarget.dataset.pid);
     },
     openCommentDialog(e) {
@@ -96,10 +146,42 @@ Page({
             showCommentDialog: true
         });
     },
+    share(e){
+        // console.log(e.target.dataset.pid)
+    },
+    onShareAppMessage(e){
+        console.log("share")
+        let pid=e.target.dataset.pid;
+        let index=e.target.dataset.index;
+        console.log(pid)
+        return {
+            title: this.data.DataSource[index].title,
+            desc: this.data.DataSource[index].title.content,
+            path: '/pages/publish_detail/index?pid='+pid
+        }
+    },
+    async addAttention(e){
+        let opposite_id = e.target.dataset.openid;
+        let index = e.target.dataset.index;
+        let pid = e.target.dataset.pid;
+        console.log(index,opposite_id)
+        const result2 = await requestUtil({url: "attention/add?opposite_id="+opposite_id },);
+        console.log("pid",pid)
+        this.updateOne(pid)
+    },
+    async removeAttention(e){
+        let opposite_id = e.target.dataset.openid;
+        let index = e.target.dataset.index;
+        let pid = e.target.dataset.pid;
+        const result2 = await requestUtil({url: "attention/remove?opposite_id="+opposite_id },);
+        this.updateOne(pid)
+
+    },
     closeCommentDialog() {
         this.setData({
             showCommentDialog: false
         });
+        
     },
 
     async getRandom(operation) {
@@ -126,11 +208,12 @@ Page({
 
             // ========
             // 点赞过多删掉
-            if (obj.likeList.length > 5) {
-                obj.LikeCount = obj.likeList.length;
-                obj.LikeUnEnd = true;
-                obj.likeList.length = 5;
-            }
+            obj.LikeCount = obj.likeList.length;
+            // if (obj.likeList.length > 5) {
+            //     obj.LikeCount = obj.likeList.length;
+            //     obj.LikeUnEnd = true;
+            //     obj.likeList.length = 5;
+            // }
             // 回复过多删掉
             if (obj.replyList.length > 4) {
                 obj.replyCount = obj.replyList.length;
@@ -158,9 +241,11 @@ Page({
         else{
             DataSource=result2.publishs;
         }
+        
         this.setData({
             DataSource
-        })
+        });
+        this.getAttentionList()
     },
     // 点击图片进行大图查看
     LookPhoto: function (e) {

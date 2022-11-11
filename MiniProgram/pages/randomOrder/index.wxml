@@ -52,6 +52,7 @@
                     <view class="total medium_font">总花费：{{order.totalPrice}}米粒</view>
                 </view>
                 <view>创建时间: {{order.createDate}}</view>
+                <view wx:if="{{order.remark}}">备注: {{order.remark}}</view>
                 <view class="order_row4">
                     <view wx:if="{{order.available}}" style="color: #F03A53;font-size: 36rpx;">[可接]</view>
                     <button class="cu-btn bg-blue shadow" bindtap="employTakeOrderByRandom" data-id="{{order.id}}" disabled="{{!order.available}}"> 接单 <text class='cuIcon-check text-white btn_icon ' ></text></button>
