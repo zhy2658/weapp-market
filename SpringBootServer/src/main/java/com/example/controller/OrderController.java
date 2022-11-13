@@ -503,6 +503,7 @@ public class OrderController {
             return R.error("当前还不能确认完成服务");
         }
         order.setStatus(4);
+        order.setFinishDate(new Date());
         orderService.updateById(order);
         return R.ok();
     }

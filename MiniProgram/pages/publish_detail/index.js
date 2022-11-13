@@ -1,5 +1,6 @@
 // pages/publish_detail/index.js
 import { getBaseUrl, requestUtil } from "../../utils/requestUtil.js";
+import { getDateDiff } from "../../utils/tools.js";
 
 Page({
 
@@ -40,6 +41,8 @@ Page({
                 publishObj.flagLike = false;
             }
         }
+        publishObj.LikeCount = publishObj.likeList.length;
+        publishObj.dateDiff=getDateDiff(publishObj.pubtime)
         console.log( publishObj)
         // let DataSource = this.data.DataSource;
         // for (let key in DataSource) {
@@ -80,6 +83,16 @@ Page({
             }
         });
         this.getOne(e.currentTarget.dataset.pid);
+    },
+    onShareAppMessage(e){
+        console.log("share")
+        let pid=this.data.publishObj.pid;
+        console.log(this.data.publishObj)
+        return {
+            title: this.data.publishObj.title,
+            desc: this.data.publishObj.content,
+            path: '/pages/publish_detail/index?pid='+pid
+        }
     },
 
     /**

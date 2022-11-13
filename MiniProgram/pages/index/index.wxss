@@ -59,8 +59,6 @@ page {
   margin-bottom: 5px;
   width: 700rpx;
   text-align: center;
-  border-bottom: 1px solid #ccc;
-  box-shadow: 2px 2px 4px #ccc;
   padding: 20rpx 20rpx;
   border-radius: 5px 5px;
 }
@@ -327,4 +325,21 @@ page {
 /*普通样式*/
 .stepper .normal {
   color: black;
+}
+.float_btn {
+  position: fixed;
+  width: 120rpx;
+  height: 120rpx;
+  bottom: 50vh;
+  right: 40rpx;
+  border-radius: 50%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--themeColor);
+}
+.float_btn > text {
+  font-size: 70rpx;
+  color: #fff;
 }

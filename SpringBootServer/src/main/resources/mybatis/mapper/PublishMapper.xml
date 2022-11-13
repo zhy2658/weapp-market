@@ -52,8 +52,13 @@
 <!--    getAllPublishByStatus-->
     <select id="getAllPublishByStatus"  resultMap="PublishResult">
         select * from t_publish
+
         <where>
+            <if test="query!=null and query!='' ">
+                title like concat('%',#{query},'%') and
+            </if>
             status = #{status}
+
         </where>
         ORDER BY pubtime DESC
         <if test="start!=null and pageSize!=null">

@@ -15,7 +15,7 @@
         <image wx:if="{{publishObj.userInfo.avatarUrl}}" class='avatar' mode="widthFix" src='{{tools.filePathHandler(publishObj.userInfo.avatarUrl)}}'></image>
         <text class='author'>{{publishObj.userInfo.nickName}}</text>
         <text class='const-text'>发表于</text>
-        <text class='date'>{{publishObj.pubtime}}</text>
+        <text class='date'>{{publishObj.dateDiff}}</text>
     </view>
     <text class='title'>{{publishObj.title}}</text>
     <view class='tool'>
@@ -56,37 +56,48 @@
 
     </view> -->
 
+    <view class="user-operation">
+        <view class="user-operation-zan">
+            <button class="user-operation-zan" open-type="share" data-pid="{{publishObj.pid}}">
+                <text class="cuIcon-forward"></text>
+                <text>转发</text>
+            </button>
+        </view>
+        <view class="user-operation-zan">
+            <text wx:if="{{publishObj.flagLike==true}}" class="cuIcon-likefill active" bindtap='changeLike'  data-pid="{{publishObj.pid}}"></text>
+            <text wx:else class="cuIcon-like" bindtap='changeLike' data-pid="{{publishObj.pid}}"></text>
+            <text style="color: #676767;">{{publishObj.LikeCount}}</text>
+        </view>
+    </view>
     <view class='zan-view'>
-        <view class='trigon-view' style="display: flex;align-items: center;">
+        <!-- <view class='trigon-view' style="display: flex;align-items: center;">
             <view style="flex:1">
                 <image wx:if="{{publishObj.flagLike==true}}" mode='aspectFill' style="height: 20px;" class='trigon' src='/icons/likefill.png' bindtap='changeLike' data-pid="{{publishObj.pid}}"></image>
                 <image wx:else mode='aspectFill' style="height: 20px;" class='trigon' src='/icons/_like.png' bindtap='changeLike' data-pid="{{publishObj.pid}}"></image>
             </view>
-            <view style="flex:1;line-height: 20px;color: royalblue;" data-name="{{publishObj.pid}}" bindtap="openCommentDialog">
-             <!-- 回复 -->
+            <view style="flex:1;line-height: 20px;color: royalblue;" data-name="{{publishObj.pid}}" bindtap="openCommentDialog">\
              </view>
             <navigator url="/pages/conplain/index" style="line-height: 20px;color: darkred;width: 60rpx;margin-right: 50rpx;">
-            <!-- 举报 -->
-                <!-- <view > <button style="width: 180rpx;color: darkred;background-color: #fff; font-size: 0.7rem;margin-right: 50rpx;" open-type="feedback" class="feedback">举报</button></view> -->
+       
             </navigator>
 
-        </view>
+        </view> -->
 
         <!-- 点赞 -->
-        <view class='zan-bg-view' style="margin-top: 10px;">
+        <!-- <view class='zan-bg-view' style="margin-top: 10px;">
             <view class='zan-user-view like_area' wx:for='{{publishObj.likeList}}' wx:key="likeObj" wx:for-item="likeObj" wx:for-index="index">
                 <label bindtap='TouchZanUser' data-name='{{likeObj.id}}' style="font-size: 30rpx;">{{likeObj.nickName}} </label>
             </view>
         </view>
-        <view class='line'></view>
+        <view class='line'></view> -->
 
     </view>
 
     <!-- 评论  是  下面 -->
-   <view>
+    <view>
         <view class="result">{{item.result}}</view>
     </view>
-     <!-- <view style="text-align:center;font-size:14px;color:#ccc;margin-top:20px;">以下是留言内容</view>
+    <!-- <view style="text-align:center;font-size:14px;color:#ccc;margin-top:20px;">以下是留言内容</view>
     <view class="liuyanview" wx:for="{{publishObj.replyList}}" wx:key="reply" wx:for-item="replyObj" wx:for-index="index">
         <view class="headimg">
             <image src="{{tools.filePathHandler(replyObj.avatarUrl)}}"></image>

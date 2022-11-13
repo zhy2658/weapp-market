@@ -45,6 +45,8 @@ var formatDate =  function(date){
 	return newTime;			
 };
 
+
+
 var countLength =  function(arr){
     if(!arr.length)return 0
     return arr.length;

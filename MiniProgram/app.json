@@ -1,7 +1,8 @@
 {
     "pages": [
-        "pages/sharewall/index",
         "pages/index/index",
+        "pages/sharewall/index",
+        
         "pages/attention/index",
         "pages/serviceOption/index",
         "pages/randomOrder/index",

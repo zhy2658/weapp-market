@@ -1,5 +1,6 @@
 package com.example.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.models.auth.In;
 import lombok.Data;
 
@@ -16,10 +17,24 @@ public class PageBean {
 
     private int pageNum; // 第几页
     private int pageSize; // 每页记录数
+
     private int start;  // 起始页
     private String query; // 查询参数
 
+
+    private static final long serialVersionUID = 2L;
+
+    @ApiModelProperty(value = "查询开始时间", example = "2019-01-01 10:10:10")
+    private String begin;//注意，这里使用的是String类型，前端传过来的数据无需进行类型转换
+
+
+    @ApiModelProperty(value = "查询结束时间", example = "2019-12-01 10:10:10")
+    private String end;
+
+
     private Integer status;  //状态
+
+
 
     public PageBean() {
     }

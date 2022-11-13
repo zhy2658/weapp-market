@@ -2,7 +2,7 @@
   <el-card>
     <el-row :gutter="20" class="header">
       <el-col :span="7">
-        <el-input placeholder="请输入PID" clearable v-model="queryForm.query"></el-input>
+        <el-input placeholder="请输入标题" clearable v-model="queryForm.query"></el-input>
       </el-col>
       <el-button type="primary" :icon="Search" @click="initOrderList">搜索</el-button>
     </el-row>
@@ -19,13 +19,13 @@
     <br>
     <div>当前显示: <span style="color:darkcyan;">{{statusOption[status]}}的帖子</span></div><br>
 
-    <el-table :data="tableData" stripe style="width: 100%">
+    <el-table :data="tableData" stripe style="width: 100%" > 
 
       <el-table-column prop="pid" label="#PID" width="70" fixed/>
 
       <el-table-column prop="title" label="标题" width="150" />
 
-      <el-table-column prop="content" label="内容" width="300" />
+      <el-table-column prop="content" label="内容" width="300" show-overflow-tooltip="true" />
 
       <el-table-column prop="userInfo.address" label="地址" width="100" />
 

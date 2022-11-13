@@ -39,7 +39,7 @@
                                 <view class="cu-tag round bg-orange sm">{{tools.employeeGrade[item.userInfo.employee_grade]}}店员</view>
                             </view>
                         </navigator>
-                        <view style="height: 20px;"><label style="color:#999">6天前</label></view>
+                        <view style="height: 20px;"><label style="color:#999">{{item.dateDiff}}</label></view>
                     </view>
                     <view class="action">
                         <button wx:if="{{item.attention}}" class="cu-btn bg-gray shadow-blur round action_btn" style="width: 100rpx; background-color: #fff" bindtap="removeAttention" data-openid="{{item.userInfo.openid}}" data-index="{{index}}" data-pid="{{item.pid}}">

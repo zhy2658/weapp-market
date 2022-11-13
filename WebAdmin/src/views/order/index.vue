@@ -28,13 +28,13 @@
 
       <!-- <el-table-column prop="address" label="收货地址" width="400" /> -->
 
-      <el-table-column prop="action" label="操作" width="300" fixed="right">
+      <el-table-column prop="action" label="操作" width="100" fixed="right">
         <template v-slot="scope">
           <el-button type="success"  @click="handleDialogValue(scope.row)">详情</el-button>
           <!-- <el-button type="primary" @click="handleOrderStatus(scope.row.id,2)">发货</el-button> 
           <el-button type="primary" @click="handleOrderStatus(scope.row.id,3)">退款</el-button>-->
-          <el-button type="danger" >退款</el-button>
-          <el-button type="danger" :icon="Delete" @click="handleDelete(scope.row.id)"></el-button>
+          <!-- <el-button type="danger" >退款</el-button> -->
+          <!-- <el-button type="danger" :icon="Delete" @click="handleDelete(scope.row.id)"></el-button> -->
         </template>
 
       </el-table-column>

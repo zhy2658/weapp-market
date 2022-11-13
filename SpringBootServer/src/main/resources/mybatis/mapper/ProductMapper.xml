@@ -22,7 +22,7 @@
         select * from t_product
         <where>
             <if test="name!=null and name!='' ">
-                and name like concat('%',#{name},'%')
+                and nickName like concat('%',#{name},'%')
             </if>
         </where>
         <if test="start!=null and pageSize!=null">

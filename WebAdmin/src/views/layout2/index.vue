@@ -7,7 +7,7 @@
           <div class="navbar">
             <Breadcrumb/>
             <div class="navbar-right">
-              <h1 v-if="userInfo.password == null" style="color:red;font-size: 25px;" >您当前未设置密码，请尽快设置</h1>
+              <h1 v-if="userInfo.password == '11111111'" style="color:red;font-size: 25px;" >您当前为初始密码，请尽快修改密码</h1>
               <Avatar/>
             </div>
           </div>

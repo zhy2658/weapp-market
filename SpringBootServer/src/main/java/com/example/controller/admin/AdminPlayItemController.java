@@ -1,14 +1,8 @@
 package com.example.controller.admin;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.example.entity.Notice;
-import com.example.entity.OrderDetail;
-import com.example.entity.PayItem;
-import com.example.entity.R;
-import com.example.service.IProductService;
-import com.example.service.IProductSwiperImageService;
-import com.example.service.IWxUserInfoService;
-import com.example.service.PayItemService;
+import com.example.entity.*;
+import com.example.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +26,9 @@ public class AdminPlayItemController {
 
     @Resource
     private PayItemService payItemService;
+
+    @Resource
+    ExtraPayitemService extraPayitemService;
 
     @RequestMapping("/getByGrade")
     public R getByGrade(@RequestParam("grade") Integer grade){
@@ -61,7 +58,12 @@ public class AdminPlayItemController {
     @GetMapping("/delete/{id}")
     public R delete(@PathVariable(value = "id") Integer id){
         // 删除订单细表的数据
+        extraPayitemService.remove(
+                new QueryWrapper<ExtraPayitem>()
+                        .eq("payitem_id",id)
+        );
         payItemService.removeById(id);
+
         return R.ok();
     }
 }

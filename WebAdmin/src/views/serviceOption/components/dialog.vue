@@ -4,15 +4,25 @@
       <el-form-item label="项目名" prop="itemName">
         <el-input v-model="form.itemName"></el-input>
       </el-form-item>
-      <el-form-item label="价格" prop="price">
+      <el-form-item label="价格(米粒)" prop="price">
         <el-input v-model="form.price"></el-input>
       </el-form-item>
       <el-form-item label="小时数" prop="itemHours">
         <el-input v-model="form.itemHours"></el-input>
       </el-form-item>
-      <el-form-item label="等级" prop="grade">
-        <el-input v-model="form.grade" ></el-input>
+      <el-form-item label="员工等级" prop="grade">
+        <el-input v-model="form.grade"></el-input>
       </el-form-item>
+
+      <el-form-item label="是否可选" prop="required">
+        <el-select v-model="form.required" >
+          <el-option label="必选" value="0" :key="0"></el-option>
+          <el-option label="非必选" value="1" :key="1"> </el-option>
+        </el-select>
+      </el-form-item>
+      <!-- <el-form-item label="是否必选" prop="required">
+        <el-input v-model="form.required" ></el-input>
+      </el-form-item> -->
       <!-- <el-form-item label="内容" prop="message">
         <el-input v-model="form.message" :rows="4" type="textarea" />
       </el-form-item> -->
@@ -57,12 +67,13 @@ const initFormData = async (id) => {
   }
 
 }
- 
+
 const form = ref({
   id: -1,
   price: '',
   itemName: '',
   itemHours: '',
+  required: '',
   grade: props.status
 })
 
@@ -81,7 +92,7 @@ watch(
     }
   },
   { deep: true, immediate: true }
-  
+
 )
 
 

@@ -1,5 +1,6 @@
 // pages/sharewall/index.js
 import { getBaseUrl, requestUtil } from "../../utils/requestUtil.js";
+import { getDateDiff } from "../../utils/tools.js";
 
 var app = getApp()
 var that
@@ -89,7 +90,7 @@ Page({
             changedPublish.content =changedPublish.content.substr(0, 70);
             changedPublish.content = changedPublish.content + "..."
          }
-
+         changedPublish.dateDiff = getDateDiff( obj.changedPublish)
          changedPublish.flagLike = false;
         let userInfo = wx.getStorageSync('userInfo');
         for (let like of changedPublish.likeList) {
@@ -225,7 +226,7 @@ Page({
                 obj.content = obj.content.substr(0, 70);
                 obj.content = obj.content + "..."
             }
-
+            obj.dateDiff = getDateDiff( obj.pubtime) 
             obj.flagLike = false;
             for (let like of obj.likeList) {
                 if (like.openId == userInfo.openid) {

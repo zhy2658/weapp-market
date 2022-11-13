@@ -18,7 +18,7 @@
 import {ref} from 'vue'
 import {useStore} from 'vuex'
 const store=useStore();
-const squareUrl=ref("https://qq.yh31.com/tp/zjbq/202005071006406675.gif")
+const squareUrl=ref("https://www.qingnianshiwen.cn/file/defaults/root.jpg")
 
 const logout=()=>{
   store.dispatch('logout')

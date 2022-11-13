@@ -27,7 +27,7 @@
 
       <el-table-column prop="title" label="标题" width="150" />
 
-      <el-table-column prop="content" label="内容" width="300"   />
+      <el-table-column prop="content" label="内容" width="300" show-overflow-tooltip="true"  />
 
       <el-table-column prop="userInfo.address" label="地址" width="100" />
 

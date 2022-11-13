@@ -32,6 +32,7 @@ public class AdminPublishController {
         pageMap.put("status", status);
         pageMap.put("start", pageBean.getStart());
         pageMap.put("pageSize", pageBean.getPageSize());
+        pageMap.put("query", pageBean.getQuery());
 
 
         List<Map<String, Object>> publishs = publishService.getAllPublishByStatus(pageMap);

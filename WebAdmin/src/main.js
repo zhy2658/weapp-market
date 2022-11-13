@@ -11,8 +11,10 @@ import '@/router/permission'
 
 import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
+import vue3JsonExcel  from "vue3-json-excel"; 
 
 const app=createApp(App);
 SvgIcon(app);
-app.component('QuillEditor', QuillEditor)
+app.use(vue3JsonExcel);
+app.component('QuillEditor', QuillEditor);
 app.use(store).use(router).use(ElementPlus).mount("#app");

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.StatisticsMapper">
+
+    <resultMap type="com.example.entity.Order" id="OrderResult">
+        <association property="wxUserInfo" column="userId" select="com.example.mapper.WxUserInfoMapper.findByOpenId"></association>
+    </resultMap>
+
+    <select id="getOrderDesc" parameterType="Map" resultMap="OrderResult">
+        select * from t_order
+        <where>
+            <if test="orderNo!=null and orderNo!='' ">
+                and orderNo like concat('%',#{orderNo},'%')
+            </if>
+        </where>
+        order by createDate desc
+        <if test="start!=null and pageSize!=null">
+            limit #{start},#{pageSize}
+        </if>
+
+    </select>
+
+
+
+</mapper>

@@ -54,6 +54,10 @@
       <el-icon><tickets /></el-icon>
       <span>服务选项</span>
     </el-menu-item>
+    <el-menu-item index="statistics">
+      <el-icon><tickets /></el-icon>
+      <span>统计</span>
+    </el-menu-item>
     
     <el-sub-menu index="11">
       <template #title >

@@ -59,6 +59,9 @@ public class Order {
 
    private String remark;
 
+    @JsonSerialize(using=CustomDateTimeSerializer.class)
+   private Date finishDate;
+
     @TableField(select = false,exist = false)
     private OrderDetail[] goods; // 订单商品详情
 

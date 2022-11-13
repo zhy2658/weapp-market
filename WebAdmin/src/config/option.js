@@ -41,6 +41,14 @@ export function orderStatusOption(){
     let optionArr=["未支付","等待接单","正在服务","完成服务","完成订单","请求退单","已退单"];
     return optionArr
 }
+export function payitemRequiredOption(){
+    // let option=["1级员工","2级员工","3级员工","4级员工","5级员工"];
+    let option={
+        "0": "必选",
+        "1": "非必选"
+    }
+    return option
+}
 
 // export function sexOption(){
 //     // let option=["1级员工","2级员工","3级员工","4级员工","5级员工"];

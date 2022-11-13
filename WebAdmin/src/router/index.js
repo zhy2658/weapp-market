@@ -101,6 +101,12 @@ const routes = [
           import( "../views/serviceOption"),
       },
       {
+        path: "/statistics",
+        name: "statistics",
+        component: () =>
+          import( "../views/statistics"),
+      },
+      {
         path: "/modifyPassword",
         name: "modifyPassword",
         component: () =>
