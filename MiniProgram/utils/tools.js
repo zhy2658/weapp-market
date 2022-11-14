@@ -82,13 +82,21 @@ let employeeGrade={
     "3":"镇店",
     "4":"白金",
 }
+let getRandomNum =function(range,length){
+    let arr=[];
+    for(let i=0;i<length;i++){
+       arr.push( Math.ceil(Math.random() * range));
+    }
+    return arr;
+}
 
 
 module.exports = {
     formatDate: formatDate,
     formatDateYMD: formatDateYMD,
     getTodayBeginAndEnd,
-    getDateDiff
+    getDateDiff,
+    getRandomNum
 
 };
 module.exports.msg = "some msg";

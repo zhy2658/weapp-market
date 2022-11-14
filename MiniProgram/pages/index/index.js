@@ -1,6 +1,8 @@
 // 导入request请求工具方法
 import { getBaseUrl, requestUtil } from "../../utils/requestUtil.js";
 import regeneratorRuntime from '../../lib/runtime/runtime';
+import { getRandomNum } from "../../utils/tools.js";
+const app = getApp();
 
 let that;
 Page({
@@ -32,6 +34,7 @@ Page({
             isPlayAudio: false,
             audioSrc: ''
         },
+        ColorList: app.globalData.ColorList,
         // 通知
         notice: {},
         payitemList: [],
@@ -162,7 +165,7 @@ Page({
             // bigTypeList_row2
         })
     },
-
+    
     // 获取热卖商品
     async getHotProductList() {
         const result = await requestUtil({ url: "/product/findHot" });
@@ -170,7 +173,9 @@ Page({
         for (let users of result.users) {
             users.isPlay = false;
             if (users.tags) {
+                users.tagLength = users.tags.split(",").length;
                 users.tags = users.tags.split(",");
+                users.randomArr= getRandomNum(10,10)
             }
 
         }
@@ -204,6 +209,7 @@ Page({
             }
         });
         // this.audioPlay();
+        return false;
     },
     userAudioPause(e) {
         let index = e.target.dataset.index;
@@ -217,6 +223,7 @@ Page({
             audioPlayObj: audioPlayObj
         });
         // this.audioPause();
+        return false;
     },
     // 播放器关闭时间
     audioClose() {
@@ -235,6 +242,14 @@ Page({
     },
     openNotice() {
         this.setData({ isShowNotice: true, isShowLayer: true })
+    },
+    openDetail(e){
+        if(e.target.dataset.isbtn)return;//别的按钮
+        wx.navigateTo({
+            url: '/pages/product_detail/index?id='+e.currentTarget.dataset.detail_id,
+          })
+        // console.log(e.currentTarget.dataset.detail_id)
+        
     },
     /* 点击减号 */
     bindMinus: function () {

@@ -59,6 +59,8 @@
     </view>
     <!-- 商品大类分类 结束 -->
 
+
+
     <!-- 商品热卖推荐 开始 -->
     <view class="index_hot_product">
         <view class="cu-bar bg-white solid-bottom" style="margin-top:10px;">
@@ -69,10 +71,68 @@
                 <switch class='sm' checked='{{isCard}}' bindchange='isCard'></switch>
             </view> -->
         </view>
-        <view class="list">
+        <view class="product_list">
+            <view class="product_item" wx:for="{{hotProductList}}" wx:for-item="hotProduct" wx:for-index="index" wx:key="id" bindtap="openDetail" data-detail_id="{{hotProduct.detail_id}}">
+
+                <i-card title="{{hotProduct.nickName}}" class="icard_img" thumb="{{tools.filePathHandler(hotProduct.avatarUrl)}}">
+                    <text slot="title" >
+                        <text class="nickNameArea"><text class="nickName">{{hotProduct.nickName}}</text><text wx:if="{{hotProduct.sex == 1}}" class="iconfont icon-nv" style="color:salmon ;">{{hotProduct.age}}</text><text wx:elif="{{hotProduct.sex == 2}}" class="iconfont icon-nan" style="color: steelblue;">{{hotProduct.age}}</text><text wx:elif="{{hotProduct.age>-1}}" class="iconfont icon-xingbie" style="color: #454545;font-size: 1rem;">{{hotProduct.age}}</text><text wx:else style="color: #454545;">-</text>
+                        </text>
+                    </text>
+                    <view slot="right_content" style="display: flex;justify-content: flex-end;">
+                        <view class="musicplay" data-isBtn="{{true}}">
+                            <!-- 播放按钮 -->
+                            <view wx:if="{{!hotProduct.isPlay}}" class="playbtn iconfont icon-bofang" bindtap="userAudioPlay" data-index="{{index}}" data-isBtn="{{true}}">
+                                {{hotProduct.audioTime}} "
+                            </view>
+                            <!-- 停止按钮 -->
+                            <view wx:else class="pausebtn iconfont icon-yuyin" bindtap="userAudioPause" data-index="{{index}}" data-isBtn="{{true}}">
+                                {{hotProduct.audioTime}} "
+                            </view>
+                        </view>
+                    </view>
+
+                    <view slot="decorate" >
+                        <view class="cu-tag round bg-orange sm">{{tools.employeeGrade[hotProduct.employee_grade]}}</view>
+                    </view>
+                    <view slot="content"  > {{hotProduct.description}}</view>
+                    <view slot="footer">
+                        <view class="tags_area" style="margin: 5px 0;flex: 1;">
+                            <view class=" flex flex-wrap">
+                                <!-- <view class="padding-xs" wx:for="{{ColorList}}" wx:key wx:if="{{item.name!='gray'}}">
+                                    <view class="cu-tag bg-{{item.name}}">{{item.title}}</view>
+                                </view> -->
+                                <view class="padding-xs" wx:for="{{hotProduct.tags}}" wx:for-item="tag" wx:for-index="tagindex" wx:key="tag">
+                                    <view class="cu-tag bg-{{ColorList[hotProduct.randomArr[tagindex]].name }} light">{{tag}}</view>
+                                </view>
+                            </view>
+                            <view style="display: flex; flex-direction: row;position: absolute;bottom: 15rpx; right: 0;">
+                                <view wx:if="{{hotProduct.ustatus==1}}" class="user_status" style="display: flex;justify-content: space-around;">
+                                    <view style="color: #676767;">在线</view>
+                                    <view class="sign" style="background-color: #08F074;"></view>
+                                </view>
+                                <view wx:elif="{{hotProduct.ustatus==0}}" class="user_status" style="display: flex;justify-content: space-around;">
+                                    <view style="color: #676767;">离线</view>
+                                    <view class="sign" style="background-color: #aaa;"></view>
+                                </view>
+                            </view>
+                            <!-- <view class="tags_area_item" wx:for="{{hotProduct.tags}}" wx:for-item="tag" wx:key="tag">
+                                {{tag}}
+                            </view> -->
+                        </view>
+                    </view>
+                    <!-- <navigator url="/pages/product_detail/index?id={{hotProduct.detail_id}}"></navigator> -->
+                </i-card>
+
+
+            </view>
+        </view>
+
+        <!-- <view class="list">
             <view class="product_detail padding-xl radius shadow bg-white" wx:for="{{hotProductList}}" wx:for-item="hotProduct" wx:for-index="index" wx:key="id">
                 <view style="position: relative;color: #454545;">
                     <navigator url="/pages/product_detail/index?id={{hotProduct.detail_id}}" style="display:flex;align-items: center;">
+
                         <image mode="aspectFit" style="flex: 2; height: 90px;background-color: #fff;border: 1px solid #efefef;" src="{{tools.filePathHandler(hotProduct.avatarUrl)}}"></image>
                         <view class="product_name" style="flex: 5;display: flex; flex-direction: column;">
                             <view style="flex: 1;">{{hotProduct.nickName}}</view>
@@ -90,25 +150,31 @@
                                     {{tag}}
                                 </view>
                             </view>
-
+                            <view class="ustatus" style="display: flex; flex-direction: row;position: absolute;bottom: 15rpx; right: 0;">
+                                <view wx:if="{{hotProduct.ustatus==1}}" class="user_status" style="display: flex;justify-content: space-around;">
+                                    <view style="color: #454545;">在线</view>
+                                    <view class="sign" style="background-color: #08F074;"></view>
+                                </view>
+                                <view wx:elif="{{hotProduct.ustatus==0}}" class="user_status" style="display: flex;justify-content: space-around;">
+                                    <view style="color: #454545;">离线</view>
+                                    <view class="sign" style="background-color: #aaa;"></view>
+                                </view>
+                            </view>
 
                         </view>
                         <view style="flex: 1;"> </view>
                     </navigator>
-                    <!-- <view class="product_price"  style="flex: 1;"> ¥ {{hotProduct.price}}</view> -->
                     <view class="musicplay" style="position: absolute; right: 0;top: 1px;   ">
-                        <!-- 播放按钮 -->
+                  
                         <view wx:if="{{!hotProduct.isPlay}}" class="playbtn iconfont icon-bofang" bindtap="userAudioPlay" data-index="{{index}}">
                             {{hotProduct.audioTime}} "
                         </view>
-                        <!-- 停止按钮 -->
+                  
                         <view wx:else class="pausebtn iconfont icon-yuyin" bindtap="userAudioPause" data-index="{{index}}">
                             {{hotProduct.audioTime}} "
                         </view>
                     </view>
-                    <!-- <view style="position: absolute;bottom: 15rpx; right: 0;">
-                    在线
-                    </view> -->
+            
                     <view style="display: flex; flex-direction: row;position: absolute;bottom: 15rpx; right: 0;">
                         <view wx:if="{{hotProduct.ustatus==1}}" class="user_status" style="display: flex;justify-content: space-around;">
                             <view style="color: #454545;">在线</view>
@@ -119,17 +185,17 @@
                             <view class="sign" style="background-color: #aaa;"></view>
                         </view>
                     </view>
-                    <!-- <button class="iconfont icon-biaoqianA01_zhibo-68" size="mini" style="position: absolute; right: 0;top: 1vh; color: #454545; font-size: 1.5rem;"></button> -->
+          
                 </view>
 
 
 
             </view>
-            
 
-        </view>
+
+        </view> -->
     </view>
-    
+
     <!-- 商品热卖推荐 结束 -->
 
     <!-- 通知面板 -->
@@ -160,9 +226,9 @@
     <AudioPlay audioPlayObj="{{audioPlayObj}}" bindaudioClose="audioClose" bindaudioPause="audioPause" />
     <!-- 音乐播放器 结束 -->
 
-    <view class="blindbox" wx:if="{{showBlindbox}}">  
+    <view class="blindbox" wx:if="{{showBlindbox}}">
         <view class="closebtn" bindtap="closeBlindBox" style="text-align: right;"> <text class="cuIcon-close text-red"></text></view>
-       <view wx:if="{{layer==1}}" class="layer1">
+        <view wx:if="{{layer==1}}" class="layer1">
             <view>1.想要小姐姐 Or 小哥哥呢？</view>
             <view class="sexOption">
                 <view class="male {{blindbox.sex == 2 ? 'active':''}}" bindtap="chooseSexOption" data-value="2"><text class="cuIcon-male" data-value="2"></text></view>
@@ -170,8 +236,7 @@
             </view>
             <view>2.想要什么等级的店员聊天呢？</view>
             <view class="gradeOption">
-                <view wx:for="{{tools.employeeGrade}}" wx:for-item="item" 
-                wx:for-index="index" wx:key="id" class="{{blindbox.grade==index?'active':''}}" data-value="{{index}}" bindtap="chooseGradeOption">{{item}}</view> 
+                <view wx:for="{{tools.employeeGrade}}" wx:for-item="item" wx:for-index="index" wx:key="id" class="{{blindbox.grade==index?'active':''}}" data-value="{{index}}" bindtap="chooseGradeOption">{{item}}</view>
                 <!-- <view class="active"> 普通</view>
                 <view>金牌</view> -->
             </view>
@@ -179,22 +244,21 @@
                 <view>50米粒起</view>
             </view> -->
             <view>
-                <button class="cu-btn round paybtn bg-blue"  bindtap="inlayer" data-index="2">下一页</button>
+                <button class="cu-btn round paybtn bg-blue" bindtap="inlayer" data-index="2">下一页</button>
             </view>
-        </view>     
+        </view>
         <view wx:elif="{{layer==2}}" class="layer2">
             <view>
                 <view class='action'>
-                <text class='cuIcon-titles text-pink '></text> 服务选项
-            </view>
+                    <text class='cuIcon-titles text-pink '></text> 服务选项
+                </view>
             </view>
             <view class="gradeOption">
-                <view wx:for="{{payitemList}}" wx:for-item="item" 
-                wx:for-index="index" wx:key="id" class="{{serviceIndex == index?'active':''}}" data-value="{{index}}" bindtap="chooseServiceOption" data-id="{{item.id}}">{{item.itemName}} {{item.itemHours}}小时</view>
+                <view wx:for="{{payitemList}}" wx:for-item="item" wx:for-index="index" wx:key="id" class="{{serviceIndex == index?'active':''}}" data-value="{{index}}" bindtap="chooseServiceOption" data-id="{{item.id}}">{{item.itemName}} {{item.itemHours}}小时</view>
             </view>
             <view>
                 <view>数量</view>
-                
+
                 <view class="quantity-position">
                     <view class="stepper">
                         <!-- 减号 -->
@@ -204,26 +268,26 @@
                         <!-- 加号 -->
                         <text class="normal" bindtap="bindPlus">+</text>
                     </view>
-                 </view>
-               
+                </view>
+
                 <!-- <input type="text" placeholder="1" value="1" /> -->
             </view>
             <view>
-                <input type="number" value="{{blindbox.msg}}" bindinput='bindRemark'  placeholder="备注" style="border-bottom:1px solid #efefef;" />
+                <input type="number" value="{{blindbox.msg}}" bindinput='bindRemark' placeholder="备注" style="border-bottom:1px solid #efefef;" />
             </view>
             <view class="price">
                 <view>{{coinNum}}米粒</view>
             </view>
             <view>
-                <button class="cu-btn round paybtn bg-blue"  bindtap="payByCoin" data-index="1">立即下单</button>
+                <button class="cu-btn round paybtn bg-blue" bindtap="payByCoin" data-index="1">立即下单</button>
             </view>
-            <view style="text-align: center;"  bindtap="inlayer" data-index="1"><text class="cuIcon-back textgray" data-index="1">上一页</text></view>
+            <view style="text-align: center;" bindtap="inlayer" data-index="1"><text class="cuIcon-back textgray" data-index="1">上一页</text></view>
         </view>
     </view>
 
     <view class="float_btn shadow-blur " bindtap="blindBox">
         <!-- <text class="text-cyan">盲盒</text> -->
-        <text class=" cuIcon-question text-cyan" > </text>
+        <text class=" cuIcon-question text-cyan"> </text>
     </view>
 
 </view>

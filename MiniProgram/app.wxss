@@ -62,7 +62,7 @@ navigator {
 */
 page {
     /* 主题颜色 */
-    --themeColor: #F03A53;
+    --themeColor: #6DCFF2;
     /* --themeColor:  */
     /* F03A53 红*/
     /* 字体大小 rpx自适应大小 */

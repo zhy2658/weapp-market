@@ -38,6 +38,9 @@ public class ProductController {
     @Resource
     ExtraPayitemService extraPayitemService;
 
+    @Resource
+    AttentionService attentionService;
+
     /**
      * 查询轮播商品
      * @return
@@ -68,9 +71,19 @@ public class ProductController {
      * @return
      */
     @RequestMapping("/detail")
-    public R detail(HttpServletRequest request,Integer id){
+    public R detail(HttpServletRequest request
+            ,@RequestParam("id") Integer id
+            ,@RequestParam("myOpenId") String myOpenId){
         Product product = productService.getById(id);
         WxUserInfo userInfo = iWxUserInfoService.findByOpenId(product.getOpenId());
+        userInfo.setBrowse(userInfo.getBrowse()+1);
+        iWxUserInfoService.updateById(userInfo);
+        int isdescribe = attentionService.count(
+                new QueryWrapper<Attention>()
+                        .eq("user_id",myOpenId)
+                        .eq("opposite_id",userInfo.getOpenid())
+        );
+
         List<PayItem> payitemList = payItemService.list(
                 new QueryWrapper<PayItem>().
                         eq("grade",userInfo.getEmployee_grade() )
@@ -90,6 +103,7 @@ public class ProductController {
         map.put("payitemList",payitemList);
         map.put("message",product);
         map.put("userInfo",userInfo);
+        map.put("isdescribe",isdescribe > 0? true : false);
         return R.ok(map);
     }
 

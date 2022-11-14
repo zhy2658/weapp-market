@@ -64,6 +64,9 @@ public class AttentionController {
                         .eq("user_id",openId)
                         .eq("opposite_id",opposite_id)
         );
+        WxUserInfo wxUserInfo =wxUserInfoService.findByOpenId(opposite_id);
+        wxUserInfo.setFan(wxUserInfo.getFan()-1);
+        wxUserInfoService.updateById(wxUserInfo);
 
         Map<String,Object> map=new HashMap<>();
         return R.ok(map);
@@ -81,6 +84,9 @@ public class AttentionController {
             attention.setUser_id(openId);
             attention.setOpposite_id(opposite_id);
             attentionService.save(attention);
+            WxUserInfo wxUserInfo =wxUserInfoService.findByOpenId(opposite_id);
+            wxUserInfo.setFan(wxUserInfo.getFan()+1);
+            wxUserInfoService.updateById(wxUserInfo);
         }
         Map<String,Object> map=new HashMap<>();
         return R.ok(map);

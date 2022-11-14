@@ -64,6 +64,10 @@ public class WxUserInfo implements Serializable {
 
     private String tel;
 
+    private Integer fan;
+
+    private Integer browse;
+
 
 
 //    小分类对象

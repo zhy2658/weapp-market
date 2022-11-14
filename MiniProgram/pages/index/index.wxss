@@ -10,15 +10,17 @@ page {
 }
 .user_status {
   display: inline-block;
-  font-size: 0.7rem;
   width: 100rpx;
   height: 50rpx;
   display: flex;
   align-items: center;
 }
+.user_status view {
+  font-size: 26rpx;
+}
 .user_status .sign {
-  width: 25rpx;
-  height: 25rpx;
+  width: 20rpx;
+  height: 20rpx;
   border-radius: 50%;
   margin-right: 5rpx;
 }
@@ -141,9 +143,8 @@ page {
   display: flex;
   align-items: center;
   padding-left: 40rpx;
-  width: 200rpx;
-  height: 7vh;
-  font-size: 1.2rem;
+  width: 150rpx;
+  height: 30px;
   border-radius: 20px;
   color: white;
 }
@@ -155,25 +156,23 @@ page {
   background-color: #6DCFF2;
 }
 .pausebtn {
-  background-color: var(--themeColor);
+  background-color: #E095A9;
 }
 .tags_area {
   display: flex;
   flex-direction: row;
-  justify-content: center;
 }
 .tags_area_item {
   color: teal;
-  width: 100rpx;
   border: 1px solid teal;
   border-radius: 4px;
   margin: 0 5rpx;
-  padding: 20rpx 20prx !important;
 }
-.user_age {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.nickNameArea {
+  padding-left: 20rpx;
+}
+.nickNameArea .nickName {
+  padding-right: 10rpx ;
 }
 .user_describ {
   margin: 0 15rpx;
@@ -330,7 +329,7 @@ page {
   position: fixed;
   width: 120rpx;
   height: 120rpx;
-  bottom: 50vh;
+  bottom: 10vh;
   right: 40rpx;
   border-radius: 50%;
   z-index: 1;
@@ -342,4 +341,16 @@ page {
 .float_btn > text {
   font-size: 70rpx;
   color: #fff;
+}
+.product_list {
+  border-bottom: 1px solid #efefef;
+  padding-top: 2px;
+}
+.icard_img image {
+  overflow: hidden;
+  border-radius: 50% !important;
+  border: 1px solid #9a9a9a;
+}
+.product_item {
+  margin-bottom: 5px;
 }

@@ -1,6 +1,10 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/product_detail/index",
+        
+       
+    
         "pages/sharewall/index",
         
         "pages/attention/index",
@@ -14,7 +18,7 @@
         "pages/cart/index",
         "pages/my/index",
         "pages/search/index",
-        "pages/product_detail/index",
+        
         "pages/pay/index",
         "pages/order/index",
         "pages/chatroom/index",
@@ -30,14 +34,14 @@
     ],
     "window": {
         "backgroundTextStyle": "dark",
-        "navigationBarBackgroundColor": "#F03A53",
+        "navigationBarBackgroundColor": "#6DCFF2",
         "navigationBarTitleText": "晚点的心声",
         "navigationBarTextStyle": "white",
         "enablePullDownRefresh": true
     },
     "tabBar": {
         "color": "#999",
-        "selectedColor": "#F03A53",
+        "selectedColor": "#565656",
         "backgroundColor": "#fafafa",
         "position": "bottom",
         "borderStyle": "black",

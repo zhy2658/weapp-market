@@ -1,7 +1,9 @@
 {
   "usingComponents": {
     "SearchBar":"../../components/SearchBar/SearchBar",
-    "AudioPlay":"../../components/AudioPlay/AudioPlay"
+    "AudioPlay":"../../components/AudioPlay/AudioPlay",
+    "i-card": "../../dist/card/index",
+    "i-button": "../../dist/button/index"
   },
   "navigationBarTitleText": "晚点的心声",
   "enablePullDownRefresh":true

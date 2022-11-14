@@ -28,7 +28,7 @@ public interface ProductMapper extends BaseMapper<Product> {
      * 查询热卖商品
      * @return
      */
-    @Select(" SELECT u.openid,u.sex,u.age,u.nickName,u.avatarUrl,u.ustatus ,p.description,p.audio,p.audioTime " +
+    @Select(" SELECT u.openid,u.sex,u.age,u.employee_grade,u.nickName,u.avatarUrl,u.ustatus ,p.description,p.audio,p.audioTime " +
             ",u.tags,p.id as detail_id " +
             "FROM t_wxuserinfo as u inner join  t_product as p " +
             "on u.openid = p.openId " +

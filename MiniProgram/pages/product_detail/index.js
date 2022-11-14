@@ -1,6 +1,9 @@
 // 导入request请求工具方法
 import { getBaseUrl, requestUtil } from "../../utils/requestUtil.js";
+import { getRandomNum } from "../../utils/tools.js";
 import regeneratorRuntime from '../../lib/runtime/runtime';
+const app = getApp();
+
 Page({
 
     /**
@@ -8,7 +11,8 @@ Page({
      */
     data: {
         userInfo: {},
-
+        options:{},
+        ColorList: app.globalData.ColorList,
         productObj: {},
         userInfo: {},
         baseUrl: '',
@@ -34,7 +38,7 @@ Page({
             // { id:2,guige: '200', price: '150' }, 
             // {id:3, guige: '300', price: '150' }
         ],
-        num: 1,//初始数量
+        num: 1,//初始数量,
         // <-------------------------------
     },
 
@@ -57,19 +61,37 @@ Page({
 
     // 获取产品信息
     async getProductDetail(id) {
-        const result = await requestUtil({ url: "/product/detail", data: { id } });
+        let myUserInfo=wx.getStorageSync('userInfo')
+        const result = await requestUtil({ url: "/product/detail", data: { 
+            id:id,
+            myOpenId:myUserInfo.openid 
+        
+        } });
         this.productInfo = result.message;
         const baseUrl = getBaseUrl();
         let audioPlayObj = this.data.audioPlayObj;
         audioPlayObj.audioSrc = baseUrl + result.message.audio;
-        if (result.userInfo.tags) { result.userInfo.tags = result.userInfo.tags.split(",") }
+        if (result.userInfo.tags) { 
+            result.userInfo.tags = result.userInfo.tags.split(",");
+            result.userInfo.randomArr=getRandomNum(10,10)
+         }
         this.setData({
             userInfo: result.userInfo,
             productObj: result.message,
             payitemList: result.payitemList,
             baseUrl,
-            audioPlayObj
+            audioPlayObj,
+            isdescribe:result.isdescribe,
         })
+
+    },
+    async addAttention(e){
+        const result2 = await requestUtil({url: "attention/add?opposite_id="+this.data.userInfo.openid },);
+        this.getProductDetail(this.data.options.id)
+    },
+    async removeAttention(e){
+        const result2 = await requestUtil({url: "attention/remove?opposite_id="+this.data.userInfo.openid },);
+        this.getProductDetail(this.data.options.id)
 
     },
     choosePayItem() {
@@ -93,6 +115,11 @@ Page({
         }
         wx.setStorageSync('cart', cart); // 把购物车添加到缓存中
     },
+    openHome(){
+        wx.switchTab({
+            url: '/pages/index/index'
+        });
+    },
 
     // 点击 加入购物车
     handleCartAdd() {
@@ -106,7 +133,7 @@ Page({
     },
     playAudio() {
         let audioPlayObj = this.data.audioPlayObj;
-        audioPlayObj.isShowPlayArea = true;
+        audioPlayObj.isShowPlayArea = false;
         audioPlayObj.isPlayAudio = true;
         this.setData({
             audioPlayObj,
@@ -159,7 +186,8 @@ Page({
      */
     onLoad: function (options) {
         const BaseUrl = getBaseUrl();
-        this.setData({ BaseUrl })
+        this.setData({ BaseUrl,options })
+        // options.id=12
         this.getProductDetail(options.id)
     },
     confirmOrder() {
