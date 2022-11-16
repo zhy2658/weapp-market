@@ -4,7 +4,7 @@
 <view >
     <view class="cu-bar bg-white solid-bottom" style="margin-top:10px;">
             <view class='action'>
-                <text class='cuIcon-titles text-pink '></text> 随机订单
+                <text class='cuIcon-titles text-pink '></text> 订单列表
             </view>
             <!-- <view class='action'>
                 <switch class='sm' checked='{{isCard}}' bindchange='isCard'></switch>
@@ -26,7 +26,7 @@
             <view class="user_row" wx:for="{{orderList}}" wx:for-item="order" wx:for-index="index" wx:key="order">
                 <view class="order_row1">
                     <view class="iconarea">下单人：</view>
-                    <view class="medium_font">
+                    <view class="medium_font" style="font-weight: bold;">
                         {{order.wxUserInfo.nickName}}
                         <text wx:if="{{order.order_count > 1}}" style="color: #F03A53;">[第{{order.order_count}}次续单]</text>
                     </view>

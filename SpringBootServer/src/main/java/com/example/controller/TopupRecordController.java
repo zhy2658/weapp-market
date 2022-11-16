@@ -8,12 +8,16 @@ import com.example.service.IWxUserInfoService;
 import com.example.service.TopupRecordService;
 import com.example.util.*;
 import io.jsonwebtoken.Claims;
+import io.swagger.annotations.ApiOperation;
 import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.Date;
@@ -145,28 +149,60 @@ public class TopupRecordController {
     }
 
     //把订单设置为已支付状态
-    @RequestMapping("/setOrderStatus")
-    public R setOrderStatus(@RequestBody TopupRecord topupRecord){
-        topupRecord=topupRecordService.getOne(
-                new QueryWrapper<TopupRecord>()
-                        .eq("topupNo",topupRecord.getTopupNo())
-        );
-        Map<String, Object> map = new HashMap<String, Object>();
-        //设置订单状态
-        topupRecord.setStatus(1);
-        topupRecordService.updateById(topupRecord);
-        WxUserInfo user = iWxUserInfoService.findByOpenId(topupRecord.getOpenId());
-//        加米粒数量
-        user.setCoin( topupRecord.getCoinNum() +user.getCoin());
-        iWxUserInfoService.updateById(user);
+//    @RequestMapping("/setOrderStatus")
+//    public R setOrderStatus(@RequestBody TopupRecord topupRecord){
+//        topupRecord=topupRecordService.getOne(
+//                new QueryWrapper<TopupRecord>()
+//                        .eq("topupNo",topupRecord.getTopupNo())
+//        );
+//        Map<String, Object> map = new HashMap<String, Object>();
+//        //设置订单状态
+//        topupRecord.setStatus(1);
+//        topupRecordService.updateById(topupRecord);
+//        WxUserInfo user = iWxUserInfoService.findByOpenId(topupRecord.getOpenId());
+////        加米粒数量
+//        user.setCoin( topupRecord.getCoinNum() +user.getCoin());
+//        iWxUserInfoService.updateById(user);
+//
+//        //发送短信通知
+////        HttpClientUtil.getInstance().sendHttpGet("http://sms.hutonginfo.com:9000/sms.aspx?action=send&userid=8038&account=2658991831@qq.com&password=zhy2958991831&mobile="+tel+"&content=【晚点的心声】您有新的订单("+orderNo+")等待处理，请及时查看！&sendTime=&extno=");
+//
+////        System.out.println("httpEntityContent:" + httpEntityContent);
+//
+//        return R.ok(map);
+//    }
 
-        //发送短信通知
-//        HttpClientUtil.getInstance().sendHttpGet("http://sms.hutonginfo.com:9000/sms.aspx?action=send&userid=8038&account=2658991831@qq.com&password=zhy2958991831&mobile="+tel+"&content=【晚点的心声】您有新的订单("+orderNo+")等待处理，请及时查看！&sendTime=&extno=");
+//    @RequestMapping("/wxnotify")
+//    public void wxnotify(HttpServletRequest request, HttpServletResponse response) {
+//        InputStream is = null;
+//        String xmlBack = "<xml><return_code><![CDATA[FAIL]]></return_code><return_msg><![CDATA[报文为空]]></return_msg></xml> ";
+//        try {
+//            is = request.getInputStream();
+//            // 将InputStream转换成String
+//            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+//            StringBuilder sb = new StringBuilder();
+//            String line = null;
+//            while ((line = reader.readLine()) != null) {
+//                sb.append(line + "\n");
+//            }
+//            System.out.println(sb.toString());
+////            xmlBack = wxPayService.notify(sb.toString());
+//        } catch (Exception e) {
+//            System.out.println("微信手机支付回调通知失败：" + e);
+//        } finally {
+//            if (is != null) {
+//                try {
+//                    is.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//
+//
+//
+//    }
 
-//        System.out.println("httpEntityContent:" + httpEntityContent);
-
-        return R.ok(map);
-    }
 
 
 

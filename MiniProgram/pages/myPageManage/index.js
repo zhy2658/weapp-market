@@ -20,13 +20,13 @@ Page({
         iconList: [{
             icon: 'copy',
             color: 'red',
-            badge: 120,
+            badge: 0,
             name: '开始接单',
             url: "/pages/randomOrder/index"
         }, {
             icon: 'list',
             color: 'orange',
-            badge: 1,
+            badge: 0,
             name: '订单管理',
             url:"/pages/orderManage/index"
         }, {

@@ -2,6 +2,7 @@ package com.example.controller.admin;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.entity.Notice;
 import com.example.entity.PageBean;
 import com.example.entity.R;
 import com.example.entity.WxUserInfo;
@@ -82,6 +83,16 @@ public class AdminUserController {
         map.put("code", 0);
         map.put("msg", "更新成功");
         return R.ok(map);
+    }
+
+    @PostMapping("/save")
+    public R save(@RequestBody WxUserInfo wxUserInfo){
+        if(wxUserInfo.getId()==null || wxUserInfo.getId()==-1){
+            wxUserInfoService.save(wxUserInfo);
+        }else{
+            wxUserInfoService.saveOrUpdate(wxUserInfo);
+        }
+        return R.ok();
     }
 
 }

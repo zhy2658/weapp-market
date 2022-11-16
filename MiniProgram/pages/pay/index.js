@@ -31,7 +31,7 @@ Page({
         // 《----------------以上是需要提交内容
 
 
-        remark:"",
+        remark: "",
         // address: {},
         payitemList: [],
 
@@ -41,7 +41,9 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        console.log( " options.id",options)
         let openId = options.openId;
+        let employee_grade = options.employee_grade;
         // let serviceStart = new Date();
         // let serviceEnd=new Date();
         // serviceEnd.setHours(serviceEnd.getHours() + (parseInt(options.itemHours) * parseInt(options.num)) )
@@ -66,7 +68,7 @@ Page({
             servant_id: openId
         })
 
-        this.getByOpenId(openId);
+        this.getByOpenId(openId,employee_grade);
         const baseUrl = getBaseUrl();
         this.setData({
             baseUrl
@@ -87,10 +89,10 @@ Page({
             consignee: e.detail.value
         })
     },
-    async getByOpenId(openId) {
+    async getByOpenId(openId,employee_grade) {
         // console.log(wx.getStorageSync('userInfo'))
-        let grade = wx.getStorageSync('userInfo').employee_grade;
-        const result = await requestUtil({ url: "/playitem/getByGrade?grade=" + grade });
+        // let grade = wx.getStorageSync('userInfo').employee_grade;
+        const result = await requestUtil({ url: "/playitem/getByGrade?grade=" + employee_grade+"&openId="+openId });
 
         this.setData({
             payitemList: result.payitemList
@@ -111,7 +113,7 @@ Page({
      * 点击支付
      */
     async handleOrderPay() {
-        let that=this;
+        let that = this;
         wx.showModal({
             title: '提示',
             content: '确定下单',
@@ -231,6 +233,21 @@ Page({
             console.log("orderParams", orderParams)
             // return;
             const res = await requestUtil({ url: "/my/order/payByCoin", method: "POST", data: orderParams });
+            if (res.code == 500) {
+                setTimeout(() => {
+                    // wx.reLanch({
+                    //     url: '/pages/userOrder/index'
+                    // })
+                    wx.navigateTo({
+                        url: '/pages/wallet/index',
+                    })
+                }, 1000)
+                wx.showToast({
+                    title: "米粒余额不足,请前往充值",
+                    icon: 'none'
+                })
+                return;
+            }
 
             console.log(res.orderNo);
             let orderNo = res.orderNo;
@@ -264,22 +281,22 @@ Page({
 
             // wx.setStorageSync('cart', newCart);
 
-            wx.showToast({
-                title: '下单成功',
-                icon: 'success'
-            });
-            this.getDetail();
 
-           setTimeout(()=>{
+
+            setTimeout(() => {
                 // wx.reLanch({
                 //     url: '/pages/userOrder/index'
                 // })
                 wx.navigateTo({
                     url: '/pages/userOrder/index?status=1',
                 })
-           },500)
+            }, 500)
 
-
+            this.getDetail();
+            wx.showToast({
+                title: '下单成功',
+                icon: 'success'
+            });
         } catch (error) {
             console.log(error);
             wx.showToast({
@@ -290,12 +307,12 @@ Page({
         }
 
     },
-    async getDetail(){
+    async getDetail() {
         let userInfo = wx.getStorageSync('userInfo');
-        const result = await requestUtil({ url: "/product/detailByopenId", data:{openid:userInfo.openid} });
+        const result = await requestUtil({ url: "/product/detailByopenId", data: { openid: userInfo.openid } });
         // let audioPlayObj = this.data.audioPlayObj;
         // audioPlayObj.audioSrc = this.data.BaseUrl+ result.message.audio;
-        userInfo=result.userInfo;
+        userInfo = result.userInfo;
         userInfo.coin = userInfo.coin.toFixed(0);
         this.setData({
             userInfo: result.userInfo,

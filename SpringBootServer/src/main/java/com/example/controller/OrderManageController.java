@@ -166,6 +166,10 @@ public class OrderManageController {
         String openId = (String) request.getSession().getAttribute("openId");
         WxUserInfo userInfo = iWxUserInfoService.findByOpenId(openId);
         Order order = orderService.getById(orderId);
+         //判断是否已经接了
+        if (order.getStatus() != 1) {
+            return R.error("抱歉！此订单已经被其他店员接了");
+        }
         //判断是否有资格
         if ((order.getRandom_sex() == -1 || userInfo.getSex() == order.getRandom_sex())
                 && userInfo.getEmployee_grade() >= order.getRandom_grade()) {
@@ -298,28 +302,16 @@ public class OrderManageController {
         int todayOrder = orderService.count(
                 new QueryWrapper<Order>()
                         .eq("servant_id", openId)
-                        .ge("createDate", begin)
-                        .le("createDate", end)
-                        .and(
-                                wp -> wp.eq("status", 2)
-                                        .or()
-                                        .eq("status", 3)
-                                        .or()
-                                        .eq("status", 4)
-                        )
+                        .ge("finishDate", begin)
+                        .le("finishDate", end)
+                        .eq("status", 4)
         );
         List<Order> orderList = orderService.list(
                 new QueryWrapper<Order>()
                         .eq("servant_id", openId)
-                        .ge("createDate", begin)
-                        .le("createDate", end)
-                        .and(
-                                wp -> wp.eq("status", 2)
-                                        .or()
-                                        .eq("status", 3)
-                                        .or()
-                                        .eq("status", 4)
-                        )
+                        .ge("finishDate", begin)
+                        .le("finishDate", end)
+                        .eq("status", 4)
 
 
         );
@@ -402,6 +394,7 @@ public class OrderManageController {
         }
 
         order.setStatus(9);
+        order.setFinishDate(new Date());
         orderService.updateById(order);
 //        退还米粒
         WxUserInfo userInfo = iWxUserInfoService.findByOpenId(user_id);

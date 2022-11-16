@@ -11,6 +11,9 @@
     </view>
     (未成年请勿充值)
 </view>
+<!-- <view style="height: 20px; color: red;padding-left: 20rpx;">
+    付款成功后请点击【完成】，否则米粒无法正常到账！
+</view> -->
 <view class="recharge">
     <view class="recharge_item{{ purchaseActive==index ?' active':''}}" wx:for="{{purchaseOption}}" wx:for-item="purchase" wx:for-index="index" wx:key="index" bindtap="changePurchaseActive" data-index="{{index}}" >
         <view class="recharge_item_row1">米粒</view>
@@ -20,7 +23,7 @@
         </view>
     </view>
 
-    <view class="recharge_item custom" bindtap="cancelPurchaseActive">
+    <!-- <view class="recharge_item custom" bindtap="cancelPurchaseActive">
         <view class="recharge_item_row1">自定义充值数量</view>
         <view class="recharge_item_row2">
             <view>
@@ -28,6 +31,6 @@
             </view>
             <view>￥10</view>
         </view>
-    </view>
+    </view> -->
     <button class="cu-btn round paybtn bg-green"  bindtap="pay">立即支付</button>
 </view>

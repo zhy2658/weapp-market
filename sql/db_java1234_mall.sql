@@ -11,7 +11,7 @@
  Target Server Version : 50736 (5.7.36)
  File Encoding         : 65001
 
- Date: 10/11/2022 22:51:07
+ Date: 16/11/2022 19:31:34
 */
 
 SET NAMES utf8mb4;
@@ -31,13 +31,13 @@ CREATE TABLE `attention`  (
   INDEX `user_id12323`(`user_id`) USING BTREE,
   CONSTRAINT `employee_id123213` FOREIGN KEY (`opposite_id`) REFERENCES `t_wxuserinfo` (`openid`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `user_id12323` FOREIGN KEY (`user_id`) REFERENCES `t_wxuserinfo` (`openid`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 81 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of attention
 -- ----------------------------
-INSERT INTO `attention` VALUES (1, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'sssss', '2022-11-10 21:54:41');
-INSERT INTO `attention` VALUES (3, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '2022-11-10 21:54:41');
+INSERT INTO `attention` VALUES (77, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '2022-11-14 17:30:21');
+INSERT INTO `attention` VALUES (80, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', '2022-11-14 17:31:01');
 
 -- ----------------------------
 -- Table structure for t_admin
@@ -134,13 +134,12 @@ CREATE TABLE `t_extra_payitem`  (
   INDEX `payitem_id22`(`payitem_id`) USING BTREE,
   CONSTRAINT `employee_id` FOREIGN KEY (`employee_id`) REFERENCES `t_wxuserinfo` (`openid`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `payitem_id22` FOREIGN KEY (`payitem_id`) REFERENCES `t_payitem` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_extra_payitem
 -- ----------------------------
-INSERT INTO `t_extra_payitem` VALUES (3, 2, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
-INSERT INTO `t_extra_payitem` VALUES (4, 3, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
+INSERT INTO `t_extra_payitem` VALUES (5, 31, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
 
 -- ----------------------------
 -- Table structure for t_message
@@ -305,27 +304,49 @@ CREATE TABLE `t_order`  (
   `telNumber` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '联系电话',
   `createDate` datetime NULL DEFAULT NULL COMMENT '订单创建日期',
   `payDate` datetime NULL DEFAULT NULL COMMENT '订单支付日期',
-  `status` int(11) NULL DEFAULT 0 COMMENT '0 未支付 1等待员工接单 2 正在服务  3完成服务，待确认，4完成订单  5请求退单 6：已退单 7：随机派单中  8：删除',
+  `status` int(11) NULL DEFAULT 0 COMMENT '0 未支付 1等待员工接单 2 正在服务  3完成服务，待确认，4完成订单  5请求退单 6：已退单 7：随机派单中  8：删除,不可恢复，恢复要考虑退还米粒 9：被拒绝',
   `pm_id` int(11) NULL DEFAULT NULL COMMENT '支付选项id',
   `servant_id` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '服务人',
   `order_count` int(11) NOT NULL DEFAULT 1 COMMENT '第几次下同样的单',
   `type` int(11) NOT NULL DEFAULT 0 COMMENT '0:指定单，  1:随机单',
   `random_sex` int(11) NULL DEFAULT -1 COMMENT '性别可以接的随机单   1：女    2：男',
   `random_grade` int(11) NULL DEFAULT 1 COMMENT '至少要几级员工才可以接这个单子',
+  `remark` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '订单备注',
+  `finishDate` datetime NULL DEFAULT NULL COMMENT '订单完成时间',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `orderNo`(`orderNo`) USING BTREE,
-  INDEX `pm_id`(`pm_id`) USING BTREE,
   INDEX `savant_id`(`servant_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 233 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 266 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_order
 -- ----------------------------
-INSERT INTO `t_order` VALUES (228, 'LY20221110061934000000337', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 20.00, NULL, '', '', '2022-11-10 18:19:34', '2022-11-10 18:19:34', 2, 3, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 1, 0, -1, 1);
-INSERT INTO `t_order` VALUES (229, 'LY20221110062009000000725', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 22.00, NULL, '', '', '2022-11-10 18:20:10', '2022-11-10 18:20:10', 1, 22, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 2, 0, -1, 1);
-INSERT INTO `t_order` VALUES (230, 'LY20221110062218000000167', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60.00, NULL, NULL, NULL, '2022-11-10 18:22:18', '2022-11-10 18:22:18', 1, 3, NULL, 1, 1, 1, 1);
-INSERT INTO `t_order` VALUES (231, 'LY20221110062303000000968', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 22.00, NULL, '', '', '2022-11-10 18:23:04', '2022-11-10 18:23:04', 1, 22, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 3, 0, -1, 1);
-INSERT INTO `t_order` VALUES (232, 'LY20221110062347000000572', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 100.00, NULL, NULL, NULL, '2022-11-10 18:23:48', '2022-11-10 18:23:48', 1, 0, NULL, 1, 1, 1, 2);
+INSERT INTO `t_order` VALUES (228, 'LY20221110061934000000337', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 20.00, NULL, '', '', '2022-11-10 18:19:34', '2022-11-10 18:19:34', 4, 3, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 1, 0, -1, 1, '', '2022-11-12 22:02:01');
+INSERT INTO `t_order` VALUES (241, 'LY20221111051554000000210', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 50.00, NULL, NULL, NULL, '2022-11-11 17:15:54', '2022-11-11 17:15:54', 8, 28, NULL, 1, 1, 1, 2, '整点高质量员工', NULL);
+INSERT INTO `t_order` VALUES (242, 'LY20221111052323000000153', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 2000.00, NULL, NULL, NULL, '2022-11-11 17:23:23', '2022-11-11 17:23:23', 8, 25, NULL, 1, 1, 1, 2, '', NULL);
+INSERT INTO `t_order` VALUES (243, 'LY20221111052435000000279', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 2100.00, NULL, NULL, NULL, '2022-11-11 17:24:35', '2022-11-11 17:24:35', 8, 24, NULL, 1, 1, 1, 2, '', NULL);
+INSERT INTO `t_order` VALUES (244, 'LY20221111052507000000574', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 400.00, NULL, NULL, NULL, '2022-11-11 17:25:08', '2022-11-11 17:25:08', 8, 24, NULL, 1, 1, 1, 2, '', NULL);
+INSERT INTO `t_order` VALUES (245, 'LY20221111052555000000049', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 1400.00, NULL, NULL, NULL, '2022-11-11 17:25:55', '2022-11-11 17:25:55', 8, 25, NULL, 1, 1, 1, 2, 'this is a  big order', NULL);
+INSERT INTO `t_order` VALUES (246, 'LY20221111052741000000285', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 800.00, NULL, NULL, NULL, '2022-11-11 17:27:41', '2022-11-11 17:27:41', 8, 0, NULL, 1, 1, 1, 2, 'big order', NULL);
+INSERT INTO `t_order` VALUES (247, 'LY20221111053004000000421', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 100.00, NULL, NULL, NULL, '2022-11-11 17:30:04', '2022-11-11 17:30:04', 8, 0, NULL, 1, 1, 1, 2, 'big order', NULL);
+INSERT INTO `t_order` VALUES (248, 'LY20221111053222000000080', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 1000.00, NULL, NULL, NULL, '2022-11-11 17:32:22', '2022-11-11 17:32:22', 8, 25, NULL, 1, 1, 1, 2, '', NULL);
+INSERT INTO `t_order` VALUES (249, 'LY20221111053421000000620', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 1000.00, NULL, NULL, NULL, '2022-11-11 17:34:22', '2022-11-11 17:34:22', 8, 25, NULL, 1, 1, 1, 2, '', NULL);
+INSERT INTO `t_order` VALUES (250, 'LY20221111053715000000930', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 1000.00, NULL, NULL, NULL, '2022-11-11 17:37:16', '2022-11-11 17:37:16', 8, 0, NULL, 1, 1, 1, 2, '大订单', NULL);
+INSERT INTO `t_order` VALUES (251, 'LY20221111053843000000495', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 1000.00, NULL, NULL, NULL, '2022-11-11 17:38:43', '2022-11-11 17:38:43', 8, 0, NULL, 1, 1, 1, 2, '', NULL);
+INSERT INTO `t_order` VALUES (252, 'LY20221111053914000000597', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 1000.00, NULL, NULL, NULL, '2022-11-11 17:39:15', '2022-11-11 17:39:15', 2, 0, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 1, 1, 1, 2, '', NULL);
+INSERT INTO `t_order` VALUES (253, 'LY20221111053956000000554', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 220.00, NULL, NULL, NULL, '2022-11-11 17:39:57', '2022-11-11 17:39:57', 2, 3, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 1, 1, 1, 1, '', NULL);
+INSERT INTO `t_order` VALUES (254, 'LY20221111054033000000502', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 20.00, NULL, '', '', '2022-11-11 17:40:34', '2022-11-11 17:40:34', 8, 3, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 3, 0, -1, 1, '多聊哦', NULL);
+INSERT INTO `t_order` VALUES (255, 'LY20221111060856000000764', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 100.00, NULL, NULL, NULL, '2022-11-11 18:08:57', '2022-11-11 18:08:57', 4, 0, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 1, 1, 1, 1, '', '2022-11-12 22:02:00');
+INSERT INTO `t_order` VALUES (256, 'LY20221111060934000000131', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 200.00, NULL, '', '', '2022-11-11 18:09:34', '2022-11-11 18:09:34', 8, 21, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 4, 0, -1, 1, '', NULL);
+INSERT INTO `t_order` VALUES (257, 'LY20221111061300000000078', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 50.00, NULL, '', '', '2022-11-11 18:13:00', '2022-11-11 18:13:00', 8, 1, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 1, 0, -1, 1, '', NULL);
+INSERT INTO `t_order` VALUES (258, 'LY20221111061324000000810', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 490.00, NULL, '', '', '2022-11-11 18:13:25', '2022-11-11 18:13:25', 9, 23, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 4, 0, -1, 1, '', NULL);
+INSERT INTO `t_order` VALUES (259, 'LY20221111064050000000631', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 10.00, NULL, '', '', '2022-11-11 18:40:51', '2022-11-11 18:40:51', 2, 1, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 4, 0, -1, 1, '', NULL);
+INSERT INTO `t_order` VALUES (260, 'LY20221115122415000000340', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 100.00, NULL, NULL, NULL, '2022-11-15 12:24:15', '2022-11-15 12:24:15', 2, 0, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 1, 1, 1, 2, '', NULL);
+INSERT INTO `t_order` VALUES (261, 'LY20221115054738000000064', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 20.00, NULL, '', '', '2022-11-15 17:47:38', '2022-11-15 17:47:38', 8, 29, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 1, 0, -1, 1, '', NULL);
+INSERT INTO `t_order` VALUES (262, 'LY20221115055425000000891', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 200.00, NULL, NULL, NULL, '2022-11-15 17:54:26', '2022-11-15 17:54:26', 8, 0, NULL, 1, 1, 1, 2, '111', NULL);
+INSERT INTO `t_order` VALUES (263, 'LY20221115055521000000453', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 40.00, NULL, '', '', '2022-11-15 17:55:21', '2022-11-15 17:55:21', 1, 30, 'ohWWn5CNE3xxfWj72e_5-043_qsk', 1, 0, -1, 1, '2222', NULL);
+INSERT INTO `t_order` VALUES (264, 'LY20221115055610000000910', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 100.00, NULL, '', '', '2022-11-15 17:56:11', '2022-11-15 17:56:11', 8, 31, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 7, 0, -1, 1, '', NULL);
+INSERT INTO `t_order` VALUES (265, 'LY20221115055808000000039', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 50.00, NULL, '', '', '2022-11-15 17:58:08', '2022-11-15 17:58:08', 2, 28, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 7, 0, -1, 1, '', NULL);
 
 -- ----------------------------
 -- Table structure for t_order_detail
@@ -348,16 +369,37 @@ CREATE TABLE `t_order_detail`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `mId`(`mId`) USING BTREE,
   CONSTRAINT `t_order_detail_ibfk_1` FOREIGN KEY (`mId`) REFERENCES `t_order` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 252 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 285 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_order_detail
 -- ----------------------------
 INSERT INTO `t_order_detail` VALUES (247, 228, NULL, 1, 20.00, 'LOL', '/image/product/20221106105658000000870.jpg', '2022-11-10 18:23:30', '2022-11-10 21:23:30', 3, 3, 20, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
-INSERT INTO `t_order_detail` VALUES (248, 229, NULL, 1, 22.00, '唱歌', '/image/product/20221106105658000000870.jpg', NULL, NULL, 2, 2, 22, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
-INSERT INTO `t_order_detail` VALUES (249, 230, NULL, 3, 20.00, 'LOL', NULL, NULL, NULL, 9, 3, 60, NULL);
-INSERT INTO `t_order_detail` VALUES (250, 231, NULL, 1, 22.00, '唱歌', '/image/product/20221106105658000000870.jpg', NULL, NULL, 2, 2, 22, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
-INSERT INTO `t_order_detail` VALUES (251, 232, NULL, 1, 100.00, '语音', NULL, NULL, NULL, 10, 10, 100, NULL);
+INSERT INTO `t_order_detail` VALUES (260, 241, NULL, 1, 50.00, '喝酒', NULL, NULL, NULL, 2, 2, 50, NULL);
+INSERT INTO `t_order_detail` VALUES (261, 242, NULL, 10, 200.00, '唱歌', NULL, NULL, NULL, 20, 2, 2000, NULL);
+INSERT INTO `t_order_detail` VALUES (262, 243, NULL, 21, 100.00, '语音', NULL, NULL, NULL, 210, 10, 2100, NULL);
+INSERT INTO `t_order_detail` VALUES (263, 244, NULL, 4, 100.00, '语音', NULL, NULL, NULL, 40, 10, 400, NULL);
+INSERT INTO `t_order_detail` VALUES (264, 245, NULL, 7, 200.00, '唱歌', NULL, NULL, NULL, 14, 2, 1400, NULL);
+INSERT INTO `t_order_detail` VALUES (265, 246, NULL, 8, 100.00, '语音', NULL, NULL, NULL, 80, 10, 800, NULL);
+INSERT INTO `t_order_detail` VALUES (266, 247, NULL, 1, 100.00, '语音', NULL, NULL, NULL, 10, 10, 100, NULL);
+INSERT INTO `t_order_detail` VALUES (267, 248, NULL, 5, 200.00, '唱歌', NULL, NULL, NULL, 10, 2, 1000, NULL);
+INSERT INTO `t_order_detail` VALUES (268, 249, NULL, 5, 200.00, '唱歌', NULL, NULL, NULL, 10, 2, 1000, NULL);
+INSERT INTO `t_order_detail` VALUES (269, 250, NULL, 10, 100.00, '语音', NULL, NULL, NULL, 100, 10, 1000, NULL);
+INSERT INTO `t_order_detail` VALUES (270, 251, NULL, 10, 100.00, '语音', NULL, NULL, NULL, 100, 10, 1000, NULL);
+INSERT INTO `t_order_detail` VALUES (271, 252, NULL, 10, 100.00, '语音', '/image/product/20221106105658000000870.jpg', '2022-11-15 12:23:16', '2022-11-19 16:23:16', 100, 10, 1000, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
+INSERT INTO `t_order_detail` VALUES (272, 253, NULL, 11, 20.00, 'LOL', '/image/product/20221106105658000000870.jpg', '2022-11-11 17:40:05', '2022-11-13 02:40:05', 33, 3, 220, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
+INSERT INTO `t_order_detail` VALUES (273, 254, NULL, 1, 20.00, 'LOL', '/image/product/20221106105658000000870.jpg', NULL, NULL, 3, 3, 20, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
+INSERT INTO `t_order_detail` VALUES (274, 255, NULL, 10, 10.00, '体验聊天', '/image/product/20221106105658000000870.jpg', '2022-11-11 18:09:05', '2022-11-12 04:09:05', 10, 1, 100, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
+INSERT INTO `t_order_detail` VALUES (275, 256, NULL, 10, 20.00, '语音', '/image/product/20221106105658000000870.jpg', NULL, NULL, 100, 10, 200, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
+INSERT INTO `t_order_detail` VALUES (276, 257, NULL, 5, 10.00, '体验聊天', '/image/product/20221101113122000000052.jpg', NULL, NULL, 5, 1, 50, 'ohWWn5CNE3xxfWj72e_5-043_qsk');
+INSERT INTO `t_order_detail` VALUES (277, 258, NULL, 10, 49.00, '跳舞', '/image/product/20221106105658000000870.jpg', NULL, NULL, 100, 10, 490, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
+INSERT INTO `t_order_detail` VALUES (278, 259, NULL, 1, 10.00, '体验聊天', '/image/product/20221106105658000000870.jpg', '2022-11-11 18:42:45', '2022-11-11 19:42:45', 1, 1, 10, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
+INSERT INTO `t_order_detail` VALUES (279, 260, NULL, 1, 100.00, '语音', '/image/product/20221106105658000000870.jpg', '2022-11-15 12:24:22', '2022-11-15 22:24:22', 10, 10, 100, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
+INSERT INTO `t_order_detail` VALUES (280, 261, NULL, 1, 20.00, '文字聊天', '/image/product/20221101113122000000052.jpg', NULL, NULL, 10, 10, 20, 'ohWWn5CNE3xxfWj72e_5-043_qsk');
+INSERT INTO `t_order_detail` VALUES (281, 262, NULL, 2, 100.00, '语音', NULL, NULL, NULL, 20, 10, 200, NULL);
+INSERT INTO `t_order_detail` VALUES (282, 263, NULL, 1, 40.00, '语音', '/image/product/20221101113122000000052.jpg', NULL, NULL, 10, 10, 40, 'ohWWn5CNE3xxfWj72e_5-043_qsk');
+INSERT INTO `t_order_detail` VALUES (283, 264, NULL, 1, 100.00, '游戏', '/image/product/20221106105658000000870.jpg', NULL, NULL, 10, 10, 100, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
+INSERT INTO `t_order_detail` VALUES (284, 265, NULL, 1, 50.00, '喝酒', '/image/product/20221106105658000000870.jpg', '2022-11-15 17:58:20', '2022-11-15 19:58:20', 2, 2, 50, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
 
 -- ----------------------------
 -- Table structure for t_payitem
@@ -372,20 +414,17 @@ CREATE TABLE `t_payitem`  (
   `grade` int(11) NULL DEFAULT NULL COMMENT '1级雇员  ，2:2级雇员   ...以此类推',
   `required` int(11) NOT NULL DEFAULT 0 COMMENT '0:必选    1:可选',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_payitem
 -- ----------------------------
-INSERT INTO `t_payitem` VALUES (1, 10, '2022-10-23 22:50:51', '体验聊天', 1, 1, 0);
-INSERT INTO `t_payitem` VALUES (2, 10, '2022-11-10 15:51:45', '游戏', 5, 1, 1);
-INSERT INTO `t_payitem` VALUES (3, 20, '2022-11-10 15:52:08', 'LOL', 3, 1, 1);
-INSERT INTO `t_payitem` VALUES (21, 20, '2022-10-24 14:50:51', '语音', 10, 1, 0);
-INSERT INTO `t_payitem` VALUES (22, 22, '2022-10-24 14:54:43', '唱歌', 2, 1, 0);
-INSERT INTO `t_payitem` VALUES (23, 49, '2022-10-24 06:55:08', '跳舞', 10, 1, 0);
 INSERT INTO `t_payitem` VALUES (24, 100, '2022-10-23 22:56:04', '语音', 10, 2, 0);
 INSERT INTO `t_payitem` VALUES (25, 200, '2022-10-23 22:56:32', '唱歌', 2, 2, 0);
 INSERT INTO `t_payitem` VALUES (28, 50, '2022-11-02 14:12:20', '喝酒', 2, 2, 0);
+INSERT INTO `t_payitem` VALUES (29, 20, '2022-11-13 17:07:31', '文字聊天', 10, 1, 0);
+INSERT INTO `t_payitem` VALUES (30, 40, '2022-11-13 17:08:52', '语音', 10, 1, 0);
+INSERT INTO `t_payitem` VALUES (31, 100, '2022-11-14 09:09:54', '游戏', 10, 1, 1);
 
 -- ----------------------------
 -- Table structure for t_product
@@ -414,7 +453,7 @@ CREATE TABLE `t_product`  (
   INDEX `typeId`(`typeId`) USING BTREE,
   CONSTRAINT `openId_product` FOREIGN KEY (`openId`) REFERENCES `t_wxuserinfo` (`openid`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `t_product_ibfk_1` FOREIGN KEY (`typeId`) REFERENCES `t_smalltype` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_product
@@ -422,7 +461,7 @@ CREATE TABLE `t_product`  (
 INSERT INTO `t_product` VALUES (9, '杰克Jack', 2999.00, 1111, 'default.jpg', b'1', b'0', '20221011103945000000703.jpg', 0, NULL, '2021-12-28 21:36:34', '<h2>天气冷了，要穿衣服呢</h2>', '<p>This is paramThis is paramThis is param</p><p>This is param</p><p>This is param</p><p>This is param</p><p>This is param</p><p>This is paramThis is param</p>', '最好的服务', 'sssss', '/uploads/audios/testaudio.mp3', 22);
 INSERT INTO `t_product` VALUES (10, '冷鸟', 1399.00, 2222, '20220929081244000000369.jpg', b'1', b'1', '20221101113108000000384.jpg', -1, NULL, '2021-11-28 21:36:34', '<p>&nbsp;隔壁室友的朋友终于回去了,拥挤的两室一厅少了一个人还是一样的拥挤,听室友说,那个女孩子可能还会回上海,这次她回家好象去征求父母的意见,天哪!如果是真的,那我会疯掉的,原本像家的合住,现在看上去没有一点温暖,拜托假设不要实现,不然,我会重新点燃搬家的火苗.</p><p><br></p><p>&nbsp;&nbsp;老大回来了,本想说很多话的我,似乎没有和想象的一样.上班时间大家还是老样子.只是回到家\"捧\"着电视就不理电脑.呵!好象没有之前想的那样感情处的那么好.......</p><p><br></p><p>&nbsp;&nbsp;家里已经3天没有做饭了.不甘心只有我一个人在厨房折腾,是自私还是计较?不想多分辨.只是心里的平衡点让自己为自己讨公道.现在的大家,没有以前那样一起忙里忙外一起分担,是我计较了还是大家变了?</p><p style=\"text-align: center;\"><br></p>', '<p>23123lo 我是冷鸟</p>', '强大神秘', 'ohWWn5CNE3xxfWj72e_5-043_qsk', '/uploads/audios/20221008012216000000422.mp3', 3);
 INSERT INTO `t_product` VALUES (11, '黑色', 2499.00, 3322, '7.png', b'1', b'0', '20221022085808000000025.jpg', 0, NULL, '2021-11-28 21:36:34', '<p> </p><p>\"</p>', NULL, 'yousa', 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '/uploads/audios/testaudio3.mp3', 44);
-INSERT INTO `t_product` VALUES (12, NULL, NULL, NULL, 'default.jpg', b'1', b'1', '20221101113034000000553.jpg', 0, NULL, '2022-10-22 17:15:13', '<p>hhhhh怎么会不难过呢，一点也不开心啊，尽管毫无道理，但是，太难过了，好难过。还没等到你的生日啊说好了一起做饭的吧说好了一起跑步的对不对说好了做菜给我吃的对吧我也有答应学做饭的我们约好了要去看电影的你说带我去荡秋千的你说户口本就在身边，随时都可以用的你说得话我都记得的明明当初是你先说喜欢，先开始，先上头的我只是，慢了一点<strong>.</strong></p>', NULL, '要快乐鸭', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', NULL, 0);
+INSERT INTO `t_product` VALUES (12, NULL, NULL, NULL, 'default.jpg', b'1', b'1', '20221101113034000000553.jpg', 0, NULL, '2022-10-22 17:15:13', '<h3><strong style=\"background-color: rgb(255, 255, 204);\">hhhhh怎么会不难过呢，一点也不开心啊，尽管毫无道理，但是，太难过了，好难过。还没等到你的生日啊说好了一起做饭的吧说好了一起跑步的对不对说好了做菜给我吃的对吧我也有答应学做饭的我们约好了要去看电影的</strong><strong style=\"background-color: rgb(255, 255, 204); color: rgb(255, 153, 0);\">你说带我去荡秋千的你说户口本就在身边，随﻿﻿﻿时都可以用的你说得话我都记得的明明当初是你先说喜欢，先开始，先上头的我只是，慢了一﻿点.</strong></h3><h3><span class=\"ql-cursor\">﻿﻿﻿﻿</span></h3>', NULL, '要快乐鸭', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', '/uploads/audios/20221116103914000000798.aac', 59);
 INSERT INTO `t_product` VALUES (13, NULL, NULL, NULL, 'default.jpg', b'0', b'0', 'default.jpg', 0, NULL, NULL, NULL, NULL, NULL, 'o5fzY4p9Fo5B3MwnnbsZWpC1FMA4', NULL, 0);
 INSERT INTO `t_product` VALUES (14, NULL, NULL, NULL, 'default.jpg', b'0', b'0', 'default.jpg', 0, NULL, NULL, NULL, NULL, NULL, 'o5fzY4jngjpThhytLGqpMk7lq73o', NULL, 0);
 INSERT INTO `t_product` VALUES (15, NULL, NULL, NULL, 'default.jpg', b'0', b'0', 'default.jpg', 0, NULL, NULL, NULL, NULL, NULL, 'o5fzY4hooYpm0pEEyfJQvwdFHef8', NULL, 0);
@@ -443,7 +482,7 @@ CREATE TABLE `t_product_swiper_image`  (
   `sort` int(11) NULL DEFAULT NULL COMMENT '排序',
   `productId` int(11) NULL DEFAULT NULL COMMENT '所属商品id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 182 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 192 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_product_swiper_image
@@ -463,8 +502,8 @@ INSERT INTO `t_product_swiper_image` VALUES (13, '222.jpg', 2, 16);
 INSERT INTO `t_product_swiper_image` VALUES (14, '333.jpg', 3, 16);
 INSERT INTO `t_product_swiper_image` VALUES (138, '20221101113139000000898.jpg', 0, 10);
 INSERT INTO `t_product_swiper_image` VALUES (139, '20221101113149000000355.jpg', 0, 10);
-INSERT INTO `t_product_swiper_image` VALUES (180, '20221101112947000000748.jpg', NULL, 12);
-INSERT INTO `t_product_swiper_image` VALUES (181, '20221106101104000000612.jpg', 0, 12);
+INSERT INTO `t_product_swiper_image` VALUES (190, '20221101112947000000748.jpg', NULL, 12);
+INSERT INTO `t_product_swiper_image` VALUES (191, '20221106101104000000612.jpg', 0, 12);
 
 -- ----------------------------
 -- Table structure for t_publish
@@ -487,7 +526,6 @@ CREATE TABLE `t_publish`  (
 -- ----------------------------
 -- Records of t_publish
 -- ----------------------------
-INSERT INTO `t_publish` VALUES (31, 'hello world', '你好,啊就是打算佛南萨非宁你好,啊就是打算佛南萨非宁静静', '湖北恩施', 0, '2022-09-28 21:40:39', 2, 'ohWWn5CNE3xxfWj72e_5-043_qsk');
 INSERT INTO `t_publish` VALUES (32, 'hello world', '你好,啊就是打算佛南萨非你好,啊就是打算佛南萨非宁静宁静', '湖北恩施', 0, '2022-09-28 21:44:20', 2, 'ohWWn5CNE3xxfWj72e_5-043_qsk');
 INSERT INTO `t_publish` VALUES (33, 'hello world', '你好,啊就是打算佛南萨你好,啊就是打算佛南萨非宁静非宁静', '湖北恩施', 0, '2022-09-28 21:44:45', 2, 'ohWWn5CNE3xxfWj72e_5-043_qsk');
 INSERT INTO `t_publish` VALUES (34, 'hello world已过', '你好,啊就是打算佛南萨非宁静', '湖北恩施', 0, '2022-09-28 21:48:20', 2, 'ohWWn5CNE3xxfWj72e_5-043_qsk');
@@ -511,6 +549,7 @@ INSERT INTO `t_publish` VALUES (51, '常见咖啡图', '我们经常会听到美
 INSERT INTO `t_publish` VALUES (52, '4', '444', NULL, NULL, '2022-11-06 10:04:07', 0, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
 INSERT INTO `t_publish` VALUES (53, '常见咖啡图', '我们经常会听到美式咖啡、拿铁、摩卡、卡布奇诺，这些咖啡有什么区别大家都了解吗?', NULL, 1, '2022-11-06 19:45:18', 0, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
 INSERT INTO `t_publish` VALUES (54, '2123', 'adsadsad', NULL, NULL, '2022-11-06 21:47:51', 0, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
+INSERT INTO `t_publish` VALUES (55, 'hello world', '你好,啊就是打算佛南萨非宁你好,啊就是打算佛南萨非宁静静', '湖北恩施', 0, '2022-09-28 21:40:39', 2, 'ohWWn5CNE3xxfWj72e_5-043_qsk');
 
 -- ----------------------------
 -- Table structure for t_publish_image
@@ -580,7 +619,7 @@ CREATE TABLE `t_publish_like`  (
   INDEX `open_like`(`openId`) USING BTREE,
   CONSTRAINT `open_like` FOREIGN KEY (`openId`) REFERENCES `t_wxuserinfo` (`openid`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `pid_like` FOREIGN KEY (`pid`) REFERENCES `t_publish` (`pid`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 72 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 76 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_publish_like
@@ -597,9 +636,9 @@ INSERT INTO `t_publish_like` VALUES (41, '2022-10-08 16:51:53', 32, 'ohWWn5CNE3x
 INSERT INTO `t_publish_like` VALUES (44, '2022-10-08 17:32:52', 49, 'ohWWn5CNE3xxfWj72e_5-043_qsk');
 INSERT INTO `t_publish_like` VALUES (45, '2022-10-23 18:27:47', 44, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
 INSERT INTO `t_publish_like` VALUES (53, '2022-10-23 18:32:14', 46, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
-INSERT INTO `t_publish_like` VALUES (69, '2022-11-04 11:10:40', 51, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
-INSERT INTO `t_publish_like` VALUES (70, '2022-11-04 11:32:40', 50, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
-INSERT INTO `t_publish_like` VALUES (71, '2022-11-04 19:46:54', 49, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
+INSERT INTO `t_publish_like` VALUES (73, '2022-11-13 20:41:08', 50, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
+INSERT INTO `t_publish_like` VALUES (74, '2022-11-13 20:41:51', 51, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
+INSERT INTO `t_publish_like` VALUES (75, '2022-11-13 20:42:02', 49, 'o5fzY4obICZKbk_RJOtOrzSDSnwc');
 
 -- ----------------------------
 -- Table structure for t_publish_reply
@@ -721,29 +760,39 @@ CREATE TABLE `t_topup_record`  (
   `totalPrice` float NOT NULL DEFAULT 0,
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` int(11) NOT NULL DEFAULT 0 COMMENT '0:未支付   1：支付成功',
+  `payDate` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `topuopNo`(`topupNo`) USING BTREE,
   INDEX `open_id_toup`(`openId`) USING BTREE,
   CONSTRAINT `open_id_toup` FOREIGN KEY (`openId`) REFERENCES `t_wxuserinfo` (`openid`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_topup_record
 -- ----------------------------
-INSERT INTO `t_topup_record` VALUES (1, 'LYTOPUP20221106015244000000654', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 6, '2022-11-06 13:52:44', 0);
-INSERT INTO `t_topup_record` VALUES (2, 'LYTOPUP20221106020750000000989', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 6, '2022-11-06 14:07:51', 0);
-INSERT INTO `t_topup_record` VALUES (3, 'LYTOPUP20221106020814000000027', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 6, '2022-11-06 14:08:14', 0);
-INSERT INTO `t_topup_record` VALUES (4, 'LYTOPUP20221106020908000000652', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 6, '2022-11-06 14:09:08', 0);
-INSERT INTO `t_topup_record` VALUES (5, 'LYTOPUP20221106021138000000292', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 6, '2022-11-06 14:11:38', 0);
-INSERT INTO `t_topup_record` VALUES (6, 'LYTOPUP20221106021306000000454', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 6, '2022-11-06 14:13:06', 0);
-INSERT INTO `t_topup_record` VALUES (7, 'LYTOPUP20221106022432000000700', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 200, 0.02, '2022-11-06 14:24:32', 1);
-INSERT INTO `t_topup_record` VALUES (8, 'LYTOPUP20221106023350000000301', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 200, 0.02, '2022-11-06 14:33:50', 1);
-INSERT INTO `t_topup_record` VALUES (9, 'LYTOPUP20221106023620000000145', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 2000, 100, '2022-11-06 14:36:20', 0);
-INSERT INTO `t_topup_record` VALUES (10, 'LYTOPUP20221106023755000000224', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 0.01, '2022-11-06 14:37:55', 1);
-INSERT INTO `t_topup_record` VALUES (11, 'LYTOPUP20221108073545000000905', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 0.01, '2022-11-08 19:35:45', 0);
-INSERT INTO `t_topup_record` VALUES (12, 'LYTOPUP20221108073554000000664', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 0.01, '2022-11-08 19:35:54', 0);
-INSERT INTO `t_topup_record` VALUES (13, 'LYTOPUP20221108073619000000499', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 0.01, '2022-11-08 19:36:19', 0);
-INSERT INTO `t_topup_record` VALUES (14, 'LYTOPUP20221108073833000000719', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 0.01, '2022-11-08 19:38:33', 0);
+INSERT INTO `t_topup_record` VALUES (1, 'LYTOPUP20221106015244000000654', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 6, '2022-11-06 13:52:44', 0, NULL);
+INSERT INTO `t_topup_record` VALUES (2, 'LYTOPUP20221106020750000000989', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 6, '2022-11-06 14:07:51', 0, NULL);
+INSERT INTO `t_topup_record` VALUES (3, 'LYTOPUP20221106020814000000027', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 6, '2022-11-06 14:08:14', 0, NULL);
+INSERT INTO `t_topup_record` VALUES (4, 'LYTOPUP20221106020908000000652', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 6, '2022-11-06 14:09:08', 0, NULL);
+INSERT INTO `t_topup_record` VALUES (5, 'LYTOPUP20221106021138000000292', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 6, '2022-11-06 14:11:38', 0, NULL);
+INSERT INTO `t_topup_record` VALUES (6, 'LYTOPUP20221106021306000000454', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 6, '2022-11-06 14:13:06', 0, NULL);
+INSERT INTO `t_topup_record` VALUES (7, 'LYTOPUP20221106022432000000700', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 200, 0.02, '2022-11-06 14:24:32', 1, NULL);
+INSERT INTO `t_topup_record` VALUES (8, 'LYTOPUP20221106023350000000301', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 200, 0.02, '2022-11-06 14:33:50', 1, NULL);
+INSERT INTO `t_topup_record` VALUES (9, 'LYTOPUP20221106023620000000145', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 2000, 100, '2022-11-06 14:36:20', 0, NULL);
+INSERT INTO `t_topup_record` VALUES (10, 'LYTOPUP20221106023755000000224', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 0.01, '2022-11-06 14:37:55', 1, NULL);
+INSERT INTO `t_topup_record` VALUES (11, 'LYTOPUP20221108073545000000905', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 0.01, '2022-11-08 19:35:45', 0, NULL);
+INSERT INTO `t_topup_record` VALUES (12, 'LYTOPUP20221108073554000000664', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 0.01, '2022-11-08 19:35:54', 0, NULL);
+INSERT INTO `t_topup_record` VALUES (13, 'LYTOPUP20221108073619000000499', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 0.01, '2022-11-08 19:36:19', 0, NULL);
+INSERT INTO `t_topup_record` VALUES (14, 'LYTOPUP20221108073833000000719', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 0.01, '2022-11-08 19:38:33', 0, NULL);
+INSERT INTO `t_topup_record` VALUES (15, 'LYTOPUP20221115123313000000865', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 0.01, '2022-11-15 12:33:13', 1, NULL);
+INSERT INTO `t_topup_record` VALUES (16, 'LYTOPUP20221115123834000000177', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 0.01, '2022-11-15 12:38:34', 1, NULL);
+INSERT INTO `t_topup_record` VALUES (17, 'LYTOPUP20221115123840000000377', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 0.01, '2022-11-15 12:38:40', 1, NULL);
+INSERT INTO `t_topup_record` VALUES (18, 'LYTOPUP20221115123913000000036', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 0.01, '2022-11-15 12:39:13', 1, NULL);
+INSERT INTO `t_topup_record` VALUES (19, 'LYTOPUP20221115123925000000263', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 0.01, '2022-11-15 12:39:25', 1, NULL);
+INSERT INTO `t_topup_record` VALUES (20, 'LYTOPUP20221115124022000000236', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 0.01, '2022-11-15 12:40:22', 1, NULL);
+INSERT INTO `t_topup_record` VALUES (21, 'LYTOPUP20221116104717000000223', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 0.01, '2022-11-16 10:47:17', 1, NULL);
+INSERT INTO `t_topup_record` VALUES (22, 'LYTOPUP20221116105226000000441', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 0.01, '2022-11-16 10:52:26', 1, NULL);
+INSERT INTO `t_topup_record` VALUES (23, 'LYTOPUP20221116110303000000310', 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 60, 0.01, '2022-11-16 11:03:03', 1, NULL);
 
 -- ----------------------------
 -- Table structure for t_wxuserinfo
@@ -767,32 +816,34 @@ CREATE TABLE `t_wxuserinfo`  (
   `employee_grade` int(11) NULL DEFAULT 1 COMMENT '1级雇员  ，2:2级雇员   ...以此类推',
   `coin` float NOT NULL DEFAULT 0,
   `employee_id` int(11) NULL DEFAULT NULL COMMENT '员工号',
-  `password` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '外部登录密码',
+  `password` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '11111111' COMMENT '外部登录密码',
   `tel` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '联系方式',
+  `fan` int(11) NOT NULL DEFAULT 0,
+  `browse` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `openid`(`openid`) USING BTREE,
   UNIQUE INDEX `employ_id`(`employee_id`) USING BTREE,
   INDEX `small_id_user`(`small_id`) USING BTREE,
   CONSTRAINT `small_id_user` FOREIGN KEY (`small_id`) REFERENCES `t_smalltype` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of t_wxuserinfo
 -- ----------------------------
-INSERT INTO `t_wxuserinfo` VALUES (6, 'ohWWn5CNE3xxfWj72e_5-043_qsk', '猫猫不易', '/image/product/20221101113122000000052.jpg', '2022-09-23 21:33:08', '2022-10-20 22:32:43', 1, '爱吃饭,爱喝水', 1, 15, 'yousa2658', 1, 5, 1, 1, 0, 1006, NULL, NULL);
-INSERT INTO `t_wxuserinfo` VALUES (7, 'sssss', 'Rose', '/image/product/20220930122212000000177.jpg', '2022-09-25 19:34:45', '2022-09-25 19:34:46', 2, '命运,魔法,诡秘', 1, 12, '-', 0, 10, 1, 1, 0, 1007, NULL, NULL);
-INSERT INTO `t_wxuserinfo` VALUES (8, 'testopen', '张三', '/image/product/20220929101726000000503.jpg', '2022-09-29 17:36:22', '2022-09-29 17:36:24', 0, '垃圾老,逃不过命运', 1, NULL, '-', 0, 13, 1, 1, 0, 1008, NULL, NULL);
-INSERT INTO `t_wxuserinfo` VALUES (9, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'yosa', '/image/product/20221106105658000000870.jpg', '2022-10-22 14:47:36', '2022-11-10 16:07:34', 1, '干饭,爱喝饮料,游泳健将', 1, 19, 'zhy2658', 1, 51, 1, 1, 4734, 1009, '1234', '17362388926');
-INSERT INTO `t_wxuserinfo` VALUES (10, 'o5fzY4p9Fo5B3MwnnbsZWpC1FMA4', '超_越梦', 'https://thirdwx.qlogo.cn/mmopen/vi_32/XAxTcGFpib3p316ak4Pdia0gFic2ykNwibDjpJsHicEyBw8Ahw9iafPMKoN0I7ouBUJibRPRKxgrRNXQT3COaFOjrjPSg/132', '2022-11-04 08:08:00', '2022-11-04 08:08:00', 0, NULL, 0, NULL, '-', 1, NULL, 0, 1, 0, NULL, NULL, NULL);
-INSERT INTO `t_wxuserinfo` VALUES (11, 'o5fzY4jngjpThhytLGqpMk7lq73o', '辛福', 'https://thirdwx.qlogo.cn/mmopen/vi_32/PiajxSqBRaEIARE6ibpu3FkwBJKRu1lZibicL0ReWcH2uq4bA70KZmiamiaibjLqL7maogyiaPhBbG1iao2o5PtAuE3AvAA/132', '2022-11-04 11:12:32', '2022-11-04 11:12:32', 0, NULL, 0, NULL, '-', 1, NULL, 0, 1, 0, NULL, NULL, NULL);
-INSERT INTO `t_wxuserinfo` VALUES (12, 'o5fzY4hooYpm0pEEyfJQvwdFHef8', '蓝色妖姬', 'https://thirdwx.qlogo.cn/mmopen/vi_32/PiajxSqBRaEJ56LQpjibjCicrsLlZlHcj6VUb2bwjBBm9Rpk6eZajaGROZ0Wf6ogY3ttpbnf6ibOGlcXtibxPVpUE5A/132', '2022-11-04 12:53:27', '2022-11-04 12:53:27', 0, NULL, 0, NULL, '-', 1, NULL, 0, 1, 0, NULL, NULL, NULL);
-INSERT INTO `t_wxuserinfo` VALUES (13, 'o5fzY4mx1IOFvHEfy70OMnikVrdE', 'Shin', 'https://thirdwx.qlogo.cn/mmopen/vi_32/XAxTcGFpib3p316ak4Pdia0heRS9PRaH1hWMMgGLmr47jXULYVKibS4L4ia23zFfca9DBbWicPqPoJZyTuTLjF8KCyQ/132', '2022-11-04 13:12:35', '2022-11-04 13:12:35', 0, NULL, 0, NULL, '-', 1, NULL, 0, 1, 0, NULL, NULL, '');
-INSERT INTO `t_wxuserinfo` VALUES (14, 'o5fzY4tawihCUzJhDivPkt6LvAUU', '丶', 'https://thirdwx.qlogo.cn/mmopen/vi_32/9aqxseO00Yak0dj0lpC0vWFjoI23uw275ramQh6E3ib7WwzuHjBQDTKIqOgzXGvB0nGwD2aKGyic1JH3yxITPNWA/132', '2022-11-04 14:10:16', '2022-11-04 14:10:16', 0, NULL, 0, NULL, '-', 1, NULL, 0, 1, 0, NULL, NULL, NULL);
-INSERT INTO `t_wxuserinfo` VALUES (15, 'o5fzY4jxeP2_Th0r0hpAa_ht-fUE', '小倩', 'https://thirdwx.qlogo.cn/mmopen/vi_32/4dBMq5ZIsiaqwHZDOV8z51JtRatBWmYYmYhx6zZEk0UKXSvWQrhPgbXwC3rN8pDeRCLRxG6RfvsqZ55PTueIVsQ/132', '2022-11-04 14:16:54', '2022-11-04 19:50:01', 0, NULL, 0, NULL, '-', 1, NULL, 0, 1, 0, NULL, NULL, NULL);
-INSERT INTO `t_wxuserinfo` VALUES (16, 'o5fzY4tF2wY3OWRscEWf8LssBAi0', '超级大可', 'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKxBgRjib2ECXkvd8RhosJm1fTQial7HRZjbnGibQiavBltECdVknibSqFoUYvGvtVP2JBqUxKSclWlsOw/132', '2022-11-04 14:42:36', '2022-11-04 14:42:36', 0, NULL, 0, NULL, '-', 1, NULL, 0, 1, 0, NULL, NULL, NULL);
-INSERT INTO `t_wxuserinfo` VALUES (17, 'o5fzY4sF5taFEGKUzOjxtTYWADfw', '渡', 'https://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83ep8ZZx6omRkOnOnoalnnkjh2Gun2dthfibvHZFhrgenQ3pOfBic8x8Fu9ANwia27dp6h7VXYdMP64fUQ/132', '2022-11-04 23:08:21', '2022-11-04 23:08:21', 0, NULL, 0, NULL, '-', 1, NULL, 0, 1, 100, NULL, NULL, NULL);
-INSERT INTO `t_wxuserinfo` VALUES (19, 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '小峰', '/image/product/20220929101806000000898.jpg', '2022-01-08 22:19:11', '2022-02-21 08:20:09', 0, '魔法,知识,命运', 1, 15, '-', 1, 1, 1, 1, 0, 1005, NULL, NULL);
-INSERT INTO `t_wxuserinfo` VALUES (20, 'o5fzY4tkTpwTcsbdKBupOz2BM8U0', 'ikun', 'https://thirdwx.qlogo.cn/mmopen/vi_32/hnKp3DsVbdCmLEuUx3eiac6szOcpiblb8SicoPtbp0IxObcRlJkqyWm0URrGq0aiaBETuyNBzh7jXHFZLU5IzBfuGw/132', '2022-11-10 08:51:28', '2022-11-10 08:51:28', 2, '力大无穷', 1, 18, 'sos9234', 1, NULL, 1, 1, 0, 1019, NULL, NULL);
+INSERT INTO `t_wxuserinfo` VALUES (6, 'ohWWn5CNE3xxfWj72e_5-043_qsk', '猫猫不易', '/image/product/20221101113122000000052.jpg', '2022-09-24 21:33:08', '2022-10-21 22:32:43', 1, '爱吃饭,爱喝水', 1, 15, 'yousa2658', 1, 5, 1, 1, 0, 1006, '11111111', NULL, 3, 49);
+INSERT INTO `t_wxuserinfo` VALUES (7, 'sssss', 'Rose', '/image/product/20220930122212000000177.jpg', '2022-09-25 19:34:45', '2022-09-25 19:34:46', 2, '命运,魔法,诡秘', 1, 12, '-', 0, 10, 1, 1, 0, 1007, '11111111', NULL, 0, 9);
+INSERT INTO `t_wxuserinfo` VALUES (8, 'testopen', '张三', '/image/product/20220929101726000000503.jpg', '2022-09-29 17:36:22', '2022-09-29 17:36:24', 0, '垃圾老,逃不过命运', 1, NULL, '-', 0, 13, 1, 1, 0, 1008, '11111111', NULL, 0, 6);
+INSERT INTO `t_wxuserinfo` VALUES (9, 'o5fzY4obICZKbk_RJOtOrzSDSnwc', 'yosa', '/image/product/20221106105658000000870.jpg', '2022-10-23 14:47:36', '2022-11-15 16:49:24', 1, '干饭,爱喝饮料,游泳健将', 1, 19, 'zhy2658', 1, 51, 1, 2, 2294, 1009, '1234', '17362388926', 1, 57);
+INSERT INTO `t_wxuserinfo` VALUES (10, 'o5fzY4p9Fo5B3MwnnbsZWpC1FMA4', '超_越梦', 'https://thirdwx.qlogo.cn/mmopen/vi_32/XAxTcGFpib3p316ak4Pdia0gFic2ykNwibDjpJsHicEyBw8Ahw9iafPMKoN0I7ouBUJibRPRKxgrRNXQT3COaFOjrjPSg/132', '2022-11-04 08:08:00', '2022-11-04 08:08:00', 0, NULL, 0, NULL, '-', 1, NULL, 0, 1, 0, NULL, '11111111', NULL, 0, 0);
+INSERT INTO `t_wxuserinfo` VALUES (11, 'o5fzY4jngjpThhytLGqpMk7lq73o', '辛福', 'https://thirdwx.qlogo.cn/mmopen/vi_32/PiajxSqBRaEIARE6ibpu3FkwBJKRu1lZibicL0ReWcH2uq4bA70KZmiamiaibjLqL7maogyiaPhBbG1iao2o5PtAuE3AvAA/132', '2022-11-04 11:12:32', '2022-11-04 11:12:32', 0, NULL, 0, NULL, '-', 1, NULL, 0, 1, 0, NULL, '11111111', NULL, 0, 0);
+INSERT INTO `t_wxuserinfo` VALUES (12, 'o5fzY4hooYpm0pEEyfJQvwdFHef8', '蓝色妖姬', 'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKxBgRjib2ECXkvd8RhosJm1fTQial7HRZjbnGibQiavBltECdVknibSqFoUYvGvtVP2JBqUxKSclWlsOw/132', '2022-11-04 12:53:27', '2022-11-04 12:53:27', 0, NULL, 0, NULL, '-', 1, NULL, 0, 1, 0, NULL, '11111111', NULL, 0, 0);
+INSERT INTO `t_wxuserinfo` VALUES (13, 'o5fzY4mx1IOFvHEfy70OMnikVrdE', 'Shin', 'https://thirdwx.qlogo.cn/mmopen/vi_32/XAxTcGFpib3p316ak4Pdia0heRS9PRaH1hWMMgGLmr47jXULYVKibS4L4ia23zFfca9DBbWicPqPoJZyTuTLjF8KCyQ/132', '2022-11-04 13:12:35', '2022-11-04 13:12:35', 0, NULL, 0, NULL, '-', 1, NULL, 0, 1, 0, NULL, '11111111', '', 0, 0);
+INSERT INTO `t_wxuserinfo` VALUES (14, 'o5fzY4tawihCUzJhDivPkt6LvAUU', '丶', 'https://thirdwx.qlogo.cn/mmopen/vi_32/9aqxseO00Yak0dj0lpC0vWFjoI23uw275ramQh6E3ib7WwzuHjBQDTKIqOgzXGvB0nGwD2aKGyic1JH3yxITPNWA/132', '2022-11-04 14:10:16', '2022-11-04 14:10:16', 0, NULL, 0, NULL, '-', 1, NULL, 0, 1, 0, NULL, '11111111', NULL, 0, 0);
+INSERT INTO `t_wxuserinfo` VALUES (15, 'o5fzY4jxeP2_Th0r0hpAa_ht-fUE', '小倩', 'https://thirdwx.qlogo.cn/mmopen/vi_32/4dBMq5ZIsiaqwHZDOV8z51JtRatBWmYYmYhx6zZEk0UKXSvWQrhPgbXwC3rN8pDeRCLRxG6RfvsqZ55PTueIVsQ/132', '2022-11-04 14:16:54', '2022-11-04 19:50:01', 0, NULL, 0, NULL, '-', 1, NULL, 0, 1, 0, NULL, '11111111', NULL, 0, 0);
+INSERT INTO `t_wxuserinfo` VALUES (16, 'o5fzY4tF2wY3OWRscEWf8LssBAi0', '超级大可', 'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKxBgRjib2ECXkvd8RhosJm1fTQial7HRZjbnGibQiavBltECdVknibSqFoUYvGvtVP2JBqUxKSclWlsOw/132', '2022-11-04 14:42:36', '2022-11-04 14:42:36', 0, NULL, 0, NULL, '-', 1, NULL, 0, 1, 0, NULL, '11111111', NULL, 0, 0);
+INSERT INTO `t_wxuserinfo` VALUES (17, 'o5fzY4sF5taFEGKUzOjxtTYWADfw', '渡', 'https://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83ep8ZZx6omRkOnOnoalnnkjh2Gun2dthfibvHZFhrgenQ3pOfBic8x8Fu9ANwia27dp6h7VXYdMP64fUQ/132', '2022-11-04 23:08:21', '2022-11-04 23:08:21', 0, NULL, 0, NULL, '-', 1, NULL, 0, 1, 100, NULL, '11111111', NULL, 0, 0);
+INSERT INTO `t_wxuserinfo` VALUES (19, 'o30ur5JpAsAUyGBkR0uW4IxvahR8', '小峰', '/image/product/20220929101806000000898.jpg', '2022-01-08 22:19:11', '2022-02-21 08:20:09', 0, '魔法,知识,命运', 1, 15, '-', 1, 1, 1, 1, 0, 1005, '11111111', NULL, 0, 6);
+INSERT INTO `t_wxuserinfo` VALUES (20, 'o5fzY4tkTpwTcsbdKBupOz2BM8U0', 'ikun', 'https://thirdwx.qlogo.cn/mmopen/vi_32/hnKp3DsVbdCmLEuUx3eiac6szOcpiblb8SicoPtbp0IxObcRlJkqyWm0URrGq0aiaBETuyNBzh7jXHFZLU5IzBfuGw/132', '2022-11-10 08:51:28', '2022-11-10 08:51:28', 2, '力大无穷', 1, 18, 'sos9234', 1, NULL, 1, 1, 0, 1019, '11111111', NULL, 0, 0);
 
 -- ----------------------------
 -- Table structure for temp_file

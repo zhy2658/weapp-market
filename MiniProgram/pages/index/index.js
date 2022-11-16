@@ -225,8 +225,9 @@ Page({
         // this.audioPause();
         return false;
     },
-    // 播放器关闭时间
+    // 播放器关闭事件
     audioClose() {
+        console.log("sss")
         let hotProductList = this.data.hotProductList;
         for (let hotProduct of hotProductList) hotProduct.isPlay = false;
         this.setData({
@@ -234,8 +235,15 @@ Page({
         });
     },
     // 播放器暂停事件
-    audioPause() {
-        console.log("pause")
+    audioPause(data) {
+        // console.log("data",data)
+        // console.log("pause",this.data.audioPlayObj)
+        // let hotProductList=this.data.hotProductList;
+        // for(let item of hotProductList)item.isPlay=false;
+        // this.setData({
+        //     hotProductList:hotProductList
+        // });
+        
     },
     closeNotice() {
         this.setData({ isShowNotice: false, isShowLayer: false })
@@ -330,7 +338,7 @@ Page({
         const res = await requestUtil({ url: "/my/order/payRandom0rder", method: "POST", data: orderParams });
         if(res.code == 0){
             wx.showToast({
-                title: '下单成功',
+                title: '下单成功，请前往我的订单查看！',
                 icon: 'success'
             });
           this.setData({
@@ -340,9 +348,17 @@ Page({
           })  
         }
         else{
+            setTimeout(() => {
+                // wx.reLanch({
+                //     url: '/pages/userOrder/index'
+                // })
+                wx.navigateTo({
+                    url: '/pages/wallet/index',
+                })
+            }, 1000)
             wx.showToast({
-                title: '下单失败',
-                icon: 'error'
+                title: '米粒余额不足,请前往充值',
+                icon: 'none'
             });
         }
     },

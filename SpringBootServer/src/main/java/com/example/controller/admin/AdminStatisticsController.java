@@ -100,8 +100,8 @@ public class AdminStatisticsController {
                     new QueryWrapper<Order>()
                             .eq("status",9)
                             .eq("servant_id",tempUser.getOpenid())
-                            .gt("createDate",begin)
-                            .lt("createDate",end)
+                            .gt("finishDate",begin)
+                            .lt("finishDate",end)
             );
             //         总受益
             List<Order> revenueOrder = orderService.list(

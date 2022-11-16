@@ -3,7 +3,7 @@
 
 <view class="content">
     <view>我的店员等级是 <text style="color: red;font-size: 1rem;">{{tools.employeeGrade[userInfo.employee_grade]}}店员</text></view>
-    <view>今日接单量：{{basicInfo.todayOrder}}</view>
+    <view>今日完成：{{basicInfo.todayOrder}}</view>
     <!-- <view>今日在线时长：</view> -->
     <view>今日收益：{{basicInfo.todayRevenue}} 米粒</view>
     <!-- <view>本月接单量：</view>

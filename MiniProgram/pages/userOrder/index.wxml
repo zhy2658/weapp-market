@@ -312,7 +312,7 @@
                     <!-- [第{{order.order_count}}次续单] -->
                     </text>
                     </view>
-                    <view class="text-green">被拒接，已退还米粒</view>
+                    <view class="text-green">已取消，退还全部米粒</view>
                 </view>
                 <view class="order_row2">
                     <view style="width: 50px; margin: 0 20rpx;">
@@ -331,7 +331,7 @@
                 </view>
                 <view class="order_row3">
                     <view class="total medium_font">总时长：{{order.goods[0].totalHours}} 小时</view>
-                    <view class="total medium_font">总花费：{{order.totalPrice}}米粒</view>
+                    <view class="total medium_font">退还：{{order.totalPrice}}米粒</view>
                     
                 </view>
                 <!-- <view class="flex" style="margin-top: 5px;padding-top: 5px;border-top: 1px solid #efefef;"></view> -->

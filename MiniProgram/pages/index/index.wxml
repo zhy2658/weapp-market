@@ -203,9 +203,9 @@
         <view class="notice_row1">
             <!-- <view>-</view> -->
             <view class="notice_title">{{notice.title}}</view>
-            <view class="action notite_close" bindtap="closeNotice" style="font-size: 2rem; position: absolute; right: -30rpx;top:-3.5vh;">
+            <!-- <view class="action notite_close" bindtap="closeNotice" style="font-size: 2rem; position: absolute; right: -30rpx;top:-3.5vh;">
                 <text class="cuIcon-close text-red"></text>
-            </view>
+            </view> -->
             <!-- <view class="notite_close" bindtap="closeNotice">收起</view> -->
         </view>
         <view class="notice_row2">
@@ -214,7 +214,7 @@
             </view>
         </view>
         <view style="margin:10px 0; width: 100%; text-align: center;border-top: 1px solid #efefef;">
-            <button class="cu-btn round bg-green" bindtap="closeNotice" style=" margin-top: 10px;">我知道了</button>
+            <button class="cu-btn round " bindtap="closeNotice" style=" margin-top: 10px; background-color: #6DCFF2;">我知道了</button>
         </view>
     </view>
 
@@ -273,7 +273,7 @@
                 <!-- <input type="text" placeholder="1" value="1" /> -->
             </view>
             <view>
-                <input type="number" value="{{blindbox.msg}}" bindinput='bindRemark' placeholder="备注" style="border-bottom:1px solid #efefef;" />
+                <input type="text" value="{{blindbox.msg}}" bindinput='bindRemark' placeholder="备注" style="border-bottom:1px solid #efefef;" />
             </view>
             <view class="price">
                 <view>{{coinNum}}米粒</view>

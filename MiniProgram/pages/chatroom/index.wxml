@@ -104,9 +104,9 @@
                 <!-- <view class="action">
                     <text class="cuIcon-sound text-grey"></text>
                 </view> -->
-                <view class="action">
+                <!-- <view class="action">
                     <text class="cuIcon-emojifill text-grey"></text>
-                </view>
+                </view> -->
                 <input class="solid-bottom" bindfocus="InputFocus" bindblur="InputBlur" adjust-position="{{false}}" focus="{{false}}" maxlength="300" cursor-spacing="10" name="msg" bindinput='getInputValue' value="{{msgvalue}}" disabled="{{isOrderEnd}}"></input>
                 
                 <button class="cu-btn bg-green shadow" style="width: 200rpx;" formType="submit" disabled="{{isOrderEnd}}">发送</button>

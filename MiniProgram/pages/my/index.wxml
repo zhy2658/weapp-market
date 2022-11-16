@@ -17,17 +17,60 @@
 
         <view wx:else style=" height:100%;display: flex;align-items: center;justify-content: center;"><button bindtap="loginUser" type="primary">点击登录</button></view>
     </view>
-
-
     <!-- 用户背景信息结束 -->
+
+    <view class="cu-list menu {{menuBorder?'sm-border':''}} {{menuCard?'card-menu margin-top':''}}">
+     
+        <view class="cu-item {{menuArrow?'arrow':''}}">
+            <navigator class="content" hover-class="none" url="/pages/userOrder/index?status=1" >
+                <text class="cuIcon-form text-olive"></text>
+                <text class="text-grey">我的订单</text>
+            </navigator>
+        </view>
+        <view class="cu-item {{menuArrow?'arrow':''}}">
+            <navigator class="content" hover-class="none" url="/pages/wallet/index" >
+                <text class="cuIcon-moneybag text-pink"></text>
+                <text class="text-grey">我的钱包</text>
+            </navigator>
+        </view>
+        <view class="cu-item {{menuArrow?'arrow':''}}">
+            <navigator class="content" hover-class="none" url="/pages/attention/index" >
+                <text class="cuIcon-friendfavor text-orange"></text>
+                <text class="text-grey">关注列表</text>
+            </navigator>
+        </view>
+        <view class="cu-item {{menuArrow?'arrow':''}}">
+            <button class="cu-btn content" open-type="contact">
+                <text class="cuIcon-comment text-grey"></text>
+                <text class="text-grey">联系客服</text>
+            </button>
+        </view>
+        <!-- <view class="cu-item {{menuArrow?'arrow':''}}">
+            <button class="cu-btn content" open-type="feedback">
+                <text class="cuIcon-warn text-grey"></text>
+                <text class="text-grey">意见反馈</text>
+            </button>
+        </view> -->
+        <view wx:if="{{userInfo.admin == 1}}" class="cu-item {{menuArrow?'arrow':''}}">
+            <navigator class="content" hover-class="none" url="/pages/myPageManage/index">
+                <text class="cuIcon-profile text-grey"></text>
+                <text class="text-grey">我是员工</text>
+            </navigator>
+        </view>
+    
+    
+     
+      
+     
+    </view>
+
 
     <!-- 用户操作菜单开始 -->
     <view class="user_menu">
-        <!-- 订单管理开始 -->
         <view class="orders_warp">
-            <navigator url="/pages/userOrder/index?status=1">
+            <!-- <navigator url="/pages/userOrder/index?status=1">
                      <view class="orders_title">我的订单</view>
-        </navigator>
+        </navigator> -->
             <!-- <view class="orders_content">
                 <navigator url="/pages/userOrder/index?status=1">
                     <view class="iconfont icon-daifukuan"></view>
@@ -65,7 +108,7 @@
                 </navigator>
             </view> -->
             
-            <view class="app_info_item">
+            <!-- <view class="app_info_item">
                 <navigator url="/pages/wallet/index">
                     <view>
                         我的钱包
@@ -81,26 +124,20 @@
             </view>
             <view open-type="contact" class="app_info_item app_info_contact">
                <button open-type="contact" class="feedback"> 联系客服</button> 
-                <!-- <text>400-699-12345</text> -->
+       
             </view>
             <view class="app_info_item">
                 <button open-type="feedback" class="feedback">意见反馈</button>
             </view>
           
-            <!-- <view class="app_info_item">
-                <navigator url="/pages/setting/index">
-                    <view>
-                        用户设置
-                    </view>
-                </navigator>
-            </view> -->
+        
             <view class="app_info_item" wx:if="{{userInfo.admin == 1}}">
                 <navigator url="/pages/myPageManage/index">
                     <view>
                         我是员工
                     </view>
                 </navigator>
-            </view>
+            </view> -->
         </view>
         <!-- 应用相关信息开始 -->
 

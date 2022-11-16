@@ -14,7 +14,6 @@ Page({
         options:{},
         ColorList: app.globalData.ColorList,
         productObj: {},
-        userInfo: {},
         baseUrl: '',
         activeIndex: 0,
         sexOption: ["不明", "女", "男"],
@@ -198,6 +197,7 @@ Page({
         let itemHours = this.data.gg_hours;
         let openId = this.data.userInfo.openid;
         let avatarUrl=this.data.userInfo.avatarUrl;
+        let employee_grade=this.data.userInfo.employee_grade;
         let num=this.data.num;
         if(!id){
             wx.showToast({  
@@ -227,7 +227,7 @@ Page({
         //     return;
         // }
         wx.navigateTo({   //保留当前页面，跳转到应用内的某个页面（最多打开5个页面，之后按钮就没有响应的）后续可以使用wx.navigateBack 可以返回;
-            url: `/pages/pay/index?id=${id}&itemName=${itemName}&price=${price}&itemHours=${itemHours}&openId=${openId}&num=${num}&avatarUrl=${avatarUrl}`
+            url: `/pages/pay/index?id=${id}&itemName=${itemName}&price=${price}&itemHours=${itemHours}&openId=${openId}&num=${num}&avatarUrl=${avatarUrl}&employee_grade=${employee_grade}`
         })
     },
 

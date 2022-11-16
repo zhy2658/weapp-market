@@ -80,30 +80,39 @@ Page({
             const preparePayRes = await requestUtil({ url: "/topupRecord/preparePay", method: "POST", data: topupNo });
             console.log("preparePayRes:" + preparePayRes)
             let payRes = await requestPay(preparePayRes);
-
-            if (payRes.errMsg.indexOf("ok") != 0) {
-                const preparePayRes = await requestUtil({
-                    url: "/topupRecord/setOrderStatus", method: "POST",
-                    data: {
-                        topupNo: topupNo
-                    }
-                });
-            }
+            console.log(payRes);
+            // if (payRes.errMsg.indexOf("ok") != 0) {
+            //     // const preparePayRes = await requestUtil({
+            //     //     url: "/topupRecord/setOrderStatus", method: "POST",
+            //     //     data: {
+            //     //         topupNo: topupNo
+            //     //     }
+            //     // });
+            // }
 
             console.log(payRes)
+            setTimeout(()=>{
+                this.getDetail();
+            },2000)
             wx.showToast({
-                title: '支付成功',
-                icon: 'none'
+                title: '支付成功!',
+                icon: 'success',
+                duration: 3000
             });
-            this. getDetail();
+           
 
 
         } catch (error) {
             console.log(error);
+            setTimeout(()=>{
+                this.getDetail();
+            },2000)
             wx.showToast({
-                title: '支付失败',
-                icon: 'none'
+                title: '取消支付',
+                icon: 'none',
+                duration:3000
             })
+            
 
         }
     },
@@ -140,7 +149,8 @@ Page({
      * 页面相关事件处理函数--监听用户下拉动作
      */
     onPullDownRefresh() {
-
+        console.log("刷新")
+        this.getDetail();
     },
 
     /**

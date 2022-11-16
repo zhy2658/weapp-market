@@ -1,10 +1,13 @@
 {
     "pages": [
         "pages/index/index",
-        "pages/product_detail/index",
+        "pages/wallet/index",
         
-       
-    
+        "pages/userDetail/index",
+        "pages/my/index",
+        
+        "pages/product_detail/index",
+
         "pages/sharewall/index",
         
         "pages/attention/index",
@@ -14,9 +17,9 @@
         "pages/orderManage/index",
         "pages/userOrder/index",
         "pages/category/index",
-        "pages/wallet/index",
+       
         "pages/cart/index",
-        "pages/my/index",
+        
         "pages/search/index",
         
         "pages/pay/index",
@@ -28,8 +31,8 @@
         "pages/userInfo/index",
         "pages/setting/index",
         "pages/publish_detail/index",
-        "pages/conplain/index",
-        "pages/userDetail/index"
+        "pages/conplain/index"
+       
         
     ],
     "window": {

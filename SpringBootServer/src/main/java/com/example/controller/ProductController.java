@@ -66,10 +66,18 @@ public class ProductController {
     }
 
     /**
-     * 根据id查询商品
-     * @param id
+     * 根据id查询用户
+     * @param openId
      * @return
      */
+
+    @RequestMapping("/getUser/{openId}")
+    public R detail(HttpServletRequest request,@PathVariable(value = "openId") String openId){
+        WxUserInfo userInfo = iWxUserInfoService.findByOpenId(openId);
+        Map<String,Object> map=new HashMap<>();
+        map.put("userInfo",userInfo);
+        return R.ok(map);
+    }
     @RequestMapping("/detail")
     public R detail(HttpServletRequest request
             ,@RequestParam("id") Integer id

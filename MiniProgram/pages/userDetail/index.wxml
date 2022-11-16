@@ -21,6 +21,7 @@
             </button>
             <button class="cu-btn round " style="margin-top: 10px;" bindtap="showRecorder">录制</button>
         </view>
+        <button class="cu-btn round " style="margin-top: 10px;" bindtap="uploadAudio">上传音频</button>
     </view>
    
 </view>

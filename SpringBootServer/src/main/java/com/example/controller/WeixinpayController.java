@@ -7,10 +7,15 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.entity.TopupRecord;
+import com.example.entity.WxUserInfo;
 import com.example.service.IOrderService;
+import com.example.service.IWxUserInfoService;
+import com.example.service.TopupRecordService;
 import com.example.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +42,12 @@ public class WeixinpayController {
 	@Autowired
 	private IOrderService orderService;
 
+	@Resource
+	private TopupRecordService topupRecordService;
+
+	@Resource
+	IWxUserInfoService iWxUserInfoService;
+
 	private final static Logger logger= LoggerFactory.getLogger(WeixinpayController.class);
 
 
@@ -48,6 +59,7 @@ public class WeixinpayController {
 	 */
 	@RequestMapping("/notifyUrl")
 	public synchronized void notifyUrl(HttpServletRequest request)throws Exception{
+		System.out.println("/notifyUrl");
 		logger.info("notifyUrl");
 		//读取参数    
         InputStream inputStream ;    
@@ -84,23 +96,32 @@ public class WeixinpayController {
         String key = weixinpayProperties.getKey();
 		String out_trade_no=(String) packageParams.get("out_trade_no");
 
+		System.out.println("out_trade_no:"+out_trade_no);
 
 		if (isTenpaySign("UTF-8", packageParams, key)) { // 验证通过
 			if ("SUCCESS".equals((String) packageParams.get("result_code"))) {
-				Order order = orderService.getOne(new QueryWrapper<Order>().eq("orderNo", out_trade_no));
-
-				if (order != null && order.getStatus() == 1) {
-					order.setPayDate(new Date());
-					order.setStatus(2);  // 设置支付状态已经支付
+				TopupRecord topupRecord = topupRecordService.getOne(new QueryWrapper<TopupRecord>().eq("topupNo", out_trade_no));
+				System.out.println("topupRecord:"+topupRecord);
+				if (topupRecord != null && topupRecord.getStatus() == 0) {
+					topupRecord.setPayDate(new Date());
+					System.out.println("设置支付状态");
+					System.out.println(topupRecord.getTopupNo());
+					topupRecord.setStatus(1);  // 设置支付状态已经支付
 				    // orderService.save(order);
-					orderService.saveOrUpdate(order);
+					topupRecordService.saveOrUpdate(topupRecord);
 
-					logger.info(out_trade_no + "：微信服务器异步修改订单状态成功！");
+					// 加米粒数量
+					WxUserInfo user = iWxUserInfoService.findByOpenId(topupRecord.getOpenId());
+					user.setCoin( topupRecord.getCoinNum() +user.getCoin());
+					iWxUserInfoService.updateById(user);
+
+					System.out.println("代码结束");
+//					logger.info(out_trade_no + "：微信服务器异步修改订单状态成功！");
 
 				}
 			}
 		} else {
-			logger.info(out_trade_no + "：微信服务器异步验证失败！");
+//			logger.info(out_trade_no + "：微信服务器异步验证失败！");
 		}
 
 

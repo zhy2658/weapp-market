@@ -6,7 +6,7 @@
         <div class="container">
             <!-- {{userInfo.nickName}} -->
             <div class="fileInputContainer">
-                <img class="avatarImg"  :src="filePathHandler(userInfo.avatarUrl)" @click="handleChangeImage" alt="">
+                <img class="avatarImg" :src="filePathHandler(userInfo.avatarUrl)" @click="handleChangeImage" alt="">
             </div>
             <div class="Content-Main">
                 <!-- <form action="" method="post" class="form-userInfo"> -->
@@ -28,7 +28,7 @@
                     <span>性别:</span>
                     <!-- <input type="checkbox" class="man" >男
                         <input type="checkbox" class="women">女 -->
-                    <el-select v-if="isEdit" v-model="userInfo.sex" >
+                    <el-select v-if="isEdit" v-model="userInfo.sex">
                         <el-option label="女" value="1" :key="1"></el-option>
                         <el-option label="男" value="2" :key="2"> </el-option>
                     </el-select>
@@ -42,8 +42,10 @@
                 </label>
                 <label>
                     <span>手机号 :</span>
-                    <input v-if="userInfo.tel" type="email" name="email" placeholder="" v-model="userInfo.tel" :disabled="!isEdit">
-                    <input v-else style="color:red" type="email" name="email" placeholder="" value="必填，用于接收下单信息"  disabled=""/>
+                    <input v-if="userInfo.tel" type="email" name="email" placeholder="" v-model="userInfo.tel"
+                        :disabled="!isEdit">
+                    <input v-else style="color:red" type="email" name="email" placeholder="" value="必填，用于接收下单信息"
+                        disabled="" />
                 </label>
                 <label>
                     <span>年龄:</span>
@@ -61,14 +63,18 @@
                         v-model="detailObj.description" :disabled="!isEdit"></textarea>
                 </label>
 
-                <label>
-                    <span>详细介绍:</span>
+                <div>
+                    <span style="display:block;font-weight: 600;">详细介绍:</span>
+                </div>
+                <br>
+                <div>
                     <QuillEditor v-if="isEdit" v-model:content="detailObj.productIntroImgs" contentType="html"
-                        toolbar="full" theme="snow" style="height:200px" />
-                    <div v-else class="productIntroImgs">
-                        {{ detailObj.productIntroImgs }}
+                        toolbar="full" theme="snow"  />
+                    <div v-else class="productIntroImgs"  >
+                        <div ref="reportHTML" v-html="detailObj.productIntroImgs" class="web-con"></div>
+                        <!-- {{  }} -->
                     </div>
-                </label>
+                </div>
 
 
                 <div class="demo-image__preview">
@@ -92,9 +98,10 @@
         </div>
 
     </div>
-    <ProductSwiperImageDialog :productId="detailObj.id" v-model="productSwiperImageDialogVisible"></ProductSwiperImageDialog>
-    <ImageDialog v-model="imageDialogVisible" :id="id" :uid="uid"  @initUserList="initUserList"/>
-  
+    <ProductSwiperImageDialog :productId="detailObj.id" v-model="productSwiperImageDialogVisible">
+    </ProductSwiperImageDialog>
+    <ImageDialog v-model="imageDialogVisible" :id="id" :uid="uid" @initUserList="initUserList" />
+
 
 </template>
 <script setup>
@@ -116,10 +123,10 @@ const srcList = ref([
 ]);
 
 const productSwiperImageDialogVisible = ref(false)
-const imageDialogVisible=ref(false)
+const imageDialogVisible = ref(false)
 
-const id=ref(-1)
-const uid=ref(-1)
+const id = ref(-1)
+const uid = ref(-1)
 
 const isEdit = ref(false)
 const userInfo = ref({});
@@ -181,15 +188,16 @@ const sumbitForm = async () => {
 }
 
 const handleChangeImage = (row) => {
-  id.value=userInfo.value.id;
-  uid.value=userInfo.value.id;
-  imageDialogVisible.value=true;
+    id.value = userInfo.value.id;
+    uid.value = userInfo.value.id;
+    imageDialogVisible.value = true;
 }
 
+
 const handleChangeProductSwiperImage = (row) => {
-  // id.value=row.id;
-  // uid.value=row.userInfo.id;
-  productSwiperImageDialogVisible.value = true;
+    // id.value=row.id;
+    // uid.value=row.userInfo.id;
+    productSwiperImageDialogVisible.value = true;
 }
 
 
@@ -329,6 +337,7 @@ const eidtForm = () => {
 }
 
 .productIntroImgs {
+    width: 90%;
     // width: 70%;
     // background-color: red;
     // width: 800px;

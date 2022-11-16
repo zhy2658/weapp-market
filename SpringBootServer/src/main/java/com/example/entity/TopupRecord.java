@@ -28,4 +28,7 @@ public class TopupRecord implements Serializable {
     @JsonSerialize(using=CustomDateTimeSerializer.class)
     private Date create_time;
 
+    @JsonSerialize(using=CustomDateTimeSerializer.class)
+    private Date payDate;
+
 }

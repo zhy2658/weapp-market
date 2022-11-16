@@ -37,8 +37,9 @@
         </template>
       </el-table-column>
 
-      <el-table-column v-if="isShowSetting" prop="action" label="操作" width="250" fixed="right" >
+      <el-table-column v-if="isShowSetting" prop="action" label="操作" width="320" fixed="right" >
         <template v-slot="scope">
+          <el-button type="primary" @click="handleDialogValue(scope.row)">编辑</el-button>
           <el-button type="primary" @click="handleShowStatus(scope.row.openid, 1)">公开</el-button>
           <el-button type="danger" @click="handleShowStatus(scope.row.openid, 0)">不公开</el-button>
           <el-button type="danger" @click="handleAdminStatus(scope.row.openid, 0)">降权</el-button>
@@ -58,16 +59,19 @@
 
   </el-card>
 
+  <Dialog v-model="dialogVisible" @initUserList="initUserList" :id="id" :currentRow="currentRow" />
+
+
 </template>
 
 <script setup>
 import { Search } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 import { getServerUrl, filePathHandler } from "@/config/sys";
-import { showOption, adminOption } from "@/config/option.js";
+import { showOption, adminOption,memberGradeOption } from "@/config/option.js";
 import axios from '@/util/axios'
 import { ElMessageBox, ElMessage } from 'element-plus'
-
+import Dialog from './components/dialog'
 
 
 
@@ -77,6 +81,12 @@ const queryForm = ref({
   pageNum: 1,
   pageSize: 10
 })
+
+// 弹出框
+const id = ref(-1)
+const dialogVisible=ref(false)
+
+const dialogTitle = ref('')
 
 const total = ref(0)
 
@@ -171,6 +181,20 @@ const handleAdminStatus = (openId, admin) => {
 const showSetting = () => {
   if(isShowSetting.value)isShowSetting.value=false
   else isShowSetting.value=true;
+}
+
+const handleDialogValue = (row) => {
+  // console.log(row)
+  if (row) {
+    id.value = row.openid;
+    console.log("update", id)
+    dialogTitle.value = "通知修改"
+  } else {
+    console.log("add")
+    id.value = -1;
+    dialogTitle.value = "通知添加"
+  }
+  dialogVisible.value = true;
 }
 
 

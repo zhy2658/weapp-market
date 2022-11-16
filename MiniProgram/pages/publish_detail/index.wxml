@@ -14,14 +14,14 @@
     <view class='author-date'>
         <image wx:if="{{publishObj.userInfo.avatarUrl}}" class='avatar' mode="widthFix" src='{{tools.filePathHandler(publishObj.userInfo.avatarUrl)}}'></image>
         <text class='author'>{{publishObj.userInfo.nickName}}</text>
-        <text class='const-text'>发表于</text>
-        <text class='date'>{{publishObj.dateDiff}}</text>
+        <text class='const-text'></text>
+        <text class='date'> 发表于{{publishObj.dateDiff}}</text>
     </view>
     <text class='title'>{{publishObj.title}}</text>
     <view class='tool'>
         <view class='cicle-img'>
-            <view>收藏</view>
-            <view>分享</view>
+            <!-- <view>收藏</view>
+            <view>分享</view> -->
         </view>
         <view class='horizon'></view>
     </view>

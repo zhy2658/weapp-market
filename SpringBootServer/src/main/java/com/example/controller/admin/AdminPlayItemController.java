@@ -32,8 +32,8 @@ public class AdminPlayItemController {
 
     @RequestMapping("/getByGrade")
     public R getByGrade(@RequestParam("grade") Integer grade){
-
         List<PayItem> payitemList = payItemService.list(new QueryWrapper<PayItem>().eq("grade",grade));
+
         Map<String,Object> map=new HashMap<>();
         map.put("payitemList",payitemList);
         return R.ok(map);

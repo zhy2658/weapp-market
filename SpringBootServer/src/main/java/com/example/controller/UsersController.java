@@ -195,7 +195,6 @@ public class UsersController {
             // 获取文件的后缀名
             String suffixName = fileName.substring(fileName.lastIndexOf("."));
             String newFileName = DateUtil.getCurrentDateStr() + suffixName;
-
             FileUtils.copyInputStreamToFile(file.getInputStream(), new File(AudioFilePath + newFileName));
 
             String openId = (String) request.getSession().getAttribute("openId");

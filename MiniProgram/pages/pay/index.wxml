@@ -14,10 +14,10 @@
 <view>
     <view class="table">
         <view class="tr bg-w" style="display: flex;">
-            <view class="th"  style="margin: 0 10px;">项目名</view>
-            <view class="th"  style="margin: 0 10px;">小时数</view>
-            <view class="th "  style="margin: 0 10px;">单价</view>
-            <view class="th "  style="margin: 0 10px;">数量</view>
+            <view class="th"  style="margin: 0 10px; font-weight: bold;">项目名</view>
+            <view class="th"  style="margin: 0 10px;font-weight: bold;">小时数</view>
+            <view class="th "  style="margin: 0 10px;font-weight: bold;">单价</view>
+            <view class="th "  style="margin: 0 10px;font-weight: bold;">数量</view>
             
             <!-- <view class="th "  style="margin: 0 10px;">操作</view> -->
         </view>
@@ -41,7 +41,7 @@
         </block>
     </view>
 </view>
-<view style="font-size: 30rpx;margin-left: 40rpx;margin-top: 20px;">总计时长：{{cart[0].totalHours}} 小时</view>
+<view style="font-size: 30rpx;margin-left: 40rpx;margin-top: 20px;"> <text style="font-weight: bold;">总计时长</text>   ：{{cart[0].totalHours}} 小时</view>
 
 
 <view class="cu-bar bg-white solid-bottom margin-top" style="margin-top:30px">
@@ -54,8 +54,8 @@
         </view> -->
     </view>
     <view class="cu-form-group margin-top">
-		 <view class="title">备注</view>
-		<input type="text" placeholder="备注" bindinput="changeRemark"  name='remark' style="border-bottom: 1px solid #efefef;"  />
+		 <view class="title" style="font-weight: bold;">备注</view>
+		<input type="text" placeholder="请输入" bindinput="changeRemark"  name='remark' style="border-bottom: 1px solid #efefef;"  />
         <!-- <view class="cu-capsule radius">
 			<view class="cu-tag bg-blue">
 				+86
@@ -104,6 +104,6 @@
 
   <!-- 结算 -->
   <view class="order_pay_wrap" bindtap="handleOrderPay" >
-    付款
+    支付
   </view>
 </view>

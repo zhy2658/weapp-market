@@ -12,6 +12,7 @@ server:
   port: 8080
   servlet:
     context-path: /
+  service-domain: https://www.qingnianshiwen.cn
 
 spring:
   jackson:
@@ -28,6 +29,10 @@ spring:
     encoding: UTF-8 #编码
     suffix: .html #模板后缀
     mode: HTML #模板
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
 
 mybatis-plus:
   global-config:
@@ -60,7 +65,7 @@ weixinpayconfig:
    mch_id: 1633595674
    key: qingnianshiwen846845888242628718
    url: https://api.mch.weixin.qq.com/pay/unifiedorder
-   notify_url: https://3e31-222-184-165-54.ngrok.io/weixinpay/notifyUrl
+   notify_url: ${server.service-domain}/weixinpay/notifyUrl
 
 
 bigTypeImagesFilePath: ${StaticRootPath}/bigTypeImgs/

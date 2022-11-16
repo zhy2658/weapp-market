@@ -50,8 +50,13 @@ Page({
         }
         // }
         let userInfo=this.data.userInfo;
+        
         for(let order of orderList){
-            if((order.random_sex == -1 || userInfo.sex==order.random_sex) && userInfo.employee_grade >= order.random_grade){
+            // console.log(userInfo.openid , order.userId)
+            if((order.random_sex == -1 || userInfo.sex==order.random_sex) 
+            && userInfo.employee_grade >= order.random_grade
+            && userInfo.openid != order.userId
+            ){
                 order.available=true;
             }
             else order.available=false;
@@ -69,6 +74,11 @@ Page({
         const res = await requestUtil({ url: '/order/manage/employTakeOrderByRandom?order_id=' + e.target.dataset.id });
         if(res.code == 0){
             this.getOrder(1)
+            wx.showToast({
+                title: "接单成功，请前往订单管理查看！" ,
+                icon: 'none',
+                duration: 1500
+            });
         }
         else{
             wx.showToast({

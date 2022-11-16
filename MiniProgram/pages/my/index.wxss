@@ -4,7 +4,7 @@ page {
 .user_info .user_info_bg {
   position: relative;
   height: 40vh;
-  background-color: rgb(197, 187, 187);
+  background-color: var(--themeColor);
 }
 .user_info .user_info_bg .user_info_warp {
   position: relative;
@@ -81,4 +81,7 @@ page {
 .user_menu .app_info_warp .app_info_contact {
   display: flex;
   justify-content: space-between;
+}
+.content text {
+  font-weight: 600;
 }

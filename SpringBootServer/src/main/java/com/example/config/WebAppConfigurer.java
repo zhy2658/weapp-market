@@ -38,7 +38,7 @@ public class WebAppConfigurer implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         String[] patterns=new String[]{"/","/adminLogin","/product/**","/publish/selectone","/bigType/**","/users/wxlogin","/weixinpay/**","/image/**","/webjars/**","/swagger-resources",
-                "/publish/get_random","/uploads/audios/**"
+                "/publish/get_random","/uploads/audios/**","/weixinpay/notifyUrl"
         };
         registry.addInterceptor(sysInterceptor())
                 .addPathPatterns("/**")

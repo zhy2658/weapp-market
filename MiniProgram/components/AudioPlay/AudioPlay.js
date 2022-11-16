@@ -34,6 +34,16 @@ Component({
         that = this;
         that.audioCtx = wx.createInnerAudioContext();
         that.audioCtx.onTimeUpdate(this.timeChange)
+        that.audioCtx.onPause(()=>{
+            console.log("this.data.currentTime ",this.data.currentTime)
+            if(this.data.currentTime > 1){
+                that.triggerEvent('audioPause', {
+                    currentTime: this.data.currentTime
+                })
+                // this.data.currentTime=0
+            }
+            
+        })
     },
     /**
      * 组件的方法列表
@@ -116,7 +126,7 @@ Component({
             that.setData({
                 isPlay: false
             })
-            that.triggerEvent('audioPause', null)
+            // that.triggerEvent('audioPause', null)
         },
         // 关闭音频播放界面
         audioClose() {

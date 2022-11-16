@@ -43,7 +43,7 @@ Page({
         const result = await requestUtil({ url: "/attention/list"});
         if(result.code == 0){
             this.setData({
-                attentionList:result.userInfoList
+                attentionList: result.userInfoList
             })
             this.checkAttention();
         }
@@ -90,7 +90,7 @@ Page({
             changedPublish.content =changedPublish.content.substr(0, 70);
             changedPublish.content = changedPublish.content + "..."
          }
-         changedPublish.dateDiff = getDateDiff( obj.changedPublish)
+         changedPublish.dateDiff = getDateDiff( changedPublish.changedPublish)
          changedPublish.flagLike = false;
         let userInfo = wx.getStorageSync('userInfo');
         for (let like of changedPublish.likeList) {

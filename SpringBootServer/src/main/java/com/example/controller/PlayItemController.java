@@ -1,13 +1,11 @@
 package com.example.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.entity.ExtraPayitem;
 import com.example.entity.PayItem;
 import com.example.entity.R;
 import com.example.entity.WxUserInfo;
-import com.example.service.IProductService;
-import com.example.service.IProductSwiperImageService;
-import com.example.service.IWxUserInfoService;
-import com.example.service.PayItemService;
+import com.example.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,10 +32,21 @@ public class PlayItemController {
     @Resource
     private PayItemService payItemService;
 
+    @Resource
+    ExtraPayitemService extraPayitemService;
+
     @RequestMapping("/getByGrade")
-    public R getByGrade(@RequestParam("grade") String grade){
+    public R getByGrade(@RequestParam("grade") String grade,@RequestParam("openId") String openId){
 
         List<PayItem> payitemList = payItemService.list(new QueryWrapper<PayItem>().eq("grade",grade));
+        List<ExtraPayitem> extraPayitemList=extraPayitemService.list(
+                new QueryWrapper<ExtraPayitem>()
+                        .eq("employee_id",openId)
+        );
+        for(ExtraPayitem extraPayitem:extraPayitemList){
+            PayItem tempPayItem=payItemService.getById(extraPayitem.getPayitem_id());
+            payitemList.add(tempPayItem);
+        }
         Map<String,Object> map=new HashMap<>();
         map.put("payitemList",payitemList);
         return R.ok(map);

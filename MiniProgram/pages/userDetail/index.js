@@ -253,6 +253,13 @@ Page({
                                             // console.log(that.data.uploadedImgs)
                                         }
                                     }
+                                    else if(res.statusCode == 500){
+                                       
+                                        wx.showToast({
+                                            title: "图片大小最多不超过10M，请重新上传!",
+                                            icon: "none", duration: 1500
+                                        })
+                                    }
                                 },
                                 fail: function (err) {
 
@@ -329,6 +336,62 @@ Page({
             })
         }
     },
+    uploadAudio(){
+        let that = this;
+        wx.chooseMessageFile({
+            count: 1,
+            type: 'file',
+            success(res) {
+                let filPath = res.tempFiles[0].path
+                if(filPath.split(".")[1] !="mp3" 
+                && filPath.split(".")[1] !="MP3"  
+                && filPath.split(".")[1] !="aac"  
+                && filPath.split(".")[1] !="AAC"  
+                ){
+                    wx.showToast({
+                        title: '仅支持MP3/AAC格式的音频哦！',
+                        icon: 'none'
+                    });
+                    return;
+                }
+                let bgM = wx.createInnerAudioContext();
+                bgM.src = filPath;
+                console.log(bgM.duration);//0
+                bgM.onCanplay(()=>{
+                     console.log(bgM.duration)//0
+                })
+                // bgM.play();
+                // bgM.onPlay(()=>{
+                //      console.log(bgM.duration)//0
+                // })
+         
+                setTimeout(()=>{
+                    console.log(bgM.duration)//2.795102
+                    let audioTime = parseInt(bgM.duration);
+                    if( audioTime > 60){
+                        wx.showToast({
+                            title: '音频时长最多60秒哦！',
+                            icon: 'none'
+                        });
+                        return 
+                    }
+                    let data={
+                        detail:{
+                            curTime: audioTime,
+                            filePath: filPath
+                        }
+                    }
+                    that.onFileAddress(data)
+
+
+                },1000)
+                // console.log(res.tempFiles[0].path);
+        
+            }
+        });
+
+
+    },
     openEdit() {
         this.setData({ disableEidt: false })
     },
@@ -383,9 +446,14 @@ Page({
                     })
                     console.log(res)
                 }
+                else if(res.statusCode == 500){
+                    wx.showToast({
+                        title: "文件过大",
+                        icon: "error", duration: 1500
+                    })
+                }
             },
             fail: function (err) {
-
                 wx.showToast({
 
                     title: "上传失败",
