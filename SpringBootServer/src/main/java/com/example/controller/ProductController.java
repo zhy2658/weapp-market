@@ -41,13 +41,19 @@ public class ProductController {
     @Resource
     AttentionService attentionService;
 
+    @Resource
+    SlideShowService slideShowService;
+
     /**
      * 查询轮播商品
      * @return
      */
     @RequestMapping("/findSwiper")
     public R findSwiper(){
-        List<Product> swiperList = productService.findSwiper();
+        List<SlideShow> swiperList = slideShowService.list(
+                new QueryWrapper<SlideShow>()
+                        .orderByAsc("sort")
+        );
         Map<String,Object> map=new HashMap<>();
         map.put("message",swiperList);
         return R.ok(map);
@@ -78,6 +84,22 @@ public class ProductController {
         map.put("userInfo",userInfo);
         return R.ok(map);
     }
+    @RequestMapping("/getDetailByEmployeeId")
+    public R detail(HttpServletRequest request
+            ,@RequestParam("employee_id") Integer employee_id){
+        WxUserInfo wxUserInfo = iWxUserInfoService.getOne(
+            new QueryWrapper<WxUserInfo>()
+                    .eq("employee_id",employee_id)
+        );
+        Product product =productService.getOne(
+            new QueryWrapper<Product>()
+                    .eq("openId",wxUserInfo.getOpenid())
+        );
+        Map<String,Object> map=new HashMap<>();
+        map.put("detailId",product.getId());
+        return R.ok(map);
+    }
+
     @RequestMapping("/detail")
     public R detail(HttpServletRequest request
             ,@RequestParam("id") Integer id

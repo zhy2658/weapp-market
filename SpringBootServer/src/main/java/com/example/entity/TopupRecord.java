@@ -1,5 +1,6 @@
 package com.example.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.models.auth.In;
@@ -30,5 +31,8 @@ public class TopupRecord implements Serializable {
 
     @JsonSerialize(using=CustomDateTimeSerializer.class)
     private Date payDate;
+
+    @TableField(select = false,exist = false)
+    private WxUserInfo wxUserInfo;   //老密码
 
 }

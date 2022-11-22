@@ -193,7 +193,7 @@ page {
 .blindbox {
   position: fixed;
   width: 600rpx;
-  height: 420px;
+  min-height: 420px;
   background-color: #fff;
   top: 100px;
   left: 75rpx;
@@ -289,11 +289,11 @@ page {
 .quantity-position {
   position: relative;
   margin-top: 5px;
-  right: 50rpx;
+  left: 20rpx;
   width: 250rpx;
 }
 .stepper {
-  width: 80px;
+  width: 120px;
   height: 26px;
   /*给主容器设一个边框*/
   border: 1px solid #ccc;
@@ -303,7 +303,8 @@ page {
 }
 /*加号和减号*/
 .stepper text {
-  width: 19px;
+  display: block;
+  width: 200rpx;
   line-height: 26px;
   text-align: center;
   float: left;
@@ -311,7 +312,7 @@ page {
 /*数值*/
 .stepper input {
   padding: 0px;
-  width: 40px;
+  width: 200rpx;
   height: 26px;
   float: left;
   margin: 0 auto;

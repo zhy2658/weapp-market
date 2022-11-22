@@ -66,7 +66,7 @@ App({
                     that.audioCtx.play();
                     wx.showTabBarRedDot({
                         // index 是导航栏的索引 就是在第几个导航上显示
-                          index: 3,
+                          index: 2,
                         })
                     wx.setStorageSync('msgSessionList', result);
                 }

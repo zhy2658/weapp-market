@@ -11,19 +11,23 @@ Page({
     data: {
         purchaseOption: [
             {
-                totalPrice: 0.01,
+                totalPrice: 6,
                 coinNum: 60
             },
             {
-                totalPrice: 0.02,
+                totalPrice: 20,
                 coinNum: 200
-            }, {
+            },
+            {
                 totalPrice: 50,
                 coinNum: 500
+            }, {
+                totalPrice: 100,
+                coinNum: 1200
             }
             , {
-                totalPrice: 100,
-                coinNum: 2000
+                totalPrice: 200,
+                coinNum: 2450
             }
 
         ],

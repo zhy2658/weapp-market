@@ -19,7 +19,7 @@ Page({
     onShow() {
         this.getMsgList();
         wx.hideTabBarRedDot({
-            index: 3
+            index: 2
         })
     },
     onLoad(options) {

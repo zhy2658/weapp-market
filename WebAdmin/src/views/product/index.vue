@@ -6,7 +6,7 @@
       </el-col>
       <el-button type="primary" :icon="Search" @click="initProductList">搜索</el-button>
       <!-- <el-button type="primary" @click="handleDialogValue()">添加用户</el-button> -->
-      <el-button style="float:right;" type="primary" :icon="Setting" @click="showSetting">设置</el-button>
+      <!-- <el-button style="float:right;" type="primary" :icon="Setting" @click="showSetting">设置</el-button> -->
     </el-row>
     <el-table :data="tableData" stripe style="width: 100%">
 
@@ -34,30 +34,33 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="swiper" label="首页幻灯？" width="100" align="center">
+      <!-- <el-table-column prop="swiper" label="首页幻灯？" width="100" align="center">
         <template v-slot="{ row }">
           <el-switch v-model="row.swiper" @change="hotSwiperChangeHandle(row)" />
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
-      <el-table-column prop="swiperPic" label="幻灯图片" width="200" align="center">
+      <!-- <el-table-column prop="swiperPic" label="幻灯图片" width="200" align="center">
         <template v-slot="{ row }">
           <img :src="getServerUrl() + '/image/swiper/' + row.swiperPic" height="75" />
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
-      <el-table-column prop="swiperSort" label="幻灯排序" width="100" align="center" />
+      <!-- <el-table-column prop="swiperSort" label="幻灯排序" width="100" align="center" /> -->
 
-      <el-table-column prop="description" label="描述" width="400" />
+      <el-table-column prop="description" label="描述" width="550" />
 
-      <el-table-column v-if="isShowSetting" prop="action" label="操作" width="500" fixed="right">
+      <el-table-column  prop="action" label="操作" width="150" fixed="right">
         <template v-slot="scope">
-          <el-button type="success" @click="handleChangeImage(scope.row)">更换图片</el-button>
-          <el-button type="primary" @click="handleChangeSwiper(scope.row)">幻灯设置</el-button>
-          <el-button type="primary" :icon="Edit" @click="handleDialogValue(scope.row)"></el-button>
+          
+          <!-- <el-button type="success" @click="handleChangeImage(scope.row)">更换图片</el-button> -->
+          <!-- <el-button type="primary" @click="handleChangeSwiper(scope.row)">幻灯设置</el-button> -->
+          <!-- <el-button type="primary" :icon="Edit" @click="handleDialogValue(scope.row)"></el-button> -->
           <!-- <el-button type="danger" :icon="Delete" @click="handleDelete(scope.row.id)"></el-button> -->
-          <el-button type="primary" @click="handleChangeProductSwiperImage(scope.row)">轮播图片设置</el-button>
-          <el-button type="primary" @click="handleAdminStatus(scope.row.userInfo.openid, 1)">提权</el-button>
+          <!-- <el-button type="primary" @click="handleChangeProductSwiperImage(scope.row)">轮播图片设置</el-button> -->
+          <el-button v-if="scope.row.userInfo.admin==0" type="primary" @click="handleAdminStatus(scope.row.userInfo.openid, 1)">设为员工</el-button>
+          <el-button v-else type="default" disabled="true">已成为员工</el-button>
+          
         </template>
 
       </el-table-column>
@@ -254,7 +257,7 @@ const handleChangeProductSwiperImage = (row) => {
 const handleAdminStatus = (openId, admin) => {
   console.log(openId, admin)
   ElMessageBox.confirm(
-    '您确定要更新该用户的公开状态',
+    '您确定要把该用户设为员工',
     '系统提示',
     {
       confirmButtonText: '确定',

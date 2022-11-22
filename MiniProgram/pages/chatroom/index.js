@@ -1,7 +1,7 @@
 // pages/chatroom/index.js
 
 import { getBaseUrl, requestUtil } from "../../utils/requestUtil.js";
-import { socket, connect } from "../../utils/socket.js";
+import {  } from "../../utils/socket.js";
 Page({
 
     /**

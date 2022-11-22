@@ -16,6 +16,12 @@
       <el-icon><user /></el-icon>
       <span>通知管理</span>
     </el-menu-item>
+    
+    <el-menu-item index="slideshow">
+      <el-icon><user /></el-icon>
+      <span>主页轮播</span>
+    </el-menu-item>
+
 
     <el-menu-item index="user">
       <el-icon><user /></el-icon>
@@ -44,7 +50,11 @@
 
     <el-menu-item index="order">
       <el-icon><tickets /></el-icon>
-      <span>订单管理</span>
+      <span>订单查看</span>
+    </el-menu-item>
+    <el-menu-item index="topupRecord">
+      <el-icon><tickets /></el-icon>
+      <span>充值纪录</span>
     </el-menu-item>
     <el-menu-item index="publish">
       <el-icon><tickets /></el-icon>

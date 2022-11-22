@@ -28,10 +28,10 @@
           widthFix  让图片的标签宽高 和 图片标签的内容的宽高都等比例的发生变化 
      -->
         <swiper autoplay indicator-dots circular>
-            <swiper-item wx:for="{{swiperList}}" wx:for-item="swiper" wx:key="id">
-                <navigator url="/pages/product_detail/index?id={{swiper.id}}">
-                    <image mode="widthFix" src="{{baseUrl+'image/swiper/'+swiper.swiperPic}}"></image>
-                </navigator>
+            <swiper-item wx:for="{{swiperList}}" wx:for-item="swiper" wx:key="id" data-swiper="{{swiper}}" bindtap="clickSwiper">
+                <view url="/pages/product_detail/index?id={{swiper.id}}">
+                    <image mode="widthFix" src="{{baseUrl+'image/swiper/'+swiper.imgSrc}}"></image>
+                </view>
             </swiper-item>
         </swiper>
     </view>
@@ -273,7 +273,7 @@
                 <!-- <input type="text" placeholder="1" value="1" /> -->
             </view>
             <view>
-                <input type="text" value="{{blindbox.msg}}" bindinput='bindRemark' placeholder="备注" style="border-bottom:1px solid #efefef;" />
+                <input type="text" value="{{blindbox.msg}}" bindinput='bindRemark' placeholder="联系方式" style="border-bottom:1px solid #efefef;" />
             </view>
             <view class="price">
                 <view>{{coinNum}}米粒</view>
@@ -281,7 +281,7 @@
             <view>
                 <button class="cu-btn round paybtn bg-blue" bindtap="payByCoin" data-index="1">立即下单</button>
             </view>
-            <view style="text-align: center;" bindtap="inlayer" data-index="1"><text class="cuIcon-back textgray" data-index="1">上一页</text></view>
+            <view style="text-align: center; margin-top: 10px;" bindtap="inlayer" data-index="1"><text class="cuIcon-back textgray" data-index="1">上一页</text></view>
         </view>
     </view>
 

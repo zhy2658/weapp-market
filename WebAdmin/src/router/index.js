@@ -59,6 +59,12 @@ const routes = [
           import( "../views/notice"),
       },
       {
+        path: "/slideshow",
+        name: "slideshow",
+        component: () =>
+          import( "../views/slideshow"),
+      },
+      {
         path: "/user",
         name: "user",
         component: () =>
@@ -87,6 +93,12 @@ const routes = [
         name: "order",
         component: () =>
           import( "../views/order"),
+      },
+      {
+        path: "/topupRecord",
+        name: "topupRecord",
+        component: () =>
+          import( "../views/topupRecord"),
       },
       {
         path: "/publish",

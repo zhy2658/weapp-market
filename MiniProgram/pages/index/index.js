@@ -362,6 +362,32 @@ Page({
             });
         }
     },
+    async clickSwiper(e){
+        let swiper = e.currentTarget.dataset.swiper;
+        // 0: 员工    1：链接      2：小程序页面
+        if(swiper.type == 0){
+            const res = await requestUtil({ url: "/product/getDetailByEmployeeId", data: {
+                employee_id: swiper.employeeId
+            } });
+            if(res.code ==0){
+                 wx.navigateTo({
+                url: "/pages/product_detail/index?id="+res.detailId,
+              })
+            }
+            console.log(res)
+        }
+        else if(swiper.type == 1){
+            wx.navigateTo({
+                url: "/pages/webPage/index?url="+swiper.url,
+              })
+        }
+        else if(swiper.type == 2){
+            wx.navigateTo({
+                url: (swiper.appPage),
+              })
+        }
+        console.log(swiper);
+    },
     //页面关闭时，停止播放
     onHide() {
         this.setData({

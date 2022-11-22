@@ -20,12 +20,14 @@ page{
 }
 .recharge{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-wrap: wrap;
 }
+// padding: 0 40rpx;
 .recharge>.recharge_item{
     width: 300rpx;
     height: 150rpx;
+    margin: 0 10rpx;
     margin-bottom: 10px;
     border: 2px solid var(--themeColor);
     border-radius: 10px 10px;
@@ -35,6 +37,7 @@ page{
     align-content: space-between;
     justify-content: space-between;
 }
+
 .recharge>.recharge_item.active{
     background-color: var(--themeColor) !important;
     

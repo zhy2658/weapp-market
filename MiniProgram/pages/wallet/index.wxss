@@ -20,12 +20,13 @@ page {
 }
 .recharge {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: wrap;
 }
 .recharge > .recharge_item {
   width: 300rpx;
   height: 150rpx;
+  margin: 0 10rpx;
   margin-bottom: 10px;
   border: 2px solid var(--themeColor);
   border-radius: 10px 10px;

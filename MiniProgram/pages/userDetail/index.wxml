@@ -4,8 +4,8 @@
 <Recorder recorderObj="{{recorderObj}}" bindonFileAddress="onFileAddress" />
 
 
-<view class="header">
-    <view class="header_row1">
+<view class="header" style="background-image: url(https://www.qingnianshiwen.cn/file/defaults/bgbanner.jpg);">
+    <view class="header_row1" >
         <view class="avatar" style="margin-left: 50rpx;">
             <image wx:if="{{userInfo.avatarUrl}}" src="{{tools.filePathHandler(userInfo.avatarUrl)}}" bindtap="changeAvatar">
             </image>
@@ -13,15 +13,16 @@
         <button class="cu-btn round" wx:if="{{disableEidt}}" bindtap="openEdit">编辑</button>
         <button class="cu-btn round bg-red" wx:else bindtap="closeEdit" type="warn">取消编辑</button>
     </view>
-    <view>
+    <view style="position: absolute;top:27vh; z-index: 1; padding-left: 30rpx;" >
         <!-- <view>语音</view> -->
         <view class="info" style="color: teal;">
-            <button class="cu-btn icon" bindtap="playAudio">
-                <text class=" iconfont icon-bofang"></text>
+            <button class="cu-btn icon bg-gray" style="width: 120rpx;" bindtap="playAudio">
+                <text class=" iconfont icon-bofang" style="color: palevioletred;"></text>
             </button>
-            <button class="cu-btn round " style="margin-top: 10px;" bindtap="showRecorder">录制</button>
+            
         </view>
-        <button class="cu-btn round " style="margin-top: 10px;" bindtap="uploadAudio">上传音频</button>
+        <button class="cu-btn round  line-white" style="margin-top: 10px;" bindtap="showRecorder">录制音频</button>
+        <button class="cu-btn round  line-white" style="margin-top: 10px;" bindtap="uploadAudio">上传音频</button>
     </view>
    
 </view>
@@ -55,10 +56,10 @@
         </view>
         <view class="cu-form-group">
             <view class="title">标签</view>
-            <input type="text" value=" {{userInfo.tags}}" name="tags" disabled='{{ disableEidt }}' />
+            <input type="text" value=" {{userInfo.tags}}" name="tags" disabled='{{ disableEidt }}' placeholder="多个标签用 , 分割" />
         </view>
-
-        <view>-------------------------------------------------</view>
+<!-- 
+        <view>-------------------------------------------------</view> -->
         <view class="cu-form-group">
             <view class="title">简述</view>
             <input type="text" value=" {{productObj.description}}" name="description" disabled='{{ disableEidt }}' />
@@ -67,11 +68,10 @@
             <view class="title">分类</view>
             <input type="text" value=" {{1}}" name="xxx" disabled='{{ disableEidt }}' />
         </view> -->
-        <view class="cu-form-group">
+        <!-- <view class="cu-form-group">
             <view class="title">详细介绍</view>
-            <!-- 点击编辑 -->
             <rich-text nodes="{{productObj.productIntroImgs}}"></rich-text>
-        </view>
+        </view> -->
         <view wx:if="{{!disableEidt}}">
             <view class="title"  style="color: blue;" >小程序端暂不支持修改详细介绍</view>
         </view>

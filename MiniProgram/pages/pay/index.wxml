@@ -54,7 +54,7 @@
         </view> -->
     </view>
     <view class="cu-form-group margin-top">
-		 <view class="title" style="font-weight: bold;">备注</view>
+		 <view class="title" style="font-weight: bold;">联系方式</view>
 		<input type="text" placeholder="请输入" bindinput="changeRemark"  name='remark' style="border-bottom: 1px solid #efefef;"  />
         <!-- <view class="cu-capsule radius">
 			<view class="cu-tag bg-blue">

@@ -303,6 +303,7 @@ Page({
         userInfo.age = parseInt(formObj.age);
         userInfo.wxid = formObj.wxid;
         userInfo.tel = formObj.tel;
+        formObj.tags= formObj.tags.replaceAll("，",",");
         userInfo.tags = formObj.tags;
         // userInfo.small_id=
         let productObj = this.data.productObj;

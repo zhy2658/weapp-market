@@ -1,15 +1,14 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/userDetail/index",
+       
+        "pages/webPage/index",
         "pages/wallet/index",
         
-        "pages/userDetail/index",
         "pages/my/index",
-        
         "pages/product_detail/index",
-
         "pages/sharewall/index",
-        
         "pages/attention/index",
         "pages/serviceOption/index",
         "pages/randomOrder/index",
@@ -17,22 +16,17 @@
         "pages/orderManage/index",
         "pages/userOrder/index",
         "pages/category/index",
-       
         "pages/cart/index",
-        
         "pages/search/index",
-        
         "pages/pay/index",
         "pages/order/index",
         "pages/chatroom/index",
         "pages/messageList/index",
-        
         "pages/testpage/index",
         "pages/userInfo/index",
         "pages/setting/index",
         "pages/publish_detail/index",
         "pages/conplain/index"
-       
         
     ],
     "window": {
