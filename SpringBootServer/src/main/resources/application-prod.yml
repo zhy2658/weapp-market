@@ -49,8 +49,8 @@ mybatis-plus:
 
 weixin:
   jscode2sessionUrl: https://api.weixin.qq.com/sns/jscode2session
-  appid: wx701c40aecafb5b56
-  secret: 9e2b5340519ee97eb8e042dbcf2f3cf4
+  appid: null
+  secret: null
 
 
 #微信支付配置
@@ -61,9 +61,9 @@ weixin:
 # url api请求地址
 # notify_url 服务器异步通知页面路径
 weixinpayconfig:
-   appid: wx701c40aecafb5b56
-   mch_id: 1633595674
-   key: qingnianshiwen846845888242628718
+   appid: null
+   mch_id: null
+   key: null
    url: https://api.mch.weixin.qq.com/pay/unifiedorder
    notify_url: ${server.service-domain}/weixinpay/notifyUrl
 
