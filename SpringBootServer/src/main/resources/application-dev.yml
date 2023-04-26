@@ -47,7 +47,7 @@ mybatis-plus:
   mapper-locations: classpath:mybatis/mapper/*.xml
 
 weixin:
-  jscode2sessionUrl: null
+  jscode2sessionUrl: https://api.weixin.qq.com/sns/jscode2session
   appid: null
   secret: null
 
